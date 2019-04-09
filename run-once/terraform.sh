@@ -35,4 +35,4 @@ if [ ! -d "${DATA_FQP}" ];
     exit 2
 fi
 
-$SUDO docker run $TTY --rm -v  ~/.config/gcloud:/root/.config/gcloud -v $DATA_FQP:/data $EXTRA_ENV $DOCKER_IMAGE $@
+$SUDO docker run $TTY --rm -v  ${HOME}/.config/gcloud:/root/.config/gcloud -v $DATA_FQP:/data $EXTRA_ENV $DOCKER_IMAGE $@

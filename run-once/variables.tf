@@ -2,6 +2,10 @@ variable "region" {
   default = "us-central1-a"
 }
 
+variable "uber_project" {
+  default = ""
+}
+
 variable "uber_owner_service_account_name" {
   default = "terraform"
 }
