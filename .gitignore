@@ -1,0 +1,8 @@
+*.tfvars
+*.json
+*.tfstate
+*.tfstate.backup
+.terraform
+terraform.d/*
+files/*
+plan.out
