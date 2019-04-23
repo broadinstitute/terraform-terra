@@ -1,8 +1,9 @@
 *.tfvars
 *.json
 *.tfstate
-*.tfstate.backup
+*.backup
 .terraform
 terraform.d/*
 files/*
+terraform.tf
 plan.out
