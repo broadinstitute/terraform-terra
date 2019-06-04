@@ -1,5 +1,5 @@
 provider "gsuite" {
-  credentials = "gsuite_svc.json"
+  credentials             = "gsuite_svc.json"
 #  impersonated_user_email = "${var.gsuite_admin}@${var.gsuite_domain}"
   impersonated_user_email = "google@quality.firecloud.org"
 }
