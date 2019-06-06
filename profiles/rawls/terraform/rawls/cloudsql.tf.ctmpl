@@ -1,0 +1,17 @@
+module "rawls-cloudsql" {
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql?ref=rl-add-modules"
+
+  enable_flag   = "1"
+  providers {
+    google.target =  "google"
+  }
+  project       = "{{env "GOOGLE_PROJECT"}}"
+  cloudsql_name = "{{env "OWNER"}}-{{env "SERVICE"}}-db"
+  cloudsql_database_name = "{{env "OWNER"}}-{{env "SERVICE"}}-db"
+  cloudsql_database_user_name = "{{env "SERVICE"}}"
+  cloudsql_database_user_password = "123456"
+  cloudsql_database_root_password = "123456"
+  cloudsql_instance_labels = {
+    "app" = "{{env "SERVICE"}}"
+  }
+}

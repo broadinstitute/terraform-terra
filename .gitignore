@@ -5,5 +5,7 @@
 .terraform
 terraform.d/*
 files/*
+rendered/*
+*.swp
 terraform.tf
 plan.out
