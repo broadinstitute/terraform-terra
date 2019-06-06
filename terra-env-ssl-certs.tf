@@ -4,8 +4,8 @@ resource "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-re
   count                   = "${var.phase3_enable}"
   name = "terra-env-wildcard-ssl-certificate-red"
   description = "SSL certificate for wildcard.dsde-qa.broadinstitute.org - Red Instance"
-  private_key = "${file("files/terra-env-wildcard-ssl-certificate-red.key")}"
-  certificate = "${file("files/terra-env-wildcard-ssl-certificate-red.crt")}"
+  private_key = "${file("files/dsde-qa-wildcard-ssl-certificate-red.key")}"
+  certificate = "${file("files/dsde-qa-wildcard-ssl-certificate-red.crt")}"
 
   lifecycle {
     create_before_destroy = true
@@ -19,8 +19,8 @@ resource "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-bl
   count                   = "${var.phase3_enable}"
   name = "terra-env-wildcard-ssl-certificate-black"
   description = "SSL certificate for wildcard.dsde-qa.broadinstitute.org - Black Instance"
-  private_key = "${file("files/terra-env-wildcard-ssl-certificate-black.key")}"
-  certificate = "${file("files/terra-env-wildcard-ssl-certificate-black.crt")}"
+  private_key = "${file("files/dsde-qa-wildcard-ssl-certificate-black.key")}"
+  certificate = "${file("files/dsde-qa-wildcard-ssl-certificate-black.crt")}"
 
   lifecycle {
     create_before_destroy = true

@@ -4,7 +4,7 @@
 provider "google" {
     alias       = "uber"
 # Future this will be diff path rendered from vault or something like that
-    credentials = "${file("bootstrap/file/uber-project-reader-service-account.json")}"
+    credentials = "${file("files/uber-project-reader-service-account.json")}"
     project     = "${var.uber_project}"
     region      = "${var.region}"
 }

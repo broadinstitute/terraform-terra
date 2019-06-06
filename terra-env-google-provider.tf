@@ -4,7 +4,7 @@
 provider "google" {
     alias       = "terra-env"
 # Future this will be diff path rendered from vault or something like that
-    credentials = "${file("bootstrap/file/terra-env-owner-service-account.json")}"
+    credentials = "${file("files/terra-env-owner-service-account.json")}"
     project     = "${var.terra_env_project}"
     region      = "${var.region}"
 }
