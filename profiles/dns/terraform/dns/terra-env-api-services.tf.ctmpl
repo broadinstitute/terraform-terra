@@ -6,6 +6,6 @@ module "enable-services" {
   }
   project     = "{{env "GOOGLE_PROJECT"}}"
   services    = [
-    "compute.googleapis.com"
+  	"dns.googleapis.com"
   ]
 }
