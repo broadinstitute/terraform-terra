@@ -1,14 +1,11 @@
 module "enable-services" {
-
-
-  source   = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=services-0.1.2"
-
-  enable_flag    = "${var.phase2_enable}"
+  source      = "github.com/broadinstitute/terraform-shared.git//terraform-modules/api-services?ref=services-0.1.2"
+  enable_flag = "1"
   providers {
-    google.target =  "google.terra-env"
+    google.target = "google"
   }
-  project  = "${var.terra_env_project}"
-  services = [
+  project     = "{{env "GOOGLE_PROJECT"}}"
+  services    = [
     "iamcredentials.googleapis.com",
     "cloudkms.googleapis.com",
     "cloudresourcemanager.googleapis.com",
