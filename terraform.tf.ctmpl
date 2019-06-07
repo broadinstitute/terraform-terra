@@ -1,9 +1,0 @@
-{{with $terraEnvId := env "TERRA_ENV_ID"}}
-terraform {
-  backend "gcs" {
-    bucket = "broad-dsp-terraform-state"
-    prefix = "workbench/{{$terraEnvId}}"
-    credentials = "files/tfstate_svc.json"
-  }
-}
-{{end}}
