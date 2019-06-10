@@ -146,3 +146,6 @@ variable "thurloe_cloudsql_root_password" {
   description = "cloudsql database root password for thurloe application"
 }
 
+variable "dns_ttl" {
+   default = "300"
+}
