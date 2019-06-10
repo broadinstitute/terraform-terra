@@ -1,0 +1,95 @@
+
+# Thurloe Cloud SQL database
+module "thurloe-cloudsql" {
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql?ref=rl-add-modules"
+
+  providers {
+    google.target =  "google"
+  }
+  project       = "{{env "GOOGLE_PROJECT"}}"
+  cloudsql_name = "{{env "OWNER"}}-terra-{{env "SERVICE"}}-db"
+  cloudsql_database_name = "${var.thurloe_cloudsql_database_name}"
+  cloudsql_database_user_name = "${var.thurloe_cloudsql_app_username}"
+  cloudsql_database_user_password = "${var.thurloe_cloudsql_app_password}"
+  cloudsql_database_root_password = "${var.thurloe_cloudsql_root_password}"
+  cloudsql_instance_labels = {
+    "app" = "{{env "OWNER"}}-terra-{{env "SERVICE"}}"
+  }
+}
+
+# Thurloe Cloud SQL dns
+
+resource "google_dns_record_set" "{{env "OWNER"}}-terra-{{env "SERVICE"}}-mysql-instance" {
+  provider     = "google"
+  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
+  name         = "{{env "OWNER"}}-terra-{{env "SERVICE"}}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
+  type         = "A"
+  ttl          = "${var.dns_ttl}"
+  rrdatas      = [ "${module.thurloe-cloudsql.cloudsql-public-ip}" ]
+  depends_on   = ["module.thurloe-cloudsql", "data.google_dns_managed_zone.terra-env-dns-zone"]
+}
+
+
+# Thurloe instances
+
+module "thurloe-instances" {
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=rl-add-modules"
+
+  providers {
+    google.target =  "google"
+  }
+  project       = "{{env "GOOGLE_PROJECT"}}"
+  instance_name = "{{env "OWNER"}}-terra-{{env "SERVICE"}}"
+  instance_size = "custom-4-8192"
+  instance_network_name = "${data.google_compute_network.terra-env-network.name}"
+  instance_labels = {
+    "app" = "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "role" = "frontend",
+    "ansible_branch" = "hf_terra",
+    "ansible_project" = "terra-env",
+  }
+  instance_tags = [ "{{env "OWNER"}}-terra-{{env "SERVICE"}}", "http-server", "https-server", "gce-lb-instance-group-member" ]
+}
+
+# Thurloe instance DNS
+
+resource "google_dns_record_set" "{{env "OWNER"}}-terra-{{env "SERVICE"}}-instance" {
+  provider     = "google"
+  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
+  name         = "${format("thurloe-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
+  type         = "A"
+  ttl          = "${var.dns_ttl}"
+  rrdatas      = [ "${element(module.thurloe-instances.instance_public_ips, count.index)}" ]
+  depends_on   = ["module.thurloe-instances", "data.google_dns_managed_zone.terra-env-dns-zone"]
+}
+
+# Thurloe Load Balancer
+#  need to figure out dependency in order to ensure proper order - instances 
+#  must be created before load balancer
+
+module "thurloe-load-balancer" {
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer?ref=rl-add-modules"
+
+  providers {
+    google.target =  "google"
+  }
+  project       = "{{env "GOOGLE_PROJECT"}}"
+  load_balancer_name = "{{env "OWNER"}}-terra-{{env "SERVICE"}}"
+  load_balancer_ssl_certificates = [
+    "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-red.name}",
+    "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-black.name}"
+  ]
+  load_balancer_instance_groups = "${element(module.thurloe-instances.instance_instance_group,0)}"
+}
+
+# Thurloe App/service DNS
+
+resource "google_dns_record_set" "{{env "OWNER"}}-terra-{{env "SERVICE"}}-app" {
+  provider     = "google"
+  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
+  name         = "thurloe.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
+  type         = "A"
+  ttl          = "${var.dns_ttl}"
+  rrdatas      = [ "${module.thurloe-load-balancer.load_balancer_public_ip}" ]
+  depends_on   = ["module.thurloe-load-balancer", "data.google_dns_managed_zone.terra-env-dns-zone"]
+}
