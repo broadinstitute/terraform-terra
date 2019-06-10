@@ -1,7 +1,7 @@
 
 # {{env "SERVICE"}} Cloud SQL database
 module "{{env "SERVICE"}}-cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql?ref=rl-add-modules"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=rl-add-modules"
 
   providers {
     google.target =  "google"
