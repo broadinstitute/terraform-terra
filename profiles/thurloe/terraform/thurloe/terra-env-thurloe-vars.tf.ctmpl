@@ -1,55 +1,55 @@
 #
 # Profile Vars
 #
-variable "terra_environment" {
+variable "environment" {
   default = "{{env "ENVIRONMENT"}}"
   description = "The environment specified in the application json"
 }
-variable "terra_google_project" {
+variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
-variable "terra_google_region" {
+variable "google_region" {
   default = "{{env "GOOGLE_REGION"}}"
   description = "The google region as specified in the application json"
 }
-variable "terra_google_zone" {
+variable "google_zone" {
   default = "{{env "GOOGLE_ZONE"}}"
   description = "The google zone as specified by `GOOGLE_REGION` and the application json"
 }
-variable "terra_dns_zone" {
+variable "dns_zone" {
   default = "{{env "DNS_ZONE"}}"
   description = "The full DNS zone without a trailing . as specified in the application json"
 }
-variable "terra_dns_zone_name" {
+variable "dns_zone_name" {
   default = "{{env "DNS_ZONE_NAME"}}"
   description = "The name of the DNS zone (its google id) as specified in the application json"
 }
-variable "terra_latest_k8s_master_version" {
+variable "latest_k8s_master_version" {
   default = "{{env "LATEST_K8S_MASTER_VERSION"}}"
   description = "A dynamically looked up most recent available gke version"
 }
-variable "terra_latest_k8s_node_version" {
+variable "latest_k8s_node_version" {
   default = "{{env "LATEST_K8S_NODE_VERSION"}}"
   description = "A dynamically looked up most recent available gke version"
 }
-variable "terra_cluster_name" {
+variable "cluster_name" {
   default = "{{env "CLUSTER_NAME"}}"
   description = "The name of the cluster in GKE as specified in the application json"
 }
-variable "terra_kubectl_context" {
+variable "kubectl_context" {
   default = "{{env "KUBECTL_CONTEXT"}}"
   description = "Either the value of `.clusters.default.context` in application json or the standard GKE kubectl context for `GOOGLE_PROJECT`, `GOOGLE_ZONE`, and `CLUSTER_NAME`"
 }
-variable "terra_owner" {
+variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
 }
-variable "terra_application_name" {
+variable "application_name" {
   default = "{{env "APPLICATION_NAME"}}"
   description = "Name from the application json"
 }
-variable "terra_service" {
+variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }

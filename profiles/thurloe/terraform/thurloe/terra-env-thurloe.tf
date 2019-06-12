@@ -6,14 +6,14 @@ module "terra-cloudsql" {
   providers {
     google.target =  "google"
   }
-  project       = "${var.terra_google_project}"
-  cloudsql_name = "${var.terra_owner}-terra-${var.terra_service}-db"
+  project       = "${var.google_project}"
+  cloudsql_name = "${var.owner}-terra-${var.service}-db"
   cloudsql_database_name = "${var.cloudsql_database_name}"
   cloudsql_database_user_name = "${var.cloudsql_app_username}"
   cloudsql_database_user_password = "${var.cloudsql_app_password}"
   cloudsql_database_root_password = "${var.cloudsql_root_password}"
   cloudsql_instance_labels = {
-    "app" = "${var.terra_owner}-terra-${var.terra_service}"
+    "app" = "${var.owner}-terra-${var.service}"
   }
 }
 
@@ -21,7 +21,7 @@ module "terra-cloudsql" {
 resource "google_dns_record_set" "terra-mysql-instance" {
   provider     = "google"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${var.terra_owner}-terra-${var.terra_service}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
+  name         = "${var.owner}-terra-${var.service}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
   type         = "A"
   ttl          = "${var.dns_ttl}"
   rrdatas      = [ "${module.terra-cloudsql.cloudsql-public-ip}" ]
@@ -36,13 +36,13 @@ module "terra-instances" {
   providers {
     google.target =  "google"
   }
-  project       = "${var.terra_google_project}"
-  instance_name = "${var.terra_service}"
+  project       = "${var.google_project}"
+  instance_name = "${var.service}"
   instance_size = "${var.instance_size}"
   instance_network_name = "${data.google_compute_network.terra-env-network.name}"
   instance_labels = {
-    "app" = "${var.terra_service}",
-    "owner" = "${var.terra_owner}",
+    "app" = "${var.service}",
+    "owner" = "${var.owner}",
     "role" = "frontend",
     "ansible_branch" = "hf_terra",
     "ansible_project" = "terra-env",
@@ -54,7 +54,7 @@ module "terra-instances" {
 resource "google_dns_record_set" "terra-instance-dns" {
   provider     = "google"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${format("${var.terra_service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
+  name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
   type         = "A"
   ttl          = "${var.dns_ttl}"
   rrdatas      = [ "${element(module.terra-instances.instance_public_ips, count.index)}" ]
@@ -71,8 +71,8 @@ module "terra-load-balancer" {
   providers {
     google.target =  "google"
   }
-  project       = "${var.terra_google_project}"
-  load_balancer_name = "${var.terra_owner}-terra-${var.terra_service}"
+  project       = "${var.google_project}"
+  load_balancer_name = "${var.owner}-terra-${var.service}"
   load_balancer_ssl_certificates = [
     "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-red.name}",
     "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-black.name}"
@@ -84,7 +84,7 @@ module "terra-load-balancer" {
 resource "google_dns_record_set" "terra-app-dns" {
   provider     = "google"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${var.terra_service}.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
+  name         = "${var.service}.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
   type         = "A"
   ttl          = "${var.dns_ttl}"
   rrdatas      = [ "${module.terra-load-balancer.load_balancer_public_ip}" ]
