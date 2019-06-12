@@ -3,6 +3,12 @@
 This repo collects the infrastructure required to deploy terra.
 It is organized into terraform stacks called profiles.
 
+After cloning it, pull down the deployment scripts with:
+
+```
+git submodule init && git submodule update
+```
+
 Each profile corresponds to a grouping of infrastructure objects represented
 as terraform code. When you deploy a profile, you create the infrastructure
 specified in the profile. When you tear down a profile, you destroy it.
