@@ -26,13 +26,13 @@
   },
   "dns": {
     "default": {
-      "name": "dsp-techops",
-      "zone": "dsp-techops.broadinstitute.org"
+      "name": "broad-wb-perf2",
+      "zone": "broad-wb-perf2.broadinstitute.org"
     }
   },
   "terraform_state": {
     "default": {
-      "state_path_prefix":"dsp-techops",
+      "state_path_prefix":"workbench",
       "state_bucket": "broad-dsp-terraform-state"
     }
   },
