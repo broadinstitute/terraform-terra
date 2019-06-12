@@ -5,7 +5,7 @@ module "enable-services" {
   providers {
     google.target =  "google"
   }
-  project  = "{{env "GOOGLE_PROJECT"}}"
+  project  = "${var.google_project}"
   services = [
     "compute.googleapis.com",
   ]
