@@ -1,6 +1,0 @@
-resource "google_compute_network" "{{env "OWNER"}}-terra-app-services-net" {
-  provider                = "google"
-  name                    = "{{env "OWNER"}}-terra-network"
-  auto_create_subnetworks = "true"
-  depends_on              = ["module.enable-services"]
-}
