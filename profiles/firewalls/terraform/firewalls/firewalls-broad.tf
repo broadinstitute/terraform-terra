@@ -1,9 +1,9 @@
 
 # firewall rules that allow broad ips to access services
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-http" {
+resource "google_compute_firewall" "terra-allow-http" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-http"
+  name = "${var.owner}-terra-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -17,9 +17,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-http" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-https" {
+resource "google_compute_firewall" "terra-allow-https" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-https"
+  name = "${var.owner}-terra-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -33,9 +33,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-https" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-ssh" {
+resource "google_compute_firewall" "terra-allow-ssh" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-ssh"
+  name = "${var.owner}-terra-allow-ssh"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -48,9 +48,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-ssh" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-opendj" {
+resource "google_compute_firewall" "terra-allow-opendj" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-opendj"
+  name = "${var.owner}-terra-allow-opendj"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -64,9 +64,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-opendj" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-mongo" {
+resource "google_compute_firewall" "terra-allow-mongo" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-mongo"
+  name = "${var.owner}-terra-allow-mongo"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -80,9 +80,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-mongo" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-allow-elasticsearch" {
+resource "google_compute_firewall" "terra-allow-elasticsearch" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-allow-elasticsearch"
+  name = "${var.owner}-terra-allow-elasticsearch"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 

@@ -2,9 +2,9 @@
 # Firewall rules allowing DSP FC jenkins servers to access instances in
 #  TERRA_ENV google project
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-ssh" {
+resource "google_compute_firewall" "terra-jenkins-ssh" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-jenkins-ssh"
+  name = "${var.owner}-terra-jenkins-ssh"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -17,9 +17,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-ssh" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-elasticsearch" {
+resource "google_compute_firewall" "terra-jenkins-elasticsearch" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-jenkins-elasticsearch"
+  name = "${var.owner}-terra-jenkins-elasticsearch"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -33,9 +33,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-elasticsearch"
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-https" {
+resource "google_compute_firewall" "terra-jenkins-https" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-jenkins-https"
+  name = "${var.owner}-terra-jenkins-https"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -49,9 +49,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-https" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-http" {
+resource "google_compute_firewall" "terra-jenkins-http" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-jenkins-http"
+  name = "${var.owner}-terra-jenkins-http"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -65,9 +65,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-http" {
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-jenkins-ldap" {
+resource "google_compute_firewall" "terra-jenkins-ldap" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-jenkins-ldap"
+  name = "${var.owner}-terra-jenkins-ldap"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 

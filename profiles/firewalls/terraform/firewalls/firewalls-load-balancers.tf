@@ -8,9 +8,9 @@ variable "google_lb_ranges" {
   description = "IP ranges used for health checks by GCE load balancers"
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-gce-lb-health-check-allow-http" {
+resource "google_compute_firewall" "terra-gce-lb-health-check-allow-http" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-gce-lb-health-check-allow-http"
+  name = "${var.owner}-terra-gce-lb-health-check-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 
@@ -24,9 +24,9 @@ resource "google_compute_firewall" "{{env "OWNER"}}-terra-gce-lb-health-check-al
   depends_on = ["module.enable-services"]
 }
 
-resource "google_compute_firewall" "{{env "OWNER"}}-terra-gce-lb-health-check-allow-https" {
+resource "google_compute_firewall" "terra-gce-lb-health-check-allow-https" {
   provider = "google"
-  name = "{{env "OWNER"}}-terra-gce-lb-health-check-allow-https"
+  name = "${var.owner}-terra-gce-lb-health-check-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
 

@@ -1,6 +1,21 @@
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+
 variable "google_network_name" {
   default = "{{env "OWNER"}}-terra-network"
 }
+
+data "google_compute_network" "terra-env-network" {
+  name = "${var.google_network_name}"
+}
+
 variable "broad_range_cidrs" {
   type    = "list"
   default = [ "69.173.64.0/19", 
@@ -17,7 +32,4 @@ variable "broad_range_cidrs" {
     "69.173.127.230/31",
     "69.173.127.232/29",
     "69.173.127.240/28" ]
-}
-data "google_compute_network" "terra-env-network" {
-  name = "${var.google_network_name}"
 }
