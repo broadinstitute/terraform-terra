@@ -1,0 +1,3 @@
+[submodule "dsp-k8s-deploy"]
+	path = dsp-k8s-deploy
+	url = git@github.com:broadinstitute/dsp-k8s-deploy.git

@@ -1,2 +1,0 @@
-{{$ssl_cert_version := "20200628"}}{{$ssl_cert_name := "wildcard.dsde-qa.broadinstitute.org"}}{{with $sslCert := vault (printf "secret/dsp/certs/%s/%s/server.crt" $ssl_cert_name $ssl_cert_version)}}{{with $sslChain := vault ("secret/common/ca-bundle.crt")}}{{$sslCert.Data.value}}
-{{$sslChain.Data.chain}}{{end}}{{end}}

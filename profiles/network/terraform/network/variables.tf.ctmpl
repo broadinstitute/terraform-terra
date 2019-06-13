@@ -1,0 +1,9 @@
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}

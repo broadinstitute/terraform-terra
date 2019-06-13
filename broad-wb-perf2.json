@@ -1,0 +1,44 @@
+{
+  "name": "terra",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environments": {
+    "default": {
+      "name": "dev"
+    }
+  },
+  "projects": {
+    "default": {
+      "name": "broad-wb-perf2",
+      "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+    },
+    "state_bucket": {
+      "name": "broad-dsp-techops",
+      "provider_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"
+    }
+  },
+  "regions": {
+    "default": {
+      "name": "us-central1",
+      "zone_name": "us-central1-a"
+    }
+  },
+  "dns": {
+    "default": {
+      "name": "broad-wb-perf2",
+      "zone": "broad-wb-perf2.broadinstitute.org"
+    }
+  },
+  "terraform_state": {
+    "default": {
+      "state_path_prefix":"workbench",
+      "state_bucket": "broad-dsp-terraform-state"
+    }
+  },
+  "clusters": {
+    "default": {
+      "name": "firecloud-k8s"
+    }
+  }
+}
