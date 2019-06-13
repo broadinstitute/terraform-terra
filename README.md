@@ -69,11 +69,11 @@ This profile creates a DNS zone.
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p dns
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p dns
 # render example
-./dsp-k8s-deploy/application-render.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p dns
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p dns
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p dns
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p dns
 ```
 
 ### `network`
@@ -82,11 +82,11 @@ This profile creates a network.
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p network
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p network
 # render example
-./dsp-k8s-deploy/application-render.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p network
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p network
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p network
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p network
 ```
 
 ### `firewalls`
@@ -97,11 +97,11 @@ profile because different organizations may have different firewall requirements
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p firewalls
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p firewalls
 # render example
-./dsp-k8s-deploy/application-render.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p firewalls
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p firewalls
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p firewalls
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p firewalls
 ```
 
 ### `ssl`
@@ -110,9 +110,9 @@ This profile creates two SSL certificates.
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p ssl
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p ssl
 # render example
-./dsp-k8s-deploy/application-render.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p ssl
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p ssl
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -o broad-wb-perf2 -j broad-wb-perf2.json -p ssl
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
 ```
