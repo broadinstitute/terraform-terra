@@ -1,5 +1,7 @@
 {
   "name": "terra",
+  "owner": "gmalkov",
+  "terraform_image": "broadinstitute/terraform:0.11",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
