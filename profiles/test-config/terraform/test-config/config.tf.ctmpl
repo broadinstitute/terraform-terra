@@ -1,6 +1,4 @@
-provider "vault" {
-  token = "{{env "VAULT_TOKEN"}}"
-}
+provider "vault" {}
 
 resource "vault_token" "render_token" {
   policies = ["dsde-write"]
