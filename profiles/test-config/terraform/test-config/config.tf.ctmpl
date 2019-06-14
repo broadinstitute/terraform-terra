@@ -1,0 +1,40 @@
+provider "vault" {
+  token = "{{env "VAULT_TOKEN"}}"
+}
+
+resource "vault_token" "render_token" {
+  policies = ["dsde-write"]
+
+  renewable = true
+  ttl = "20m"
+}
+
+resource "null_resource" "config" {
+  triggers = {
+    always = "${uuid()}"
+  }
+  provisioner "local-exec" {
+    command = "ruby /workbench/render_configs.rb"
+    environment = {
+      VAULT_TOKEN = "${vault_token.render_token.client_token}"
+      IMAGE = ""
+      ENVIRONMENT = "rl"
+      VAULT_ADDR = "https://clotho.broadinstitute.org:8200"
+      TARGET_DOCKER_VERSION = "true"
+      HOST_TAG = "true"
+      RUN_CONTEXT = "true"
+      DIR = "true"
+      APP_NAME = "true"
+      GOOGLE_PROJ = "true"
+      GOOGLE_APPS_DOMAIN = "true"
+      GOOGLE_APPS_ORGANIZATION_ID = "true"
+      GOOGLE_APPS_SUBDOMAIN = "true"
+      GCS_NAME_PREFIX = "true"
+      DNS_DOMAIN = "true"
+      LDAP_BASE_DOMAIN = "true"
+      INSTANCE_NAME = "true"
+      BUCKET_TAG = "true"
+      SERVICE_VERSION = "true"
+    }
+  }
+}
