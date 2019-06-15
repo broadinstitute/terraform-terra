@@ -1,10 +1,24 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "broadinstitute/terraform:0.11",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_0",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "profile_vars": {
+    "test-config": {
+      "GITHUB_TOKEN_VAULT_PATH": "secret/dsp/github/dsdejenkins2/githubtoken",
+      "INSTANCE_TYPE": "",
+      "RUN_CONTEXT": "live",
+      "APP_NAME": "thurloe",
+      "ENVIRONMENT": "qa",
+      "GIT_REPO": "firecloud-develop",
+      "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf",
+      "HOST_TAG": "broad-wb-rluckom-qa",
+      "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674",
+      "TARGET_DOCKER_VERSION": "18.09.6"
+    }
+  },
   "environments": {
     "default": {
       "name": "dev"
