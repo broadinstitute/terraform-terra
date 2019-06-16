@@ -50,7 +50,7 @@ def render_instance_configs(instance_name)
   overwrite_prompt = true
   $instance_name = instance_name
   render_dir = "/data/configs/#{instance_name}"
-  Dir.mkdir_p(render_dir) unless File.exists?(render_dir)
+  FileUtils.mkdir_p(render_dir) unless File.exists?(render_dir)
   $base_dir = render_dir
   $output_dir = "#{render_dir}/configs"
   Dir.chdir(render_dir) do
@@ -94,11 +94,17 @@ if __FILE__ == $0
       cmd_env, 
       "consul-template", 
       "-config=#{$vault_config_path}", 
-      "-template=/data/configs/#{instance_name}/#{tmp_dir}/#{file_name}:/data/configs/#{instance_name}/#{tmp_dir}/#{output_file_name}",
+      "-template=/data/configs/#{$instance_name}/#{tmp_dir}/#{file_name}:/data/configs/#{$instance_name}/#{tmp_dir}/#{output_file_name}",
       "-once"
-    ) { | i, o, e|
-      puts o.read()
-      puts e.read()
+    ) { |stdin, stdout, stderr, wait_thread|
+    if wait_thread.value.success?
+      puts "#{file_name} > #{output_file_name}"
+      File.delete(file_name)
+    else
+      puts stderr.read
+      $failure_rendering = true
+      $failed_to_render_file_names.push(file_name)
+    end
     }
   end
   render_instance_configs(ENV.fetch("INSTANCE_NAME"))
