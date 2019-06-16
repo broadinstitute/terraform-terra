@@ -45,13 +45,25 @@ def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", 
   }
 end
 
+def render_instance_configs(instance_name)
+  manifest = "base-configs/#{$app_name}/manifest.rb"
+  overwrite_prompt = true
+  $instance_name = instance_name
+  render_dir = "/data/configs/#{instance_name}"
+  Dir.mkdir_p(render_dir) unless File.exists?(render_dir)
+  $base_dir = render_dir
+  $output_dir = "#{render_dir}/configs"
+  Dir.chdir(render_dir) do
+    configure(manifest, overwrite_prompt)
+  end
+end
+
 if __FILE__ == $0
   $base_dir = Dir.pwd
   copy_file_from_github "configure.rb"
-  ENV["OUTPUT_DIR"] = "/app/foo"
-  ENV["INPUT_DIR"] = "/app/bar"
+  ENV["OUTPUT_DIR"] = "/data/output"
+  Dir.mkdir("/data/output") unless File.exists?("/data/output")
   require "/data/configure.rb"
-  puts $output_dir
 
   def render_ctmpl(file_name, output_file_name, tmp_dir=nil)
     if tmp_dir.nil?
@@ -78,10 +90,16 @@ if __FILE__ == $0
       "INSTANCE_NAME" => $instance_name,
       "BUCKET_TAG" => $bucket_tag
     }
-    Open3.popen3(cmd_env, "/workbench/echo_vars.sh") { | i, o, e|
+    Open3.popen3(
+      cmd_env, 
+      "consul-template", 
+      "-config=#{$vault_config_path}", 
+      "-template=/data/configs/#{instance_name}/#{tmp_dir}/#{file_name}:/data/configs/#{instance_name}/#{tmp_dir}/#{output_file_name}",
+      "-once"
+    ) { | i, o, e|
       puts o.read()
       puts e.read()
     }
   end
-  render_from_github("configure.rb")
+  render_instance_configs(ENV.fetch("INSTANCE_NAME"))
 end
