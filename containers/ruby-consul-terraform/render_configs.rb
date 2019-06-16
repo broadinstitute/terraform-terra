@@ -17,6 +17,7 @@ def set_github_token()
   Open3.popen3(*curl_cmd) { |stdin, stdout, stderr, wait_thread|
     response = JSON.load(stdout)
     $github_token = response["data"]["token"]
+    ENV["GITHUB_TOKEN"] = $github_token
   }
 end
 
@@ -44,40 +45,43 @@ def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", 
   }
 end
 
-def render_ctmpl(file_name, output_file_name, tmp_dir=nil)
-  if tmp_dir.nil?
-    tmp_dir = (Dir.pwd.split("/") - $base_dir.split("/")) * "/"
-  end
-  cmd_env = {
-    "ENVIRONMENT" => ENV.fetch("ENV", ""),
-    "SERVICE_VERSION" => ENV.fetch("SERVICE_VERSION", ""),
-    "VAULT_ADDR" => ENV.fetch("VAULT_ADDR", ""),
-    "TARGET_DOCKER_VERSION" => ENV.fetch("TARGET_DOCKER_VERSION", ""),
-    "INSTANCE_TYPE" => ENV.fetch("INSTANCE_TYPE", ""),
-    "HOST_TAG" => ENV.fetch("HOST_TAG", ""),
-    "RUN_CONTEXT" => ENV.fetch("RUN_CONTEXT", ""),
-    "DIR" => ENV.fetch("DIR", ""),
-    "IMAGE" => ENV.fetch("IMAGE", ""),
-    "APP_NAME" => ENV.fetch("APP_NAME", ""),
-    "GOOGLE_PROJ" => ENV.fetch("GOOGLE_PROJ", ""),
-    "GOOGLE_APPS_DOMAIN" => ENV.fetch("GOOGLE_APPS_DOMAIN", ""),
-    "GOOGLE_APPS_ORGANIZATION_ID" => ENV.fetch("GOOGLE_APPS_ORGANIZATION_ID", ""),
-    "GOOGLE_APPS_SUBDOMAIN" => ENV.fetch("GOOGLE_APPS_SUBDOMAIN", ""),
-    "GCS_NAME_PREFIX" => ENV.fetch("GCS_NAME_PREFIX", ""),
-    "DNS_DOMAIN" => ENV.fetch("DNS_DOMAIN", ""),
-    "LDAP_BASE_DOMAIN" => ENV.fetch("LDAP_BASE_DOMAIN", ""),
-    "INSTANCE_NAME" => ENV.fetch("INSTANCE_NAME", ""),
-    "BUCKET_TAG" => ENV.fetch("BUCKET_TAG", "")
-  }
-  Open3.popen3(cmd_env, "/workbench/echo_vars.sh") { | i, o, e|
-    puts o.read()
-    puts e.read()
-  }
-end
-
 if __FILE__ == $0
   $base_dir = Dir.pwd
   copy_file_from_github "configure.rb"
-  render_ctmpl("a", "b")
+  ENV["OUTPUT_DIR"] = "/app/foo"
+  ENV["INPUT_DIR"] = "/app/bar"
   require "/data/configure.rb"
+  puts $output_dir
+
+  def render_ctmpl(file_name, output_file_name, tmp_dir=nil)
+    if tmp_dir.nil?
+      tmp_dir = (Dir.pwd.split("/") - $base_dir.split("/")) * "/"
+    end
+    cmd_env = {
+      "ENVIRONMENT" => $env,
+      "SERVICE_VERSION" => ENV.fetch("SERVICE_VERSION", ""),
+      "VAULT_ADDR" => $vault_addr,
+      "TARGET_DOCKER_VERSION" => $target_docker_version,
+      "INSTANCE_TYPE" => $instance_type,
+      "HOST_TAG" => $host_tag,
+      "RUN_CONTEXT" => $run_context,
+      "DIR" => $fiab_dir,
+      "IMAGE" => $image,
+      "APP_NAME" => $app_name,
+      "GOOGLE_PROJ" => $google_proj,
+      "GOOGLE_APPS_DOMAIN" => $apps_domain,
+      "GOOGLE_APPS_ORGANIZATION_ID" => $apps_organization_id,
+      "GOOGLE_APPS_SUBDOMAIN" => $apps_subdomain,
+      "GCS_NAME_PREFIX" => $gcs_name_prefix,
+      "DNS_DOMAIN" => $dns_domain,
+      "LDAP_BASE_DOMAIN" => $ldap_base_domain,
+      "INSTANCE_NAME" => $instance_name,
+      "BUCKET_TAG" => $bucket_tag
+    }
+    Open3.popen3(cmd_env, "/workbench/echo_vars.sh") { | i, o, e|
+      puts o.read()
+      puts e.read()
+    }
+  end
+  render_from_github("configure.rb")
 end

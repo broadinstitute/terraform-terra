@@ -7,16 +7,18 @@
   "stability": "volatile",
   "profile_vars": {
     "test-config": {
-      "GITHUB_TOKEN_VAULT_PATH": "secret/dsp/github/dsdejenkins2/githubtoken",
-      "INSTANCE_TYPE": "",
-      "RUN_CONTEXT": "live",
-      "APP_NAME": "thurloe",
-      "ENVIRONMENT": "qa",
-      "GIT_REPO": "firecloud-develop",
-      "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf",
-      "HOST_TAG": "broad-wb-rluckom-qa",
-      "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674",
-      "TARGET_DOCKER_VERSION": "18.09.6"
+      "env": {
+        "GITHUB_TOKEN_VAULT_PATH": "secret/dsp/github/dsdejenkins2/githubtoken",
+        "INSTANCE_TYPE": "",
+        "RUN_CONTEXT": "live",
+        "APP_NAME": "thurloe",
+        "ENVIRONMENT": "qa",
+        "GIT_REPO": "firecloud-develop",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf",
+        "HOST_TAG": "broad-wb-rluckom-qa",
+        "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674",
+        "TARGET_DOCKER_VERSION": "18.09.6"
+      }
     }
   },
   "environments": {

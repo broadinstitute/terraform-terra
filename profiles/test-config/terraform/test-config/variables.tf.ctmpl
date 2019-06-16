@@ -1,66 +1,66 @@
 variable "config_render_vault_policy" {
   description = "The Vault policy that gives enough permissions to do the config render"
-  default = "{{if env "CONFIG_RENDER_VAULT_POLICY"}}"{{env "CONFIG_RENDER_VAULT_POLICY"}}{{else}}dsde-write{{end}}"
+  default = "{{if (env "CONFIG_RENDER_VAULT_POLICY")}}{{env "CONFIG_RENDER_VAULT_POLICY"}}{{else}}dsde-write{{end}}"
 }
 
 variable "service_git_sha_12_char" {
   description = ""
-  default = "{{if env "SERVICE_GIT_SHA_12_CHAR"}}"{{env "SERVICE_GIT_SHA_12_CHAR"}}{{else}}{{end}}"
+  default = "{{if env "SERVICE_GIT_SHA_12_CHAR"}}{{env "SERVICE_GIT_SHA_12_CHAR"}}{{else}}{{end}}"
 }
 
 variable "firecloud_develop_git_branch" {
   description = ""
-  default = "{{if env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}"{{env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{else}}perf{{end}}"
+  default = "{{if env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{else}}perf{{end}}"
 }
 
 variable "instance_type" {
   description = ""
-  default = "{{if env "INSTANCE_TYPE"}}"{{env "INSTANCE_TYPE"}}{{else}}{{end}}"
+  default = "{{if env "INSTANCE_TYPE"}}{{env "INSTANCE_TYPE"}}{{else}}{{end}}"
 }
 
 variable "github_token_vault_path" {
   description = ""
-  default = "{{if env "GITHUB_TOKEN_VAULT_PATH"}}"{{env "GITHUB_TOKEN_VAULT_PATH"}}{{else}}secret/dsp/github/dsdejenkins2/githubtoken{{end}}"
+  default = "{{if env "GITHUB_TOKEN_VAULT_PATH"}}{{env "GITHUB_TOKEN_VAULT_PATH"}}{{else}}secret/dsp/github/dsdejenkins2/githubtoken{{end}}"
 }
 
 variable "git_repo" {
   description = ""
-  default = "{{if env "GIT_REPO"}}"{{env "GIT_REPO"}}{{else}}firecloud-develop{{end}}"
+  default = "{{if env "GIT_REPO"}}{{env "GIT_REPO"}}{{else}}firecloud-develop{{end}}"
 }
 
 variable "bucket_tag" {
   description = ""
-  default = "{{if env "BUCKET_TAG"}}"{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
+  default = "{{if env "BUCKET_TAG"}}{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
 }
 
 variable "ldap_base_domain" {
   description = ""
-  default = "{{if env "LDAP_BASE_DOMAIN"}}"{{env "LDAP_BASE_DOMAIN"}}{{else}}{{end}}"
+  default = "{{if env "LDAP_BASE_DOMAIN"}}{{env "LDAP_BASE_DOMAIN"}}{{else}}{{end}}"
 }
 
 variable "config_dns_domain" {
   description = ""
-  default = "{{if env "CONFIG_DNS_DOMAIN"}}"{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_DOMAIN"}}{{end}}"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_DOMAIN"}}{{end}}"
 }
 
 variable "gcs_name_prefix" {
   description = ""
-  default = "{{if env "GCS_NAME_PREFIX"}}"{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE_NAMME"}}{{end}}"
+  default = "{{if env "GCS_NAME_PREFIX"}}{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE_NAMME"}}{{end}}"
 }
 
 variable "google_apps_subdomain" {
   description = ""
-  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}"{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{end}}"
+  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{end}}"
 }
 
 variable "google_apps_organization_id" {
   description = ""
-  default = "{{if env "GOOGLE_APPS_ORGANIZATION_ID"}}"{{env "GOOGLE_APPS_ORGANIZATION_ID"}}{{else}}{{end}}"
+  default = "{{if env "GOOGLE_APPS_ORGANIZATION_ID"}}{{env "GOOGLE_APPS_ORGANIZATION_ID"}}{{else}}{{end}}"
 }
 
 variable "google_apps_domain" {
   description = ""
-  default = "{{if env "GOOGLE_APPS_DOMAIN"}}"{{env "GOOGLE_APPS_DOMAIN"}}{{else}}{{end}}"
+  default = "{{if env "GOOGLE_APPS_DOMAIN"}}{{env "GOOGLE_APPS_DOMAIN"}}{{else}}{{end}}"
 }
 
 variable "google_project" {
@@ -70,22 +70,22 @@ variable "google_project" {
 
 variable "app_name" {
   description = ""
-  default = "{{if env "APP_NAME"}}"{{env "APP_NAME"}}{{else}}{{end}}"
+  default = "{{if env "APP_NAME"}}{{env "APP_NAME"}}{{else}}{{end}}"
 }
 
 variable "run_context" {
   description = ""
-  default = "{{if env "RUN_CONTEXT"}}"{{env "RUN_CONTEXT"}}{{else}}live{{end}}"
+  default = "{{if env "RUN_CONTEXT"}}{{env "RUN_CONTEXT"}}{{else}}live{{end}}"
 }
 
 variable "host_tag" {
   description = ""
-  default = "{{if env "HOST_TAG"}}"{{env "HOST_TAG"}}{{else}}{{end}}"
+  default = "{{if env "HOST_TAG"}}{{env "HOST_TAG"}}{{else}}{{end}}"
 }
 
 variable "target_docker_version" {
   description = ""
-  default = "{{if env "TARGET_DOCKER_VERSION"}}"{{env "TARGET_DOCKER_VERSION"}}{{else}}18.09.6{{end}}"
+  default = "{{if env "TARGET_DOCKER_VERSION"}}{{env "TARGET_DOCKER_VERSION"}}{{else}}18.09.6{{end}}"
 }
 
 variable "vault_addr" {
