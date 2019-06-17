@@ -30,7 +30,7 @@ resource "google_dns_record_set" "mysql-instance" {
 
 # Docker instance(s)
 module "instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=service-account-param"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=perf-134-deploy"
 
   providers {
     google.target =  "google"
