@@ -14,7 +14,8 @@ as terraform code. When you deploy a profile, you create the infrastructure
 specified in the profile. When you tear down a profile, you destroy it.
 
 To deploy or tear down a profile, you need to supply a JSON configuration
-file and an owner name. The JSON configuration specifies the metadata that
+file and optionally an owner name (the configuration file should specify the default owner name,
+and if it does you should not specify your own). The JSON configuration specifies the metadata that
 terraform needs to run, including the location of the terraform service
 account in Vault, the google project name, and the default google region. The
 owner name is the person or group responsible for making sure that the
@@ -115,4 +116,44 @@ This profile creates two SSL certificates.
 ./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p ssl
 # teardown example
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
+```
+
+### `thurloe-sa`
+
+This profile creates:
+
+1. A thurloe service account for use by Thurloe instances
+
+This profile must be applied with `-a`, which uses your local application default
+credentials instead of a terraform service account. To generate your own ADC, run
+`gcloud auth application-default login` and follow the instructions.
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa -a
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa -a
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa -a
+```
+
+## `thurloe`
+
+This profile creates:
+
+1. A cloudsql database for Thurloe
+2. A DNS record pointing to the cloudsql db
+3. An instance group with one instance
+4. A DNS record for the instancee
+5. A config bucket for storing Thurloe configs
+6. A load balancer in front of the instance group
+7. A DNS record for the load balancer
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe
 ```
