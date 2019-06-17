@@ -84,6 +84,14 @@ variable "google_network_name" {
 data "google_compute_network" "terra-env-network" {
   name = "${var.google_network_name}"
 }
+# Thurloe SA
+variable "config_reader_service_account" {
+  default = "{{env "OWNER"}}-{{env "SERVICE"}}"
+}
+data "google_service_account" "config_reader" {
+  account_id = "${var.config_reader_service_account}"
+}
+
 
 #
 # Thurloe - Common Vars
@@ -178,8 +186,6 @@ variable "allow_stopping_for_update" {
    description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
 }
 
-
-
 variable "100_instance_group_load_balancer_name" {
   default = "0"
   description = "Determines the name of the load balancer to which the thurloe 100 instance group should be added. Typical value will be the same as the public service name of the load balancer. Examples: thurloe-200-lb, thurloe-load-balancer-100"
@@ -188,6 +194,17 @@ variable "100_instance_group_load_balancer_name" {
 variable "100_instance_group_unmanaged_enable" {
   default = "0"
   description = "Enables GCE instance group for Thurloe 100 service cluster"
+}
+
+#
+# Thurloe Service Config Bucket
+#
+variable "storage_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.legacyBucketReader"
+  ]
 }
 
 
