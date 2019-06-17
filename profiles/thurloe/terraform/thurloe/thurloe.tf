@@ -1,7 +1,7 @@
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=rl-add-modules"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql"
 
   providers {
     google.target =  "google"
@@ -30,7 +30,7 @@ resource "google_dns_record_set" "mysql-instance" {
 
 # Docker instance(s)
 module "instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=perf-134-deploy"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance"
 
   providers {
     google.target =  "google"
@@ -44,7 +44,7 @@ module "instances" {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "perf-134-deploy",
+    "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
@@ -89,7 +89,7 @@ resource "google_dns_record_set" "instance-dns" {
 #  must be created before load balancer
 #  Potential solution: https://github.com/hashicorp/terraform/issues/1178#issuecomment-207369534
 module "load-balancer" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer?ref=rl-add-modules"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer"
 
   providers {
     google.target =  "google"
