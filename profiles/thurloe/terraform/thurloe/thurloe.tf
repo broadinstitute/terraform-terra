@@ -44,7 +44,7 @@ module "instances" {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "PERF-134-deploy",
+    "ansible_branch" = "perf-134-deploy",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
