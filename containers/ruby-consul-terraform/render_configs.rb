@@ -45,6 +45,9 @@ def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", 
   }
 end
 
+def tar_directory_contents(full_path, tarfile_name)
+end
+
 def render_instance_configs(instance_name)
   manifest = "base-configs/#{$app_name}/manifest.rb"
   overwrite_prompt = true
