@@ -6,7 +6,7 @@
   "production": false,
   "stability": "volatile",
   "profile_vars": {
-    "test-config": {
+    "thurloe-configs": {
       "env": {
         "GITHUB_TOKEN_VAULT_PATH": "secret/dsp/github/dsdejenkins2/githubtoken",
         "INSTANCE_TYPE": "",

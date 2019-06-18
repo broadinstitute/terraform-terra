@@ -64,10 +64,15 @@ end
 if __FILE__ == $0
   $base_dir = Dir.pwd
   copy_file_from_github "configure.rb"
-  ENV["OUTPUT_DIR"] = "/data/output"
-  Dir.mkdir("/data/output") unless File.exists?("/data/output")
+  ENV["OUTPUT_DIR"] = "/dev/null" # This must be set when configure.rb is loaded but is not used
   require "/data/configure.rb"
 
+  # Ugly hack -- the `configure.rb` script from the repo uses a function
+  # called `render_ctmpl` that calls a docker container to run consul-template
+  # to render files. Because we're running this script in a docker container,
+  # we can't use docker that way. So instead, bake consul-template into this
+  # container and override the `render_ctmpl` function with one that uses
+  # consul-template locally.
   def render_ctmpl(file_name, output_file_name, tmp_dir=nil)
     if tmp_dir.nil?
       tmp_dir = (Dir.pwd.split("/") - $base_dir.split("/")) * "/"
