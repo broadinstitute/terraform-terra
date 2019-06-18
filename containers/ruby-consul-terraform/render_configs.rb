@@ -64,6 +64,7 @@ end
 if __FILE__ == $0
   $base_dir = Dir.pwd
   copy_file_from_github "configure.rb"
+  puts JSON.parse(ENV.fetch("INSTANCES", "")).to_s
   ENV["OUTPUT_DIR"] = "/dev/null" # This must be set when configure.rb is loaded but is not used
   require "/data/configure.rb"
 
@@ -78,16 +79,16 @@ if __FILE__ == $0
       tmp_dir = (Dir.pwd.split("/") - $base_dir.split("/")) * "/"
     end
     cmd_env = {
-      "ENVIRONMENT" => $env,
-      "SERVICE_VERSION" => ENV.fetch("SERVICE_VERSION", ""),
-      "VAULT_ADDR" => $vault_addr,
-      "TARGET_DOCKER_VERSION" => $target_docker_version,
+      "VAULT_TOKEN" => ENV.fetch("VAULT_TOKEN", ""),
       "INSTANCE_TYPE" => $instance_type,
-      "HOST_TAG" => $host_tag,
       "RUN_CONTEXT" => $run_context,
-      "DIR" => $fiab_dir,
-      "IMAGE" => $image,
       "APP_NAME" => $app_name,
+      "ENVIRONMENT" => $env,
+      "INSTANCE_NAME" => $instance_name,
+      "HOST_TAG" => $host_tag,
+      "IMAGE" => $image,
+      "TARGET_DOCKER_VERSION" => $target_docker_version,
+      "VAULT_ADDR" => $vault_addr,
       "GOOGLE_PROJ" => $google_proj,
       "GOOGLE_APPS_DOMAIN" => $apps_domain,
       "GOOGLE_APPS_ORGANIZATION_ID" => $apps_organization_id,
@@ -95,8 +96,9 @@ if __FILE__ == $0
       "GCS_NAME_PREFIX" => $gcs_name_prefix,
       "DNS_DOMAIN" => $dns_domain,
       "LDAP_BASE_DOMAIN" => $ldap_base_domain,
-      "INSTANCE_NAME" => $instance_name,
-      "BUCKET_TAG" => $bucket_tag
+      "BUCKET_TAG" => $bucket_tag,
+      "SERVICE_VERSION" => ENV.fetch("SERVICE_VERSION", ""),
+      "DIR" => $fiab_dir
     }
     Open3.popen3(
       cmd_env, 
