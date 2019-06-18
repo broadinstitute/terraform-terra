@@ -6,6 +6,7 @@ module "enable-services" {
   }
   project     = "${var.google_project}"
   services    = [
+    "dns.googleapis.com",
     "stackdriver.googleapis.com",
     "logging.googleapis.com",
     "datastore.googleapis.com"
