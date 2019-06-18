@@ -3,11 +3,6 @@ require "open3"
 require "base64"
 require "fileutils"
 
-# curl --header "X-Vault-Token: $VAULT_TOKEN" $VAULT_ADDR/v1/secret/dsp/github/dsdejenkins2/githubtoken
-
-$git_repo = ENV.fetch("GIT_REPO", "firecloud-develop")
-$git_branch = ENV.fetch("GIT_BRANCH", "dev")
-
 def set_github_token()
   curl_cmd = [
       "curl",
@@ -21,7 +16,7 @@ def set_github_token()
   }
 end
 
-def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", repo = $git_repo, branch = $git_branch)
+def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", repo = "firecloud-develop", branch = "dev")
   if output_file_name.nil?
     output_file_name = File.basename(path)
   end
