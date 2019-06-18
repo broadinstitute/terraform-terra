@@ -45,10 +45,14 @@ def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", 
   }
 end
 
-def tar_directory_contents(full_path, tarfile_name)
+def activate_sa(sa_file)
+  Open3.popen3("gcloud auth activate-service-account --key-file=#{sa_file}") { |stdin, stdout, stderr, wait_thread| 
+    puts stdout.read
+    puts stderr.read
+  }
 end
 
-def render_instance_configs(instance_name)
+def render_instance_configs(instance_name, config_bucket)
   manifest = "base-configs/#{$app_name}/manifest.rb"
   overwrite_prompt = true
   $instance_name = instance_name
@@ -59,12 +63,16 @@ def render_instance_configs(instance_name)
   Dir.chdir(render_dir) do
     configure(manifest, overwrite_prompt)
   end
+  Open3.popen3("gsutil rsync -r -d #{render_dir} gs://#{config_bucket}/#{instance_name}/") { |stdin, stdout, stderr, wait_thread|
+    puts stdout.read
+    puts stderr.read
+  }
 end
 
 if __FILE__ == $0
   $base_dir = Dir.pwd
   copy_file_from_github "configure.rb"
-  puts JSON.parse(ENV.fetch("INSTANCES", "")).to_s
+  instances = JSON.parse(ENV.fetch("INSTANCES", "")).map {|self_link| self_link.split('/')[-1]}
   ENV["OUTPUT_DIR"] = "/dev/null" # This must be set when configure.rb is loaded but is not used
   require "/data/configure.rb"
 
@@ -117,5 +125,6 @@ if __FILE__ == $0
     end
     }
   end
-  render_instance_configs(ENV.fetch("INSTANCE_NAME"))
+  activate_sa("/data/provider_sa.json")
+  instances.map {|i| render_instance_configs(i, ENV.fetch("CONFIG_BUCKET")) }
 end

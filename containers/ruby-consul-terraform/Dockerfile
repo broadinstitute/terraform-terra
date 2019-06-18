@@ -21,4 +21,5 @@ VOLUME ["/data"]
 WORKDIR /data
 
 RUN mkdir -p /workbench
+
 COPY ./render_configs.rb /workbench/render_configs.rb

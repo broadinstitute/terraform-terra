@@ -13,6 +13,15 @@ data "google_compute_instance_group" "service-instances" {
 }
 
 #
+# Config Bucket vars
+#
+
+variable "config_bucket_name" {
+  description = "name of the bucket where configs for this service should be stored"
+  default = "{{if (env "CONFIG_BUCKET_NAME")}}{{env "INSTANCE_CONFIG_BUCKET_NAME"}}{{else}}{{env "OWNER"}}-{{env "SERVICE"}}-config{{end}}"
+}
+
+#
 # Config vars
 #
 variable "config_render_vault_policy" {
