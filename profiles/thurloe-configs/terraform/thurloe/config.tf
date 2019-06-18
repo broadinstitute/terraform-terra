@@ -7,6 +7,15 @@ resource "vault_token" "render_token" {
   ttl = "20m"
 }
 
+resource "null_resource" "instances" {
+  triggers = {
+    always = "${uuid()}"
+  }
+  provisioner "local-exec" {
+    command = "echo  ${jsonencode(data.google_compute_instance_group.service-instances.instances)}"
+  }
+}
+
 resource "null_resource" "config" {
   triggers = {
     always = "${uuid()}"
@@ -14,6 +23,7 @@ resource "null_resource" "config" {
   provisioner "local-exec" {
     command = "ruby /workbench/render_configs.rb"
     environment = {
+      INSTANCES = "${jsonencode(data.google_compute_instance_group.service-instances.instances)}"
       VAULT_TOKEN = "${vault_token.render_token.client_token}"
       GITHUB_TOKEN_VAULT_PATH = "${var.github_token_vault_path}"
       INSTANCE_TYPE = "${var.instance_type}"
