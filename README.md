@@ -118,6 +118,28 @@ This profile creates two SSL certificates.
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
 ```
 
+## `sam`
+
+This profile creates:
+
+1. An instance group with one instance
+2. A DNS record for the instance
+3. A config bucket for storing Sam configs
+4. A load balancer in front of the instance group
+5. A DNS record for the load balancer
+
+_note this profile does not create an OpenDJ instance;
+that must be done separately._
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam
+```
+
 ### `thurloe-sa`
 
 This profile creates:
@@ -144,7 +166,7 @@ This profile creates:
 1. A cloudsql database for Thurloe
 2. A DNS record pointing to the cloudsql db
 3. An instance group with one instance
-4. A DNS record for the instancee
+4. A DNS record for the instance
 5. A config bucket for storing Thurloe configs
 6. A load balancer in front of the instance group
 7. A DNS record for the load balancer
