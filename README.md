@@ -117,6 +117,25 @@ This profile creates two SSL certificates.
 # teardown example
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
 ```
+### `sam-sa`
+
+This profile creates:
+
+1. A sam service account for use by Sam instances
+
+This profile must be applied with `-a`, which uses your local application default
+credentials instead of a terraform service account. To generate your own ADC, run
+`gcloud auth application-default login` and follow the instructions.
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam-sa -a
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam-sa -a
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam-sa -a
+```
+
 
 ## `sam`
 
