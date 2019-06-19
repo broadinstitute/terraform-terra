@@ -49,7 +49,7 @@ end
 
 def render_instance_configs(instance_name, config_bucket)
   manifest = "base-configs/#{$app_name}/manifest.rb"
-  overwrite_prompt = true
+  overwrite_prompt = false
   $instance_name = instance_name
   render_dir = "/data/configs/#{instance_name}"
   FileUtils.mkdir_p(render_dir) unless File.exists?(render_dir)
