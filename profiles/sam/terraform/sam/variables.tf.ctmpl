@@ -1,53 +1,13 @@
 #
 # Profile Vars
 #
-variable "environment" {
-  default = "{{env "ENVIRONMENT"}}"
-  description = "The environment specified in the application json"
-}
 variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
-variable "google_region" {
-  default = "{{env "GOOGLE_REGION"}}"
-  description = "The google region as specified in the application json"
-}
-variable "google_zone" {
-  default = "{{env "GOOGLE_ZONE"}}"
-  description = "The google zone as specified by `GOOGLE_REGION` and the application json"
-}
-variable "dns_zone" {
-  default = "{{env "DNS_ZONE"}}"
-  description = "The full DNS zone without a trailing . as specified in the application json"
-}
-variable "dns_zone_name" {
-  default = "{{env "DNS_ZONE_NAME"}}"
-  description = "The name of the DNS zone (its google id) as specified in the application json"
-}
-variable "latest_k8s_master_version" {
-  default = "{{env "LATEST_K8S_MASTER_VERSION"}}"
-  description = "A dynamically looked up most recent available gke version"
-}
-variable "latest_k8s_node_version" {
-  default = "{{env "LATEST_K8S_NODE_VERSION"}}"
-  description = "A dynamically looked up most recent available gke version"
-}
-variable "cluster_name" {
-  default = "{{env "CLUSTER_NAME"}}"
-  description = "The name of the cluster in GKE as specified in the application json"
-}
-variable "kubectl_context" {
-  default = "{{env "KUBECTL_CONTEXT"}}"
-  description = "Either the value of `.clusters.default.context` in application json or the standard GKE kubectl context for `GOOGLE_PROJECT`, `GOOGLE_ZONE`, and `CLUSTER_NAME`"
-}
 variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
-}
-variable "application_name" {
-  default = "{{env "APPLICATION_NAME"}}"
-  description = "Name from the application json"
 }
 variable "service" {
   default = "{{env "SERVICE"}}"
@@ -107,75 +67,11 @@ variable "instance_tags" {
 }
 
 #
-# Sam - DNS Vars
-#
-variable "load_balancer_dns_cname_record_flag" {
-  default = "0"
-  description = "Enable DNS CNAME record for default sam load balancer in an env. Should be set as a vault env override for each env."
-}
-
-variable "load_balancer_dns_cname_record_service_hostname" {
-  default = ""
-  description = "DNS CNAME record service hostname for default sam load balancer in an env. Should be set as a vault env override for each env."
-}
-
-variable "load_balancer_dns_cname_record_target_hostname" {
-  default = ""
-  description = "DNS CNAME record target hostname for default sam load balancer in an env. Should be set as a vault env override for each env."
-}
-
-variable "app_dns_cname_record_flag" {
-  default = "0"
-  description = "Enable DNS CNAME record for default sam instance in an env. Should be set as a vault env override for each env."
-}
-
-variable "app_dns_cname_record_service_hostname" {
-  default = ""
-  description = "DNS CNAME record service hostname for default sam instance in an env. Should be set as a vault env override for each env."
-}
-
-variable "app_dns_cname_record_target_hostname" {
-  default = ""
-  description = "DNS CNAME record target hostname for default sam instance in an env. Should be set as a vault env override for each env."
-}
-
-
-#
 # Sam Service Cluster 
 #
-variable "num_hosts" {
-  default = "0"
-  description = "The default number of Sam service hosts per environment"
-}
-
 variable "instance_size" {
   default = "{{ if env "SAM_INSTANCE_SIZE" | parseBool}}{{ env "SAM_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
   description = "The default size of Sam service hosts"
-}
-
-variable "image_name" {
-  default = "centos-7-v20190423"
-  description = "The default GCE OS platform image for Sam 100 service cluster"
-}
-
-variable "metadata_startup_script" {
-   default = "metadata/centos7-docker2.sh"
-   description = "Default metadata startup script used when bootstrapping Sam 100 instances"
-}
-
-variable "allow_stopping_for_update" {
-   default = "false"
-   description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
-}
-
-variable "100_instance_group_load_balancer_name" {
-  default = "0"
-  description = "Determines the name of the load balancer to which the sam 100 instance group should be added. Typical value will be the same as the public service name of the load balancer. Examples: sam-200-lb, sam-load-balancer-100"
-}
-
-variable "100_instance_group_unmanaged_enable" {
-  default = "0"
-  description = "Enables GCE instance group for Sam 100 service cluster"
 }
 
 #
@@ -190,14 +86,8 @@ variable "storage_bucket_roles" {
 }
 
 #
-# Sam Common Load Balancer (replaces sam-NNN-lb entities)
+# Sam - DNS Vars
 #
-variable "load_balancer_100_enable" {
-  default = "0"
-  description = "Enables GCE common load balancer 100 for one or more Sam NNN service clusters"
-}
-
-
 variable "dns_ttl" {
    default = "300"
 }
