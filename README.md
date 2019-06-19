@@ -117,6 +117,50 @@ This profile creates two SSL certificates.
 # teardown example
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
 ```
+### `sam-sa`
+
+This profile creates:
+
+1. A sam service account for use by Sam instances
+
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
+`gcloud auth application-default login` and follow the instructions.
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam-sa
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam-sa
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam-sa
+```
+
+
+## `sam`
+
+This profile creates:
+
+1. An instance group with one instance
+2. A DNS record for the instance
+3. A config bucket for storing Sam configs
+4. A load balancer in front of the instance group
+5. A DNS record for the load balancer
+
+_note this profile does not create an OpenDJ instance;
+that must be done separately._
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam
+```
 
 ### `thurloe-sa`
 
@@ -124,17 +168,21 @@ This profile creates:
 
 1. A thurloe service account for use by Thurloe instances
 
-This profile must be applied with `-a`, which uses your local application default
-credentials instead of a terraform service account. To generate your own ADC, run
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
 `gcloud auth application-default login` and follow the instructions.
+
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa
 # render example
-./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa
 ```
 
 ## `thurloe`
@@ -144,7 +192,7 @@ This profile creates:
 1. A cloudsql database for Thurloe
 2. A DNS record pointing to the cloudsql db
 3. An instance group with one instance
-4. A DNS record for the instancee
+4. A DNS record for the instance
 5. A config bucket for storing Thurloe configs
 6. A load balancer in front of the instance group
 7. A DNS record for the load balancer
