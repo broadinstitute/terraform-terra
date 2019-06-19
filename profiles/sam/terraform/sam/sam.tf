@@ -8,6 +8,7 @@ module "instances" {
   }
   project       = "${var.google_project}"
   instance_name = "${var.service}"
+  instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
   instance_service_account = "${data.google_service_account.config_reader.email}"
   instance_network_name = "${data.google_compute_network.terra-env-network.name}"
@@ -18,7 +19,6 @@ module "instances" {
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
-  # depends_on   = ["dns", "ssl", "sam-sa"]
 }
 
 # Service config bucket
@@ -47,6 +47,7 @@ resource "google_storage_bucket_iam_member" "app_config" {
 # Instance DNS
 resource "google_dns_record_set" "instance-dns" {
   provider     = "google"
+  count        = "${var.instance_num_hosts}"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
   type         = "A"
