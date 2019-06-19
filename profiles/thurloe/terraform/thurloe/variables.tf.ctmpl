@@ -203,7 +203,8 @@ variable "storage_bucket_roles" {
   type = "list"
 
   default = [
-    "roles/storage.legacyBucketReader"
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
   ]
 }
 

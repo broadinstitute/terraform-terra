@@ -44,7 +44,7 @@ module "instances" {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "master",
+    "ansible_branch" = "gm-thurloe-config",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
@@ -68,6 +68,7 @@ resource "google_storage_bucket" "config-bucket" {
 
 # Grant service account access to the config bucket
 resource "google_storage_bucket_iam_member" "app_config" {
+  count = "${length(var.storage_bucket_roles)}"
   bucket = "${google_storage_bucket.config-bucket.name}"
   role   = "${element(var.storage_bucket_roles, count.index)}"
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
