@@ -69,6 +69,10 @@ variable "instance_tags" {
 #
 # Sam Service Cluster 
 #
+variable "instance_num_hosts" {
+  default = "{{ if env "SAM_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SAM_INSTANCE_NUM_HOSTS" }}{{ else }}4{{ end }}"
+  description = "The default number of Sam service hosts per environment"
+}
 variable "instance_size" {
   default = "{{ if env "SAM_INSTANCE_SIZE" | parseBool}}{{ env "SAM_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
   description = "The default size of Sam service hosts"
