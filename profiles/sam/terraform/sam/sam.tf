@@ -14,11 +14,11 @@ module "instances" {
   instance_labels = {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
-    "role" = "frontend",
     "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
+  # depends_on   = ["dns", "ssl", "sam-sa"]
 }
 
 # Service config bucket
