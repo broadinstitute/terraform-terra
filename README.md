@@ -123,17 +123,20 @@ This profile creates:
 
 1. A sam service account for use by Sam instances
 
-This profile must be applied with `-a`, which uses your local application default
-credentials instead of a terraform service account. To generate your own ADC, run
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
 `gcloud auth application-default login` and follow the instructions.
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam-sa -a
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam-sa
 # render example
-./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam-sa -a
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam-sa
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam-sa -a
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam-sa
 ```
 
 
@@ -165,17 +168,21 @@ This profile creates:
 
 1. A thurloe service account for use by Thurloe instances
 
-This profile must be applied with `-a`, which uses your local application default
-credentials instead of a terraform service account. To generate your own ADC, run
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
 `gcloud auth application-default login` and follow the instructions.
+
 
 ```
 # deploy example
-./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa
 # render example
-./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa
 # teardown example
-./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa -a
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa
 ```
 
 ## `thurloe`
