@@ -54,6 +54,11 @@ variable "environment" {
   default = "{{if env "ENVIRONMENT"}}{{env "ENVIRONMENT"}}{{else}}qa{{end}}"
 }
 
+variable "github_org" {
+  description = ""
+  default = "{{if env "GITHUB_ORG"}}{{env "GITHUB_ORG"}}{{else}}broadinstitute{{end}}"
+}
+
 variable "git_repo" {
   description = ""
   default = "{{if env "GIT_REPO"}}{{env "GIT_REPO"}}{{else}}firecloud-develop{{end}}"

@@ -7,7 +7,7 @@ def set_github_token()
   curl_cmd = [
       "curl",
       "-H", "X-Vault-Token: #{ENV.fetch("VAULT_TOKEN", "")}",
-      "#{ENV.fetch("VAULT_ADDR")}/v1/secret/dsp/github/dsdejenkins2/githubtoken"
+      "#{ENV.fetch("VAULT_ADDR")}/v1/#{ENV.fetch("GITHUB_TOKEN_VAULT_PATH")}"
   ]
   Open3.popen3(*curl_cmd) { |stdin, stdout, stderr, wait_thread|
     response = JSON.load(stdout)
@@ -16,7 +16,17 @@ def set_github_token()
   }
 end
 
-def copy_file_from_github(path, output_file_name = nil, org = "broadinstitute", repo = "firecloud-develop", branch = "dev")
+def copy_file_from_github(path, output_file_name = nil, org = nil, repo = nil, branch = nil)
+  if org.nil?
+    org = ENV.fetch("GITHUB_ORG")
+  end
+  if repo.nil?
+    repo = ENV.fetch("GIT_REPO")
+  end
+  if branch.nil?
+    branch = ENV.fetch("GIT_BRANCH")
+  end
+  set_github_token
   if output_file_name.nil?
     output_file_name = File.basename(path)
   end
