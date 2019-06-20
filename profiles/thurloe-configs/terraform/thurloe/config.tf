@@ -1,5 +1,6 @@
 provider "vault" {}
 
+# this token will get saved in the state file, which is why a low-scope, time-limited token (and not the user's token) is appropriate.
 resource "vault_token" "render_token" {
   policies = ["${var.config_render_vault_policy}"]
 
