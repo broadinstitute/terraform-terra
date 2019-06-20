@@ -5,22 +5,6 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
-  "profile_vars": {
-    "thurloe-configs": {
-      "env": {
-        "GITHUB_TOKEN_VAULT_PATH": "secret/dsp/github/dsdejenkins2/githubtoken",
-        "INSTANCE_TYPE": "",
-        "RUN_CONTEXT": "live",
-        "APP_NAME": "thurloe",
-        "ENVIRONMENT": "dev",
-        "GIT_REPO": "firecloud-develop",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
-        "HOST_TAG": "broad-wb-gmalkov-qa",
-        "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674",
-        "TARGET_DOCKER_VERSION": "18.09.6"
-      }
-    }
-  },
   "environments": {
     "default": {
       "name": "dev"
