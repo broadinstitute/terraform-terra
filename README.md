@@ -185,7 +185,7 @@ service account. To generate your own ADC, run
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa
 ```
 
-## `thurloe`
+### `thurloe`
 
 This profile creates:
 
@@ -204,4 +204,21 @@ This profile creates:
 ./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe
 # teardown example
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe
+```
+
+### `thurloe-configs`
+
+This profile:
+
+1. Creates a Vault token
+2. Renders the thurloe configs
+3. uses `gsutil rsync` to put them in the config bucket created by the `thurloe` profile
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-configs
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-configs
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-configs
 ```
