@@ -1,33 +1,4 @@
 
-# Cloud SQL database
-module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.1.0"
-
-  providers {
-    google.target =  "google"
-  }
-  project       = "${var.google_project}"
-  cloudsql_name = "${var.owner}-${var.service}-db"
-  cloudsql_database_name = "${var.cloudsql_database_name}"
-  cloudsql_database_user_name = "${var.cloudsql_app_username}"
-  cloudsql_database_user_password = "${var.cloudsql_app_password}"
-  cloudsql_database_root_password = "${var.cloudsql_root_password}"
-  cloudsql_instance_labels = {
-    "app" = "${var.owner}-${var.service}"
-  }
-}
-
-# Cloud SQL dns
-resource "google_dns_record_set" "mysql-instance" {
-  provider     = "google"
-  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${var.owner}-${var.service}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
-  type         = "A"
-  ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${module.cloudsql.cloudsql-public-ip}" ]
-  depends_on   = ["module.cloudsql", "data.google_dns_managed_zone.terra-env-dns-zone"]
-}
-
 # Docker instance(s)
 module "instances" {
   source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=docker-instance-0.1.1"
@@ -37,13 +8,13 @@ module "instances" {
   }
   project       = "${var.google_project}"
   instance_name = "${var.service}"
+  instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
   instance_service_account = "${data.google_service_account.config_reader.email}"
   instance_network_name = "${data.google_compute_network.terra-env-network.name}"
   instance_labels = {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
-    "role" = "frontend",
     "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
@@ -68,7 +39,6 @@ resource "google_storage_bucket" "config-bucket" {
 
 # Grant service account access to the config bucket
 resource "google_storage_bucket_iam_member" "app_config" {
-  count = "${length(var.storage_bucket_roles)}"
   bucket = "${google_storage_bucket.config-bucket.name}"
   role   = "${element(var.storage_bucket_roles, count.index)}"
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
@@ -77,6 +47,7 @@ resource "google_storage_bucket_iam_member" "app_config" {
 # Instance DNS
 resource "google_dns_record_set" "instance-dns" {
   provider     = "google"
+  count        = "${var.instance_num_hosts}"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
   type         = "A"
