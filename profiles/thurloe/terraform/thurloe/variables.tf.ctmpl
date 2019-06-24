@@ -161,8 +161,8 @@ variable "mysql_instance_dns_cname_record_target_hostname" {
 #
 # Thurloe Service Cluster 
 #
-variable "num_hosts" {
-  default = "0"
+variable "instance_num_hosts" {
+  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 
@@ -203,7 +203,8 @@ variable "storage_bucket_roles" {
   type = "list"
 
   default = [
-    "roles/storage.legacyBucketReader"
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
   ]
 }
 

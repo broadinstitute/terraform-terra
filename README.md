@@ -14,7 +14,8 @@ as terraform code. When you deploy a profile, you create the infrastructure
 specified in the profile. When you tear down a profile, you destroy it.
 
 To deploy or tear down a profile, you need to supply a JSON configuration
-file and an owner name. The JSON configuration specifies the metadata that
+file and optionally an owner name (the configuration file should specify the default owner name,
+and if it does you should not specify your own). The JSON configuration specifies the metadata that
 terraform needs to run, including the location of the terraform service
 account in Vault, the google project name, and the default google region. The
 owner name is the person or group responsible for making sure that the
@@ -115,4 +116,109 @@ This profile creates two SSL certificates.
 ./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p ssl
 # teardown example
 ./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p ssl
+```
+### `sam-sa`
+
+This profile creates:
+
+1. A sam service account for use by Sam instances
+
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
+`gcloud auth application-default login` and follow the instructions.
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam-sa
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam-sa
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam-sa
+```
+
+
+## `sam`
+
+This profile creates:
+
+1. An instance group with one instance
+2. A DNS record for the instance
+3. A config bucket for storing Sam configs
+4. A load balancer in front of the instance group
+5. A DNS record for the load balancer
+
+_note this profile does not create an OpenDJ instance;
+that must be done separately._
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p sam
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p sam
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p sam
+```
+
+### `thurloe-sa`
+
+This profile creates:
+
+1. A thurloe service account for use by Thurloe instances
+
+In projects in which the Terraform SA has Owner permission, this profile should be
+run normally (without `-a`). In projects in which the Terraform SA does NOT have
+Owner, you must be an owner yourself and apply this profile with `-a`,
+which uses your local application default credentials instead of a terraform
+service account. To generate your own ADC, run
+`gcloud auth application-default login` and follow the instructions.
+
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-sa
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-sa
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-sa
+```
+
+### `thurloe`
+
+This profile creates:
+
+1. A cloudsql database for Thurloe
+2. A DNS record pointing to the cloudsql db
+3. An instance group with one instance
+4. A DNS record for the instance
+5. A config bucket for storing Thurloe configs
+6. A load balancer in front of the instance group
+7. A DNS record for the load balancer
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe
+```
+
+### `thurloe-configs`
+
+This profile:
+
+1. Creates a Vault token
+2. Renders the thurloe configs
+3. uses `gsutil rsync` to put them in the config bucket created by the `thurloe` profile
+
+```
+# deploy example
+./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p thurloe-configs
+# render example
+./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p thurloe-configs
+# teardown example
+./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p thurloe-configs
 ```
