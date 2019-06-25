@@ -9,15 +9,14 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-thurloe-perf-db",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       }
     }
   },
   "environments": {
     "default": {
-      "name": "dev"
+      "name": "broad-wb-rluckom"
     }
   },
   "projects": {
