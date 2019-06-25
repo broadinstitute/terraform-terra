@@ -1,0 +1,31 @@
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+
+variable "vault_path_prefix" {
+  default = "{{if (env "VAULT_PATH_PREFIX")}}{{env "VAULT_PATH_PREFIX"}}{{else}}secret/dsde/firecloud/ephemeral/{{env "ENVIRONMENT"}}{{end}}"
+  description = "Path prefix for vault secrets for this environment. MUST NOT end with trailing slash"
+}
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+
+variable "google_zone" {
+  default = "{{env "GOOGLE_ZONE"}}"
+  description = "The google zone as specified by `GOOGLE_REGION` and the application json"
+}
+
+variable "common_secrets_json" {
+  description = "secrets from secret/dsde/firecloud/common/secrets"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/secrets"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
