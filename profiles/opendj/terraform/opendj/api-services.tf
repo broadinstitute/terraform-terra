@@ -8,8 +8,6 @@ module "enable-services" {
   services    = [
     "stackdriver.googleapis.com",
     "logging.googleapis.com",
-    "sql-component.googleapis.com",
-    "sqladmin.googleapis.com",
-    "pubsub.googleapis.com",
+    "compute.googleapis.com"
   ]
 }
