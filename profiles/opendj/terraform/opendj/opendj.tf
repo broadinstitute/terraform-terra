@@ -7,15 +7,18 @@ module "instances" {
   }
   project       = "${var.google_project}"
   instance_name = "${var.service}"
+  instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
-  instance_data_disk_size = 
+  instance_data_disk_size = "${var.instance_data_disk_size}"
+  instance_data_disk_type = "${var.instance_data_disk_type}"
+  instance_data_disk_name = "${var.service}-data-disk"
   instance_service_account = "${data.google_service_account.config_reader.email}"
   instance_network_name = "${data.google_compute_network.terra-env-network.name}"
   instance_labels = {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "master",
+    "ansible_branch" = "perf-139-opendj",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
@@ -38,14 +41,16 @@ resource "google_storage_bucket" "config-bucket" {
 
 # Grant service account access to the config bucket
 resource "google_storage_bucket_iam_member" "app_config" {
+  count = "${length(var.storage_bucket_roles)}"
   bucket = "${google_storage_bucket.config-bucket.name}"
   role   = "${element(var.storage_bucket_roles, count.index)}"
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
 }
 
-# Instance DNS
-resource "google_dns_record_set" "instance-dns" {
+# Instance A DNS
+resource "google_dns_record_set" "instance-dns-a" {
   provider     = "google"
+  count        = "${var.instance_num_hosts}"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
   type         = "A"
@@ -54,32 +59,16 @@ resource "google_dns_record_set" "instance-dns" {
   depends_on   = ["module.instances", "data.google_dns_managed_zone.terra-env-dns-zone"]
 }
 
-# Load Balancer
-#  need to figure out dependency in order to ensure proper order - instances 
-#  must be created before load balancer
-#  Potential solution: https://github.com/hashicorp/terraform/issues/1178#issuecomment-207369534
-module "load-balancer" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer?ref=http-load-balancer-0.1.0"
-
-  providers {
-    google.target =  "google"
-  }
-  project       = "${var.google_project}"
-  load_balancer_name = "${var.owner}-${var.service}"
-  load_balancer_ssl_certificates = [
-    "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-red.name}",
-    "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-black.name}"
-  ]
-  load_balancer_instance_groups = "${element(module.instances.instance_instance_group,0)}"
-}
-
-# Service DNS
-resource "google_dns_record_set" "app-dns" {
+# Instance CNAME DNS
+resource "google_dns_record_set" "instance-dns-cname" {
   provider     = "google"
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${var.service}.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
-  type         = "A"
+  type         = "CNAME"
   ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${module.load-balancer.load_balancer_public_ip}" ]
-  depends_on   = ["module.load-balancer", "data.google_dns_managed_zone.terra-env-dns-zone"]
+  rrdatas      = [ "${var.service}-01.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}" ]
+  depends_on   = [
+    "module.instances",
+    "data.google_dns_managed_zone.terra-env-dns-zone"
+  ]
 }

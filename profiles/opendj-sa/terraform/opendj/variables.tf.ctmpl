@@ -13,3 +13,13 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
+
+#
+# Common Vars
+#
+variable "gcr_bucket_project" {
+  default = "broad-dsp-gcr-public"
+}
+variable "gcr_bucket_name" {
+  default = "artifacts.broad-dsp-gcr-public.appspot.com"
+}
