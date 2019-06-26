@@ -39,6 +39,7 @@ resource "google_storage_bucket" "config-bucket" {
 
 # Grant service account access to the config bucket
 resource "google_storage_bucket_iam_member" "app_config" {
+  count = "${length(var.storage_bucket_roles)}"
   bucket = "${google_storage_bucket.config-bucket.name}"
   role   = "${element(var.storage_bucket_roles, count.index)}"
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
@@ -61,7 +62,7 @@ resource "google_dns_record_set" "instance-dns" {
 #  must be created before load balancer
 #  Potential solution: https://github.com/hashicorp/terraform/issues/1178#issuecomment-207369534
 module "load-balancer" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer?ref=http-load-balancer-0.1.0"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/http-load-balancer?ref=http-load-balancer-0.1.1"
 
   providers {
     google.target =  "google"
@@ -73,6 +74,7 @@ module "load-balancer" {
     "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-black.name}"
   ]
   load_balancer_instance_groups = "${element(module.instances.instance_instance_group,0)}"
+  load_balancer_ssl_policy_create = "0"
 }
 
 # Service DNS

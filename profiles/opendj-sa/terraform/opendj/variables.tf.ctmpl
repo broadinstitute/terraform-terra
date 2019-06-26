@@ -15,7 +15,7 @@ variable "service" {
 }
 
 #
-# Common Vars
+# GCR Bucket
 #
 variable "gcr_bucket_project" {
   default = "broad-dsp-gcr-public"

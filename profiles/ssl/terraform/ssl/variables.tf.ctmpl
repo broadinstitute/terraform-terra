@@ -7,3 +7,7 @@ variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
+
+variable "load_balancer_ssl_policy" {
+  default = "tls12-ssl-policy"
+}
