@@ -37,7 +37,7 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-rluckom",
+      "name": "broad-dsde-perf",
       "zone": "broad-wb-rluckom.broadinstitute.org"
     }
   },

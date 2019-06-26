@@ -59,10 +59,15 @@ variable "service" {
 #
 # DNS
 variable "google_dns_zone" {
-  default = "{{env "OWNER"}}-terra-dns"
+  default = "{{env "DNS_ZONE_NAME"}}"
 }
-data "google_dns_managed_zone" "terra-env-dns-zone" {
-  name = "${var.google_dns_zone}"
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+  default = "{{env "DNS_ZONE_NAME"}}"
+}
+variable "dns_region" {
+  default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
+  default = "{{env "DNS_ZONE_NAME"}}"
 }
 # SSL
 variable "google_compute_ssl_certificate_red" {
@@ -156,6 +161,15 @@ variable "mysql_instance_dns_cname_record_service_hostname" {
 variable "mysql_instance_dns_cname_record_target_hostname" {
   default = ""
   description = "DNS CNAME record target hostname for default thurloe mysql instance in an env. Should be set as a vault env override for each env."
+}
+
+variable "config_dns_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}dsde-perf-broad{{end}}"
+}
+
+variable "old_dns_zone" {
+  default = "{{env "OWNER"}}-terra-dns"
 }
 
 #
