@@ -1,0 +1,1 @@
+{{with $project := "firecloud"}}{{with $environment := "perf" }}{{with $terraformServiceAccount := secret (printf "secret/devops/terraform/%s/%s/credentials" $environment $project)}}{{$terraformServiceAccount.Data | toJSONPretty}}{{end}}{{end}}{{end}}

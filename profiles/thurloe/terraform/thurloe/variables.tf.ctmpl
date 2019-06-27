@@ -25,22 +25,6 @@ variable "dns_zone_name" {
   default = "{{env "DNS_ZONE_NAME"}}"
   description = "The name of the DNS zone (its google id) as specified in the application json"
 }
-variable "latest_k8s_master_version" {
-  default = "{{env "LATEST_K8S_MASTER_VERSION"}}"
-  description = "A dynamically looked up most recent available gke version"
-}
-variable "latest_k8s_node_version" {
-  default = "{{env "LATEST_K8S_NODE_VERSION"}}"
-  description = "A dynamically looked up most recent available gke version"
-}
-variable "cluster_name" {
-  default = "{{env "CLUSTER_NAME"}}"
-  description = "The name of the cluster in GKE as specified in the application json"
-}
-variable "kubectl_context" {
-  default = "{{env "KUBECTL_CONTEXT"}}"
-  description = "Either the value of `.clusters.default.context` in application json or the standard GKE kubectl context for `GOOGLE_PROJECT`, `GOOGLE_ZONE`, and `CLUSTER_NAME`"
-}
 variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
@@ -53,16 +37,25 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The name of the service within the profile"
+}
 
 #
 # Dependency Profiles' Vars
 #
 # DNS
 variable "google_dns_zone" {
-  default = "{{env "OWNER"}}-terra-dns"
+  default = "{{env "DNS_ZONE_NAME"}}"
 }
-data "google_dns_managed_zone" "terra-env-dns-zone" {
-  name = "${var.google_dns_zone}"
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+  default = "{{env "DNS_ZONE_NAME"}}"
+}
+variable "dns_region" {
+  default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
+  default = "{{env "DNS_ZONE_NAME"}}"
 }
 # SSL
 variable "google_compute_ssl_certificate_red" {
@@ -91,7 +84,6 @@ variable "config_reader_service_account" {
 data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
 }
-
 
 #
 # Thurloe - Common Vars
@@ -156,6 +148,15 @@ variable "mysql_instance_dns_cname_record_service_hostname" {
 variable "mysql_instance_dns_cname_record_target_hostname" {
   default = ""
   description = "DNS CNAME record target hostname for default thurloe mysql instance in an env. Should be set as a vault env override for each env."
+}
+
+variable "config_dns_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}dsde-perf-broad{{end}}"
+}
+
+variable "old_dns_zone" {
+  default = "{{env "OWNER"}}-terra-dns"
 }
 
 #

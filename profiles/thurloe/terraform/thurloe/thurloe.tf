@@ -1,3 +1,6 @@
+data "google_dns_managed_zone" "terra-env-dns-zone" {
+  name = "${var.old_dns_zone}"
+}
 
 # Cloud SQL database
 module "cloudsql" {
@@ -18,8 +21,9 @@ module "cloudsql" {
 }
 
 # Cloud SQL dns
-resource "google_dns_record_set" "mysql-instance" {
+resource "google_dns_record_set" "mysql-instance-old" {
   provider     = "google"
+  count = 0
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${var.owner}-${var.service}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
   type         = "A"
@@ -75,9 +79,9 @@ resource "google_storage_bucket_iam_member" "app_config" {
 }
 
 # Instance DNS
-resource "google_dns_record_set" "instance-dns" {
+resource "google_dns_record_set" "instance-dns-old" {
   provider     = "google"
-  count        = "${var.instance_num_hosts}"
+  count = 0
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
   type         = "A"
@@ -107,8 +111,9 @@ module "load-balancer" {
 }
 
 # Service DNS
-resource "google_dns_record_set" "app-dns" {
+resource "google_dns_record_set" "app-dns-old" {
   provider     = "google"
+  count = 0
   managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
   name         = "${var.service}.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
   type         = "A"
