@@ -5,12 +5,15 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
-  "profile_vars": {
-    "thurloe": {
-      "vault": {
-        "policy":"dsde-write"
-      }
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom"
     },
+    "vault": {
+      "policy": "dsde-write"
+    }
+  },
+  "profile_vars": {
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",

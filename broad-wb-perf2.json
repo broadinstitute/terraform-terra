@@ -5,6 +5,14 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    }
+  },
   "profile_vars": {
     "thurloe-configs": {
       "env": {
