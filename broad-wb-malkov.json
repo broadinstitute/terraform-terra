@@ -1,7 +1,7 @@
 {
   "name": "terra",
   "owner": "gmalkov",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -45,7 +45,7 @@
   },
   "environments": {
     "default": {
-      "name": "dev"
+      "name": "broad-wb-malkov"
     }
   },
   "projects": {

@@ -39,7 +39,7 @@ variable "service" {
 }
 variable "vault_path_prefix" {
   default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The name of the service within the profile"
+  description = "The path to this profile's secrets in vault"
 }
 
 #
@@ -51,11 +51,9 @@ variable "google_dns_zone" {
 }
 variable "dns_project" {
   default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
-  default = "{{env "DNS_ZONE_NAME"}}"
 }
 variable "dns_region" {
   default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
-  default = "{{env "DNS_ZONE_NAME"}}"
 }
 # SSL
 variable "google_compute_ssl_certificate_red" {
