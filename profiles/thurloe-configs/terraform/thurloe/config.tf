@@ -38,6 +38,7 @@ resource "null_resource" "config" {
       DNS_DOMAIN = "${var.config_dns_domain}"
       LDAP_BASE_DOMAIN = "${var.ldap_base_domain}"
       BUCKET_TAG = "${var.bucket_tag}"
+      VAULT_PATH_PREFIX = "${var.vault_path_prefix}"
     }
   }
 }

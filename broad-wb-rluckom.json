@@ -1,11 +1,16 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
   "profile_vars": {
+    "thurloe": {
+      "vault": {
+        "policy":"dsde-write"
+      }
+    },
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",

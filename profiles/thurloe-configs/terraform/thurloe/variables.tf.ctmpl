@@ -1,3 +1,7 @@
+variable "vault_path_prefix" {
+  default = "{{if (env "VAULT_PATH_PREFIX")}}{{ env "VAULT_PATH_PREFIX"}}{{else}}secret/dsde/firecloud/ephemeral/{{env "ENVIRONMENT"}}{{end}}"
+  description = "The name of the service within the profile"
+}
 #
 # Instance data
 #

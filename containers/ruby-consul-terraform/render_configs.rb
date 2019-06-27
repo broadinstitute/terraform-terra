@@ -111,6 +111,7 @@ if __FILE__ == $0
       "LDAP_BASE_DOMAIN" => $ldap_base_domain,
       "BUCKET_TAG" => $bucket_tag,
       "SERVICE_VERSION" => ENV.fetch("SERVICE_VERSION", ""),
+      "VAULT_PATH_PREFIX" => ENV.fetch("VAULT_PATH_PREFIX", ""),
       "DIR" => $fiab_dir
     }
     Open3.popen3(
