@@ -5,6 +5,14 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "global_vars": {
+    "vault": {
+      "policy":"dsde-write"
+    },
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
+    }
+  },
   "profile_vars": {
     "thurloe-configs": {
       "env": {
