@@ -1,16 +1,23 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    }
+  },
   "profile_vars": {
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-thurloe-perf-db",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       }
     },
@@ -24,7 +31,7 @@
   },
   "environments": {
     "default": {
-      "name": "dev"
+      "name": "broad-wb-rluckom"
     }
   },
   "projects": {
@@ -45,7 +52,7 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-rluckom",
+      "name": "broad-dsde-perf",
       "zone": "broad-wb-rluckom.broadinstitute.org"
     }
   },

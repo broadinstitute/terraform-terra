@@ -1,10 +1,18 @@
 {
   "name": "terra",
   "owner": "gmalkov",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    }
+  },
   "profile_vars": {
     "thurloe-configs": {
       "env": {
@@ -24,7 +32,7 @@
   },
   "environments": {
     "default": {
-      "name": "dev"
+      "name": "broad-wb-malkov"
     }
   },
   "projects": {

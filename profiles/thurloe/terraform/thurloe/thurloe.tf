@@ -1,3 +1,6 @@
+data "google_dns_managed_zone" "terra-env-dns-zone" {
+  name = "${var.old_dns_zone}"
+}
 
 # Cloud SQL database
 module "cloudsql" {
@@ -15,17 +18,6 @@ module "cloudsql" {
   cloudsql_instance_labels = {
     "app" = "${var.owner}-${var.service}"
   }
-}
-
-# Cloud SQL dns
-resource "google_dns_record_set" "mysql-instance" {
-  provider     = "google"
-  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${var.owner}-${var.service}-mysql.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
-  type         = "A"
-  ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${module.cloudsql.cloudsql-public-ip}" ]
-  depends_on   = ["module.cloudsql", "data.google_dns_managed_zone.terra-env-dns-zone"]
 }
 
 # Docker instance(s)
@@ -74,18 +66,6 @@ resource "google_storage_bucket_iam_member" "app_config" {
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
 }
 
-# Instance DNS
-resource "google_dns_record_set" "instance-dns" {
-  provider     = "google"
-  count        = "${var.instance_num_hosts}"
-  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${format("${var.service}-%02d.%s",count.index+1,data.google_dns_managed_zone.terra-env-dns-zone.dns_name)}"
-  type         = "A"
-  ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${element(module.instances.instance_public_ips, count.index)}" ]
-  depends_on   = ["module.instances", "data.google_dns_managed_zone.terra-env-dns-zone"]
-}
-
 # Load Balancer
 #  need to figure out dependency in order to ensure proper order - instances 
 #  must be created before load balancer
@@ -103,15 +83,4 @@ module "load-balancer" {
     "${data.google_compute_ssl_certificate.terra-env-wildcard-ssl-certificate-black.name}"
   ]
   load_balancer_instance_groups = "${element(module.instances.instance_instance_group,0)}"
-}
-
-# Service DNS
-resource "google_dns_record_set" "app-dns" {
-  provider     = "google"
-  managed_zone = "${data.google_dns_managed_zone.terra-env-dns-zone.name}"
-  name         = "${var.service}.${data.google_dns_managed_zone.terra-env-dns-zone.dns_name}"
-  type         = "A"
-  ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${module.load-balancer.load_balancer_public_ip}" ]
-  depends_on   = ["module.load-balancer", "data.google_dns_managed_zone.terra-env-dns-zone"]
 }
