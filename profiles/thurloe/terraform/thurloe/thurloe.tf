@@ -4,7 +4,7 @@ data "google_dns_managed_zone" "terra-env-dns-zone" {
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.1.0"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=rl-add-mysql-instance-out"
 
   providers {
     google.target =  "google"
