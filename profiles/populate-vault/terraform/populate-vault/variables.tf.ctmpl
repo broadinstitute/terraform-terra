@@ -64,3 +64,10 @@ variable "common_ssl_key" {
 {{with secret "secret/dsde/firecloud/perf/common/server.key"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
+
+variable "oauth_refresh_token_credential" {
+  description = "secrets from secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
