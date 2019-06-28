@@ -1,2 +1,4 @@
-{{$ssl_cert_version := "20200628"}}{{$ssl_cert_name := "wildcard.dsde-qa.broadinstitute.org"}}{{with $sslCert := secret (printf "secret/dsp/certs/%s/%s/server.crt" $ssl_cert_name $ssl_cert_version)}}{{with $sslChain := secret ("secret/common/ca-bundle.crt")}}{{$sslCert.Data.value}}
-{{$sslChain.Data.chain}}{{end}}{{end}}
+{{with $environment := env "ENVIRONMENT"}}
+{{with $vaultSecretsPath := (or (env "VAULT_PATH_PREFIX") (printf "secret/dsde/firecloud/%s" $environment))}}
+{{with $sslCert := secret (printf "%s/common/server.crt" $vaultSecretsPath)}}{{with $sslChain := secret ("secret/common/ca-bundle.crt")}}{{$sslCert.Data.value}}
+{{$sslChain.Data.chain}}{{end}}{{end}}{{end}}{{end}}

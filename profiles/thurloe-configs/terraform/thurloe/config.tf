@@ -30,7 +30,7 @@ resource "null_resource" "config" {
       IMAGE = "${var.service_git_sha_12_char}"
       TARGET_DOCKER_VERSION = "${var.target_docker_version}"
       VAULT_ADDR = "${var.vault_addr}"
-      DNS_DOMAIN = "${var.dns_domain}"
+      DNS_DOMAIN = "${var.config_dns_domain}"
       GOOGLE_PROJ = "${var.google_project}"
       GOOGLE_APPS_DOMAIN = "${var.google_apps_domain}"
       GOOGLE_APPS_ORGANIZATION_ID = "${var.google_apps_organization_id}"
