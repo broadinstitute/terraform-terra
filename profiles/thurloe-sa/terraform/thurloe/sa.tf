@@ -9,6 +9,18 @@ resource "google_project_iam_member" "app_config" {
   member  = "serviceAccount:${google_service_account.app_config.email}"
 }
 
+resource "google_project_iam_member" "app_sql_binding" {
+  project = "${var.google_project}"
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${google_service_account.app_config.email}"
+}
+
+resource "google_project_iam_member" "app_pubsub_binding" {
+  project = "${var.google_project}"
+  role    = "roles/pubsub.editor"
+  member  = "serviceAccount:${google_service_account.app_config.email}"
+}
+
 # Grant service account access to container registry
 resource "google_storage_bucket_iam_member" "app_config" {
   bucket = "${var.gcr_bucket_name}"
