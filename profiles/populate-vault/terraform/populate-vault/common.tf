@@ -25,5 +25,5 @@ resource "vault_generic_secret" "common_ssl_key" {
 
 resource "vault_generic_secret" "oauth_token_refresh_credential" {
   path = "${var.vault_path_prefix}/common/refresh-token-oauth-credential.json"
-  data_json = "${var.common_ssl_key}"
+  data_json = "${var.oauth_refresh_token_credential}"
 }

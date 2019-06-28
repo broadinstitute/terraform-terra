@@ -53,7 +53,7 @@
   "dns": {
     "default": {
       "name": "broad-dsde-perf",
-      "zone": "broad-wb-rluckom.broadinstitute.org"
+      "zone": "dsde-perf.broadinstitute.org"
     }
   },
   "terraform_state": {
