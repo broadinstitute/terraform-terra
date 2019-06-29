@@ -1,12 +1,23 @@
 provider vault {}
 
-resource "vault_generic_secret" "database-credentials" {
+resource "vault_generic_secret" "app-database-credentials" {
   path = "${var.vault_path_prefix}/${var.service}/secrets/mysql/app_sql_user"
 
   data_json = <<EOT
 {
   "username": "${var.cloudsql_app_username}",
-  "password": "${var.cloudsql_app_password}"
+  "password": "${random_id.user-password.hex}"
+}
+EOT
+}
+
+resource "vault_generic_secret" "root-database-credentials" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/mysql/app_sql_user"
+
+  data_json = <<EOT
+{
+  "username": "root",
+  "password": "${random_id.root-password.hex}"
 }
 EOT
 }
