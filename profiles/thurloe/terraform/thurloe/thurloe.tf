@@ -12,7 +12,7 @@ resource "random_id" "root-password" {
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=rl-add-mysql-instance-out"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.1.1"
 
   providers {
     google.target =  "google"

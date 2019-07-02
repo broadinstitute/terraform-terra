@@ -12,7 +12,7 @@ EOT
 }
 
 resource "vault_generic_secret" "root-database-credentials" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/mysql/app_sql_user"
+  path = "${var.vault_path_prefix}/${var.service}/secrets/mysql/root_sql_user"
 
   data_json = <<EOT
 {
