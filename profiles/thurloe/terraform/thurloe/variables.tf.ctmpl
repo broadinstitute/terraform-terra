@@ -245,16 +245,6 @@ variable "cloudsql_app_username" {
   description = "cloudsql database user name for thurloe application"
 }
 
-variable "cloudsql_app_password" {
-  default = ""
-  description = "cloudsql database user password for thurloe application"
-}
-
-variable "cloudsql_root_password" {
-  default = ""
-  description = "cloudsql database root password for thurloe application"
-}
-
 variable "dns_ttl" {
    default = "300"
 }
