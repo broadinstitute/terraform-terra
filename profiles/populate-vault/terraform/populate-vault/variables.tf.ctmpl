@@ -29,3 +29,45 @@ variable "common_secrets_json" {
 {{with secret "secret/dsde/firecloud/perf/common/secrets"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
+
+variable "thurloe_keys_json" {
+  description = "secrets from secret/dsde/firecloud/perf/thurloe/secrets/keys"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/thurloe/secrets/keys"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "tcell_app_id" {
+  description = "secrets from secret/dsde/firecloud/perf/common/tcell_app_id"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/tcell_app_id"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "tcell_api_key" {
+  description = "secrets from secret/dsde/firecloud/perf/common/tcell_api_key"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/tcell_api_key"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "common_ssl_crt" {
+  description = "secrets from secret/dsde/firecloud/perf/common/server.crt"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/server.crt"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "common_ssl_key" {
+  description = "secrets from secret/dsde/firecloud/perf/common/server.key"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/server.key"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "oauth_refresh_token_credential" {
+  description = "secrets from secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}

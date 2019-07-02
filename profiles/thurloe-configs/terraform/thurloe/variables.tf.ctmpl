@@ -75,7 +75,7 @@ variable "firecloud_develop_git_branch" {
 
 variable "host_tag" {
   description = "Not sure if this is used"
-  default = "{{if env "HOST_TAG"}}{{env "HOST_TAG"}}{{else}}{{end}}"
+  default = "{{if env "HOST_TAG"}}{{env "HOST_TAG"}}{{else}}{{env "SERVICE"}}-{{env "OWNER"}}{{end}}"
 }
 
 variable "service_git_sha_12_char" {
@@ -115,12 +115,12 @@ variable "google_apps_subdomain" {
 
 variable "gcs_name_prefix" {
   description = "to use in config rendering"
-  default = "{{if env "GCS_NAME_PREFIX"}}{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE_NAMME"}}{{end}}"
+  default = "{{if env "GCS_NAME_PREFIX"}}{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE"}}{{end}}"
 }
 
 variable "config_dns_domain" {
   description = "to use in config rendering"
-  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_DOMAIN"}}{{end}}"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_ZONE"}}{{end}}"
 }
 
 variable "ldap_base_domain" {
