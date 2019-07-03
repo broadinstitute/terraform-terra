@@ -37,7 +37,7 @@ resource "vault_generic_secret" "hostname" {
 
   data_json = <<EOT
 {
-  "name": "${substr(google_dns_record_set.app-dns-new.name, 0, length(google_dns_record_set.app-dns-new.name) - 1)}"
+  "name": "${module.load-balanced-instances.service_hostname}"
 }
 EOT
 }
