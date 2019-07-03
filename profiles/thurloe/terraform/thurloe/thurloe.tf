@@ -36,7 +36,7 @@ resource "google_project_iam_member" "app-sa-roles" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=rl-load-balanced-instances"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.2"
   providers {
     google.instances =  "google"
     google.dns =  "google.dns"
