@@ -53,8 +53,8 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-perf2",
-      "zone": "broad-wb-perf2.broadinstitute.org"
+      "name": "dsde-perf-broad",
+      "zone": "dsde-perf.broadinstitute.org"
     }
   },
   "terraform_state": {

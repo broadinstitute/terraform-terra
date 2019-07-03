@@ -53,8 +53,8 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-malkov",
-      "zone": "broad-wb-malkov.broadinstitute.org"
+      "name": "dsde-perf-broad",
+      "zone": "dsde-perf.broadinstitute.org"
     }
   },
   "terraform_state": {

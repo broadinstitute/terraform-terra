@@ -28,6 +28,13 @@ module "cloudsql" {
   }
 }
 
+resource "google_project_iam_member" "app-sa-roles" {
+  count = "${length(var.service_account_iam_roles)}"
+  project = "${var.google_project}"
+  role    = "${element(var.service_account_iam_roles, count.index)}"
+  member  = "serviceAccount:${data.google_service_account.config_reader.email}"
+}
+
 module "load-balanced-instances" {
   source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=rl-load-balanced-instances"
   providers {
@@ -39,7 +46,6 @@ module "load-balanced-instances" {
   owner = "${var.owner}"
   service = "${var.service}"
   dns_project = "${var.dns_project}"
-  dns_region = "${var.dns_region}"
   google_compute_ssl_certificate_black = "${var.google_compute_ssl_certificate_black}"
   google_compute_ssl_certificate_red = "${var.google_compute_ssl_certificate_red}"
   google_network_name = "${var.google_network_name}"
