@@ -11,11 +11,10 @@ module "load-balanced-instances" {
     google.instances =  "google"
     google.dns =  "google.dns"
   }
-  google_project = "${var.google_project}"
-  dns_zone = "${var.dns_zone_name}"
+  instance_project = "${var.google_project}"
+  dns_zone_name = "${var.dns_zone_name}"
   owner = "${var.owner}"
   service = "${var.service}"
-  vault_path_prefix = "${var.vault_path_prefix}"
   dns_project = "${var.dns_project}"
   dns_region = "${var.dns_region}"
   google_compute_ssl_certificate_black = "${var.google_compute_ssl_certificate_black}"
