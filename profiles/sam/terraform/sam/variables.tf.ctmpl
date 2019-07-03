@@ -18,11 +18,21 @@ variable "service" {
 # Dependency Profiles' Vars
 #
 # DNS
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
+}
 variable "google_dns_zone" {
   default = "{{env "OWNER"}}-terra-dns"
 }
 data "google_dns_managed_zone" "terra-env-dns-zone" {
   name = "${var.google_dns_zone}"
+}
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+}
+variable "dns_region" {
+  default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
 }
 # SSL
 variable "google_compute_ssl_certificate_red" {
@@ -94,4 +104,8 @@ variable "storage_bucket_roles" {
 #
 variable "dns_ttl" {
    default = "300"
+}
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The path to this profile's secrets in vault"
 }
