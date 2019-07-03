@@ -52,7 +52,7 @@
   },
   "dns": {
     "default": {
-      "name": "broad-dsde-perf",
+      "name": "dsde-perf-broad",
       "zone": "dsde-perf.broadinstitute.org"
     }
   },
