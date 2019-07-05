@@ -24,7 +24,7 @@
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "gm-perf-139-opendj-config"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
     },
     "sam":{
@@ -36,7 +36,7 @@
       "env": {
         "APP_NAME": "sam",
         "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
         "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
     }
