@@ -36,7 +36,7 @@ resource "google_project_iam_member" "app-sa-roles" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.2"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=rl-lbi-supply-ssl"
   providers {
     google.instances =  "google"
     google.dns =  "google.dns"
@@ -46,6 +46,7 @@ module "load-balanced-instances" {
   owner = "${var.owner}"
   service = "${var.service}"
   dns_project = "${var.dns_project}"
+  ssl_policy_name = "${var.default_ssl_policy}"
   google_compute_ssl_certificate_black = "${var.google_compute_ssl_certificate_black}"
   google_compute_ssl_certificate_red = "${var.google_compute_ssl_certificate_red}"
   google_network_name = "${var.google_network_name}"

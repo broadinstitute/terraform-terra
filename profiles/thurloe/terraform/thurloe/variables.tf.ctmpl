@@ -93,6 +93,15 @@ data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
 }
 
+{{with $vault_path_prefix := (env "VAULT_PATH_PREFIX")}}
+{{with $default_ssl_policy_secret := secret (printf "%s/common/ssl/default_ssl_policy" $vault_path_prefix)}}
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{$default_ssl_policy_secret.Data.name}}"
+}
+{{end}}
+{{end}}
+
 #
 # Thurloe - Common Vars
 #
