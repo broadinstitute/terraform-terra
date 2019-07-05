@@ -78,3 +78,10 @@ variable "billing_sa" {
 {{with secret "secret/dsde/firecloud/perf/common/billing-account.json"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
+
+variable "opendj_keystore" {
+  description = "OpenDJ keystore from secret/dsde/firecloud/perf/opendj/stores"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/opendj/stores"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
