@@ -1,6 +1,6 @@
 provider vault {}
 
-resource "vault_generic_secret" "database-instance-name" {
+resource "vault_generic_secret" "default-ssl-policy-name" {
   path = "${var.vault_path_prefix}/common/ssl/default_ssl_policy"
 
   data_json = <<EOT
