@@ -17,7 +17,6 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "ENVIRONMENT": "dev",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       }
@@ -53,8 +52,8 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-perf2",
-      "zone": "broad-wb-perf2.broadinstitute.org"
+      "name": "dsde-perf-broad",
+      "zone": "dsde-perf.broadinstitute.org"
     }
   },
   "terraform_state": {

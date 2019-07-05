@@ -79,6 +79,16 @@ data "google_compute_network" "terra-env-network" {
 variable "config_reader_service_account" {
   default = "{{env "OWNER"}}-{{env "SERVICE"}}"
 }
+
+variable "service_account_iam_roles" {
+  type = "list"
+
+  default = [
+    "roles/cloudsql.client",
+    "roles/pubsub.editor"
+  ]
+}
+
 data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
 }

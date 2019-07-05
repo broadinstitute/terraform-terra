@@ -17,7 +17,6 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "ENVIRONMENT": "dev",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       }
@@ -25,7 +24,6 @@
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
-        "ENVIRONMENT": "dev",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "gm-perf-139-opendj-config"
       }
     },
@@ -66,8 +64,8 @@
   },
   "dns": {
     "default": {
-      "name": "broad-wb-malkov",
-      "zone": "broad-wb-malkov.broadinstitute.org"
+      "name": "dsde-perf-broad",
+      "zone": "dsde-perf.broadinstitute.org"
     }
   },
   "terraform_state": {
