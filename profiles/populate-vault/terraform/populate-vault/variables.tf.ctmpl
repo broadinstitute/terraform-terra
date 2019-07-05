@@ -71,3 +71,10 @@ variable "oauth_refresh_token_credential" {
 {{with secret "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
+
+variable "billing_sa" {
+  description = "Billing service account from secret/dsde/firecloud/perf/common/billing-account.json"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/billing-account.json"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}

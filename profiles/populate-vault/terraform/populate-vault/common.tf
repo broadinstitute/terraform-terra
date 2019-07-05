@@ -27,3 +27,8 @@ resource "vault_generic_secret" "oauth_token_refresh_credential" {
   path = "${var.vault_path_prefix}/common/refresh-token-oauth-credential.json"
   data_json = "${var.oauth_refresh_token_credential}"
 }
+
+resource "vault_generic_secret" "billing_sa" {
+  path = "${var.vault_path_prefix}/common/billing-account.json"
+  data_json = "${var.billing_sa}"
+}
