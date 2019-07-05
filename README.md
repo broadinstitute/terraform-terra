@@ -62,6 +62,10 @@ By default, different profiles should fit together. If there is a network
 profile, all the profiles that require a network should default to using the
 network it creates. Each profile should have well-defined requirements and outputs.
 
+## Contributing
+
+See [contributing.md](./contributing.md)
+
 ## Profiles included in this repo
 
 ### `dns`
