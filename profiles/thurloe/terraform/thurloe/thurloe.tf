@@ -1,7 +1,3 @@
-data "google_dns_managed_zone" "terra-env-dns-zone" {
-  name = "${var.old_dns_zone}"
-}
-
 resource "random_id" "user-password" {
   byte_length   = 16
 }
