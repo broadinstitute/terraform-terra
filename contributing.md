@@ -33,7 +33,8 @@ If you are new to terraform, you can expect that a) things will sometimes go wro
 and b) they will tend to be easily recoverable. This structure is designed to
 facilitate learning infrastructure by experimentation while minimizing the
 cost of mistakes. To get help, ask in Slack with a description of your goal
-and current challenges.
+and current challenges. Also, see the [dsp-k8s-deploy docs](https://github.com/broadinstitute/dsp-k8s-deploy)
+for an overview of the relevant patterns and how-tos for some common use cases.
 
 ### Before PR
 
