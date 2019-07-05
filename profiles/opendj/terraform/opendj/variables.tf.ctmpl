@@ -19,7 +19,7 @@ variable "service" {
 }
 variable "vault_path_prefix" {
   default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The path to this profile's secrets in vault"
+  description = "The prefix path at which to store vault values"
 }
 
 

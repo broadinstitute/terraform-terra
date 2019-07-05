@@ -1,11 +1,3 @@
-resource "random_id" "dirmanagerpw" {
-  byte_length   = 16
-}
-
-resource "random_id" "keystorepin" {
-  byte_length   = 16
-}
-
 # Docker instance(s)
 module "instances" {
   source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance-data-disk?ref=docker-instance-data-disk-0.1.1"

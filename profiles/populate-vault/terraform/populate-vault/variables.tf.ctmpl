@@ -79,9 +79,23 @@ variable "billing_sa" {
 EOT
 }
 
+variable "opendj_secrets" {
+  description = "OpenDJ secrets from secret/dsde/firecloud/perf/opendj/secrets"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/opendj/secrets"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
 variable "opendj_keystore" {
   description = "OpenDJ keystore from secret/dsde/firecloud/perf/opendj/stores"
   default = <<EOT
 {{with secret "secret/dsde/firecloud/perf/opendj/stores"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+variable "sam_conf" {
+  description = "SAM config from secret/dsde/firecloud/perf/sam/sam.conf"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/sam/sam.conf"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
