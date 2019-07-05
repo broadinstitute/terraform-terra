@@ -7,8 +7,3 @@ variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
-
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The google project as specified in the application json"
-}
