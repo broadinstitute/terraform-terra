@@ -35,7 +35,6 @@
     "sam-configs": {
       "env": {
         "APP_NAME": "sam",
-        "ENVIRONMENT": "dev",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
         "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
