@@ -23,6 +23,11 @@ variable "google_zone" {
   description = "The google zone as specified by `GOOGLE_REGION` and the application json"
 }
 
+
+#
+# Common Secrets
+#
+
 variable "common_secrets_json" {
   description = "secrets from secret/dsde/firecloud/common/secrets"
   default = <<EOT
@@ -79,6 +84,17 @@ variable "billing_sa" {
 EOT
 }
 
+variable "proxy_ldap" {
+  description = "Proxy LDAP info from secret/dsde/firecloud/perf/common/proxy-ldap"
+  default = <<EOT
+{{with secret "secret/dsde/firecloud/perf/common/proxy-ldap"}}{{ .Data | toJSONPretty | }}{{end}}
+EOT
+}
+
+#
+# OpenDJ Secrets
+#
+
 variable "opendj_secrets" {
   description = "OpenDJ secrets from secret/dsde/firecloud/perf/opendj/secrets"
   default = <<EOT
@@ -92,6 +108,10 @@ variable "opendj_keystore" {
 {{with secret "secret/dsde/firecloud/perf/opendj/stores"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }
+
+#
+# SAM Secrets
+#
 
 variable "sam_conf" {
   description = "SAM config from secret/dsde/firecloud/perf/sam/sam.conf"

@@ -32,3 +32,8 @@ resource "vault_generic_secret" "billing_sa" {
   path = "${var.vault_path_prefix}/common/billing-account.json"
   data_json = "${var.billing_sa}"
 }
+
+resource "vault_generic_secret" "proxy_ldap" {
+  path = "${var.vault_path_prefix}/common/proxy-ldap"
+  data_json = "${var.proxy_ldap}"
+}
