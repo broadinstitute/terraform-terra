@@ -6,7 +6,7 @@ provider "google" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.2"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.3"
   providers {
     google.instances =  "google"
     google.dns =  "google.dns"
