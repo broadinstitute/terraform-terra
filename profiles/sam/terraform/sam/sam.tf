@@ -1,10 +1,3 @@
-provider "google" {
-  alias = "dns"
-  project     = "${var.dns_project}"
-  region      = "${var.dns_region}"
-  credentials = "${file("dns_sa.json")}"
-}
-
 module "load-balanced-instances" {
   source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.3"
   providers {

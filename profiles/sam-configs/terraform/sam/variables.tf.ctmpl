@@ -121,7 +121,7 @@ variable "gcs_name_prefix" {
 
 variable "config_dns_domain" {
   description = "to use in config rendering"
-  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_DOMAIN"}}{{end}}"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_ZONE"}}{{end}}"
 }
 
 variable "ldap_base_domain" {

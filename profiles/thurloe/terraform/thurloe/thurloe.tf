@@ -36,7 +36,7 @@ resource "google_project_iam_member" "app-sa-roles" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.2"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.3"
   providers {
     google.instances =  "google"
     google.dns =  "google.dns"
@@ -54,4 +54,5 @@ module "load-balanced-instances" {
   instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
   storage_bucket_roles = "${var.storage_bucket_roles}"
+  ansible_branch = "perf-146-sam-opendj"
 }
