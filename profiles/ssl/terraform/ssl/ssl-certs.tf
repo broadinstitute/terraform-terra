@@ -23,3 +23,9 @@ resource "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-bl
   }
   depends_on = ["module.enable-services"]
 }
+
+resource "google_compute_ssl_policy" "default-ssl-policy" {
+  name            = "${var.owner}-default-lb-ssl-policy"
+  profile         = "MODERN"
+  min_tls_version = "TLS_1_2"
+}

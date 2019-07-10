@@ -25,9 +25,6 @@ variable "dns_zone_name" {
 variable "google_dns_zone" {
   default = "{{env "OWNER"}}-terra-dns"
 }
-data "google_dns_managed_zone" "terra-env-dns-zone" {
-  name = "${var.google_dns_zone}"
-}
 variable "dns_project" {
   default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
 }
