@@ -7,6 +7,15 @@ and [cleaening up your environment](./quickstarts/cleaning-up-an-environment.md)
 
 For an introduction to deploying profiles, see [Working with profiles](https://github.com/broadinstitute/dsp-k8s-deploy/blob/master/using-existing-profiles-quickstart.md#working-with-profiles) 
 
+### Deploying a profile
+
+There should be a JSON file that goes with the main Google project you're going
+to deploy into. Deploying a profile into that google project means running:
+
+```
+./dsp-k8s-deploy/application-deploy.sh -j <json file name> -p <profile name>
+```
+
 ### Deploy the shared profiles
 
 Before you can deploy your service(s), you will need to deploy the shared
@@ -23,7 +32,7 @@ These are the only shared profiles you should need for any service so far.
 
 For each service you want to deploy, there will likely be three profiles:
 
-1. `<service>-sa`: The service account and iam requirements. Deploy this first.
+1. `<service>-sa`: The service account and iam requirements. Deploy this first. You may need to use the `-a` flag in the deploy script to use your personal application default credentials. 
 2. `<service>`: The non-IAM resources. Deploy this second.
 3. `<service>-configs`: The configuration files that tell the service how to use the resources in its environment. Deploy this last.
 
