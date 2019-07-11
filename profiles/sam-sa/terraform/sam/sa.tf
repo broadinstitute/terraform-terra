@@ -29,16 +29,9 @@ resource "google_project_iam_member" "firestore" {
 }
 
 # Admin SDK service accounts
-resource "google_service_account" "sam_sa_0" {
-  account_id   = "${var.owner}-${var.service}-0"
-  project      = "${var.google_project}"
-}
-resource "google_service_account" "sam_sa_1" {
-  account_id   = "${var.owner}-${var.service}-1"
-  project      = "${var.google_project}"
-}
-resource "google_service_account" "sam_sa_2" {
-  account_id   = "${var.owner}-${var.service}-2"
+resource "google_service_account" "directory_sa_group" {
+  count        = "${var.num_directory_sas}"
+  account_id   = "${var.owner}-${var.service}-directory-sa-${count.index}"
   project      = "${var.google_project}"
 }
 
@@ -57,16 +50,9 @@ resource "google_service_account_key" "app_firestore_account_key" {
   service_account_id = "${google_service_account.firestore.name}"
 }
 
-resource "google_service_account_key" "sam_sa_0_key" {
-  service_account_id = "${google_service_account.firestore.name}"
-}
-
-resource "google_service_account_key" "sam_sa_1_key" {
-  service_account_id = "${google_service_account.firestore.name}"
-}
-
-resource "google_service_account_key" "sam_sa_2_key" {
-  service_account_id = "${google_service_account.firestore.name}"
+resource "google_service_account_key" "directory_sa_keys" {
+  count        = "${var.num_directory_sas}"
+  service_account_id = "${element(google_service_account.directory_sa_group.*.name, count.index)}"
 }
 
 provider "vault" {}
@@ -81,17 +67,8 @@ resource "vault_generic_secret" "app_firestore_account_key" {
   data_json = "${base64decode(google_service_account_key.app_firestore_account_key.private_key)}"
 }
 
-resource "vault_generic_secret" "sam_sa_0_key" {
-  path = "${var.vault_path_prefix}/${var.service}/service_accounts/service_account_0"
-  data_json = "${base64decode(google_service_account_key.sam_sa_0_key.private_key)}"
-}
-
-resource "vault_generic_secret" "sam_sa_1_key" {
-  path = "${var.vault_path_prefix}/${var.service}/service_accounts/service_account_1"
-  data_json = "${base64decode(google_service_account_key.sam_sa_1_key.private_key)}"
-}
-
-resource "vault_generic_secret" "sam_sa_2_key" {
-  path = "${var.vault_path_prefix}/${var.service}/service_accounts/service_account_2"
-  data_json = "${base64decode(google_service_account_key.sam_sa_2_key.private_key)}"
+resource "vault_generic_secret" "directory_sa_keys" {
+  count = "${var.num_directory_sas}"
+  path = "${var.vault_path_prefix}/${var.service}/service_accounts/service_account_${count.index}"
+  data_json = "${base64decode(element(google_service_account_key.directory_sa_keys.*.private_key, count.index))}"
 }

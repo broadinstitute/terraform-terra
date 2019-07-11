@@ -18,6 +18,10 @@ variable "vault_path_prefix" {
   description = "The prefix path at which to store vault values"
 }
 
+variable "num_directory_sas" {
+  default = "{{if env "NUM_DIRECTORY_SAS"}}{{env "NUM_DIRECTORY_SAS"}}{{else}}3{{end}}"
+}
+
 #
 # GCR Bucket
 #
