@@ -93,6 +93,11 @@ data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
 }
 
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "THURLOE_LB_SSL_POLICY_NAME" | parseBool}}{{ env "THURLOE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
+
 #
 # Thurloe - Common Vars
 #

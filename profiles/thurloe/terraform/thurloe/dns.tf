@@ -7,7 +7,7 @@ provider "google" {
 
 data "google_dns_managed_zone" "dns-zone" {
   provider = "google.dns"
-  name = "dsde-perf-broad"
+  name = "${var.dns_zone_name}"
 }
 
 # Cloud SQL dns
