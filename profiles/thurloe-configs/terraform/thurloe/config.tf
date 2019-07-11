@@ -15,6 +15,7 @@ resource "null_resource" "config" {
   provisioner "local-exec" {
     command = "ruby /workbench/render_configs.rb"
     environment = {
+      CONSUL_LOG_LEVEL = "${var.consul_log_level}"
       INSTANCES = "${jsonencode(data.google_compute_instance_group.service-instances.instances)}"
       CONFIG_BUCKET = "${var.config_bucket_name}"
       VAULT_TOKEN = "${vault_token.render_token.client_token}"

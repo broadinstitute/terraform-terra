@@ -1,7 +1,7 @@
 {
   "name": "terra",
   "owner": "broad-wb-perf2",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_5",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -19,7 +19,8 @@
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
-      }
+      },
+      "consul_template": {"log_level": "debug"}
     },
     "opendj-configs": {
       "env": {
