@@ -11,4 +11,11 @@ provider "google" {
     region = "${var.intermediate_dns_zone_region}"
 }
 
+provider "google" {
+    alias = "intermediate-dns-zone-delegation"
+    credentials = "${file("intermediate_dns_zone_delegation_svc.json")}"
+    project = "${var.intermediate_dns_zone_delegation_google_project}"
+    region = "${var.intermediate_dns_zone_delegation_region}"
+}
+
 provider "vault" {}
