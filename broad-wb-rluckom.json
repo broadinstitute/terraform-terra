@@ -1,7 +1,7 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_5",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:48229e65030",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
