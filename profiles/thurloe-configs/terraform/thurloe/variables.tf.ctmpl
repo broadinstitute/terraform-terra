@@ -132,3 +132,7 @@ variable "bucket_tag" {
   description = "to use in config rendering"
   default = "{{if env "BUCKET_TAG"}}{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
 }
+
+variable "consul_log_level" {
+  default = "{{if env "LOG_LEVEL"}}{{env "LOG_LEVEL"}}{{else}}err{{end}}"
+}

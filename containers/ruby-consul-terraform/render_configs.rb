@@ -88,6 +88,7 @@ if __FILE__ == $0
   # container and override the `render_ctmpl` function with one that uses
   # consul-template locally.
   def render_ctmpl(file_name, output_file_name, tmp_dir=nil)
+    consul_log_level = ENV.fetch("CONSUL_LOG_LEVEL", "err")
     if tmp_dir.nil?
       tmp_dir = (Dir.pwd.split("/") - $base_dir.split("/")) * "/"
     end
@@ -118,10 +119,14 @@ if __FILE__ == $0
       cmd_env, 
       "consul-template", 
       "-config=#{$vault_config_path}", 
+      "-log-level=#{consul_log_level}",
+      "-vault-retry-attempts=3",
       "-template=/data/configs/#{$instance_name}/#{tmp_dir}/#{file_name}:/data/configs/#{$instance_name}/#{tmp_dir}/#{output_file_name}",
       "-once"
     ) { |stdin, stdout, stderr, wait_thread|
     if wait_thread.value.success?
+      puts stdout.read
+      puts stderr.read
       puts "#{file_name} > #{output_file_name}"
       File.delete(file_name)
     else

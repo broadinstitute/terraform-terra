@@ -1,7 +1,7 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
+  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:48229e65030",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -11,7 +11,8 @@
     },
     "vault": {
       "policy": "dsde-write"
-    }
+    },
+    "consul_template": {"log_level": "debug"}
   },
   "profile_vars": {
     "thurloe-configs": {
