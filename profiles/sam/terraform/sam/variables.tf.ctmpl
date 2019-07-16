@@ -42,6 +42,10 @@ data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-red" {
 data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black" {
   name = "${var.google_compute_ssl_certificate_black}"
 }
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "THURLOE_LB_SSL_POLICY_NAME" | parseBool}}{{ env "THURLOE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
 # Network
 variable "google_network_name" {
   default = "{{env "OWNER"}}-terra-network"

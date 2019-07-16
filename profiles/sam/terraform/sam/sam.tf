@@ -9,6 +9,7 @@ module "load-balanced-instances" {
   owner = "${var.owner}"
   service = "${var.service}"
   dns_project = "${var.dns_project}"
+  ssl_policy_name = "${var.default_ssl_policy}"
   google_compute_ssl_certificate_black = "${var.google_compute_ssl_certificate_black}"
   google_compute_ssl_certificate_red = "${var.google_compute_ssl_certificate_red}"
   google_network_name = "${var.google_network_name}"
