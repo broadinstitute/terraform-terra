@@ -1,0 +1,7 @@
+FROM alpine
+
+RUN apk update && \
+    apk add curl jq build-base python-dev py-pip libffi-dev openssl-dev bash ca-certificates && \
+    pip install pyjwt cryptography
+
+COPY ./google_token.sh /scripts/google_token.sh

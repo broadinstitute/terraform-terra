@@ -1,7 +1,6 @@
 {
   "name": "terra",
   "owner": "gmalkov",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -11,6 +10,23 @@
     },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-wb-malkov",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
     }
   },
   "profile_vars": {
@@ -54,10 +70,6 @@
     "default": {
       "name": "broad-wb-malkov",
       "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
-    },
-    "state_bucket": {
-      "name": "broad-dsp-techops",
-      "provider_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"
     }
   },
   "regions": {
