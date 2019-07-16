@@ -131,6 +131,6 @@ if __FILE__ == $0
     end
     }
   end
-  activate_sa("/data/provider_sa.json")
+  activate_sa("/data/#{ENV.fetch("GSUTIL_SYNC_SA_FILENAME", "default.sa.json")}")
   instances.map {|i| render_instance_configs(i, ENV.fetch("CONFIG_BUCKET")) }
 end

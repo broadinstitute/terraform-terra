@@ -16,6 +16,12 @@ data "google_compute_network" "terra-env-network" {
   name = "${var.google_network_name}"
 }
 
+// This value represents the internal IP space assigned
+// for networks that use auto create subnets, which we do
+variable "internal_range" {
+  default = "10.128.0.0/9"
+}
+
 variable "broad_range_cidrs" {
   type    = "list"
   default = [ "69.173.64.0/19", 

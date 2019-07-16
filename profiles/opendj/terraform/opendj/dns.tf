@@ -38,9 +38,9 @@ resource "google_dns_record_set" "dns-cname-priv" {
   provider     = "google.dns"
   managed_zone = "${data.google_dns_managed_zone.dns-zone.name}"
   name         = "${var.owner}-${var.service}-priv.${data.google_dns_managed_zone.dns-zone.dns_name}"
-  type         = "CNAME"
+  type         = "A"
   ttl          = "${var.dns_ttl}"
-  rrdatas      = [ "${var.owner}-${var.service}-01.${data.google_dns_managed_zone.dns-zone.dns_name}" ]
+  rrdatas      = [ "${module.instances.instance_private_ips[0]}" ]
   depends_on   = [
     "module.instances",
     "data.google_dns_managed_zone.dns-zone"

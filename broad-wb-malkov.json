@@ -12,7 +12,7 @@
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_1",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_7",
       "providers": {
         "google": {
           "default": {
