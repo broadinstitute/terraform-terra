@@ -35,6 +35,19 @@
         "policy": "vault-admins"
       }
     },
+    "gsuite": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "intermediate-domain-delegator": {
+              "project": "broad-dsp-techops-dev",
+              "vault_sa_path": "secret/devops/terraform/dev/dsp-techops/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
