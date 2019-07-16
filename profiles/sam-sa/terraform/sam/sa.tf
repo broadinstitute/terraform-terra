@@ -16,6 +16,12 @@ resource "google_project_iam_member" "app_pubsub_binding" {
   member  = "serviceAccount:${google_service_account.app.email}"
 }
 
+resource "google_project_iam_member" "app_owner" {
+  project = "${var.google_project}"
+  role    = "roles/owner"
+  member  = "serviceAccount:${google_service_account.app.email}"
+}
+
 # Application Firestore service account
 resource "google_service_account" "firestore" {
   account_id   = "${var.owner}-${var.service}-firestore"
@@ -33,6 +39,7 @@ resource "google_service_account" "directory_sa_group" {
   count        = "${var.num_directory_sas}"
   account_id   = "${var.owner}-${var.service}-directory-sa-${count.index}"
   project      = "${var.google_project}"
+  display_name = "${var.owner}-${var.service}-directory-sa-${count.index}"
 }
 
 # Grant service account access to container registry
