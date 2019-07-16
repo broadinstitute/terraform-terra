@@ -8,6 +8,7 @@ module "enable-services" {
   services    = [
     "stackdriver.googleapis.com",
     "logging.googleapis.com",
-    "datastore.googleapis.com"
+    "datastore.googleapis.com",
+    "iam.googleapis.com"
   ]
 }
