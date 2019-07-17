@@ -1,19 +1,53 @@
 {
   "name": "terra",
   "owner": "broad-wb-perf2",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:92b53bdf2d82e5",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
   "global_vars": {
+    "vault": {
+      "policy": "dsde-write"
+    },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
     },
-    "vault": {
-      "policy": "dsde-write"
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_7",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-wb-malkov",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
     }
   },
   "profile_vars": {
+    "gsuite-intermediate-domain": {
+      "vault": {
+        "policy": "vault-admins"
+      }
+    },
+    "gsuite": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "intermediate-domain-delegator": {
+              "project": "broad-dsp-techops-dev",
+              "vault_sa_path": "secret/devops/terraform/dev/dsp-techops/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
@@ -24,8 +58,7 @@
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
-        "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "gm-perf-139-opendj-config"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
     },
     "sam":{
@@ -50,10 +83,6 @@
     "default": {
       "name": "broad-wb-perf2",
       "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
-    },
-    "state_bucket": {
-      "name": "broad-dsp-techops",
-      "provider_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"
     }
   },
   "regions": {

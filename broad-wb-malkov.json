@@ -6,7 +6,7 @@
   "stability": "volatile",
   "global_vars": {
     "vault": {
-      "policy":"dsde-write"
+      "policy": "dsde-write"
     },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
