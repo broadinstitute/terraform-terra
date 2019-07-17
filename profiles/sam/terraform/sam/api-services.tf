@@ -9,6 +9,9 @@ module "enable-services" {
     "stackdriver.googleapis.com",
     "logging.googleapis.com",
     "datastore.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "groupssettings.googleapis.com",
+    "admin.googleapis.com",
+    "cloudkms.googleapis.com"
   ]
 }
