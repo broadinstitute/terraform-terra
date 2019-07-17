@@ -2,6 +2,7 @@
 resource "google_service_account" "app" {
   account_id   = "${var.owner}-${var.service}"
   project      = "${var.google_project}"
+  display_name = "${var.owner}-${var.service}"
 }
 
 resource "google_project_iam_member" "app" {
@@ -37,9 +38,9 @@ resource "google_project_iam_member" "firestore" {
 # Admin SDK service accounts
 resource "google_service_account" "directory_sa_group" {
   count        = "${var.num_directory_sas}"
-  account_id   = "${var.owner}-${var.service}-directory-sa-${count.index}"
+  account_id   = "${var.owner}-${var.service}-dir-sa-${count.index}"
   project      = "${var.google_project}"
-  display_name = "${var.owner}-${var.service}-directory-sa-${count.index}"
+  display_name = "${var.owner}-${var.service}-dir-sa-${count.index}"
 }
 
 # Grant service account access to container registry
