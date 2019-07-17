@@ -25,8 +25,7 @@ profiles that they need. The recommended order for deploying the shared profiles
 2. `network`
 3. `firewalls`
 4. `ssl`
-5. `gsuite-intermediate-domain`
-6. `gsuite`
+5. `gsuite`
 
 These are the only shared profiles you should need for any service so far.
 
