@@ -23,4 +23,3 @@ WORKDIR /data
 RUN mkdir -p /workbench
 
 COPY ./render_configs.rb /workbench/render_configs.rb
-COPY ./google_token.sh /workbench/google_token.sh
