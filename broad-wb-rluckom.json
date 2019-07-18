@@ -5,6 +5,12 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "environment": "broad-wb-rluckom",
+  "project": "broad-wb-rluckom",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom"
@@ -12,7 +18,23 @@
     "vault": {
       "policy": "dsde-write"
     },
-    "consul_template": {"log_level": "debug"}
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7164f4d23b21502",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-wb-rluckom",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
   },
   "profile_vars": {
     "thurloe-configs": {
@@ -40,39 +62,6 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
         "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
-    }
-  },
-  "environments": {
-    "default": {
-      "name": "broad-wb-rluckom"
-    }
-  },
-  "projects": {
-    "default": {
-      "name": "broad-wb-rluckom",
-      "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
-    },
-    "state_bucket": {
-      "name": "broad-dsp-techops",
-      "provider_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"
-    }
-  },
-  "regions": {
-    "default": {
-      "name": "us-central1",
-      "zone_name": "us-central1-a"
-    }
-  },
-  "dns": {
-    "default": {
-      "name": "dsde-perf-broad",
-      "zone": "dsde-perf.broadinstitute.org"
-    }
-  },
-  "terraform_state": {
-    "default": {
-      "state_path_prefix":"workbench",
-      "state_bucket": "broad-dsp-terraform-state"
     }
   },
   "clusters": {

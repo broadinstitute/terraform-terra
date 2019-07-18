@@ -4,6 +4,12 @@
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "environment": "broad-wb-malkov",
+  "project": "broad-wb-malkov",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "vault": {
       "policy": "dsde-write"
@@ -12,7 +18,7 @@
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_7",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7164f4d23b21502",
       "providers": {
         "google": {
           "default": {
@@ -72,35 +78,6 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
         "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
-    }
-  },
-  "environments": {
-    "default": {
-      "name": "broad-wb-malkov"
-    }
-  },
-  "projects": {
-    "default": {
-      "name": "broad-wb-malkov",
-      "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
-    }
-  },
-  "regions": {
-    "default": {
-      "name": "us-central1",
-      "zone_name": "us-central1-a"
-    }
-  },
-  "dns": {
-    "default": {
-      "name": "dsde-perf-broad",
-      "zone": "dsde-perf.broadinstitute.org"
-    }
-  },
-  "terraform_state": {
-    "default": {
-      "state_path_prefix":"workbench",
-      "state_bucket": "broad-dsp-terraform-state"
     }
   },
   "clusters": {
