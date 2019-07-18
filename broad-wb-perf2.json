@@ -17,16 +17,11 @@
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
     },
-<<<<<<< Updated upstream
-    "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl_7",
-=======
     "vault": {
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7164f4d23b21502",
->>>>>>> Stashed changes
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:bbda8365ceccbc1",
       "providers": {
         "google": {
           "default": {
@@ -89,38 +84,6 @@
       }
     }
   },
-<<<<<<< Updated upstream
-  "environments": {
-    "default": {
-      "name": "broad-wb-perf2"
-    }
-  },
-  "projects": {
-    "default": {
-      "name": "broad-wb-perf2",
-      "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
-    }
-  },
-  "regions": {
-    "default": {
-      "name": "us-central1",
-      "zone_name": "us-central1-a"
-    }
-  },
-  "dns": {
-    "default": {
-      "name": "dsde-perf-broad",
-      "zone": "dsde-perf.broadinstitute.org"
-    }
-  },
-  "terraform_state": {
-    "default": {
-      "state_path_prefix":"workbench",
-      "state_bucket": "broad-dsp-terraform-state"
-    }
-  },
-=======
->>>>>>> Stashed changes
   "clusters": {
     "default": {
       "name": "firecloud-k8s"

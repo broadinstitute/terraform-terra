@@ -1,7 +1,6 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:48229e65030",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -19,7 +18,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7164f4d23b21502",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:bbda8365ceccbc1",
       "providers": {
         "google": {
           "default": {
