@@ -56,6 +56,19 @@
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       }
     },
+    "opendj": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "dns": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
