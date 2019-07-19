@@ -22,6 +22,7 @@
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:bbda8365ceccbc1",
+      "log_level": "ERROR",
       "providers": {
         "google": {
           "default": {
@@ -41,7 +42,23 @@
   "profile_vars": {
     "gsuite-intermediate-domain": {
       "vault": {
-        "policy": "vault-admins"
+        "policy": "dsde-write"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "intermediate-dns-zone-delegation": {
+              "project": "broad-dsde-prod",
+              "vault_sa_path": "secret/suitable/firecloud/prod/credentials",
+              "region": "us-central1"
+            },
+            "intermediate-dns-zone": {
+              "project": "broad-dsp-techops-dev",
+              "vault_sa_path": "secret/devops/terraform/dev/dsp-techops/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
       }
     },
     "gsuite": {

@@ -1,11 +1,3 @@
-variable "gsuite_admin_google_project" {
-  default = "{{if (env "GSUITE_ADMIN_GOOGLE_PROJECT")}}{{env "GSUITE_ADMIN_GOOGLE_PROJECT"}}{{else}}broad-dsp-techops{{end}}"
-}
-
-variable "gsuite_admin_region" {
-  default = "{{if (env "GSUITE_ADMIN_REGION")}}{{env "GSUITE_ADMIN_REGION"}}{{else}}us-central1{{end}}"
-}
-
 variable "intermediate_dns_zone_google_project" {
   default = "{{if (env "INTERMEDIATE_DNS_ZONE_GOOGLE_PROJECT")}}{{env "INTERMEDIATE_DNS_ZONE_GOOGLE_PROJECT"}}{{else}}broad-dsp-techops-dev{{end}}"
 }
@@ -20,14 +12,6 @@ variable "intermediate_dns_zone_delegation_google_project" {
 
 variable "intermediate_dns_zone_delegation_region" {
   default = "{{if (env "INTERMEDIATE_DNS_ZONE_DELEGATION_REGION")}}{{env "INTERMEDIATE_DNS_ZONE_DELEGATION_REGION"}}{{else}}us-central1{{end}}"
-}
-
-variable "gsuite_admin_sa_name" {
-  default = "{{if (env "GSUITE_ADMIN_SA_NAME")}}{{env "GSUITE_ADMIN_SA_NAME"}}{{else}}terra-test-gsuite-admin{{end}}"
-}
-
-variable "gsuite_admin_sa_key_vault_path" {
-  default = "{{if (env "GSUITE_ADMIN_SA_KEY_VAULT_PATH")}}{{env "GSUITE_ADMIN_SA_KEY_VAULT_PATH"}}{{else}}secret/dsde/gsuite/test-firecloud-gsuite-admin-credentials{{end}}"
 }
 
 variable "intermediate_dns_zone" {

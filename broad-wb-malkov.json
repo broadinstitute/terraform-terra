@@ -36,11 +36,6 @@
     }
   },
   "profile_vars": {
-    "gsuite-intermediate-domain": {
-      "vault": {
-        "policy": "vault-admins"
-      }
-    },
     "gsuite": {
       "terraform": {
         "providers": {

@@ -1,1 +1,0 @@
-{{with $terraformServiceAccount := secret "secret/devops/terraform/dev/dsp-techops/credentials"}}{{$terraformServiceAccount.Data | toJSONPretty}}{{end}}
