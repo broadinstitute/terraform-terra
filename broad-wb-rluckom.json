@@ -72,13 +72,21 @@
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
-        "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "gm-perf-139-opendj-config"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
     },
     "sam":{
       "env": {
         "SAM_INSTANCE_NUM_HOSTS": "1"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
       }
     },
     "sam-configs": {
