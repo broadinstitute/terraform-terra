@@ -39,6 +39,16 @@
     }
   },
   "profile_vars": {
+    "populate-vault": {
+      "terraform": {
+        "copy_secrets": {
+          "jupyter-cert": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
+            "to_path": "leonardo/jupyter"
+          }
+        }
+      }
+    },
     "gsuite-intermediate-domain": {
       "vault": {
         "policy": "dsde-write"

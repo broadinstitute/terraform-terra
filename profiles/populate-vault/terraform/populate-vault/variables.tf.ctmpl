@@ -3,11 +3,6 @@ variable "environment" {
   description = "The environment specified in the application json"
 }
 
-variable "vault_path_prefix" {
-  default = "{{if (env "VAULT_PATH_PREFIX")}}{{env "VAULT_PATH_PREFIX"}}{{else}}secret/dsde/firecloud/ephemeral/{{env "ENVIRONMENT"}}{{end}}"
-  description = "Path prefix for vault secrets for this environment. MUST NOT end with trailing slash"
-}
-
 variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"

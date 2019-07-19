@@ -20,9 +20,8 @@ module "instance" {
 
 resource "google_dns_record_set" "instance-dns" {
   provider     = "google.dns"
-  count        = "${var.standalone_instance_num_hosts}"
   managed_zone = "${data.google_dns_managed_zone.dns-zone.name}"
-  name         = "${format("${var.owner}-${var.service}-backend.%s",count.index+1,data.google_dns_managed_zone.dns-zone.dns_name)}"
+  name         = "${format("${var.owner}-${var.service}-backend.%s",data.google_dns_managed_zone.dns-zone.dns_name)}"
   type         = "A"
   ttl          = "${var.dns_ttl}"
   rrdatas      = [ "${element(module.instance.instance_public_ips, count.index)}" ]

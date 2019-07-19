@@ -17,6 +17,9 @@
     "vault": {
       "policy": "dsde-write"
     },
+    "consul_template": {
+      "log_level": "err"
+    },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:bbda8365ceccbc1",
       "providers": {
@@ -36,6 +39,16 @@
     }
   },
   "profile_vars": {
+    "populate-vault": {
+      "terraform": {
+        "copy_secrets": {
+          "jupyter-cert": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
+            "to_path": "leonardo/jupyter"
+          }
+        }
+      }
+    },
     "gsuite": {
       "terraform": {
         "providers": {
