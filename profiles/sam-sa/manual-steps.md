@@ -1,5 +1,5 @@
 ## SAM service account deployment manual steps
-The steps below currently cannot be easily automated and must be performed manually affter running this profile
+The steps below currently cannot be easily automated and must be performed manually after running this profile
 
 ### Create the subdomain of `test.firecloud.org`
 1. In the GSuite admin console for `test.firecloud.org`, go to Domains -> Manage Domains -> Add a domain

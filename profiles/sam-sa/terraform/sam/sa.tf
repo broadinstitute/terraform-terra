@@ -6,20 +6,9 @@ resource "google_service_account" "app" {
 }
 
 resource "google_project_iam_member" "app" {
+  count   = "${length(var.app_sa_roles)}"
   project = "${var.google_project}"
-  role    = "roles/compute.viewer"
-  member  = "serviceAccount:${google_service_account.app.email}"
-}
-
-resource "google_project_iam_member" "app_pubsub_binding" {
-  project = "${var.google_project}"
-  role    = "roles/pubsub.editor"
-  member  = "serviceAccount:${google_service_account.app.email}"
-}
-
-resource "google_project_iam_member" "app_owner" {
-  project = "${var.google_project}"
-  role    = "roles/owner"
+  role    = "${element(var.app_sa_roles, count.index)}"
   member  = "serviceAccount:${google_service_account.app.email}"
 }
 
