@@ -1,0 +1,32 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+variable "sam_address" {
+  default = "{{if env "SAM_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "The path to this environment's secrets in vault"
+}
+variable "calhoun_git_commit" {
+{{if env "CALHOUN_GIT_COMMIT"}}
+  default = "{{env "CALHOUN_GIT_COMMIT"}}"
+{{end}}
+}

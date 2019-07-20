@@ -45,6 +45,18 @@
           "jupyter-cert": {
             "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
             "to_path": "leonardo/jupyter"
+          },
+          "whitelist": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/whitelist.json",
+            "to_path": "leonardo/whitelist.json"
+          },
+          "leonardo-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
+            "to_path": "leonardo/secrets"
+          },
+          "leonardo-oauth": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/leonardo-oauth-credential.json",
+            "to_path": "leonardo/leonardo-oauth-credential.json"
           }
         }
       }
@@ -90,6 +102,29 @@
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
       },
       "consul_template": {"log_level": "debug"}
+    },
+    "leonardo-configs": {
+      "env": {
+        "APP_NAME": "leonardo",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-leonardo-configs",
+        "SERVICE_GIT_SHA_12_CHAR": "3fb674f22f47"
+      }
+    },
+    "calhoun": {
+      "env": {
+        "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "app-engine": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
     },
     "opendj": {
       "terraform": {
