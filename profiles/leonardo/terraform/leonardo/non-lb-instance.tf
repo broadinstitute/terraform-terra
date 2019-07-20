@@ -13,6 +13,7 @@ module "instance" {
   instance_labels = {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
+    "ansible_branch" = "rl-add-services",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.standalone_instance_tags}"

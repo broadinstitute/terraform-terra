@@ -11,6 +11,7 @@ module "enable-services" {
     "sql-component.googleapis.com",
     "sqladmin.googleapis.com",
     "pubsub.googleapis.com",
-    "compute.googleapis.com"
+    "compute.googleapis.com",
+    "dataproc.googleapis.com"
   ]
 }

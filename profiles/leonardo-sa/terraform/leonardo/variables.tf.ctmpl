@@ -18,6 +18,15 @@ variable "vault_path_prefix" {
   description = "The prefix path at which to store vault values"
 }
 
+variable "app_sa_roles" {
+  default = [
+    "roles/compute.viewer",
+    "roles/cloudsql.client",
+    "roles/dataproc.viewer",
+    "roles/storage.admin"
+  ]
+}
+
 #
 # Common Vars
 #
