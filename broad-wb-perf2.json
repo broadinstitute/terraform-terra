@@ -21,7 +21,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:bbda8365ceccbc1",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
       "providers": {
         "google": {
           "default": {
@@ -143,6 +143,13 @@
       "env": {
         "APP_NAME": "opendj",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
+      }
+    },
+    "tos": {
+      "env": {
+        "FUNCTION_ENTRYPOINT": "tos",
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
+        "DATASTORE_PROJECT": "broad-dsde-perf"
       }
     },
     "sam":{

@@ -1,0 +1,93 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The path to this profile's secrets in vault"
+}
+
+variable "function_git_refspec" {
+  default = "{{ if env "FUNCTION_GIT_REFSPEC"}}{{ env "FUNCTION_GIT_REFSPEC" }}{{ else }}master{{ end }}"
+}
+
+variable "function_repo_name" {
+  default = "{{ if env "FUNCTION_REPO_NAME"}}{{ env "FUNCTION_REPO_NAME" }}{{ else }}workbench-tos{{ end }}"
+}
+
+variable "function_git_path_prefix" {
+  description = "no initial or trailing slash"
+  default = "{{ if env "FUNCTION_GIT_PATH_PREFIX"}}{{ env "FUNCTION_GIT_PATH_PREFIX" }}{{ else }}broadinstitute{{ end }}"
+}
+
+variable "function_git_hostname" {
+  default = "{{ if env "FUNCTION_GIT_HOSTNAME"}}{{ env "FUNCTION_GIT_HOSTNAME" }}{{ else }}github.com{{ end }}"
+}
+
+variable "function_service_account_name" {
+  default = "{{ if env "FUNCTION_SERVICE_ACCOUNT_NAME"}}{{ env "FUNCTION_SERVICE_ACCOUNT_NAME" }}{{ else }}{{env "OWNER"}}-{{env "SERVICE"}}{{ end }}"
+}
+
+data "google_service_account" "function" {
+  account_id = "${var.function_service_account_name}"
+}
+
+variable "function_deployment_service_account_filename" {
+  default = "{{ if env "FUNCTION_DEPLOYMENT_SERVICE_ACCOUNT_FILENAME"}}{{ env "FUNCTION_DEPLOYMENT_SERVICE_ACCOUNT_FILENAME" }}{{ else }}default.sa.json{{ end }}"
+}
+
+variable "function_env_vars" {
+  type = "map"
+  default = {{ if env "FUNCTION_ENV_VARS"}}{{ env "FUNCTION_ENV_VARS" }}{{ else }}{DATASTORE_PROJECT = "{{env "DATASTORE_PROJECT"}}"}{{ end }}
+}
+
+variable "function_runtime" {
+  default = "{{ if env "FUNCTION_RUNTIME"}}{{ env "FUNCTION_RUNTIME" }}{{ else }}nodejs8{{ end }}"
+}
+
+variable "function_entrypoint" {
+  default = "{{ if env "FUNCTION_ENTRYPOINT"}}{{ env "FUNCTION_ENTRYPOINT" }}{{ else }}main{{ end }}"
+}
+
+variable "function_timeout" {
+  default = "{{ if env "FUNCTION_TIMEOUT"}}{{ env "FUNCTION_TIMEOUT" }}{{ else }}540{{ end }}"
+}
+
+variable "function_archive_bucket_path" {
+  default = "{{ if env "FUNCTION_ARCHIVE_BUCKET_PATH"}}{{ env "FUNCTION_ARCHIVE_BUCKET_PATH" }}{{ else }}{{ end }}"
+}
+
+variable "function_archive_bucket_filename" {
+  default = "{{ if env "FUNCTION_ARCHIVE_BUCKET_FILENAME"}}{{ env "FUNCTION_ARCHIVE_BUCKET_FILENAME" }}{{ else }}{{env "OWNER"}}-{{env "SERVICE"}}.zip{{ end }}"
+}
+
+variable "function_path_in_repo" {
+  default = "{{ if env "FUNCTION_PATH_IN_REPO"}}{{ env "FUNCTION_PATH_IN_REPO" }}{{ else }}function{{ end }}"
+}
+
+variable "function_repo_setup_script" {
+  default = "{{ if env "FUNCTION_REPO_SETUP_SCRIPT"}}{{ env "FUNCTION_REPO_SETUP_SCRIPT" }}{{ else }}{{ end }}"
+}
+
+variable "function_available_memory_mb" {
+  default = "{{ if env "FUNCTION_AVAILABLE_MEMORY_MB"}}{{ env "FUNCTION_AVAILABLE_MEMORY_MB" }}{{ else }}1024{{ end }}"
+}

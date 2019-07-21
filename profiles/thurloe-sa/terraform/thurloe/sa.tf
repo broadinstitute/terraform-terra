@@ -3,21 +3,10 @@ resource "google_service_account" "app_config" {
   project      = "${var.google_project}"
 }
 
-resource "google_project_iam_member" "app_config" {
+resource "google_project_iam_member" "app" {
+  count   = "${length(var.app_sa_roles)}"
   project = "${var.google_project}"
-  role    = "roles/compute.viewer"
-  member  = "serviceAccount:${google_service_account.app_config.email}"
-}
-
-resource "google_project_iam_member" "app_sql_binding" {
-  project = "${var.google_project}"
-  role    = "roles/cloudsql.client"
-  member  = "serviceAccount:${google_service_account.app_config.email}"
-}
-
-resource "google_project_iam_member" "app_pubsub_binding" {
-  project = "${var.google_project}"
-  role    = "roles/pubsub.editor"
+  role    = "${element(var.app_sa_roles, count.index)}"
   member  = "serviceAccount:${google_service_account.app_config.email}"
 }
 
