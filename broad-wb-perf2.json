@@ -57,6 +57,10 @@
           "leonardo-oauth": {
             "from_path": "secret/dsde/firecloud/perf/leonardo/leonardo-oauth-credential.json",
             "to_path": "leonardo/leonardo-oauth-credential.json"
+          },
+          "agora-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/agora/secrets",
+            "to_path": "agora/secrets"
           }
         }
       }
@@ -108,6 +112,26 @@
         "APP_NAME": "leonardo",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-leonardo-configs",
         "SERVICE_GIT_SHA_12_CHAR": "3fb674f22f47"
+      }
+    },
+    "agora-mongo": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "dns": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
+    "agora-configs": {
+      "env": {
+        "APP_NAME": "agora",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-agora-configs",
+        "SERVICE_GIT_SHA_12_CHAR": "cc8b5c1d1887"
       }
     },
     "calhoun": {
