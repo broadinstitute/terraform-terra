@@ -180,6 +180,15 @@
     "sam":{
       "env": {
         "SAM_INSTANCE_NUM_HOSTS": "1"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
       }
     },
     "sam-configs": {
