@@ -105,7 +105,3 @@ variable "storage_bucket_roles" {
 variable "dns_ttl" {
    default = "300"
 }
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The path to this profile's secrets in vault"
-}
