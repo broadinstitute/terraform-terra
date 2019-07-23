@@ -16,3 +16,12 @@ resource "vault_generic_secret" "cromwell_url_replaceme" {
 }
 EOT
 }
+
+resource "vault_generic_secret" "cromiam_url_replaceme" {
+  path = "${var.vault_path_prefix}/cromiam/secrets/hostname"
+  data_json = <<EOT
+{
+  "priv_hostname": "cromiam-priv.not.a.real.domain.org"
+}
+EOT
+}
