@@ -137,6 +137,32 @@
       "terraform": {
       }
     },
+    "cromwell-runner": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "dns": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
+    "cromwell-summarizer": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "dns": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
     "calhoun": {
       "env": {
         "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
