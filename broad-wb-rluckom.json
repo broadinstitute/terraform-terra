@@ -88,7 +88,7 @@
     "leonardo-configs": {
       "env": {
         "APP_NAME": "leonardo",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-leonardo-configs",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
         "SERVICE_GIT_SHA_12_CHAR": "3fb674f22f47"
       }
     },
@@ -172,7 +172,7 @@
     "agora-configs": {
       "env": {
         "APP_NAME": "agora",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "rl-agora-configs",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
         "SERVICE_GIT_SHA_12_CHAR": "cc8b5c1d1887"
       }
     }
