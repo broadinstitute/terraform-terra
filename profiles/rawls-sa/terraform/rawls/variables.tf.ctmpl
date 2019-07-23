@@ -1,0 +1,38 @@
+#
+# Profile Vars
+#
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}
+
+variable "app_sa_roles" {
+  default = [
+    "roles/compute.viewer",
+    "roles/cloudsql.client",
+    "roles/dataproc.viewer",
+    "roles/storage.admin"
+  ]
+}
+
+#
+# Common Vars
+#
+variable "gcr_bucket_project" {
+  default = "broad-dsp-gcr-public"
+}
+variable "gcr_bucket_name" {
+  default = "artifacts.broad-dsp-gcr-public.appspot.com"
+}
