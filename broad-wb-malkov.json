@@ -1,6 +1,6 @@
 {
   "name": "terra",
-  "owner": "gmalkov",
+  "owner": "broad-wb-malkov",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -18,7 +18,7 @@
       "log_level": "debug"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
