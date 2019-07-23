@@ -72,6 +72,11 @@
             "to_path": "common/hostedgraphiteapi",
             "used_by": "rawls"
           },
+          "sentry-api": {
+            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
+            "to_path": "common/sentryapi",
+            "used_by": "rawls"
+          },
           "rawls-oauth-creds": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls-oauth-credential.json",
             "to_path": "rawls/rawls-oauth-credential.json",
