@@ -1,5 +1,3 @@
-provider vault {}
-
 resource "vault_generic_secret" "url" {
   path = "${var.vault_path_prefix}/${var.service}/secrets/hostname"
 

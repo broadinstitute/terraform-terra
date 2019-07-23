@@ -42,25 +42,37 @@
     "populate-vault": {
       "terraform": {
         "copy_secrets": {
-          "jupyter-cert": {
-            "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
-            "to_path": "leonardo/jupyter"
+          "common_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/common/secrets",
+            "to_path": "common/secrets"
           },
-          "whitelist": {
-            "from_path": "secret/dsde/firecloud/perf/leonardo/whitelist.json",
-            "to_path": "leonardo/whitelist.json"
+          "tcell_api_key": {
+            "from_path": "secret/dsde/firecloud/perf/common/tcell_api_key",
+            "to_path": "common/tcell_api_key"
           },
-          "leonardo-secrets": {
-            "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
-            "to_path": "leonardo/secrets"
+          "tcell_app_id":{
+            "from_path": "secret/dsde/firecloud/perf/common/tcell_app_id",
+            "to_path": "common/tcell_app_id"
           },
-          "leonardo-oauth": {
-            "from_path": "secret/dsde/firecloud/perf/leonardo/leonardo-oauth-credential.json",
-            "to_path": "leonardo/leonardo-oauth-credential.json"
+          "common_ssl_crt":{
+            "from_path": "secret/dsde/firecloud/perf/common/server.crt",
+            "to_path": "common/server.crt"
           },
-          "agora-secrets": {
-            "from_path": "secret/dsde/firecloud/perf/agora/secrets",
-            "to_path": "agora/secrets"
+          "common_ssl_key":{
+            "from_path": "secret/dsde/firecloud/perf/common/server.key",
+            "to_path": "common/server.key"
+          },
+          "oauth_token_refresh_credential":{
+            "from_path": "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json",
+            "to_path": "common/refresh-token-oauth-credential.json"
+          },
+          "billing_sa":{
+            "from_path": "secret/dsde/firecloud/perf/common/billing-account.json",
+            "to_path": "common/billing-account.json"
+          },
+          "proxy_ldap":{
+            "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
+            "to_path": "common/proxy-ldap"
           }
         }
       }
@@ -107,11 +119,43 @@
       },
       "consul_template": {"log_level": "debug"}
     },
+    "thurloe": {
+      "terraform": {
+        "copy_secrets": {
+          "secret_keys": {
+            "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
+            "to_path": "thurloe/secrets/keys"
+          }
+        }
+      }
+    },
     "leonardo-configs": {
       "env": {
         "APP_NAME": "leonardo",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
         "SERVICE_GIT_SHA_12_CHAR": "3fb674f22f47"
+      }
+    },
+    "leonardo": {
+      "terraform": {
+        "copy_secrets": {
+          "jupyter-cert": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
+            "to_path": "leonardo/jupyter"
+          },
+          "whitelist": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/whitelist.json",
+            "to_path": "leonardo/whitelist.json"
+          },
+          "leonardo-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
+            "to_path": "leonardo/secrets"
+          },
+          "leonardo-oauth": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/leonardo-oauth-credential.json",
+            "to_path": "leonardo/leonardo-oauth-credential.json"
+          }
+        }
       }
     },
     "agora-mongo": {
@@ -125,13 +169,6 @@
             }
           }
         }
-      }
-    },
-    "agora-configs": {
-      "env": {
-        "APP_NAME": "agora",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "cc8b5c1d1887"
       }
     },
     "calhoun": {
@@ -152,6 +189,16 @@
     },
     "opendj": {
       "terraform": {
+        "copy_secrets": {
+          "opendj_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/opendj/secrets",
+            "to_path": "opendj/secrets"
+          },
+          "opendj_stores": {
+            "from_path": "secret/dsde/firecloud/perf/opendj/stores",
+            "to_path": "opendj/stores"
+          }
+        },
         "providers": {
           "google": {
             "dns": {
@@ -179,6 +226,14 @@
     "sam":{
       "env": {
         "SAM_INSTANCE_NUM_HOSTS": "1"
+      },
+      "terraform": {
+        "copy_secrets": {
+          "sam_conf": {
+            "from_path": "secret/dsde/firecloud/perf/sam/sam.conf",
+            "to_path": "sam/sam.conf"
+          }
+        }
       }
     },
     "sam-configs": {
@@ -186,6 +241,23 @@
         "APP_NAME": "sam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
         "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
+      }
+    },
+    "agora-configs": {
+      "env": {
+        "APP_NAME": "agora",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
+        "SERVICE_GIT_SHA_12_CHAR": "cc8b5c1d1887"
+      }
+    },
+    "agora": {
+      "terraform": {
+        "copy_secrets": {
+          "agora-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/agora/secrets",
+            "to_path": "agora/secrets"
+          }
+        }
       }
     }
   },
