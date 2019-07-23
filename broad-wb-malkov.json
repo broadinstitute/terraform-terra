@@ -14,6 +14,9 @@
     "vault": {
       "policy": "dsde-write"
     },
+    "consul_template": {
+      "log_level": "debug"
+    },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
     },
