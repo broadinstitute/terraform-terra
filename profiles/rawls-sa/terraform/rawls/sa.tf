@@ -1,6 +1,7 @@
 resource "google_service_account" "app" {
   account_id   = "${var.owner}-${var.service}"
   project      = "${var.google_project}"
+  display_name = "${var.owner}-${var.service}"
 }
 
 resource "google_project_iam_member" "app" {
