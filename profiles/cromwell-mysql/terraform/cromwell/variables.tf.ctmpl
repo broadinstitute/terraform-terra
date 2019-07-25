@@ -61,17 +61,17 @@ variable "dns_region" {
 #
 variable "mysql_instance_dns_cname_record_flag" {
   default = "0"
-  description = "Enable DNS CNAME record for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
+  description = "Enable DNS CNAME record for default cromwell mysql instance in an env. Should be set as a vault env override for each env."
 }
 
 variable "mysql_instance_dns_cname_record_service_hostname" {
   default = ""
-  description = "DNS CNAME record service hostname for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
+  description = "DNS CNAME record service hostname for default cromwell mysql instance in an env. Should be set as a vault env override for each env."
 }
 
 variable "mysql_instance_dns_cname_record_target_hostname" {
   default = ""
-  description = "DNS CNAME record target hostname for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
+  description = "DNS CNAME record target hostname for default cromwell mysql instance in an env. Should be set as a vault env override for each env."
 }
 
 #
@@ -94,13 +94,13 @@ variable "cloudsql_tier" {
 }
 
 variable "cloudsql_database_name" {
-  default = "leonardo"
-  description = "cloudsql database name for leonardo application"
+  default = "cromwell"
+  description = "cloudsql database name for cromwell application"
 }
 
 variable "cloudsql_app_username" {
-  default = "leonardo"
-  description = "cloudsql database user name for leonardo application"
+  default = "cromwell"
+  description = "cloudsql database user name for cromwell application"
 }
 
 variable "dns_ttl" {
