@@ -9,18 +9,32 @@ variable "vault_path_prefix" {
 
 variable "reader_instance_group_name" {
   description = "name of the instance group containing the instances in the service"
-  default = "{{if (env "INSTANCE_GROUP_NAME")}}{{env "INSTANCE_GROUP_NAME"}}{{else}}{{env "SERVICE"}}-reader-instance-group-unmanaged{{end}}"
+  default = "{{if (env "INSTANCE_GROUP_NAME")}}{{env "INSTANCE_GROUP_NAME"}}{{else}}{{env "SERVICE"}}-instance-group-unmanaged{{end}}"
 }
 
-data "google_compute_instance_group" "service-instances" {
+data "google_compute_instance_group" "reader-instances" {
   name = "${var.reader_instance_group_name}"
   zone = "us-central1-a"
 }
 
-variable "backend_instance_name" {
+variable "runner_instance_group_name" {
   description = "name of the instance group containing the instances in the service"
-  type = "list"
-  default = [ "{{if (env "BACKEND_INSTANCE_NAME")}}{{env "BACKEND_INSTANCE_NAME"}}{{else}}{{env "SERVICE"}}-backend-01{{end}}" ]
+  default = "{{if (env "INSTANCE_GROUP_NAME")}}{{env "INSTANCE_GROUP_NAME"}}{{else}}{{env "SERVICE"}}-runner-instance-group-unmanaged{{end}}"
+}
+
+data "google_compute_instance_group" "runner-instances" {
+  name = "${var.runner_instance_group_name}"
+  zone = "us-central1-a"
+}
+
+variable "summarizer_instance_group_name" {
+  description = "name of the instance group containing the instances in the service"
+  default = "{{if (env "INSTANCE_GROUP_NAME")}}{{env "INSTANCE_GROUP_NAME"}}{{else}}{{env "SERVICE"}}-summarizer-instance-group-unmanaged{{end}}"
+}
+
+data "google_compute_instance_group" "summarizer-instances" {
+  name = "${var.summarizer_instance_group_name}"
+  zone = "us-central1-a"
 }
 
 #

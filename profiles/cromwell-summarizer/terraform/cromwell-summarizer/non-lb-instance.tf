@@ -11,7 +11,7 @@ module "instance" {
   instance_service_account = "${data.google_service_account.config_reader.email}"
   instance_network_name = "${var.google_network_name}"
   instance_labels = {
-    "app" = "${var.service}",
+    "app" = "cromwell",
     "owner" = "${var.owner}",
     "ansible_branch" = "rl-add-services",
     "ansible_project" = "terra-env",
@@ -27,7 +27,7 @@ data "google_dns_managed_zone" "dns-zone" {
 resource "google_dns_record_set" "instance-dns" {
   provider     = "google.dns"
   managed_zone = "${data.google_dns_managed_zone.dns-zone.name}"
-  name         = "${format("${var.owner}-${var.service}-backend.%s",data.google_dns_managed_zone.dns-zone.dns_name)}"
+  name         = "${format("${var.owner}-${var.service}-%02d.%s", count.index+1, data.google_dns_managed_zone.dns-zone.dns_name)}"
   type         = "A"
   ttl          = "${var.dns_ttl}"
   rrdatas      = [ "${element(module.instance.instance_public_ips, count.index)}" ]

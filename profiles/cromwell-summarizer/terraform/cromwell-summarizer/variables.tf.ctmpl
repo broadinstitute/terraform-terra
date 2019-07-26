@@ -85,12 +85,12 @@ variable "instance_tags" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "LEONARDO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "LEONARDO_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-standard-8{{ end }}"
   description = "The default size of Application service hosts"
 }
 
