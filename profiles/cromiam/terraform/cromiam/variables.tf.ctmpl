@@ -13,10 +13,6 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The prefix path at which to store vault values"
-}
 
 #
 # Dependency Profiles' Vars
@@ -26,7 +22,6 @@ variable "dns_zone_name" {
   default = "{{env "DNS_ZONE_NAME"}}"
   description = "The name of the DNS zone (its google id) as specified in the application json"
 }
-
 # Network
 variable "google_network_name" {
   default = "{{env "OWNER"}}-terra-network"

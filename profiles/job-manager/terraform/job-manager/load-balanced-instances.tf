@@ -12,7 +12,6 @@ module "load-balanced-instances" {
   config_bucket_enable = 0
   owner = "${var.owner}"
   service = "${var.service}"
-  load_balancer_health_check_path = "/engine/v1/status"
   dns_project = "${data.google_client_config.dns.project}"
   google_network_name = "${var.google_network_name}"
   config_reader_service_account = "${var.config_reader_service_account}"

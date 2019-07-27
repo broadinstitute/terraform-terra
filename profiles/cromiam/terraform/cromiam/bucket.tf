@@ -18,6 +18,6 @@ resource "google_storage_bucket_iam_member" "app_config" {
   count = "${length(var.storage_bucket_roles)}"
   bucket = "${google_storage_bucket.config-bucket.name}"
   role   = "${element(var.storage_bucket_roles, count.index)}"
-  member = "serviceAccount:${google_service_account.app.email}"
+  member = "serviceAccount:${data.google_service_account.config_reader.email}"
 }
 
