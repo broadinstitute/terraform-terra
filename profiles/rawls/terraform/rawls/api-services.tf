@@ -12,6 +12,7 @@ module "enable-services" {
     "sqladmin.googleapis.com",
     "pubsub.googleapis.com",
     "compute.googleapis.com",
-    "dataproc.googleapis.com"
+    "dataproc.googleapis.com",
+    "genomics.googleapis.com"
   ]
 }
