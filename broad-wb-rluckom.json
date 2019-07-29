@@ -128,10 +128,6 @@
           "leonardo-secrets": {
             "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
             "to_path": "leonardo/secrets"
-          },
-          "leonardo-oauth": {
-            "from_path": "secret/dsde/firecloud/perf/leonardo/leonardo-oauth-credential.json",
-            "to_path": "leonardo/leonardo-oauth-credential.json"
           }
         }
       }
