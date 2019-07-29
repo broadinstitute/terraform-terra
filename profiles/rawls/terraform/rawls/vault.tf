@@ -2,11 +2,12 @@ provider vault {}
 
 resource "vault_generic_secret" "app-config" {
   path = "${var.vault_path_prefix}/${var.service}/${var.service}.conf"
-
+  depends_on = ["data.vault_generic_secret.perf_rawls_conf"]
   data_json = <<EOT
 {
   "slick_db_user": "${var.cloudsql_app_username}",
-  "slick_db_password": "${random_id.user-password.hex}"
+  "slick_db_password": "${random_id.user-password.hex}",
+  "gcs_tokenEncryptionKey": "${data.vault_generic_secret.perf_rawls_conf.data["gcs_tokenEncryptionKey"]}"
 }
 EOT
 }
