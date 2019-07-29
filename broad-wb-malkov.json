@@ -18,7 +18,8 @@
       "log_level": "debug"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
+      "GOOGLE_APPS_SUBDOMAIN": "broad-wb-malkov.ephemeral.test.firecloud.org"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
@@ -77,14 +78,14 @@
             "to_path": "common/sentryapi",
             "used_by": "rawls"
           },
-          "rawls-oauth-creds": {
-            "from_path": "secret/dsde/firecloud/perf/rawls/rawls-oauth-credential.json",
-            "to_path": "rawls/rawls-oauth-credential.json",
-            "used_by": "rawls"
-          },
           "rawls-tmp-cromwell-sa": {
             "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
             "to_path": "cromwell/cromwell-account.json",
+            "used_by": "rawls"
+          },
+          "rawls-perf-config": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
+            "to_path": "rawls/rawls-perf.conf",
             "used_by": "rawls"
           }
         }

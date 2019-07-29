@@ -15,7 +15,8 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
+      "GOOGLE_APPS_SUBDOMAIN": "broad-wb-perf2.ephemeral.test.firecloud.org"
     },
     "vault": {
       "policy": "dsde-write"
