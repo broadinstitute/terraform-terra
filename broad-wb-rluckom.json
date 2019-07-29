@@ -210,12 +210,6 @@
               "region": "us-central1"
             }
           }
-        },
-        "copy_secrets": {
-          "cromiam-oauth": {
-            "from_path": "secret/dsde/firecloud/perf/cromiam/cromiam-oauth-credential.json",
-            "to_path": "cromiam/cromiam-oauth-credential.json"
-          }
         }
       }
     },
@@ -234,12 +228,6 @@
               "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
               "region": "us-central1"
             }
-          }
-        },
-        "copy_secrets": {
-          "job-manager-oauth": {
-            "from_path": "secret/dsde/firecloud/perf/job-manager/job-manager-oauth-credential.json",
-            "to_path": "job-manager/job-manager-oauth-credential.json"
           }
         }
       }

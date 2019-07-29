@@ -6,7 +6,6 @@ variable "google_project" {
   description = "The google project as specified in the application json"
 }
 
-
 variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
@@ -15,6 +14,13 @@ variable "owner" {
 variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
+}
+
+provider "vault" {}
+
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
 }
 
 #
