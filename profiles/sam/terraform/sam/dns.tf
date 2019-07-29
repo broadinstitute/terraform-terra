@@ -1,13 +1,6 @@
-provider "google" {
-  alias = "dns"
-  project     = "${var.dns_project}"
-  region      = "${var.dns_region}"
-  credentials = "${file("dns_sa.json")}"
-}
-
 data "google_dns_managed_zone" "dns-zone" {
   provider = "google.dns"
-  name = "dsde-perf-broad"
+  name = "${var.dns_zone_name}"
 }
 
 resource "google_dns_record_set" "dns-cname-priv" {
