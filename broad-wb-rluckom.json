@@ -74,6 +74,16 @@
           "proxy_ldap":{
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
+          },
+          "bigquery-account": {
+            "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
+            "to_path": "common/bigquery-account.json",
+            "used_by": "rawls"
+          },
+          "graphite-key": {
+            "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
+            "to_path": "common/hostedgraphiteapi",
+            "used_by": "rawls"
           }
         }
       }
@@ -140,6 +150,26 @@
             "to_path": "leonardo/secrets"
           }
         },
+        "providers": {
+          "google": {
+            "dns": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
+    "rawls-configs": {
+      "env": {
+        "APP_NAME": "rawls",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
+        "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
+      }
+    },
+    "rawls": {
+      "terraform": {
         "providers": {
           "google": {
             "dns": {

@@ -15,8 +15,11 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
-      "GOOGLE_APPS_SUBDOMAIN": "broad-wb-malkov.ephemeral.test.firecloud.org"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
+      "GOOGLE_APPS_SUBDOMAIN": "broad-wb-perf2.ephemeral.test.firecloud.org"
+    },
+    "vault": {
+      "policy": "dsde-write"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
@@ -234,6 +237,13 @@
       "env": {
         "APP_NAME": "opendj",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
+      }
+    },
+    "tos": {
+      "env": {
+        "FUNCTION_ENTRYPOINT": "tos",
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
+        "DATASTORE_PROJECT": "broad-dsde-perf"
       }
     },
     "sam":{
