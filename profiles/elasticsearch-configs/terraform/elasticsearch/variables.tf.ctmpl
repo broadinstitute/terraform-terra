@@ -17,11 +17,6 @@ data "google_compute_instance_group" "service-instances" {
   zone = "us-central1-a"
 }
 
-data "google_compute_instance" "instances" {
-  count = "${length(data.google_compute_instance_group.service-instances.instances)}"
-  self_link = "${element(data.google_compute_instance_group.service-instances.instances, count.index)}"
-}
-
 #
 # Config Bucket vars
 #
@@ -34,6 +29,26 @@ variable "config_bucket_name" {
 #
 # Config vars
 #
+variable "config_render_vault_policy" {
+  description = "The Vault policy that gives enough permissions to do the config render"
+  default = "{{if (env "CONFIG_RENDER_VAULT_POLICY")}}{{env "CONFIG_RENDER_VAULT_POLICY"}}{{else}}dsde-write{{end}}"
+}
+
+variable "github_token_vault_path" {
+  description = "Path to the github token in Vault. Must be able to see firecloud-develop"
+  default = "{{if env "GITHUB_TOKEN_VAULT_PATH"}}{{env "GITHUB_TOKEN_VAULT_PATH"}}{{else}}secret/dsp/github/dsdejenkins2/githubtoken{{end}}"
+}
+
+variable "instance_type" {
+  description = "frontend, backend, etc"
+  default = "{{if env "INSTANCE_TYPE"}}{{env "INSTANCE_TYPE"}}{{else}}{{end}}"
+}
+
+variable "run_context" {
+  description = "only 'live' has been tested"
+  default = "{{if env "RUN_CONTEXT"}}{{env "RUN_CONTEXT"}}{{else}}live{{end}}"
+}
+
 variable "app_name" {
   description = "name of app, e.g. 'thurloe'"
   default = "{{if env "APP_NAME"}}{{env "APP_NAME"}}{{else}}{{end}}"
@@ -44,64 +59,81 @@ variable "environment" {
   default = "{{if env "ENVIRONMENT"}}{{env "ENVIRONMENT"}}{{else}}dev{{end}}"
 }
 
-variable "service" {
-  description = ""
-  default = "{{if env "SERVICE"}}{{env "SERVICE"}}{{else}}{{end}}"
+variable "github_org" {
+  description = "defaults to broadinstitute"
+  default = "{{if env "GITHUB_ORG"}}{{env "GITHUB_ORG"}}{{else}}broadinstitute{{end}}"
 }
 
-variable "owner" {
-  description = ""
-  default = "{{env "OWNER"}}"
+variable "git_repo" {
+  description = "Repo in which config templates are stored. defaults to firecloud-develop"
+  default = "{{if env "GIT_REPO"}}{{env "GIT_REPO"}}{{else}}firecloud-develop{{end}}"
 }
 
-variable "elasticsearch_host_port" {
-  default = "{{if env "MONGODB_HOST_PORT"}}{{env "MONGODB_HOST_PORT"}}{{else}}27017{{end}}"
+variable "firecloud_develop_git_branch" {
+  description = "Branch in the config repo"
+  default = "{{if env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{else}}perf{{end}}"
 }
 
-variable "elasticsearch_container_port" {
-  default = "{{if env "MONGODB_CONTAINER_PORT"}}{{env "MONGODB_CONTAINER_PORT"}}{{else}}27017{{end}}"
+variable "host_tag" {
+  description = "Not sure if this is used"
+  default = "{{if env "HOST_TAG"}}{{env "HOST_TAG"}}{{else}}{{env "SERVICE"}}-{{env "OWNER"}}{{end}}"
 }
 
-variable "elasticsearch_data_path" {
-  default = "{{if env "MONGODB_DATA_PATH"}}{{env "MONGODB_DATA_PATH"}}{{else}}{{end}}"
+variable "service_git_sha_12_char" {
+  description = "used as the IMAGE parameter in the docker-compose, should match an image tag"
+  default = "{{if env "SERVICE_GIT_SHA_12_CHAR"}}{{env "SERVICE_GIT_SHA_12_CHAR"}}{{else}}{{end}}"
 }
 
-variable "elasticsearch_app_username" {
-  default = "{{if env "MONGODB_APP_USERNAME"}}{{env "MONGODB_APP_USERNAME"}}{{else}}{{env "SERVICE"}}{{end}}"
+variable "target_docker_version" {
+  description = "Legacy from when we had docker 1.12 in some places, should be removed as soon as practical"
+  default = "{{if env "TARGET_DOCKER_VERSION"}}{{env "TARGET_DOCKER_VERSION"}}{{else}}18.09.6{{end}}"
 }
 
-variable "elasticsearch_database" {
-  default = "{{if env "MONGODB_DATABASE"}}{{env "MONGODB_DATABASE"}}{{else}}{{env "SERVICE"}}{{end}}"
+variable "vault_addr" {
+  description = "format https://clotho.broadinstitute.org:8200"
+  default = "{{if env "VAULT_ADDR"}}{{env "VAULT_ADDR"}}{{else}}{{end}}"
 }
 
-resource "random_id" "elasticsearch-user-password" {
-  byte_length   = 16
+variable "google_project" {
+  description = "Name of google project to use in config rendering"
+  default = "{{env "GOOGLE_PROJECT"}}"
 }
 
-resource "random_id" "elasticsearch-root-password" {
-  byte_length   = 16
+variable "google_apps_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_DOMAIN"}}{{env "GOOGLE_APPS_DOMAIN"}}{{else}}{{end}}"
 }
 
-provider "vault" {}
-
-resource "vault_generic_secret" "app-database-credentials" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/mongo/app_user"
-
-  data_json = <<EOT
-{
-  "username": "${var.elasticsearch_app_username}",
-  "password": "${random_id.elasticsearch-user-password.hex}"
-}
-EOT
+variable "google_apps_organization_id" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_ORGANIZATION_ID"}}{{env "GOOGLE_APPS_ORGANIZATION_ID"}}{{else}}{{end}}"
 }
 
-resource "vault_generic_secret" "root-database-credentials" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/mongo/root_user"
-
-  data_json = <<EOT
-{
-  "username": "root",
-  "password": "${random_id.elasticsearch-root-password.hex}"
+variable "google_apps_subdomain" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{env "OWNER"}}.ephemeral.test.firecloud.org{{end}}"
 }
-EOT
+
+variable "gcs_name_prefix" {
+  description = "to use in config rendering"
+  default = "{{if env "GCS_NAME_PREFIX"}}{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE"}}{{end}}"
+}
+
+variable "config_dns_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_ZONE"}}{{end}}"
+}
+
+variable "ldap_base_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "LDAP_BASE_DOMAIN"}}{{env "LDAP_BASE_DOMAIN"}}{{else}}{{end}}"
+}
+
+variable "bucket_tag" {
+  description = "to use in config rendering"
+  default = "{{if env "BUCKET_TAG"}}{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
+}
+
+variable "consul_log_level" {
+  default = "{{if env "LOG_LEVEL"}}{{env "LOG_LEVEL"}}{{else}}err{{end}}"
 }
