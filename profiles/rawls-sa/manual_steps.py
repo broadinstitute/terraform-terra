@@ -30,8 +30,7 @@ class Oauth(object):
     def run(self, context):
         origins = """
             https://{0}-{1}.{2}
-            https://{0}-{1}.{2}:24443
-            https://{0}-firecloud.{2}:24443
+            https://{0}-firecloud.{2}
         """.format(
             context["project_name"],
             context["app"],
@@ -40,13 +39,11 @@ class Oauth(object):
         redirects = """
             https://{0}-{1}.{2}/oauth2callback
             https://{0}-{1}.{2}/o2c.html
-            https://{0}-{1}.{2}:24443/oauth2callback
-            https://{0}-{1}.{2}:24443/o2c.html
-            https://{0}-firecloud.{2}:24443/oauth2callback
-            https://{0}-firecloud.{2}:24443/o2c.html
-            https://{0}-firecloud-orchestration.{2}:23443/o2c.html
-            https://{0}-sam.{2}:29443/o2c.html
-            https://{0}-thurloe.{2}:25443/o2c.html
+            https://{0}-firecloud.{2}/oauth2callback
+            https://{0}-firecloud.{2}/o2c.html
+            https://{0}-firecloud-orchestration.{2}/o2c.html
+            https://{0}-sam.{2}/o2c.html
+            https://{0}-thurloe.{2}/o2c.html
         """.format(
             context["project_name"],
             context["app"],
