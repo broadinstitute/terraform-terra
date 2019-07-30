@@ -15,8 +15,7 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
-      "GOOGLE_APPS_SUBDOMAIN": "broad-wb-perf2.ephemeral.test.firecloud.org"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
     },
     "vault": {
       "policy": "dsde-write"
@@ -170,6 +169,16 @@
     },
     "rawls": {
       "terraform": {
+        "copy_secrets": {
+          "rawls-tmp-cromwell-sa": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
+            "to_path": "cromwell/cromwell-account.json"
+          },
+          "rawls-perf-config": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
+            "to_path": "rawls/rawls-perf.conf"
+          }
+        },
         "providers": {
           "google": {
             "dns": {
