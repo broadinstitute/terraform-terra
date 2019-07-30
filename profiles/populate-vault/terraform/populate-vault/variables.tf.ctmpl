@@ -18,6 +18,16 @@ variable "google_zone" {
   description = "The google zone as specified by `GOOGLE_REGION` and the application json"
 }
 
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
+}
+
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
+}
+
 #
 # SAM Secrets
 #
