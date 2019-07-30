@@ -28,41 +28,18 @@ class AuthorizeDomain(object):
 
 class Oauth(object):
     def run(self, context):
-        origins = """
-            https://{0}-{1}.{2}
-            https://{0}-firecloud.{2}
-        """.format(
-            context["project_name"],
-            context["app"],
-            context["dns_domain"]
-        )
-        redirects = """
-            https://{0}-{1}.{2}/oauth2callback
-            https://{0}-{1}.{2}/o2c.html
-            https://{0}-firecloud.{2}/oauth2callback
-            https://{0}-firecloud.{2}/o2c.html
-            https://{0}-firecloud-orchestration.{2}/o2c.html
-            https://{0}-sam.{2}/o2c.html
-            https://{0}-thurloe.{2}/o2c.html
-        """.format(
-            context["project_name"],
-            context["app"],
-            context["dns_domain"]
-        )
         print("\nIn the GCP console go to APIs & Services > Credentials:")
         print("  https://console.cloud.google.com/apis/credentials")
         print("Create a new 'OAuth client ID' credential, selecting 'Web application' for the type")
-        print("  Add the following authorized Javascript origins:\n" + origins)
-        print("  Add the following authorized redirect URIs:\n{0}\n".format(redirects))
+        print("  Add the authorized Javascript origins output by this profile")
+        print("  Add the following authorized redirect URIs output by this profile\n")
         wait_for_enter()
         print("\nDownload the OAuth credential JSON")
         print("Upload the JSON to vault:")
         print((
-            "  docker run --rm -it "
-            "-v ${{HOME}}/.vault-token:/root/.vault-token "
-            "-v ~/Downloads:/downloads broadinstitute/dsde-toolbox "
-            "vault write secret/dsde/firecloud/ephemeral/{0}/{1}/{1}-oauth-credential.json "
-            "/downloads/[JSON file name]\n"
+            "./add_to_vault.sh "
+            "/downloads/[JSON file name] "
+            "secret/dsde/firecloud/ephemeral/{0}/{1}/{1}-oauth-credential.json"
             ).format(
                 context["project_name"],
                 context["app"]
