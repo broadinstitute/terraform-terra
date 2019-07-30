@@ -11,3 +11,7 @@ output "authorized_redirect_urls" {
     "https://${module.load-balanced-instances.service_hostname}/swagger/o2c.html",
   ]
 }
+
+output "vault_path_for_oauth_client_json" {
+  value = "${var.vault_path_prefix}/${var.service}/${var.service}-oauth-credential.json"
+}
