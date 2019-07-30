@@ -128,7 +128,7 @@ variable "google_apps_organization_id" {
 
 variable "google_apps_subdomain" {
   description = "to use in config rendering"
-  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{end}}"
+  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{env "OWNER"}}.ephemeral.test.firecloud.org{{end}}"
 }
 
 variable "gcs_name_prefix" {
