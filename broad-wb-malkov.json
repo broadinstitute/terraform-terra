@@ -67,10 +67,6 @@
             "from_path": "secret/dsde/firecloud/perf/common/server.key",
             "to_path": "common/server.key"
           },
-          "oauth_token_refresh_credential":{
-            "from_path": "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json",
-            "to_path": "common/refresh-token-oauth-credential.json"
-          },
           "billing_sa":{
             "from_path": "secret/dsde/firecloud/perf/common/billing-account.json",
             "to_path": "common/billing-account.json"
