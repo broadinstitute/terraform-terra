@@ -28,6 +28,11 @@
             "project": "broad-wb-malkov",
             "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
             "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
           }
         }
       },
@@ -114,15 +119,6 @@
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
             "to_path": "thurloe/secrets/keys"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -148,15 +144,6 @@
             "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
             "to_path": "leonardo/secrets"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -177,28 +164,6 @@
           "rawls-perf-config": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
             "to_path": "rawls/rawls-perf.conf"
-          }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
-      }
-    },
-    "agora-mongo": {
-      "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
           }
         }
       }
@@ -230,15 +195,6 @@
             "from_path": "secret/dsde/firecloud/perf/opendj/stores",
             "to_path": "opendj/stores"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -265,15 +221,6 @@
             "from_path": "secret/dsde/firecloud/perf/sam/sam.conf",
             "to_path": "sam/sam.conf"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -297,15 +244,6 @@
           "agora-secrets": {
             "from_path": "secret/dsde/firecloud/perf/agora/secrets",
             "to_path": "agora/secrets"
-          }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
           }
         }
       }
