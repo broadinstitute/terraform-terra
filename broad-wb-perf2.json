@@ -84,6 +84,10 @@
             "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
             "to_path": "common/hostedgraphiteapi",
             "used_by": "rawls"
+          },
+          "rawls-perf-config": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
+            "to_path": "rawls/rawls-perf.conf"
           }
         }
       }
@@ -177,10 +181,6 @@
           "rawls-tmp-cromwell-sa": {
             "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
             "to_path": "cromwell/cromwell-account.json"
-          },
-          "rawls-perf-config": {
-            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
           }
         }
       }

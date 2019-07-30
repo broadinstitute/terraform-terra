@@ -1,5 +1,5 @@
 output "ATTENTION!!!" {
-  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nSee manual_steps.py in the profile folder!\n\n"
+  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nRun 'python manual_steps.py' in the profile folder in another console tab!\n\n"
 }
 
 data "null_data_source" "dns_zone_no_trailing_dot" {
@@ -21,8 +21,8 @@ output "authorized_javascript_origins" {
 
 output "authorized_redirect_urls" {
   value = [
-    "https://${var.owner}-${var.service}/oauth2callback",
-    "https://${var.owner}-${var.service}/o2c.html",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
     "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-firecloud-orchestration.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",

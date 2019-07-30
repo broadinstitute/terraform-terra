@@ -37,10 +37,6 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The path to this profile's secrets in vault"
-}
 
 #
 # Dependency Profiles' Vars
@@ -287,12 +283,4 @@ variable "cloudsql_app_username" {
 
 variable "dns_ttl" {
    default = "300"
-}
-
-#
-# Perf rawls secrets
-#
-
-data "vault_generic_secret" "perf_rawls_conf" {
-  path = "{{env "VAULT_PATH_PREFIX"}}/rawls/rawls-perf.conf"
 }

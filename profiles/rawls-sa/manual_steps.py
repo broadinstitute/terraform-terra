@@ -31,14 +31,15 @@ class Oauth(object):
         print("\nIn the GCP console go to APIs & Services > Credentials:")
         print("  https://console.cloud.google.com/apis/credentials")
         print("Create a new 'OAuth client ID' credential, selecting 'Web application' for the type")
+        print("  Name: {0} Oauth Credential ".format(context["app"]))
         print("  Add the authorized Javascript origins output by this profile")
         print("  Add the following authorized redirect URIs output by this profile\n")
         wait_for_enter()
         print("\nDownload the OAuth credential JSON")
         print("Upload the JSON to vault:")
         print((
-            "./add_to_vault.sh "
-            "/downloads/[JSON file name] "
+            "  ./add_to_vault.sh "
+            "[path to JSON] "
             "secret/dsde/firecloud/ephemeral/{0}/{1}/{1}-oauth-credential.json"
             ).format(
                 context["project_name"],

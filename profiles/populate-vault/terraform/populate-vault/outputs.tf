@@ -1,3 +1,7 @@
+output "ATTENTION!!!" {
+  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nRun 'python manual_steps.py' in the profile folder in another console tab!\n\n"
+}
+
 data "google_dns_managed_zone" "dns-zone" {
   provider = "google.dns"
   name = "${var.dns_zone_name}"

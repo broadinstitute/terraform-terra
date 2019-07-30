@@ -1,4 +1,6 @@
-provider vault {}
+data "vault_generic_secret" "perf_rawls_conf" {
+  path = "${var.vault_path_prefix}/rawls/rawls-perf.conf"
+}
 
 resource "vault_generic_secret" "app-config" {
   path = "${var.vault_path_prefix}/${var.service}/${var.service}.conf"
