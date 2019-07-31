@@ -78,16 +78,17 @@
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
-            "used_by": "rawls"
+            "used_by": ["rawls"]
           },
           "graphite-key": {
             "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
             "to_path": "common/hostedgraphiteapi",
-            "used_by": "rawls"
+            "used_by": ["rawls"]
           },
           "rawls-perf-config": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
+            "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -173,16 +174,6 @@
         "APP_NAME": "rawls",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
-      }
-    },
-    "rawls": {
-      "terraform": {
-        "copy_secrets": {
-          "rawls-tmp-cromwell-sa": {
-            "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
-            "to_path": "cromwell/cromwell-account.json"
-          }
-        }
       }
     },
     "calhoun": {
