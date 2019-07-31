@@ -13,7 +13,7 @@ module "instance" {
   instance_labels = {
     "app" = "cromwell",
     "owner" = "${var.owner}",
-    "ansible_branch" = "rl-add-services",
+    "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"

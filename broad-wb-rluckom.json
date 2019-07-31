@@ -157,41 +157,14 @@
     },
     "cromwell-runner": {
       "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
       }
     },
     "cromwell-summarizer": {
       "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
       }
     },
     "cromwell-reader": {
       "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
       }
     },
     "cromwell-configs": {
@@ -202,15 +175,6 @@
     },
     "cromiam": {
       "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
       }
     },
     "cromiam-configs": {
@@ -221,15 +185,6 @@
     },
     "job-manager": {
       "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
       }
     },
     "job-manager-configs": {
