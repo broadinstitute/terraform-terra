@@ -90,6 +90,7 @@ variable "default_ssl_policy" {
 variable "instance_tags" {
   default = [
     "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "rawls",
     "http-server",
     "https-server",
     "frontend",
@@ -213,6 +214,7 @@ variable "standalone_instance_size" {
 variable "standalone_instance_tags" {
   default = [
     "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "rawls",
     "http-server",
     "https-server",
     "backend",
