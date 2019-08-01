@@ -14,7 +14,7 @@ output "authorized_javascript_origins" {
 output "authorized_redirect_urls" {
   value = [
     "https://${module.load-balanced-instances.service_hostname}/oauth2callback",
-    "https://${module.load-balanced-instances.service_hostname}/02c.html",
+    "https://${module.load-balanced-instances.service_hostname}/o2c.html",
     "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
     "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
   ]

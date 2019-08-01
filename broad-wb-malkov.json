@@ -1,6 +1,6 @@
 {
   "name": "terra",
-  "owner": "gmalkov",
+  "owner": "broad-wb-malkov",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
@@ -15,7 +15,10 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/gmalkov"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
+    },
+    "vault": {
+      "policy": "dsde-write"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
@@ -24,6 +27,11 @@
           "default": {
             "project": "broad-wb-malkov",
             "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
             "region": "us-central1"
           }
         }
@@ -67,9 +75,20 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
-          "hostedgraphiteapi":{
+          "bigquery-account": {
+            "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
+            "to_path": "common/bigquery-account.json",
+            "used_by": ["rawls"]
+          },
+          "hostedgraphiteapi": {
             "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
-            "to_path": "common/hostedgraphiteapi"
+            "to_path": "common/hostedgraphiteapi",
+            "used_by": ["rawls", "cromwell"]
+          },
+          "rawls-perf-config": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
+            "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -101,15 +120,6 @@
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
             "to_path": "thurloe/secrets/keys"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -135,29 +145,14 @@
             "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
             "to_path": "leonardo/secrets"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
-    "agora-mongo": {
-      "terraform": {
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
+    "rawls-configs": {
+      "env": {
+        "APP_NAME": "rawls",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
+        "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
       }
     },
     "cromwell-sa": {
@@ -239,15 +234,6 @@
             "from_path": "secret/dsde/firecloud/perf/opendj/stores",
             "to_path": "opendj/stores"
           }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
         }
       }
     },
@@ -255,6 +241,13 @@
       "env": {
         "APP_NAME": "opendj",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
+      }
+    },
+    "tos": {
+      "env": {
+        "FUNCTION_ENTRYPOINT": "tos",
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
+        "DATASTORE_PROJECT": "broad-dsde-perf"
       }
     },
     "sam":{
@@ -266,15 +259,6 @@
           "sam_conf": {
             "from_path": "secret/dsde/firecloud/perf/sam/sam.conf",
             "to_path": "sam/sam.conf"
-          }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
           }
         }
       }
@@ -299,15 +283,6 @@
           "agora-secrets": {
             "from_path": "secret/dsde/firecloud/perf/agora/secrets",
             "to_path": "agora/secrets"
-          }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
           }
         }
       }
