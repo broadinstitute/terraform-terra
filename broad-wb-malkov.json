@@ -66,6 +66,10 @@
           "proxy_ldap":{
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
+          },
+          "hostedgraphiteapi":{
+            "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
+            "to_path": "common/hostedgraphiteapi"
           }
         }
       }
@@ -154,6 +158,58 @@
             }
           }
         }
+      }
+    },
+    "cromwell-sa": {
+      "terraform": {
+        "copy_secrets": {
+          "cromwell_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/secrets",
+            "to_path": "cromwell/secrets"
+          },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/sentryapi",
+            "to_path": "cromwell/sentryapi"
+          }
+        }
+      }
+    },
+    "cromwell-runner": {
+      "terraform": {
+      }
+    },
+    "cromwell-summarizer": {
+      "terraform": {
+      }
+    },
+    "cromwell-reader": {
+      "terraform": {
+      }
+    },
+    "cromwell-configs": {
+      "env": {
+        "APP_NAME": "cromwell",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
+      }
+    },
+    "cromiam": {
+      "terraform": {
+      }
+    },
+    "cromiam-configs": {
+      "env": {
+        "APP_NAME": "cromiam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
+      }
+    },
+    "job-manager": {
+      "terraform": {
+      }
+    },
+    "job-manager-configs": {
+      "env": {
+        "APP_NAME": "job-manager",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
       }
     },
     "calhoun": {

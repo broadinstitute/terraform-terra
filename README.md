@@ -70,18 +70,35 @@ network it creates. Each profile should have well-defined requirements and outpu
 
 ## Profiles included in this repo
 
-### `dns`
+### `gsuite-intermediate-domain`
 
-This profile creates a DNS zone.
+**THIS PROFILE DOES NOT NEED TO BE APPLIED IN YOUR ENVIRONMENT.**
 
-```
-# deploy example
-./dsp-k8s-deploy/application-deploy.sh -j broad-wb-perf2.json -p dns
-# render example
-./dsp-k8s-deploy/application-render.sh -j broad-wb-perf2.json -p dns
-# teardown example
-./dsp-k8s-deploy/application-teardown.sh -j broad-wb-perf2.json -p dns
-```
+This profile delegates the `ephemeral.test.firecloud.org` domain from the
+prod project (which has restricted access) to a less restricted
+intermediate project. It only needs to be applied once, _not_ once
+per environment.
+
+### `populate-vault`
+
+This profile copies non-service-specific Vault values from the existing performance
+environment to the ephemeral environment. As we are able to automatically provision
+the resources associated with these values, we should remove the values from
+this profile.
+
+#### Depends on (Profiles only)
+
+None
+
+#### Providers Required
+
+**Vault**: `dsde-write` policy
+
+#### Values Required
+
+#### Values Created
+
+None
 
 ### `network`
 
