@@ -21,7 +21,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-11-14",
       "providers": {
         "google": {
           "default": {
@@ -78,16 +78,17 @@
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
-            "used_by": "rawls"
+            "used_by": ["rawls"]
           },
-          "graphite-key": {
+          "hostedgraphiteapi": {
             "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
             "to_path": "common/hostedgraphiteapi",
-            "used_by": "rawls"
+            "used_by": ["rawls", "cromwell"]
           },
           "rawls-perf-config": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
+            "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -154,31 +155,60 @@
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
       }
     },
-    "rawls": {
+    "agora-mongo": {
+      "terraform": {
+      }
+    },
+    "cromwell-sa": {
       "terraform": {
         "copy_secrets": {
-          "rawls-tmp-cromwell-sa": {
-            "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
-            "to_path": "cromwell/cromwell-account.json"
+          "cromwell_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/secrets",
+            "to_path": "cromwell/secrets"
           },
-          "rawls-perf-config": {
-            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
-          }
-        },
-        "providers": {
-          "google": {
-            "dns": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/sentryapi",
+            "to_path": "cromwell/sentryapi"
           }
         }
       }
     },
-    "agora-mongo": {
+    "cromwell-runner": {
       "terraform": {
+      }
+    },
+    "cromwell-summarizer": {
+      "terraform": {
+      }
+    },
+    "cromwell-reader": {
+      "terraform": {
+      }
+    },
+    "cromwell-configs": {
+      "env": {
+        "APP_NAME": "cromwell",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
+      }
+    },
+    "cromiam": {
+      "terraform": {
+      }
+    },
+    "cromiam-configs": {
+      "env": {
+        "APP_NAME": "cromiam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
+      }
+    },
+    "job-manager": {
+      "terraform": {
+      }
+    },
+    "job-manager-configs": {
+      "env": {
+        "APP_NAME": "job-manager",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
       }
     },
     "calhoun": {

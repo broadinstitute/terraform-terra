@@ -13,7 +13,7 @@ module "load-balanced-instances" {
   google_compute_ssl_certificate_black = "${var.google_compute_ssl_certificate_black}"
   google_compute_ssl_certificate_red = "${var.google_compute_ssl_certificate_red}"
   google_network_name = "${var.google_network_name}"
-  config_reader_service_account = "${var.config_reader_service_account}"
+  config_reader_service_account = "${var.app_service_account}"
   instance_tags = "${var.instance_tags}"
   instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"

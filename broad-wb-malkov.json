@@ -15,7 +15,7 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
     },
     "vault": {
       "policy": "dsde-write"
@@ -78,16 +78,17 @@
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
-            "used_by": "rawls"
+            "used_by": ["rawls"]
           },
-          "graphite-key": {
+          "hostedgraphiteapi": {
             "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
             "to_path": "common/hostedgraphiteapi",
-            "used_by": "rawls"
+            "used_by": ["rawls", "cromwell"]
           },
           "rawls-perf-config": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
+            "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -154,18 +155,56 @@
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
       }
     },
-    "rawls": {
+    "cromwell-sa": {
       "terraform": {
         "copy_secrets": {
-          "rawls-tmp-cromwell-sa": {
-            "from_path": "secret/dsde/firecloud/perf/cromwell/cromwell-account.json",
-            "to_path": "cromwell/cromwell-account.json"
+          "cromwell_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/secrets",
+            "to_path": "cromwell/secrets"
           },
-          "rawls-perf-config": {
-            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
-            "to_path": "rawls/rawls-perf.conf"
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/sentryapi",
+            "to_path": "cromwell/sentryapi"
           }
         }
+      }
+    },
+    "cromwell-runner": {
+      "terraform": {
+      }
+    },
+    "cromwell-summarizer": {
+      "terraform": {
+      }
+    },
+    "cromwell-reader": {
+      "terraform": {
+      }
+    },
+    "cromwell-configs": {
+      "env": {
+        "APP_NAME": "cromwell",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
+      }
+    },
+    "cromiam": {
+      "terraform": {
+      }
+    },
+    "cromiam-configs": {
+      "env": {
+        "APP_NAME": "cromiam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
+      }
+    },
+    "job-manager": {
+      "terraform": {
+      }
+    },
+    "job-manager-configs": {
+      "env": {
+        "APP_NAME": "job-manager",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
       }
     },
     "calhoun": {

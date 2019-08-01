@@ -45,11 +45,6 @@ variable "github_token_vault_path" {
   default = "{{if env "GITHUB_TOKEN_VAULT_PATH"}}{{env "GITHUB_TOKEN_VAULT_PATH"}}{{else}}secret/dsp/github/dsdejenkins2/githubtoken{{end}}"
 }
 
-variable "instance_type" {
-  description = "frontend, backend, etc"
-  default = "{{if env "INSTANCE_TYPE"}}{{env "INSTANCE_TYPE"}}{{else}}{{end}}"
-}
-
 variable "run_context" {
   description = "only 'live' has been tested"
   default = "{{if env "RUN_CONTEXT"}}{{env "RUN_CONTEXT"}}{{else}}live{{end}}"
