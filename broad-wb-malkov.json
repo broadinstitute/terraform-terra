@@ -15,7 +15,7 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
     },
     "vault": {
       "policy": "dsde-write"
