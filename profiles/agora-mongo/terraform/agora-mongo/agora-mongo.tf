@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance-data-disk?ref=rl-add-instance-private-ip-outputs"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance-data-disk?ref=docker-instance-data-disk-0.1.3"
 
   providers {
     google.target =  "google"
@@ -18,7 +18,7 @@ module "instances" {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "rl-add-services",
+    "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"

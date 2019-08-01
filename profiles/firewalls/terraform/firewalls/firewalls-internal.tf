@@ -26,3 +26,31 @@ resource "google_compute_firewall" "managed_managed_allow_mongo_client" {
   source_ranges = [ "${split(",", var.internal_range)}" ]
   target_tags = [ "mongodb" ]
 }
+
+resource "google_compute_firewall" "managed_managed_allow_https" {
+  name = "managed-managed-allow-https"
+  network = "${data.google_compute_network.terra-env-network.name}"
+  depends_on = [ "data.google_compute_network.terra-env-network" ]
+
+  allow {
+    protocol = "tcp"
+    ports = [ "443"]
+  }
+
+  source_ranges = [ "${split(",", var.internal_range)}" ]
+  target_tags = [ "https-server" ]
+}
+
+resource "google_compute_firewall" "managed_managed_allow_http" {
+  name = "managed-managed-allow-http"
+  network = "${data.google_compute_network.terra-env-network.name}"
+  depends_on = [ "data.google_compute_network.terra-env-network" ]
+
+  allow {
+    protocol = "tcp"
+    ports = [ "80"]
+  }
+
+  source_ranges = [ "${split(",", var.internal_range)}" ]
+  target_tags = [ "http-server" ]
+}

@@ -1,0 +1,139 @@
+variable "vault_path_prefix" {
+  default = "{{if (env "VAULT_PATH_PREFIX")}}{{ env "VAULT_PATH_PREFIX"}}{{else}}secret/dsde/firecloud/ephemeral/{{env "ENVIRONMENT"}}{{end}}"
+  description = "The prefix path at which to store vault values"
+}
+
+#
+# Instance data
+#
+
+variable "instance_group_name" {
+  description = "name of the instance group containing the instances in the service"
+  default = "{{if (env "INSTANCE_GROUP_NAME")}}{{env "INSTANCE_GROUP_NAME"}}{{else}}{{env "SERVICE"}}-instance-group-unmanaged{{end}}"
+}
+
+data "google_compute_instance_group" "service-instances" {
+  name = "${var.instance_group_name}"
+  zone = "us-central1-a"
+}
+
+#
+# Config Bucket vars
+#
+
+variable "config_bucket_name" {
+  description = "name of the bucket where configs for this service should be stored"
+  default = "{{if (env "CONFIG_BUCKET_NAME")}}{{env "INSTANCE_CONFIG_BUCKET_NAME"}}{{else}}{{env "OWNER"}}-{{env "SERVICE"}}-config{{end}}"
+}
+
+#
+# Config vars
+#
+variable "config_render_vault_policy" {
+  description = "The Vault policy that gives enough permissions to do the config render"
+  default = "{{if (env "CONFIG_RENDER_VAULT_POLICY")}}{{env "CONFIG_RENDER_VAULT_POLICY"}}{{else}}dsde-write{{end}}"
+}
+
+variable "github_token_vault_path" {
+  description = "Path to the github token in Vault. Must be able to see firecloud-develop"
+  default = "{{if env "GITHUB_TOKEN_VAULT_PATH"}}{{env "GITHUB_TOKEN_VAULT_PATH"}}{{else}}secret/dsp/github/dsdejenkins2/githubtoken{{end}}"
+}
+
+variable "instance_type" {
+  description = "frontend, backend, etc"
+  default = "{{if env "INSTANCE_TYPE"}}{{env "INSTANCE_TYPE"}}{{else}}{{end}}"
+}
+
+variable "run_context" {
+  description = "only 'live' has been tested"
+  default = "{{if env "RUN_CONTEXT"}}{{env "RUN_CONTEXT"}}{{else}}live{{end}}"
+}
+
+variable "app_name" {
+  description = "name of app, e.g. 'thurloe'"
+  default = "{{if env "APP_NAME"}}{{env "APP_NAME"}}{{else}}{{end}}"
+}
+
+variable "environment" {
+  description = ""
+  default = "{{if env "ENVIRONMENT"}}{{env "ENVIRONMENT"}}{{else}}dev{{end}}"
+}
+
+variable "github_org" {
+  description = "defaults to broadinstitute"
+  default = "{{if env "GITHUB_ORG"}}{{env "GITHUB_ORG"}}{{else}}broadinstitute{{end}}"
+}
+
+variable "git_repo" {
+  description = "Repo in which config templates are stored. defaults to firecloud-develop"
+  default = "{{if env "GIT_REPO"}}{{env "GIT_REPO"}}{{else}}firecloud-develop{{end}}"
+}
+
+variable "firecloud_develop_git_branch" {
+  description = "Branch in the config repo"
+  default = "{{if env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{env "FIRECLOUD_DEVELOP_GIT_BRANCH"}}{{else}}perf{{end}}"
+}
+
+variable "host_tag" {
+  description = "Not sure if this is used"
+  default = "{{if env "HOST_TAG"}}{{env "HOST_TAG"}}{{else}}{{env "SERVICE"}}-{{env "OWNER"}}{{end}}"
+}
+
+variable "service_git_sha_12_char" {
+  description = "used as the IMAGE parameter in the docker-compose, should match an image tag"
+  default = "{{if env "SERVICE_GIT_SHA_12_CHAR"}}{{env "SERVICE_GIT_SHA_12_CHAR"}}{{else}}{{end}}"
+}
+
+variable "target_docker_version" {
+  description = "Legacy from when we had docker 1.12 in some places, should be removed as soon as practical"
+  default = "{{if env "TARGET_DOCKER_VERSION"}}{{env "TARGET_DOCKER_VERSION"}}{{else}}18.09.6{{end}}"
+}
+
+variable "vault_addr" {
+  description = "format https://clotho.broadinstitute.org:8200"
+  default = "{{if env "VAULT_ADDR"}}{{env "VAULT_ADDR"}}{{else}}{{end}}"
+}
+
+variable "google_project" {
+  description = "Name of google project to use in config rendering"
+  default = "{{env "GOOGLE_PROJECT"}}"
+}
+
+variable "google_apps_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_DOMAIN"}}{{env "GOOGLE_APPS_DOMAIN"}}{{else}}{{end}}"
+}
+
+variable "google_apps_organization_id" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_ORGANIZATION_ID"}}{{env "GOOGLE_APPS_ORGANIZATION_ID"}}{{else}}{{end}}"
+}
+
+variable "google_apps_subdomain" {
+  description = "to use in config rendering"
+  default = "{{if env "GOOGLE_APPS_SUBDOMAIN"}}{{env "GOOGLE_APPS_SUBDOMAIN"}}{{else}}{{env "OWNER"}}.ephemeral.test.firecloud.org{{end}}"
+}
+
+variable "gcs_name_prefix" {
+  description = "to use in config rendering"
+  default = "{{if env "GCS_NAME_PREFIX"}}{{env "GCS_NAME_PREFIX"}}{{else}}{{env "SERVICE"}}{{end}}"
+}
+
+variable "config_dns_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}{{env "DNS_ZONE"}}{{end}}"
+}
+
+variable "ldap_base_domain" {
+  description = "to use in config rendering"
+  default = "{{if env "LDAP_BASE_DOMAIN"}}{{env "LDAP_BASE_DOMAIN"}}{{else}}{{end}}"
+}
+
+variable "bucket_tag" {
+  description = "to use in config rendering"
+  default = "{{if env "BUCKET_TAG"}}{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
+}
+
+variable "consul_log_level" {
+  default = "{{if env "LOG_LEVEL"}}{{env "LOG_LEVEL"}}{{else}}err{{end}}"
+}
