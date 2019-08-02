@@ -49,8 +49,24 @@
         "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
+    "network": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "firewalls": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "ssl": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
     "populate-vault": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "copy_secrets": {
           "common_secrets": {
             "from_path": "secret/dsde/firecloud/perf/common/secrets",
@@ -100,6 +116,7 @@
     },
     "gsuite": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "intermediate-domain-delegator": {

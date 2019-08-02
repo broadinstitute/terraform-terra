@@ -49,6 +49,21 @@
         "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
+    "network": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "firewalls": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "ssl": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
     "populate-vault": {
       "terraform": {
         "copy_secrets": {
@@ -121,6 +136,7 @@
     },
     "gsuite": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "intermediate-domain-delegator": {
