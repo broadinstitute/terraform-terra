@@ -18,7 +18,7 @@ module "instances" {
     "app" = "${var.service}",
     "owner" = "${var.owner}",
     "role" = "frontend",
-    "ansible_branch" = "rl-add-services",
+    "ansible_branch" = "master",
     "ansible_project" = "terra-env",
   }
   instance_tags = "${var.instance_tags}"
