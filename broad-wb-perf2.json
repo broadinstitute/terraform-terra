@@ -238,6 +238,7 @@
         "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
       },
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "app-engine": {
