@@ -172,6 +172,7 @@
     },
     "elasticsearch": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
     "cromwell-sa": {

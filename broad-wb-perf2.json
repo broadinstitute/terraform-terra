@@ -46,7 +46,7 @@
   "profile_vars": {
     "elasticsearch": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-12"
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
     "populate-vault": {
