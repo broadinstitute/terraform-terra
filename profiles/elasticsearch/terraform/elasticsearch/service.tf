@@ -1,8 +1,8 @@
 # Docker instance(s)
 module "instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance-data-disk?ref=rl-add-instance-private-ip-outputs"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance-data-disk?ref=rl-instance-data-disk-tf12"
 
-  providers {
+  providers = {
     google.target =  "google"
   }
   project       = "${var.google_project}"
@@ -28,7 +28,7 @@ module "instances" {
 resource "google_storage_bucket" "config-bucket" {
   name       = "${var.owner}-${var.service}-config"
   project    = "${var.google_project}"
-  versioning = {
+  versioning {
     enabled = "true"
   }
   force_destroy = true

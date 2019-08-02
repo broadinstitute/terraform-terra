@@ -17,10 +17,12 @@ data "null_data_source" "hostnames_with_no_trailing_dot" {
     hostname = "${substr(element(google_dns_record_set.dns-a.*.name, count.index), 0, length(element(google_dns_record_set.dns-a.*.name, count.index)) - 1)}"
     hostname_priv = "${substr(element(google_dns_record_set.dns-a-priv.*.name, count.index), 0, length(element(google_dns_record_set.dns-a-priv.*.name, count.index)) - 1)}"
   }
+  depends_on = ["google_dns_record_set.dns-a"]
 }
 
 resource "vault_generic_secret" "instance-hostnames" {
   path = "${var.vault_path_prefix}/${var.service}/secrets/instance-hostnames"
+  depends_on = [google_dns_record_set.dns-a]
 
   data_json = <<EOT
 {
@@ -31,13 +33,14 @@ EOT
 }
 
 resource "vault_generic_secret" "instance-hostnames-by-instance-name" {
-  count = "${length(module.instances.instance_names)}"
+  count = "${length(google_dns_record_set.dns-a.*.name)}"
   path = "${var.vault_path_prefix}/${var.service}/secrets/${element(module.instances.instance_names, count.index)}/instance-hostnames"
+  depends_on = [google_dns_record_set.dns-a]
 
   data_json = <<EOT
 {
-  "hostname": "${element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname, count.index)}",
-  "priv_hostname": "${element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname_priv, count.index)}"
+  "hostname": "${length(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname) > 0 ? element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname, count.index) : ""}",
+  "priv_hostname": "${length(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname) > 0 ?  element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname_priv, count.index) : ""}"
 }
 EOT
 }
