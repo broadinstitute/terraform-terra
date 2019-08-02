@@ -115,6 +115,7 @@
     },
     "thurloe": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-12",
         "copy_secrets": {
           "secret_keys": {
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
