@@ -13,3 +13,10 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
+variable "app_sa_roles" {
+  default = [
+    "roles/compute.viewer",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter"
+  ]
+}

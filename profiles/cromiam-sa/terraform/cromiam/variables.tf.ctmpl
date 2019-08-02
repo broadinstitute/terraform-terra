@@ -21,6 +21,8 @@ variable "vault_path_prefix" {
 variable "app_sa_roles" {
   default = [
     "roles/compute.viewer",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter"
   ]
 }
 

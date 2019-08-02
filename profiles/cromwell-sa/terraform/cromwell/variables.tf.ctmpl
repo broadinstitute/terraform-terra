@@ -18,6 +18,8 @@ variable "app_sa_roles" {
   default = [
     "roles/compute.viewer",
     "roles/cloudsql.client",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter"
   ]
 }
 
