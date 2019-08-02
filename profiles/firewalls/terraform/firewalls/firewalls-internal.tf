@@ -53,4 +53,17 @@ resource "google_compute_firewall" "managed_managed_allow_http" {
 
   source_ranges = [ "${split(",", var.internal_range)}" ]
   target_tags = [ "http-server" ]
+  target_tags = [ "elasticsearch" ]
+}
+
+resource "google_compute_firewall" "managed_managed_allow_elasticsearch" {
+  name = "managed-managed-allow-elasticsearch"
+  network = "${data.google_compute_network.terra-env-network.name}"
+  allow {
+    protocol = "tcp"
+    ports = [ "9200", "9300"]
+  }
+
+  source_ranges = [ "${split(",", var.internal_range)}" ]
+  target_tags = [ "elasticsearch" ]
 }
