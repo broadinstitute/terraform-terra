@@ -21,7 +21,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
       "providers": {
         "google": {
           "default": {
@@ -49,8 +49,19 @@
         "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
+    "network": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "firewalls": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
     "populate-vault": {
       "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "copy_secrets": {
           "common_secrets": {
             "from_path": "secret/dsde/firecloud/perf/common/secrets",
