@@ -60,7 +60,7 @@ data "google_compute_network" "terra-env-network" {
 }
 # SA
 variable "config_reader_service_account" {
-  default = "{{env "OWNER"}}-{{env "SERVICE"}}"
+  default = "{{env "SERVICE"}}"
 }
 data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
