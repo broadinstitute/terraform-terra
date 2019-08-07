@@ -1,0 +1,67 @@
+{
+  "name": "terra",
+  "owner": "broad-dsde-dev",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "broad-dsde-dev",
+  "project": "broad-dsde-dev",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-dev-broad",
+  "dns_zone": "dsde-dev.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-dsde-dev",
+      "NETWORK_NAME": "managed"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-11-14",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-dev",
+            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-dev",
+            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"firecloud",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "pagerduty-alerts-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": "true"
+            }
+          }
+        }
+      }
+    },
+    "pagerduty-alert": {
+    }
+  },
+  "clusters": {
+    "default": {
+      "name": "firecloud-k8s"
+    }
+  }
+}
