@@ -4,18 +4,14 @@ resource "google_storage_bucket_object" "docker-compose" {
   content = <<EOT
 version: '2'
 services:
-  mongodb:
-    image: bitnami/mongodb:3.4.4-r1
-    ports:
-      - "${var.mongodb_host_port}:${var.mongodb_container_port}"
+  pagerduty-alert:
+    image: gcr.io/broad-dsde-dev/pagerduty-alert:latest
+     dns:
+      - 172.17.42.1
     environment:
-      - MONGODB_ROOT_PASSWORD=${random_id.mongodb-root-password.hex}
-      - MONGODB_USERNAME=${var.mongodb_app_username}
-      - MONGODB_PASSWORD=${random_id.mongodb-user-password.hex}
-      - MONGODB_DATABASE=${var.mongodb_database}
-      - MONGODB_PRIMARY_PORT=${var.mongodb_container_port}
+      - TEST=test
 #    volumes:
-#      - ${var.mongodb_data_path}:/bitnami/mongodb
+#      - /app/:/etc/
     restart: always
 EOT
   bucket = "${var.config_bucket_name}"
