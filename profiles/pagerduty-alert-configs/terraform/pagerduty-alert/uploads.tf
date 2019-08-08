@@ -6,7 +6,7 @@ version: '2'
 services:
   pagerduty-alert:
     image: gcr.io/broad-dsde-dev/pagerduty-alert:latest
-     dns:
+    dns:
       - 172.17.42.1
     environment:
       - TEST=test
