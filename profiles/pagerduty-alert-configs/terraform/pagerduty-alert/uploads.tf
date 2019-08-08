@@ -10,8 +10,8 @@ services:
       - 172.17.42.1
     environment:
       - TEST=test
-#    volumes:
-#      - /app/:/etc/
+    volumes:
+      - /app/:/app/
     restart: always
 EOT
   bucket = "${var.config_bucket_name}"
