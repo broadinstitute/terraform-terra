@@ -6,12 +6,10 @@ version: '2'
 services:
   pagerduty-alert:
     image: gcr.io/broad-dsde-dev/pagerduty-alert:latest
-    dns:
-      - 172.17.42.1
     environment:
       - TEST=test
     volumes:
-      - /app/:/app/
+      - /app/:/keys/
     restart: always
 EOT
   bucket = "${var.config_bucket_name}"
