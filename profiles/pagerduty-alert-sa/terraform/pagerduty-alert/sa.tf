@@ -1,4 +1,5 @@
 resource "google_service_account" "app" {
+  display_name   = "${var.service}"
   account_id   = "${var.service}"
   project      = "${var.google_project}"
 }

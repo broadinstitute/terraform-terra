@@ -45,7 +45,7 @@
     }
   },
   "profile_vars": {
-    "pagerduty-alerts-sa": {
+    "pagerduty-alert-sa": {
       "terraform": {
         "providers": {
           "google": {
