@@ -34,3 +34,7 @@ output "authorized_redirect_urls" {
     "https://${var.owner}-thurloe.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html"
   ]
 }
+
+output "vault_path_for_oauth_client_json" {
+  value = "${var.vault_path_prefix}/${var.service}/${var.service}-oauth-credential.json"
+}
