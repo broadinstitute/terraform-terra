@@ -1,6 +1,6 @@
 resource "google_storage_bucket_object" "docker-compose" {
-  count = "${length(data.google_compute_instance_group.service-instances.instances)}"
-  name   = "${element(split("/", element(data.google_compute_instance_group.service-instances.instances, count.index)), length(split("/", element(data.google_compute_instance_group.service-instances.instances, count.index))) - 1)}/configs/docker-compose.yaml"
+  count = length(data.google_compute_instance_group.service-instances.instances)
+  name   = "${element(split("/", element(tolist(data.google_compute_instance_group.service-instances.instances), count.index)), length(split("/", element(tolist(data.google_compute_instance_group.service-instances.instances), count.index))) - 1)}/configs/docker-compose.yaml"
   content = <<EOT
 version: '2'
 services:
@@ -22,8 +22,8 @@ EOT
 }
 
 resource "google_storage_bucket_object" "mongo-server-conf" {
-  count = "${length(data.google_compute_instance_group.service-instances.instances)}"
-  name   = "${element(split("/", element(data.google_compute_instance_group.service-instances.instances, count.index)), length(split("/", element(data.google_compute_instance_group.service-instances.instances, count.index))) - 1)}/configs/mongod.conf"
+  count = length(data.google_compute_instance_group.service-instances.instances)
+  name   = "${element(split("/", element(tolist(data.google_compute_instance_group.service-instances.instances), count.index)), length(split("/", element(tolist(data.google_compute_instance_group.service-instances.instances), count.index))) - 1)}/configs/mongod.conf"
   content = <<EOT
 #!/bin/bash
 # mongod.conf
