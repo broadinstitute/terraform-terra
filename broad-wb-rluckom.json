@@ -127,6 +127,14 @@
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
+      },
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
+      }
+    },
+    "thurloe-sa": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
       }
     },
     "thurloe": {

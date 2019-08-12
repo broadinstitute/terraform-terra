@@ -21,7 +21,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
           "default": {
@@ -44,29 +44,8 @@
     }
   },
   "profile_vars": {
-    "elasticsearch": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "network": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "firewalls": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "ssl": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "populate-vault": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "copy_secrets": {
           "common_secrets": {
             "from_path": "secret/dsde/firecloud/perf/common/secrets",
@@ -116,7 +95,6 @@
     },
     "gsuite": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "intermediate-domain-delegator": {
@@ -133,6 +111,8 @@
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
+      },
+      "terraform": {
       }
     },
     "thurloe": {
@@ -191,36 +171,16 @@
         }
       }
     },
-    "cromwell-runner": {
-      "terraform": {
-      }
-    },
-    "cromwell-summarizer": {
-      "terraform": {
-      }
-    },
-    "cromwell-reader": {
-      "terraform": {
-      }
-    },
     "cromwell-configs": {
       "env": {
         "APP_NAME": "cromwell",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
       }
     },
-    "cromiam": {
-      "terraform": {
-      }
-    },
     "cromiam-configs": {
       "env": {
         "APP_NAME": "cromiam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
-      }
-    },
-    "job-manager": {
-      "terraform": {
       }
     },
     "job-manager-configs": {
@@ -234,7 +194,6 @@
         "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
       },
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "app-engine": {
@@ -244,6 +203,12 @@
             }
           }
         }
+      }
+    },
+    "opendj-configs": {
+      "env": {
+        "APP_NAME": "opendj",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
     },
     "opendj": {
@@ -260,17 +225,18 @@
         }
       }
     },
-    "opendj-configs": {
-      "env": {
-        "APP_NAME": "opendj",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
-      }
-    },
     "tos": {
       "env": {
         "FUNCTION_ENTRYPOINT": "tos",
         "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
         "DATASTORE_PROJECT": "broad-dsde-perf"
+      }
+    },
+    "sam-configs": {
+      "env": {
+        "APP_NAME": "sam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
+        "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
     },
     "sam":{
@@ -284,13 +250,6 @@
             "to_path": "sam/sam.conf"
           }
         }
-      }
-    },
-    "sam-configs": {
-      "env": {
-        "APP_NAME": "sam",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
-        "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
     },
     "agora-configs": {

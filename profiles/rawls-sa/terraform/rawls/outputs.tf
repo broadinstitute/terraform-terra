@@ -1,5 +1,9 @@
-output "ATTENTION!!!" {
-  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nRun 'python manual_steps.py' in the profile folder in another console tab!\n\n"
+output "ATTENTION" {
+  value = <<EOF
+THIS PROFILE REQUIRES MANUAL STEPS!
+To run the manual steps run the script in the profile root:
+python manaul_steps.py [google-project-name]
+EOF
 }
 
 data "null_data_source" "dns_zone_no_trailing_dot" {
