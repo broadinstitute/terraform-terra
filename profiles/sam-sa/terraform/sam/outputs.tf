@@ -1,5 +1,9 @@
-output "ATTENTION!!!" {
-  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nSee manual-steps.md in the profile folder!\n\n"
+output "ATTENTION" {
+  value = <<EOF
+THIS PROFILE REQUIRES MANUAL STEPS!
+To run the manual steps run the script in the profile root:
+python manaul_steps.py [google-project-name]
+EOF
 }
 
 output "directory_sa_ids" {

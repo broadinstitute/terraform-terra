@@ -33,14 +33,14 @@ class Oauth(object):
         print("Create a new 'OAuth client ID' credential, selecting 'Web application' for the type")
         print("  Name: {0} Oauth Credential ".format(context["app"]))
         print("  Add the authorized Javascript origins output by this profile")
-        print("  Add the following authorized redirect URIs output by this profile\n")
+        print("  Add the authorized redirect URIs output by this profile\n")
         wait_for_enter()
         print("\nDownload the OAuth credential JSON")
         print("Upload the JSON to vault:")
         print((
             "  ./add_to_vault.sh "
             "[path to JSON] "
-            "secret/dsde/firecloud/ephemeral/{0}/{1}/{1}-oauth-credential.json"
+            "[vault path output by this profile]"
             ).format(
                 context["project_name"],
                 context["app"]

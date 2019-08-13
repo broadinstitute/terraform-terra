@@ -21,7 +21,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-11-14",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
           "default": {
@@ -44,21 +44,6 @@
     }
   },
   "profile_vars": {
-    "network": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "firewalls": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "ssl": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "populate-vault": {
       "terraform": {
         "copy_secrets": {
@@ -110,7 +95,6 @@
     },
     "gsuite": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "intermediate-domain-delegator": {
@@ -131,7 +115,6 @@
     },
     "thurloe": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "copy_secrets": {
           "secret_keys": {
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
@@ -182,18 +165,8 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
       }
     },
-    "elasticsearch-sa": {
-      "terraform": {
-      }
-    },
-    "elasticsearch": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "cromwell-sa": {
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "copy_secrets": {
           "cromwell_secrets": {
             "from_path": "secret/dsde/firecloud/perf/cromwell/secrets",
@@ -206,53 +179,19 @@
         }
       }
     },
-    "cromwell-runner": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "cromwell-summarizer": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
-    "cromwell-reader": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "cromwell-configs": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      },
       "env": {
         "APP_NAME": "cromwell",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
       }
     },
-    "cromiam": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "cromiam-configs": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      },
       "env": {
         "APP_NAME": "cromiam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
       }
     },
-    "job-manager": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      }
-    },
     "job-manager-configs": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6"
-      },
       "env": {
         "APP_NAME": "job-manager",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
@@ -263,7 +202,6 @@
         "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
       },
       "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
         "providers": {
           "google": {
             "app-engine": {

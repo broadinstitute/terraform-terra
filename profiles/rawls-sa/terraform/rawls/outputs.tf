@@ -1,5 +1,9 @@
-output "ATTENTION!!!" {
-  value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nRun 'python manual_steps.py' in the profile folder in another console tab!\n\n"
+output "ATTENTION" {
+  value = <<EOF
+THIS PROFILE REQUIRES MANUAL STEPS!
+To run the manual steps run the script in the profile root:
+python manaul_steps.py [google-project-name]
+EOF
 }
 
 data "null_data_source" "dns_zone_no_trailing_dot" {
@@ -29,4 +33,8 @@ output "authorized_redirect_urls" {
     "https://${var.owner}-sam.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-thurloe.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html"
   ]
+}
+
+output "vault_path_for_oauth_client_json" {
+  value = "${var.vault_path_prefix}/${var.service}/${var.service}-oauth-credential.json"
 }
