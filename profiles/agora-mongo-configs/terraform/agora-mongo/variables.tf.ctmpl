@@ -58,7 +58,7 @@ variable "mongodb_container_port" {
 }
 
 variable "mongodb_data_path" {
-  default = "{{if env "MONGODB_DATA_PATH"}}{{env "MONGODB_DATA_PATH"}}{{else}}{{end}}"
+  default = "{{if env "MONGODB_DATA_PATH"}}{{env "MONGODB_DATA_PATH"}}{{else}}/local/mongodb_data{{end}}"
 }
 
 variable "mongodb_app_username" {
