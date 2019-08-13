@@ -157,6 +157,12 @@
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
       }
     },
+    "elasticsearch-configs": {
+      "env": {
+        "APP_NAME": "elasticsearch",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+      }
+    },
     "cromwell-sa": {
       "terraform": {
         "copy_secrets": {
