@@ -84,19 +84,19 @@ variable "instance_tags" {
 # Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
-  description = "The default number of Thurloe service hosts per environment"
+  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS"}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  description = "The default number of service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highmem-8{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highmem-8{{ end }}"
   description = "The default size of service hosts"
 }
 variable "instance_data_disk_size" {
-  default = "{{ if env "SERVICE_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_DATA_DISK_SIZE" }}{{ env "SERVICE_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
   description = "The default size of service data disk"
 }
 variable "instance_data_disk_type" {
-  default = "{{ if env "SERVICE_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "SERVICE_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_DATA_DISK_TYPE" }}{{ env "SERVICE_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
   description = "The default type of service data disk"
 }
 
