@@ -26,8 +26,8 @@ cd terraform-gae-working
 git clone https://github.com/DataBiosphere/calhoun.git
 cd calhoun
 git checkout ${var.calhoun_git_commit}
-cp ${local_file.app_yaml.filename} .
-cp ${local_file.config_py.filename} .
+cp ${abspath(local_file.app_yaml.filename)} .
+cp ${abspath(local_file.config_py.filename)} .
 gcloud app deploy --bucket=gs://${google_storage_bucket.app-bucket.name} --project=${data.google_client_config.app-engine.project}
 EOT
   filename = "${path.module}/deploy.sh"

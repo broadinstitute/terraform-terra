@@ -21,7 +21,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
           "default": {
@@ -174,6 +174,12 @@
         "APP_NAME": "rawls",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
+      }
+    },
+    "elasticsearch-configs": {
+      "env": {
+        "APP_NAME": "elasticsearch",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
       }
     },
     "cromwell-sa": {

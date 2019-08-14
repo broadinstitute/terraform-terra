@@ -1,4 +1,4 @@
-output "ATTENTION!!!" {
+output "ATTENTION" {
   value = "\nTHIS PROFILE REQUIRES MANUAL STEPS!\nRun 'python manual_steps.py' in the profile folder in another console tab!\n\n"
 }
 

@@ -2,7 +2,7 @@
 resource "google_storage_bucket" "config-bucket" {
   name       = "${var.owner}-${var.service}-config"
   project    = "${var.google_project}"
-  versioning = {
+  versioning {
     enabled = "true"
   }
   force_destroy = true

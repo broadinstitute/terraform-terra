@@ -41,6 +41,7 @@ def copy_file_from_github(path, output_file_name = nil, org = nil, repo = nil, b
     # This GitHub endpoint seems to always return the content as a base-64-encoded string, but
     # assert that just to be safe.
     unless response["encoding"] == "base64"
+      STDERR.puts "getting https://api.github.com/repos/#{org}/#{repo}/contents/#{path}?ref=#{branch}"
       STDERR.puts "Expected content to be base64 encoded:"
       STDERR.puts JSON.pretty_generate(response)
       exit 1

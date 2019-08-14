@@ -8,9 +8,9 @@ resource "random_id" "root-password" {
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.1.1"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.2.0-tf-0.12"
 
-  providers {
+  providers = {
     google.target =  "google"
   }
   project       = "${var.google_project}"
@@ -32,8 +32,8 @@ resource "google_project_iam_member" "app-sa-roles" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.0.4"
-  providers {
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.1.1-tf-0.12"
+  providers = {
     google.instances =  "google"
     google.dns =  "google.dns"
   }

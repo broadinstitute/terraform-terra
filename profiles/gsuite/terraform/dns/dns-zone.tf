@@ -18,5 +18,5 @@ resource "google_dns_record_set" "intermediate_zone_delegation" {
 
   managed_zone = "${data.google_dns_managed_zone.intermediate_zone.name}"
 
-  rrdatas = ["${google_dns_managed_zone.dns_zone.name_servers}"]
+  rrdatas = google_dns_managed_zone.dns_zone.name_servers
 }

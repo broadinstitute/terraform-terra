@@ -1,7 +1,7 @@
 module "instance" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=docker-instance-0.1.1"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/docker-instance?ref=docker-instance-0.2.0-tf-0.12"
 
-  providers {
+  providers = {
     google.target =  "google"
   }
   project       = "${var.google_project}"
@@ -24,8 +24,10 @@ data "google_dns_managed_zone" "dns-zone" {
   name = "${var.dns_zone_name}"
 }
 
+# Instance DNS
 resource "google_dns_record_set" "instance-dns" {
   provider     = "google.dns"
+  count        = "${var.instance_num_hosts}"
   managed_zone = "${data.google_dns_managed_zone.dns-zone.name}"
   name         = "${format("${var.owner}-${var.service}-%02d.%s", count.index+1, data.google_dns_managed_zone.dns-zone.dns_name)}"
   type         = "A"

@@ -21,7 +21,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:rl-tf-11-14",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
           "default": {
@@ -159,6 +159,12 @@
       "terraform": {
       }
     },
+    "elasticsearch-configs": {
+      "env": {
+        "APP_NAME": "elasticsearch",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+      }
+    },
     "cromwell-sa": {
       "terraform": {
         "copy_secrets": {
@@ -173,36 +179,16 @@
         }
       }
     },
-    "cromwell-runner": {
-      "terraform": {
-      }
-    },
-    "cromwell-summarizer": {
-      "terraform": {
-      }
-    },
-    "cromwell-reader": {
-      "terraform": {
-      }
-    },
     "cromwell-configs": {
       "env": {
         "APP_NAME": "cromwell",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
       }
     },
-    "cromiam": {
-      "terraform": {
-      }
-    },
     "cromiam-configs": {
       "env": {
         "APP_NAME": "cromiam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
-      }
-    },
-    "job-manager": {
-      "terraform": {
       }
     },
     "job-manager-configs": {

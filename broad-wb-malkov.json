@@ -21,7 +21,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:f78ebc56f1b344",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
           "default": {
@@ -111,6 +111,8 @@
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
+      },
+      "terraform": {
       }
     },
     "thurloe": {
@@ -155,6 +157,12 @@
         "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
       }
     },
+    "elasticsearch-configs": {
+      "env": {
+        "APP_NAME": "elasticsearch",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+      }
+    },
     "cromwell-sa": {
       "terraform": {
         "copy_secrets": {
@@ -169,36 +177,16 @@
         }
       }
     },
-    "cromwell-runner": {
-      "terraform": {
-      }
-    },
-    "cromwell-summarizer": {
-      "terraform": {
-      }
-    },
-    "cromwell-reader": {
-      "terraform": {
-      }
-    },
     "cromwell-configs": {
       "env": {
         "APP_NAME": "cromwell",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
       }
     },
-    "cromiam": {
-      "terraform": {
-      }
-    },
     "cromiam-configs": {
       "env": {
         "APP_NAME": "cromiam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
-      }
-    },
-    "job-manager": {
-      "terraform": {
       }
     },
     "job-manager-configs": {
@@ -223,6 +211,12 @@
         }
       }
     },
+    "opendj-configs": {
+      "env": {
+        "APP_NAME": "opendj",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
+      }
+    },
     "opendj": {
       "terraform": {
         "copy_secrets": {
@@ -237,17 +231,18 @@
         }
       }
     },
-    "opendj-configs": {
-      "env": {
-        "APP_NAME": "opendj",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
-      }
-    },
     "tos": {
       "env": {
         "FUNCTION_ENTRYPOINT": "tos",
         "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
         "DATASTORE_PROJECT": "broad-dsde-perf"
+      }
+    },
+    "sam-configs": {
+      "env": {
+        "APP_NAME": "sam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
+        "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
     },
     "sam":{
@@ -261,13 +256,6 @@
             "to_path": "sam/sam.conf"
           }
         }
-      }
-    },
-    "sam-configs": {
-      "env": {
-        "APP_NAME": "sam",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
-        "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
       }
     },
     "agora-configs": {
