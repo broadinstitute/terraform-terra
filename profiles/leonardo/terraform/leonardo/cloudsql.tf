@@ -8,9 +8,9 @@ resource "random_id" "root-password" {
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.1.1"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.2.0-tf-0.12"
 
-  providers {
+  providers = {
     google.target =  "google"
   }
   project       = "${var.google_project}"
