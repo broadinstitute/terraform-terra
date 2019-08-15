@@ -6,5 +6,5 @@ resource "null_resource" "gae_deploy" {
   provisioner "local-exec" {
     command = "/bin/bash ${local_file.deploy_script.filename}"
   }
-  depends_on = ["local_file.deploy_script", "local_file.config_py", "local_file.app_yaml", "module.enable-services"]
+  depends_on = ["local_file.deploy_script", "local_file.config_json", "module.enable-services"]
 }

@@ -21,12 +21,75 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
-variable "sam_address" {
-  default = "{{if env "SAM_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
-  description = "The path to this environment's secrets in vault"
+
+
+##############################
+# Profile dependencies' vars #
+##############################
+
+# URLS/endpoints
+
+# Completed profiles
+variable "agora_url" {
+  default = "{{if env "AGORA_ADDRESS"}}{{env "AGORA_ADDRESS"}}{{else}}{{with secret (printf "%s/agora/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "agora URL"
 }
-variable "calhoun_git_commit" {
-{{if env "CALHOUN_GIT_COMMIT"}}
-  default = "{{env "CALHOUN_GIT_COMMIT"}}"
-{{end}}
+variable "calhoun_url" {
+  default = "{{if env "CALHOUN_ADDRESS"}}{{env "CALHOUN_ADDRESS"}}{{else}}{{with secret (printf "%s/calhoun/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "calhoun URL"
+}
+variable "job_manager_url" {
+  default = "{{if env "JOB_MANAGER_ADDRESS"}}{{env "JOB_MANAGER_ADDRESS"}}{{else}}{{with secret (printf "%s/job_manager/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "job_manager URL"
+}
+variable "leo_url" {
+  default = "{{if env "LEO_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/leo/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "leo URL"
+}
+variable "rawls_url" {
+  default = "{{if env "RAWLS_ADDRESS"}}{{env "RAWLS_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "rawls URL"
+}
+variable "sam_url" {
+  default = "{{if env "SAM_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "sam URL"
+}
+variable "tos_url" {
+  default = "{{if env "TOS_ADDRESS"}}{{env "TOS_ADDRESS"}}{{else}}{{with secret (printf "%s/tos/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "tos URL"
+}
+variable "bond_url" {
+  default = "{{if env "BOND_ADDRESS"}}{{env "BOND_ADDRESS"}}{{else}}{{with secret (printf "%s/bond/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "bond URL"
+}
+variable "martha_url" {
+  default = "{{if env "MARTHA_ADDRESS"}}{{env "MARTHA_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "martha URL"
+}
+variable "orch_url" {
+  default = "{{if env "ORCH_ADDRESS"}}{{env "ORCH_ADDRESS"}}{{else}}{{with secret (printf "%s/orch/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "orch URL"
+}
+variable "rex_url" {
+  default = "{{if env "REX_ADDRESS"}}{{env "REX_ADDRESS"}}{{else}}{{with secret (printf "%s/rex/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "rex URL"
+}
+variable "shibboleth_url" {
+  default = "{{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}{{with secret (printf "%s/shibboleth/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "shibboleth URL"
+}
+
+variable "is_prod" {
+  default = {{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}false{{end}}
+}
+
+variable "tcell_api_id" {
+  default = "{{if env "TCELL_API_ID"}}{{env "TCELL_API_ID"}}{{else}}saturnnonprod-O9lUP{{end}}"
+}
+variable "tcell_api_key" {
+  default = "{{if env "TCELL_API_KEY"}}{{env "TCELL_API_KEY"}}{{else}}AQEBBAEkx4iE2KxNyI7Wx08EwU1ycTM7E4FMSmaibbMUQxNU6uQvuAJt7fyABAtFYSYfgEE{{end}}"
+}
+
+variable "google_client_id" {
+  default = "{{if env "GOOGLE_CLIENT_ID"}}{{env "GOOGLE_CLIENT_ID"}}{{else}}{{with secret (printf "%s/common/refresh-token-oauth-credential.json" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.web.client_id}}{{end}}{{end}}"
 }
