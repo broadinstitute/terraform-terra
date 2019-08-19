@@ -17,6 +17,6 @@ resource "google_service_account_key" "app_account_key" {
 provider "vault" {}
 
 resource "vault_generic_secret" "app_account_key" {
-  path = "secret/dsde/firecloud/common/${var.account_name}-account.json"
+  path = "secret/dsde/firecloud/common/${var.account_name}.json"
   data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
 }
