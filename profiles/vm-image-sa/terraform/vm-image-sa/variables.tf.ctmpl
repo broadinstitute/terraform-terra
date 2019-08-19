@@ -20,5 +20,7 @@ variable "sa_roles" {
   type = "list"
   default = [
     "roles/compute.admin",
+    "roles/iam.serviceAccountUser",
+    "roles/storage.objectViewer",
   ]
 }
