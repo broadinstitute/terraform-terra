@@ -11,5 +11,8 @@ resource "google_cloudfunctions_function" "function" {
   runtime               = "${var.function_runtime}"
   trigger_http          = true
   environment_variables = "${var.function_env_vars}"
-  depends_on = ["null_resource.function_upload"]
+  depends_on = [
+    "null_resource.function_upload",
+    "module.enable-services"
+  ]
 }

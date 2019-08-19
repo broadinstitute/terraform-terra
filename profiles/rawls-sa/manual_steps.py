@@ -23,7 +23,11 @@ class AuthorizeDomain(object):
     def run(self, context):
         print("\nIn the GCP console go to APIs & Services > Credentials > OAuth consent screen:")
         print("  https://console.cloud.google.com/apis/credentials/consent")
-        print("Add {0} to the list of authorized domains\n".format(context["dns_domain"]))
+        print((
+            "Add the root domain of {0} to the list of authorized domains"
+            "if it's not already there\n"
+            ).format(context["dns_domain"])
+        )
         wait_for_enter()
 
 class Oauth(object):

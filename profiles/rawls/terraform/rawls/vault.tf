@@ -40,7 +40,7 @@ resource "vault_generic_secret" "hostname" {
 
   data_json = <<EOT
 {
-  "name": "${module.load-balanced-instances.service_hostname}"
+  "hostname": "${module.load-balanced-instances.service_hostname}"
 }
 EOT
 }
