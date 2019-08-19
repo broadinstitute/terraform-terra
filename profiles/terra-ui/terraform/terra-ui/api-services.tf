@@ -7,5 +7,6 @@ module "enable-services" {
   project     = "${var.google_project}"
   services    = [
     "appengine.googleapis.com",
+    "cloudbilling.googleapis.com"
   ]
 }

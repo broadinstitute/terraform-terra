@@ -3,7 +3,7 @@ resource "local_file" "config_json" {
 {
   "agoraUrlRoot": "${var.agora_url}",
   "bondUrlRoot": "${var.bond_url}",
-  "calhounUrlRoot": "${var.calhoun_url}",
+  "calhounUrlRoot": "${var.calhoun_endpoint}",
   "dockstoreUrlRoot": "https://dockstore.org",
   "firecloudBucketRoot": "https://storage.googleapis.com/firecloud-alerts",
   "firecloudUrlRoot": "https://portal.firecloud.org",
@@ -21,7 +21,7 @@ resource "local_file" "config_json" {
     "appId": "${var.tcell_api_id}",
     "apiKey": "${var.tcell_api_key}"
   },
-  "tosUrlRoot": "${var.tos_url}"
+  "tosUrlRoot": "${var.tos_endpoint}"
 }
 EOT
   filename = "${path.module}/config.json"
@@ -41,9 +41,10 @@ mkdir -p terraform-gae-working
 cd terraform-gae-working
 git clone https://github.com/DataBiosphere/terra-ui.git
 cd terra-ui
-git checkout ${var.terra_git_commit}
-docker run -v $PWD:/app -v $PWD/.npm:/.npm -v $PWD/.config:/.config -w /app node:10 sh -c 'npx npm@6.10 ci && npx npm@6.10 run build'
-cp ${abspath(local_file.config_json.filename)} ./config/config.json
+git checkout ${var.terra_ui_git_commit}
+npx npm@6.10 ci
+npx npm@6.10 run build
+cp ${abspath(local_file.config_json.filename)} ./build/config.json
 gcloud app deploy --bucket=gs://${google_storage_bucket.app-bucket.name} --project=${data.google_client_config.app-engine.project}
 EOT
   filename = "${path.module}/deploy.sh"

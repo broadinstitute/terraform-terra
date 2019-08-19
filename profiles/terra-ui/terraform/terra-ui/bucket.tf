@@ -2,7 +2,7 @@
 resource "google_storage_bucket" "app-bucket" {
   provider    = "google.app-engine"
   name       = "${var.owner}-${var.environment}-${var.service}-app-engine"
-  versioning = {
+  versioning {
     enabled = "true"
   }
   force_destroy = true

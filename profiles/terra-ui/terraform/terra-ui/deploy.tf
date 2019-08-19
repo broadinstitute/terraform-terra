@@ -1,6 +1,6 @@
 resource "null_resource" "gae_deploy" {
   triggers = {
-    gae_commit = "${var.calhoun_git_commit}"
+    gae_commit = "${var.terra_ui_git_commit}"
     always = "${uuid()}"
   }
   provisioner "local-exec" {
