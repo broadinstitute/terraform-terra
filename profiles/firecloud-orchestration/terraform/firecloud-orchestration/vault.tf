@@ -14,7 +14,7 @@ resource "vault_generic_secret" "whitelist-bucket" {
 
   data_json = <<EOT
 {
-  "hostname": "${google_storage_bucket.whitelist-bucket.name}"
+  "name": "${google_storage_bucket.whitelist-bucket.name}"
 }
 EOT
 }
