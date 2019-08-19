@@ -1,0 +1,24 @@
+#
+# Profile Vars
+#
+variable "google_project" {
+  default = "broad-dsp-gcr-public"
+  description = "The google project as specified in the application json"
+}
+
+variable "account_name" {
+  default = "image-build-account"
+}
+
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+variable "sa_roles" {
+  description = "roles to assign the app sa"
+  type = "list"
+  default = [
+    "roles/compute.admin",
+  ]
+}
