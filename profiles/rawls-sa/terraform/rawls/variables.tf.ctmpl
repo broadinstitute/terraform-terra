@@ -5,17 +5,32 @@ variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
+
+variable "deployment_manager_google_project" {
+  default = "{{if (env "DEPLOYMENT_MANAGER_PROJECT")}}{{env "DEPLOYMENT_MANAGER_PROJECT"}}{{else}}{{env "GOOGLE_PROJECT"}}-deployment-mgr{{end}}"
+  description = "The google project as specified in the application json"
+}
+
 variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
 }
+
 variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
+
 variable "vault_path_prefix" {
   default = "{{env "VAULT_PATH_PREFIX"}}"
   description = "The prefix path at which to store vault values"
+}
+
+variable "billing_accounts" {
+  default = [
+    "billing@test.firecloud.org",
+    "billing@quality.firecloud.org"
+  ]
 }
 
 variable "app_sa_roles" {
@@ -28,6 +43,13 @@ variable "app_sa_roles" {
     "roles/genomics.admin",
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter"
+  ]
+}
+
+variable "app_sa_deployment_manager_roles" {
+  default = [
+    "roles/deploymentmanager.editor",
+    "roles/iam.serviceAccountTokenCreator",
   ]
 }
 
