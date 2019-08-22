@@ -1,12 +1,45 @@
 provider vault {}
 
-resource "vault_generic_secret" "url" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/hostname"
+resource "random_string" "mongodb-replica-set-key" {
+  length = 16
+  special = false
+}
+
+resource "random_id" "mongodb-user-password" {
+  byte_length   = 16
+}
+
+resource "random_id" "mongodb-root-password" {
+  byte_length   = 16
+}
+
+resource "vault_generic_secret" "app-database-credentials" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/mongo/app_user"
 
   data_json = <<EOT
 {
-  "hostname": "${substr(google_dns_record_set.dns-cname.name, 0, length(google_dns_record_set.dns-cname.name) - 1)}",
-  "priv_hostname": "${substr(google_dns_record_set.dns-cname-priv.name, 0, length(google_dns_record_set.dns-cname-priv.name) - 1)}"
+  "username": "${var.service}",
+  "password": "${random_id.mongodb-user-password.hex}"
+}
+EOT
+}
+
+resource "vault_generic_secret" "root-database-credentials" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/mongo/root_user"
+
+  data_json = <<EOT
+{
+  "username": "root",
+  "password": "${random_id.mongodb-root-password.hex}"
+}
+EOT
+}
+
+resource "vault_generic_secret" "hostnames" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/hostnames"
+  data_json = <<EOT
+{
+  "hostnames": ${jsonencode(module.mongodb.instance_priv_hostnames)}
 }
 EOT
 }

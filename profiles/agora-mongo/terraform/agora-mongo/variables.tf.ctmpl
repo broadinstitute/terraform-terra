@@ -101,19 +101,17 @@ variable "instance_data_disk_type" {
   description = "The default type of service data disk"
 }
 
-
 #
-# Service Config Bucket
+# MongoDB
 #
-variable "storage_bucket_roles" {
-  type = "list"
-
+variable "mongodb_roles" {
   default = [
-    "roles/storage.legacyBucketReader",
-    "roles/storage.objectViewer"
+    "primary",
+    "secondary",
+    "arbiter"
   ]
+  description = "host roles that will be present in this cluster"
 }
-
 
 variable "dns_ttl" {
    default = "300"
