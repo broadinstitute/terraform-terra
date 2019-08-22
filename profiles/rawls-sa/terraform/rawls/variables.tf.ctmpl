@@ -26,7 +26,7 @@ variable "vault_path_prefix" {
   description = "The prefix path at which to store vault values"
 }
 
-variable "billing_accounts" {
+variable "rawls_billing_service_accounts" {
   default = [
     "billing@test.firecloud.org",
     "billing@quality.firecloud.org"

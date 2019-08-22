@@ -19,10 +19,10 @@ resource "google_project_iam_member" "app-deployment-manager" {
 }
 
 resource "google_project_iam_member" "billing-deployment-manager" {
-  count   = "${length(var.billing_accounts)}"
+  count   = "${length(var.rawls_billing_service_accounts)}"
   project = "${var.deployment_manager_google_project}"
   role    = "roles/deploymentmanager.editor"
-  member  = "user:${element(var.billing_accounts, count.index)}"
+  member  = "user:${element(var.rawls_billing_service_accounts, count.index)}"
 }
 
 # Grant service account access to container registry
