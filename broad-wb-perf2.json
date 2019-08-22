@@ -15,7 +15,8 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
+      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-perf2"
     },
     "vault": {
       "policy": "dsde-write"

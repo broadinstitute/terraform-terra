@@ -7,7 +7,7 @@ variable "google_project" {
 }
 
 variable "deployment_manager_google_project" {
-  default = "{{if (env "DEPLOYMENT_MANAGER_PROJECT")}}{{env "DEPLOYMENT_MANAGER_PROJECT"}}{{else}}{{env "GOOGLE_PROJECT"}}-deployment-mgr{{end}}"
+  default = "{{if (env "DEPLOYMENT_MANAGER_PROJECT")}}{{env "DEPLOYMENT_MANAGER_PROJECT"}}{{else}}terra-deployments-{{env "OWNER"}}{{end}}"
   description = "The google project as specified in the application json"
 }
 
