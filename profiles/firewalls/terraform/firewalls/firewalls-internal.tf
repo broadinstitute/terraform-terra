@@ -1,5 +1,7 @@
 
 resource "google_compute_firewall" "managed_broad_allow_opendj_internal" {
+  provider = "google-beta"
+  enable_logging = true
   name = "managed-broad-allow-opendj-internal"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
@@ -14,6 +16,8 @@ resource "google_compute_firewall" "managed_broad_allow_opendj_internal" {
 }
 
 resource "google_compute_firewall" "managed_managed_allow_mongo_client" {
+  provider = "google-beta"
+  enable_logging = true
   name = "managed-managed-allow-mongo-client"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
@@ -28,6 +32,8 @@ resource "google_compute_firewall" "managed_managed_allow_mongo_client" {
 }
 
 resource "google_compute_firewall" "managed_managed_allow_https" {
+  provider = "google-beta"
+  enable_logging = true
   name = "managed-managed-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
@@ -42,6 +48,8 @@ resource "google_compute_firewall" "managed_managed_allow_https" {
 }
 
 resource "google_compute_firewall" "managed_managed_allow_http" {
+  provider = "google-beta"
+  enable_logging = true
   name = "managed-managed-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
   depends_on = [ "data.google_compute_network.terra-env-network" ]
@@ -56,6 +64,8 @@ resource "google_compute_firewall" "managed_managed_allow_http" {
 }
 
 resource "google_compute_firewall" "managed_managed_allow_elasticsearch" {
+  provider = "google-beta"
+  enable_logging = true
   name = "managed-managed-allow-elasticsearch"
   network = "${data.google_compute_network.terra-env-network.name}"
   allow {

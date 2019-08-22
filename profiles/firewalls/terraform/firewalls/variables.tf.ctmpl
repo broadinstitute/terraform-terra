@@ -39,3 +39,9 @@ variable "broad_range_cidrs" {
     "69.173.127.232/29",
     "69.173.127.240/28" ]
 }
+
+provider "google-beta" {
+  credentials = "${file("default.sa.json")}"
+  project     = var.google_project
+  region      = "us-central1"
+}
