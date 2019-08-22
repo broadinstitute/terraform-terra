@@ -15,7 +15,8 @@
       "policy": "dsde-write"
     },
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
+      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov"
     },
     "vault": {
       "policy": "dsde-write"
