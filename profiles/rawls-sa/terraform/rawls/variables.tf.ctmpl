@@ -27,10 +27,7 @@ variable "vault_path_prefix" {
 }
 
 variable "rawls_billing_service_accounts" {
-  default = [
-    "billing@test.firecloud.org",
-    "billing@quality.firecloud.org"
-  ]
+  default = {{if (env "RAWLS_BILLING_SERVICE_ACCOUNTS")}}{{env "RAWLS_BILLING_SERVICE_ACCOUNTS" | split "," | toJSON}}{{else}}["billing@test.firecloud.org","billing@quality.firecloud.org"]{{end}}
 }
 
 variable "app_sa_roles" {
