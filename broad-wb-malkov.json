@@ -296,6 +296,13 @@
           }
         }
       }
+    },
+    "consent-configs": {
+      "env": {
+        "APP_NAME": "consent",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "fead1cb7703e"
+      }
     }
   },
   "clusters": {
