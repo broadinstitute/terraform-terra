@@ -125,7 +125,7 @@ class Oauth(object):
 
 if __name__ == "__main__":
     context = {
-        "app": "sam",
+        "app": "firecloud-orchestration",
         "dns_domain": "dsde-perf.broadinstitute.org",
         "google_app_domain": "test.firecloud.org",
         "project_name": sys.argv[1]
