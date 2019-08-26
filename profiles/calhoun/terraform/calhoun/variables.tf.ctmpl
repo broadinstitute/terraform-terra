@@ -26,7 +26,6 @@ variable "vault_path_prefix" {
   description = "The prefix path at which to store vault values"
 }
 
-
 variable "sam_address" {
   default = "{{if env "SAM_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
   description = "The path to this environment's secrets in vault"
