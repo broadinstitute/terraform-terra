@@ -72,7 +72,7 @@ data "google_compute_network" "terra-env-network" {
   name = "${var.google_network_name}"
 }
 # Application SA
-variable "config_reader_service_account" {
+variable "app_service_account" {
   default = "{{env "OWNER"}}-{{env "SERVICE"}}"
 }
 
@@ -85,8 +85,8 @@ variable "service_account_iam_roles" {
   ]
 }
 
-data "google_service_account" "config_reader" {
-  account_id = "${var.config_reader_service_account}"
+data "google_service_account" "app" {
+  account_id = "${var.app_service_account}"
 }
 
 variable "default_ssl_policy" {
@@ -207,6 +207,17 @@ variable "storage_bucket_roles" {
   default = [
     "roles/storage.legacyBucketReader",
     "roles/storage.objectViewer"
+  ]
+}
+
+#
+# Application Service Bucket
+#
+variable "service_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.objectAdmin"
   ]
 }
 

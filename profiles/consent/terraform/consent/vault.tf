@@ -39,3 +39,13 @@ resource "vault_generic_secret" "hostname" {
 }
 EOT
 }
+
+resource "vault_generic_secret" "service-bucket" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/service-bucket"
+
+  data_json = <<EOT
+{
+  "name": "${google_storage_bucket.service-bucket.name}"
+}
+EOT
+}

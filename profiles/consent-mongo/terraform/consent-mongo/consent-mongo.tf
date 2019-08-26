@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "mongodb" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.0-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.1-tf-0.12"
 
   providers = {
     google.target =  "google",
@@ -11,7 +11,7 @@ module "mongodb" {
   service                  = "${var.service}"
   instance_name            = "${var.service}"
   mongodb_service_account  = "${var.config_reader_service_account}"
-  mongodb_roles            = "${var.mongodb_roles}"
+  mongodb_roles            = var.mongodb_roles
   mongodb_app_username     = "${var.service}"
   mongodb_app_password     = "${random_id.mongodb-user-password.hex}"
   mongodb_root_password    = "${random_id.mongodb-root-password.hex}"
