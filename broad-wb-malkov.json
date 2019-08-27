@@ -22,6 +22,7 @@
       "log_level": "debug"
     },
     "terraform": {
+      "log_level": "TRACE",
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
