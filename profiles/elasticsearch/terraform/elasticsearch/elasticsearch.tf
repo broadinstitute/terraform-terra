@@ -22,7 +22,7 @@ module "elasticsearch" {
     "app"             = "${var.service}",
     "owner"           = "${var.owner}",
     "role"            = "db",
-    "ansible_branch"  = "rl-set-fs-permissions",
+    "ansible_branch"  = "master",
     "ansible_project" = "terra-env",
   }
 }
