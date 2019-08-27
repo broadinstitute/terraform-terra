@@ -2,7 +2,7 @@
 # Profile Vars
 #
 variable "google_project" {
-  default = "broad-dsp-gcr-public"
+  default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
 
