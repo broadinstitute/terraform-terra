@@ -1,46 +1,23 @@
 provider vault {}
 
-resource "vault_generic_secret" "service-hostname" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/hostname"
-
+resource "vault_generic_secret" "hostnames" {
+  path = "${var.vault_path_prefix}/${var.service}/secrets/hostnames"
   data_json = <<EOT
 {
-  "hostname": "${substr(google_dns_record_set.dns-cname.name, 0, length(google_dns_record_set.dns-cname.name) - 1)}",
-  "priv_hostname": "${substr(google_dns_record_set.dns-cname-priv.name, 0, length(google_dns_record_set.dns-cname-priv.name) - 1)}"
-}
-EOT
-}
-
-data "null_data_source" "hostnames_with_no_trailing_dot" {
-  count = "${length(google_dns_record_set.dns-a.*.name)}"
-  inputs = {
-    hostname = "${substr(element(google_dns_record_set.dns-a.*.name, count.index), 0, length(element(google_dns_record_set.dns-a.*.name, count.index)) - 1)}"
-    hostname_priv = "${substr(element(google_dns_record_set.dns-a-priv.*.name, count.index), 0, length(element(google_dns_record_set.dns-a-priv.*.name, count.index)) - 1)}"
-  }
-  depends_on = ["google_dns_record_set.dns-a"]
-}
-
-resource "vault_generic_secret" "instance-hostnames" {
-  path = "${var.vault_path_prefix}/${var.service}/secrets/instance-hostnames"
-  depends_on = [google_dns_record_set.dns-a]
-
-  data_json = <<EOT
-{
-  "hostnames": ${jsonencode(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname)},
-  "priv_hostnames": ${jsonencode(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname_priv)}
+  "hostnames": ${jsonencode(module.elasticsearch.instance_hostnames)},
+  "priv_hostnames": ${jsonencode(module.elasticsearch.instance_priv_hostnames)}
 }
 EOT
 }
 
 resource "vault_generic_secret" "instance-hostnames-by-instance-name" {
-  count = "${length(google_dns_record_set.dns-a.*.name)}"
-  path = "${var.vault_path_prefix}/${var.service}/secrets/${element(module.instances.instance_names, count.index)}/instance-hostnames"
-  depends_on = [google_dns_record_set.dns-a]
+  count = "${length(module.elasticsearch.instance_hostnames)}"
+  path = "${var.vault_path_prefix}/${var.service}/secrets/${element(module.elasticsearch.instance_names, count.index)}/instance-hostnames"
 
   data_json = <<EOT
 {
-  "hostname": "${length(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname) > 0 ? element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname, count.index) : ""}",
-  "priv_hostname": "${length(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname) > 0 ?  element(data.null_data_source.hostnames_with_no_trailing_dot.*.outputs.hostname_priv, count.index) : ""}"
+  "hostname": "${length(module.elasticsearch.instance_hostnames) > 0 ? element(module.elasticsearch.instance_hostnames, count.index) : ""}",
+  "priv_hostname": "${length(module.elasticsearch.instance_hostnames) > 0 ?  element(module.elasticsearch.instance_priv_hostnames, count.index) : ""}"
 }
 EOT
 }
