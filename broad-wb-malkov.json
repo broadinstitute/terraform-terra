@@ -11,15 +11,15 @@
   "dns_zone_name": "dsde-perf-broad",
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
-    "vault": {
-      "policy": "dsde-write"
-    },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov"
     },
     "vault": {
       "policy": "dsde-write"
+    },
+    "consul_template": {
+      "log_level": "debug"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
@@ -112,8 +112,6 @@
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
         "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
-      },
-      "terraform": {
       }
     },
     "thurloe": {
