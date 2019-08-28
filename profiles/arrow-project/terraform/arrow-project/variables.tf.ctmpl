@@ -1,0 +1,12 @@
+variable "google_project_id" {
+  default = "{{env "ARROW_PROJECT_ID"}}"
+}
+
+variable "google_folder_id" {
+  default = "{{env "ARROW_FOLDER_ID"}}"
+}
+
+variable "google_billing_account_id" {
+  default = "{{env "ARROW_BILLING_ACCOUNT_ID"}}"
+}
+
