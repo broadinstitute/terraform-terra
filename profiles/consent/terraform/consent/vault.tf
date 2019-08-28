@@ -32,10 +32,10 @@ EOT
 
 resource "vault_generic_secret" "hostname" {
   path = "${var.vault_path_prefix}/${var.service}/secrets/hostname"
-
+  
   data_json = <<EOT
 {
-  "hostname": "${data.null_data_source.hostnames_with_no_trailing_dot.outputs.hostname}"
+  "hostname": "${substr(google_dns_record_set.dns-cname.name, 0, length(google_dns_record_set.dns-cname.name) - 1)}"
 }
 EOT
 }

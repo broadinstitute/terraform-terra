@@ -27,10 +27,3 @@ resource "google_dns_record_set" "dns-cname" {
     "data.google_dns_managed_zone.dns-zone"
   ]
 }
-
-data "null_data_source" "hostname_with_no_trailing_dot" {
-  inputs = {
-    hostname = "${substr(google_dns_record_set.dns-cname.name, 0, length(google_dns_record_set.dns-cname.name) - 1)}"
-  }
-  depends_on = ["google_dns_record_set.dns-cname"]
-}
