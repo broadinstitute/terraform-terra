@@ -76,6 +76,21 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
+            "to_path": "common/sentryapi",
+            "used_by": ["firecloud-orchestration"]
+          },
+          "signing-secret": {
+            "from_path": "secret/dsde/firecloud/perf/common/signing-secret",
+            "to_path": "common/signing-secret",
+            "used_by": ["firecloud-orchestration"]
+          },
+          "logitapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/logitapi",
+            "to_path": "common/logitapi",
+            "used_by": ["firecloud-orchestration"]
+          },
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
@@ -162,6 +177,23 @@
       "env": {
         "APP_NAME": "elasticsearch",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+      }
+    },
+    "firecloud-orchestration": {
+      "terraform": {
+        "copy_secrets": {
+          "trial-billing-account": {
+            "from_path": "secret/dsde/firecloud/perf/common/trial-billing-account.json",
+            "to_path": "common/trial-billing-account.json"
+          }
+        }
+      }
+    },
+    "firecloud-orchestration-configs": {
+      "env": {
+        "APP_NAME": "firecloud-orchestration",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy",
+        "SERVICE_GIT_SHA_12_CHAR": "fb7935488a1d"
       }
     },
     "cromwell-sa": {
