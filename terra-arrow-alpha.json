@@ -37,7 +37,9 @@
       "env": {
         "ARROW_PROJECT_ID": "terra-arrow-alpha",
         "ARROW_FOLDER_ID": "310153630233",
-        "ARROW_BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+        "ARROW_BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457",
+        "ARROW_PROJECT_EDITORS": "group:workbench-dev@broadinstitute.org,user:rmeffan@broadinstitute.org,user:rluckhom@broadinsitute.org",
+        "ARROW_PROJECT_OWNERS": "user:breilly@broadinstitute.org"
       },
       "terraform": {
         "providers": {
