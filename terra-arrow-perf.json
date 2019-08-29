@@ -50,6 +50,20 @@
           }
         }
       }
+    },
+    "arrow-firewalls": {
+      "env": {
+        "ALLOWED_SOURCE_IPS": "35.232.80.58/0,35.188.127.200/0,35.225.149.253/0"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
     }
   }
 }

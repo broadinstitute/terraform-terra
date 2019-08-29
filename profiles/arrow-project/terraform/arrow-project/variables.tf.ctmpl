@@ -1,5 +1,5 @@
-variable "google_project_id" {
-  default = "{{env "ARROW_PROJECT_ID"}}"
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
 }
 
 variable "google_folder_id" {
