@@ -22,7 +22,6 @@
       "log_level": "debug"
     },
     "terraform": {
-      "log_level": "TRACE",
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
         "google": {
@@ -91,6 +90,11 @@
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
             "to_path": "rawls/rawls-perf.conf",
             "used_by": ["rawls"]
+          },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
+            "to_path": "common/sentryapi",
+            "used_by": ["consent"]
           }
         }
       }
