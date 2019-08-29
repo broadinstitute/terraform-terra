@@ -1,0 +1,27 @@
+#
+# Profile Vars
+#
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+
+variable "account_name" {
+  default = "image-build-account"
+}
+
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+variable "sa_roles" {
+  description = "roles to assign the app sa"
+  type = "list"
+  default = [
+    "roles/compute.admin",
+    "roles/iam.serviceAccountUser",
+    "roles/storage.objectViewer",
+    "roles/dataproc.editor",
+  ]
+}
