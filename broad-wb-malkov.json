@@ -94,7 +94,7 @@
           "sentryapi": {
             "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
             "to_path": "common/sentryapi",
-            "used_by": ["consent"]
+            "used_by": ["consent", "firecloud-orchestration"]
           }
         }
       }
