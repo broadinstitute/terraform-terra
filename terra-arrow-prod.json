@@ -38,8 +38,8 @@
         "ARROW_PROJECT_ID": "terra-arrow-prod",
         "ARROW_FOLDER_ID": "1092453937443",
         "ARROW_BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA",
-        "ARROW_PROJECT_EDITORS": "group:workbench-admins@broadinstitute.org,user:rmeffan@broadinstitute.org,user:rluckom@broadinstitute.org",
-        "ARROW_PROJECT_OWNERS": "user:breilly@broadinstitute.org"
+        "ARROW_PROJECT_EDITORS": "group:fc-admins@firecloud.org",
+        "ARROW_PROJECT_OWNERS": "user:breilly@broadinstitute.org,group:dsp-admins-secure@broadinstitute.org"
       },
       "terraform": {
         "providers": {
