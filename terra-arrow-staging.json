@@ -20,7 +20,7 @@
         "google": {
           "default": {
             "project": "terra-arrow-staging",
-            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "vault_sa_path": "secret/dsde/arrow/envs/staging/terraform-service-account.json",
             "region": "us-central1"
           }
         }
@@ -45,6 +45,7 @@
         "providers": {
           "google": {
             "default": {
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
               "use_local_adc": true
             }
           }
@@ -63,6 +64,11 @@
             }
           }
         }
+      }
+    },
+    "arrow-firewalls": {
+      "env": {
+        "ALLOWED_SOURCE_IPS": "0.0.0.0/0"
       }
     }
   }

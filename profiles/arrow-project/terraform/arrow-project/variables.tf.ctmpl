@@ -18,3 +18,7 @@ variable "project_owners" {
   default = {{env "ARROW_PROJECT_OWNERS" | split "," | toJSON}}
 }
 
+variable "terraform_sa_key_path" {
+  default = "{{if env "TERRAFORM_SA_KEY_PATH"}}{{env "TERRAFORM_SA_KEY_PATH"}}{{else}}secret/dsde/arrow/envs/{{env "ENVIRONMENT"}}/terraform-service-account.json{{end}}"
+}
+

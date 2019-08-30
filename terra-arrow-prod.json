@@ -12,7 +12,10 @@
   "dns_zone": "none",
   "global_vars": {
     "vault": {
-      "policy": "dsde-write"
+      "policy": "firecloud-prod"
+    },
+    "consul_template": {
+      "log_level": "debug"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
@@ -20,22 +23,22 @@
         "google": {
           "default": {
             "project": "terra-arrow-prod",
-            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "vault_sa_path": "secret/suitable/arrow/prod/terraform-service-account.json",
             "region": "us-central1"
           }
         }
       },
       "backend": {
-        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "vault_sa_path": "secret/suitable/terraform/terra-secure-terraform-state.json",
         "state_path_prefix":"terra",
-        "state_bucket": "broad-dsp-terraform-state"
+        "state_bucket": "terra-secure-terraform-state"
       }
     }
   },
   "profile_vars": {
     "arrow-project": {
       "env": {
-        "ARROW_PROJECT_ID": "terra-arrow-prod",
+        "TERRAFORM_SA_KEY_PATH": "secret/suitable/arrow/prod/terraform-service-account.json",
         "ARROW_FOLDER_ID": "1092453937443",
         "ARROW_BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA",
         "ARROW_PROJECT_EDITORS": "group:fc-admins@firecloud.org",
@@ -45,6 +48,7 @@
         "providers": {
           "google": {
             "default": {
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
               "use_local_adc": true
             }
           }
@@ -54,15 +58,6 @@
     "arrow-firewalls": {
       "env": {
         "ALLOWED_SOURCE_IPS": "35.232.28.253/32,35.225.65.224/32,35.184.57.147/32"
-      },
-      "terraform": {
-        "providers": {
-          "google": {
-            "default": {
-              "use_local_adc": true
-            }
-          }
-        }
       }
     }
   }
