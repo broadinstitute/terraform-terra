@@ -23,7 +23,7 @@ resource "vault_generic_secret" "hostname" {
   path = "${var.vault_path_prefix}/${var.service}/secrets/hostname"
   data_json = <<EOT
 {
-  "name": "${length(module.elasticsearch.instance_hostnames) > 0 ? element(module.elasticsearch.instance_hostnames, 0) : ""}",
+  "hostname": "${length(module.elasticsearch.instance_hostnames) > 0 ? element(module.elasticsearch.instance_hostnames, 0) : ""}",
   "priv_hostname": "${length(module.elasticsearch.instance_hostnames) > 0 ? element(module.elasticsearch.instance_priv_hostnames, 0) : ""}"
 }
 EOT
