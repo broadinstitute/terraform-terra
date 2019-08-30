@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "mongodb" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.1-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.2-tf-0.12"
 
   providers = {
     google.target =  "google",
