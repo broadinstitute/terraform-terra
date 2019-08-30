@@ -76,11 +76,6 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
-          "sentryapi": {
-            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
-            "to_path": "common/sentryapi",
-            "used_by": ["firecloud-orchestration"]
-          },
           "signing-secret": {
             "from_path": "secret/dsde/firecloud/perf/common/signing-secret",
             "to_path": "common/signing-secret",
