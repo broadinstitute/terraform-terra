@@ -23,8 +23,10 @@ variable "app_sa_roles" {
   type = "list"
   default = [
     "roles/compute.viewer",
+    "roles/pubsub.editor",
     "roles/logging.logWriter",
-    "roles/monitoring.metricWriter"
+    "roles/monitoring.metricWriter",
+    "roles/editor",
   ]
 }
 
