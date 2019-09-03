@@ -1,5 +1,5 @@
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.1.1-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.1.2-tf-0.12"
   providers = {
     google.instances =  "google"
     google.dns =  "google.dns"
