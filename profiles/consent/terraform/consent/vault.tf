@@ -49,3 +49,17 @@ resource "vault_generic_secret" "service-bucket" {
 }
 EOT
 }
+
+resource "vault_generic_secret" "cloudsql_truststore_keystore" {
+  path = "${var.vault_path_prefix}/consent/secrets/mysql/ssl"
+  depends_on = [
+    "data.local_file.truststore",
+    "data.local_file.keystore"
+  ]
+  data_json = <<EOT
+{
+  "truststore": "${data.local_file.truststore.content_base64}",
+  "keystore": "${data.local_file.keystore.content_base64}"
+}
+EOT
+}
