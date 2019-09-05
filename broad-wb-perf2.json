@@ -312,7 +312,7 @@
     },
     "sam":{
       "env": {
-        "SAM_INSTANCE_NUM_HOSTS": "1"
+        "SERVICE_INSTANCE_NUM_HOSTS": "6"
       },
       "terraform": {
         "copy_secrets": {
