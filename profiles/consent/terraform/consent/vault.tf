@@ -51,7 +51,7 @@ EOT
 }
 
 resource "vault_generic_secret" "cloudsql_truststore_keystore" {
-  path = "${var.vault_path_prefix}/consent/secrets/mysql/ssl"
+  path = "${var.vault_path_prefix}/consent/${var.service}-mysql"
   depends_on = [
     "data.local_file.truststore",
     "data.local_file.keystore"
