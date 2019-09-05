@@ -6,12 +6,11 @@ output "db_init_cmd" {
   value = <<EOF
 docker run --rm \
 -v $${PWD}/${var.service}:/working \
--v $${HOME}/.vault-token:/root/.vault-token \
 -e CHGLOG_FILE=src/main/resources/changelog-master.xml \
 -e ENV=ephemeral/${var.owner} \
 -e APP_PROJ=firecloud \
 -e APP_NAME=${var.service} \
--e VAULT_TOKEN=/root/.vault-token \
+-e VAULT_TOKEN="$(cat ~/.vault-token)" \
 -e VAULT_ADDR=https://clotho.broadinstitute.org:8200 \
 -e DB_NAME=${var.service} \
 -e DB_USER=${var.service} \
