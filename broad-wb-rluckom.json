@@ -22,7 +22,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:b75873d1",
       "providers": {
         "google": {
           "default": {
@@ -328,6 +328,21 @@
               "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
               "region": "us-central1"
             }
+          }
+        }
+      }
+    },
+    "consent-configs": {
+      "env": {
+        "APP_NAME": "consent",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "fead1cb7703e"
+      },
+      "terraform": {
+        "copy_secrets": {
+          "secret_keys": {
+            "from_path": "secret/dsde/firecloud/perf/consent/consent.conf",
+            "to_path": "consent/consent.conf"
           }
         }
       }

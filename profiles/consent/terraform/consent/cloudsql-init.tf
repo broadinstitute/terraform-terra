@@ -28,7 +28,7 @@ resource "null_resource" "truststore_keystore" {
   }
   provisioner "local-exec" {
     command = <<EOF
-keytool -importcert -noprompt -file ${path.module}/server-ca.pem -keystore truststore -storepass changeit && 
+keytool -import -noprompt -file ${path.module}/server-ca.pem -keystore truststore -storepass changeit && 
 openssl pkcs12 -export -in ${path.module}/client-cert.pem -inkey ${path.module}/client-key.pem -out client.p12 -password pass:changeit -name clientalias -CAfile ${path.module}/server-ca.pem && 
 keytool -importkeystore -deststorepass changeit -destkeystore keystore -srckeystore client.p12 -srcstoretype PKCS12 -srcstorepass changeit -alias clientalias
 EOF

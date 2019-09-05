@@ -10,6 +10,7 @@ module "mongodb" {
   owner                    = "${var.owner}"
   service                  = "${var.service}"
   instance_name            = "${var.service}"
+  mongodb_image_tag        = "3.6.14"
   mongodb_service_account  = "${var.config_reader_service_account}"
   mongodb_roles            = "${var.mongodb_roles}"
   mongodb_app_username     = "${var.service}"
