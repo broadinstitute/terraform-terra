@@ -1,6 +1,7 @@
 google_service_account_key.app_account_key.private_key
 .terra-env-owner.private_key
 .app_firestore_account_key.private_key
+google_sql_ssl_cert.client_cert.private_key
 private_key = 
 .directory_sa_keys.*.private_key
 .uber-project-reader.private_key

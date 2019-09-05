@@ -41,7 +41,7 @@ EOF
 }
 
 data "local_file" "truststore" {
-  filename = "${path.module}/keystore"
+  filename = "${path.module}/truststore"
   depends_on = ["null_resource.truststore_keystore"]
 }
 
