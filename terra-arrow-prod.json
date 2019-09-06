@@ -1,0 +1,64 @@
+{
+  "name": "terra",
+  "owner": "terra-arrow-prod",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "prod",
+  "project": "terra-arrow-prod",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "none",
+  "dns_zone": "none",
+  "global_vars": {
+    "vault": {
+      "policy": "firecloud-prod"
+    },
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "terra-arrow-prod",
+            "vault_sa_path": "secret/suitable/arrow/prod/terraform-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/suitable/terraform/terra-secure-terraform-state.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "terra-secure-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "arrow-project": {
+      "env": {
+        "TERRAFORM_SA_KEY_PATH": "secret/suitable/arrow/prod/terraform-service-account.json",
+        "ARROW_FOLDER_ID": "1092453937443",
+        "ARROW_BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA",
+        "ARROW_PROJECT_EDITORS": "group:fc-admins@firecloud.org",
+        "ARROW_PROJECT_OWNERS": "user:breilly@broadinstitute.org,group:dsp-admins-secure@broadinstitute.org"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "arrow-firewalls": {
+      "env": {
+        "ALLOWED_SOURCE_IPS": "35.232.28.253/32,35.225.65.224/32,35.184.57.147/32"
+      }
+    }
+  }
+}

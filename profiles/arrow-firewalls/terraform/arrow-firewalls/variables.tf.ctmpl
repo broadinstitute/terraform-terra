@@ -1,0 +1,7 @@
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+}
+
+variable "allowed_source_ips" {
+  default = {{env "ALLOWED_SOURCE_IPS" | split "," | toJSON}}
+}
