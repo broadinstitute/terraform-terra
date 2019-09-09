@@ -341,6 +341,13 @@
           }
         }
       }
+    },
+    "consent-ontology-configs": {
+      "env": {
+        "APP_NAME": "consent-ontology",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "d624a0cc22fd"
+      }
     }
   },
   "clusters": {

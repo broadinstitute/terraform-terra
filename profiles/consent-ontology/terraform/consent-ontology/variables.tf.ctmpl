@@ -77,7 +77,7 @@ data "google_compute_network" "terra-env-network" {
 }
 # Application SA
 variable "app_service_account" {
-  default = "{{env "OWNER"}}-{{env "SERVICE"}}"
+  default = "{{env "OWNER"}}-consent"
 }
 
 variable "service_account_iam_roles" {
@@ -140,7 +140,6 @@ variable "allow_stopping_for_update" {
    description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
 }
 
-
 #
 # Application Service Config Bucket
 #
@@ -153,22 +152,10 @@ variable "storage_bucket_roles" {
   ]
 }
 
-#
-# Application Service Bucket
-#
-variable "service_bucket_roles" {
-  type = "list"
-
-  default = [
-    "roles/storage.objectAdmin"
-  ]
-}
-
 
 #
-# Application Common Load Balancer (replaces leonardo-NNN-lb entities)
+# Consent-ontology
 #
-variable "load_balancer_100_enable" {
-  default = "0"
-  description = "Enables GCE common load balancer 100 for one or more Application NNN service clusters"
+variable "cors_allowed_domains" {
+  default = "*,http://local.vault.broadinstitute.org:8080,https://portal-ci.vault.broadinstitute.org,http:/localhost:8000,http://localhost"
 }
