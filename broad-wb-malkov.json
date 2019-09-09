@@ -11,9 +11,6 @@
   "dns_zone_name": "dsde-perf-broad",
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
-    "vault": {
-      "policy": "dsde-write"
-    },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov"
@@ -21,8 +18,11 @@
     "vault": {
       "policy": "dsde-write"
     },
+    "consul_template": {
+      "log_level": "debug"
+    },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:b75873d1",
       "providers": {
         "google": {
           "default": {
@@ -76,11 +76,6 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
-          "sentryapi": {
-            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
-            "to_path": "common/sentryapi",
-            "used_by": ["firecloud-orchestration"]
-          },
           "signing-secret": {
             "from_path": "secret/dsde/firecloud/perf/common/signing-secret",
             "to_path": "common/signing-secret",
@@ -105,6 +100,11 @@
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
             "to_path": "rawls/rawls-perf.conf",
             "used_by": ["rawls"]
+          },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
+            "to_path": "common/sentryapi",
+            "used_by": ["consent", "firecloud-orchestration"]
           }
         }
       }

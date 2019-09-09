@@ -12,7 +12,7 @@ module "mongodb" {
   instance_name            = "${var.service}"
   mongodb_image_tag        = "${var.mongodb_version}"
   mongodb_service_account  = "${var.config_reader_service_account}"
-  mongodb_roles            = "${var.mongodb_roles}"
+  mongodb_roles            = var.mongodb_roles
   mongodb_app_username     = "${var.service}"
   mongodb_app_password     = "${random_id.mongodb-user-password.hex}"
   mongodb_root_password    = "${random_id.mongodb-root-password.hex}"
@@ -29,7 +29,7 @@ module "mongodb" {
     "app"             = "${var.service}",
     "owner"           = "${var.owner}",
     "role"            = "db",
-    "ansible_branch"  = "master",
+    "ansible_branch"  = "perf-210-consent",
     "ansible_project" = "terra-env",
   }
 }

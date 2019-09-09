@@ -75,7 +75,7 @@ variable "instance_tags" {
     "http-server",
     "https-server",
     "mongodb",
-    "agora-mongo",
+    "consent-mongo",
   ]
   description = "The default instance tags"
 }
@@ -85,19 +85,19 @@ variable "instance_tags" {
 # Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "AGORA_MONGO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "AGORA_MONGO_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "CONSENT_MONGO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "AGORA_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "AGORA_MONGO_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "CONSENT_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
   description = "The default size of service hosts"
 }
 variable "instance_data_disk_size" {
-  default = "{{ if env "AGORA_MONGO_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "AGORA_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
+  default = "{{ if env "CONSENT_MONGO_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
   description = "The default size of service data disk"
 }
 variable "instance_data_disk_type" {
-  default = "{{ if env "AGORA_MONGO_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "AGORA_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
+  default = "{{ if env "CONSENT_MONGO_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
   description = "The default type of service data disk"
 }
 
