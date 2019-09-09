@@ -3,7 +3,7 @@ output "ATTENTION" {
 THIS PROFILE REQUIRES MANUAL STEPS!
 The manual steps are required to initialize the mysql database.
 To run the manual steps run the script in the profile root:
-python manaul_steps.py
+python manual_steps.py
 EOF
 }
 

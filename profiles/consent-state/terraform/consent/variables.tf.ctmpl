@@ -176,3 +176,7 @@ variable "elasticsearch_hostname" {
   description = "Elasticsearch hostname"
   default = {{ with secret (printf "%s%s" (env "VAULT_PATH_PREFIX") "/elasticsearch/secrets/hostname") }}"{{ .Data.hostname }}"{{end}}
 }
+variable "elasticsearch_num_replicas" {
+  description = "Number of replicas for ontology index"
+  default = 1
+}
