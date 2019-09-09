@@ -126,7 +126,7 @@
       "env": {
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
-        "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "thurloe": {
@@ -143,7 +143,7 @@
       "env": {
         "APP_NAME": "leonardo",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "3fb674f22f47"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "leonardo": {
@@ -168,7 +168,7 @@
       "env": {
         "APP_NAME": "rawls",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
-        "SERVICE_GIT_SHA_12_CHAR": "e3d940ac672f"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "agora-mongo": {
@@ -195,7 +195,7 @@
       "env": {
         "APP_NAME": "firecloud-orchestration",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "fb7935488a1d"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "cromwell-sa": {
@@ -291,14 +291,14 @@
       "env": {
         "APP_NAME": "sam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
-        "SERVICE_GIT_SHA_12_CHAR": "cc43b109de12"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "agora-configs": {
       "env": {
         "APP_NAME": "agora",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "cc8b5c1d1887"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "agora": {
@@ -336,7 +336,7 @@
       "env": {
         "APP_NAME": "consent",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
-        "SERVICE_GIT_SHA_12_CHAR": "fead1cb7703e"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       },
       "terraform": {
         "copy_secrets": {
@@ -351,7 +351,7 @@
       "env": {
         "APP_NAME": "consent-ontology",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
-        "SERVICE_GIT_SHA_12_CHAR": "d624a0cc22fd"
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     }
   },
