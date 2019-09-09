@@ -14,15 +14,18 @@ data "null_data_source" "dns_zone_no_trailing_dot" {
 
 output "authorized_javascript_origins" {
   value = [
-    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}",
+    "https://${var.owner}-duos.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}"
   ]
 }
 
 output "authorized_redirect_urls" {
   value = [
-    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/swagger/oauth2-redirect.html",
-    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/swagger/callback",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
+    "https://${var.owner}-duos.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/api",
     "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/swagger/o2c.html",
+    "https://${var.owner}-${var.service}.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}"
   ]
 }
 
