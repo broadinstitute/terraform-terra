@@ -18,7 +18,7 @@ if __name__ == "__main__":
         "app": "consent"
     }
     procedure = [
-        Oauth()
+        DB()
     ]
     for step in procedure:
         step.run(context)
