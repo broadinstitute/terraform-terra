@@ -29,7 +29,7 @@ module "mongodb" {
     "app"             = "${var.service}",
     "owner"           = "${var.owner}",
     "role"            = "db",
-    "ansible_branch"  = "perf-210-consent",
+    "ansible_branch"  = "master",
     "ansible_project" = "terra-env",
   }
 }
