@@ -1,0 +1,8 @@
+{
+  "namespace": "automationmethods",
+  "name": "DO_NOT_CHANGE_test1_config",
+  "synopsis": "",
+  "documentation": "",
+  "payload": "{\"name\":\"DO_NOT_CHANGE_test1_config\",\"methodRepoMethod\":{\"methodNamespace\":\"automationmethods\",\"methodName\":\"DO_NOT_CHANGE_test_method\",\"methodVersion\":1},\"outputs\":{\"test.hello.response\":\"this.output\"},\"inputs\":{\"test.hello.name\":\"this.name\"},\"rootEntityType\":\"participant\",\"prerequisites\":{},\"namespace\":\"automationmethods\"}",
+  "entityType": "Configuration"
+}

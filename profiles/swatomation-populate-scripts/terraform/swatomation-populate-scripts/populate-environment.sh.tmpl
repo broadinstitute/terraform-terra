@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# This script needs to run on the host that FiaB is running on
+# This script requires the /populate directory and its scripts
+
+set -e
+
+##############################################################
+################         SET UP         ######################
+##############################################################
+
+# Parameters
+MYSQLPASS="******"
+TIMESTAMP=$(date +%H.%M.%S)
+WORKING_DIR=$${1:-$PWD}
+VAULT_TOKEN=$${2:-$(cat $HOME/.vault-token)}
+ENV=$${3:-${environment}}
+HOST_NAME=$4
+ORCH_URL=https://${orch_hostname}/
+SAM_URL=https://${sam_hostname}/
+TOS_VERSION="1"
+
+JSON_CREDS=`docker run --rm -e VAULT_TOKEN=$VAULT_TOKEN -e VAULT_ADDR=https://clotho.broadinstitute.org:8200 broadinstitute/dsde-toolbox vault read -format=json secret/dsde/firecloud/ephemeral/$${ENV}/common/firecloud-account.json | jq '.data'`
+
+# set env-specific vars:
+DOMAIN="$${ENV}.test.firecloud.org"
+USER="hermione.owner@test.firecloud.org"
+ADMIN_USER="dumbledore.admin@test.firecloud.org"
+SUBJECT_ID=`docker run --rm -e VAULT_TOKEN=$VAULT_TOKEN -v $WORKING_DIR:/app/populate -w /app/populate broadinstitute/dsde-toolbox bash get_subject_id.sh "$${USER}" "$${ENV}"`
+TOKEN=`docker run --rm -v $WORKING_DIR:/app/populate -w /app/populate broadinstitute/dsp-toolbox python get_bearer_token.py "$${USER}" "$${JSON_CREDS}"`
+
+# build and run the composed services
+echo "Docker Host from Docker Perspective: $DOCKERHOST"
+
+
+##############################################################
+################      PROVISIONING      ######################
+##############################################################
+
+bash $WORKING_DIR/basic-populate-fiab.sh $WORKING_DIR $VAULT_TOKEN $ENV
+
+docker pull broadinstitute/dsp-toolbox
+
+#Creates the initial user that will be used to seed all of the billing project users
+docker run --rm -e FC_ORCH_URL=$ORCH_URL -e JSON_CREDS="$${JSON_CREDS}" -e TOKEN="$${TOKEN}" \
+    -e HOST_NAME="$${HOST_NAME}" -e TOS_VERSION=$${TOS_VERSION} -e DOCKERHOST="$${DOCKERHOST}" -e ENV="$${ENV}" \
+    --add-host="firecloud-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    --add-host="firecloud-orchestration-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    -v $WORKING_DIR:/app/populate --name RegisterInitialUser -w /app/populate \
+    broadinstitute/dsp-toolbox python register_initial_user.py Owner Hermione Granger $${USER}
+
+
+function bootstrap_opendj {
+    echo "Creating ldif file to populate initial project"
+    $WORKING_DIR/create_billing_ldif.sh $ENV $USER $SUBJECT_ID $DOMAIN > populate_billing.ldif
+
+    echo "ldif file contains"
+    cat populate_billing.ldif
+
+    docker cp populate_billing.ldif firecloud_sam-opendj_1:/populate_billing.ldif
+    docker exec firecloud_sam-opendj_1 ldapadd -c -H ldap://localhost:390 -D "cn=Directory Manager" -w "****" -f /populate_billing.ldif
+}
+
+bootstrap_opendj
+
+sh $WORKING_DIR/create_groups.sh $ENV $VAULT_TOKEN $WORKING_DIR $MYSQLPASS
+
+# Register users
+docker run --rm -e FC_ORCH_URL=$ORCH_URL -e JSON_CREDS="$${JSON_CREDS}" -e TOKEN="$${TOKEN}" \
+    -e HOST_NAME="$${HOST_NAME}" -e TOS_VERSION=$${TOS_VERSION} -e DOCKERHOST="$${DOCKERHOST}" -e ENV="$${ENV}" \
+    --add-host="firecloud-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    --add-host="firecloud-orchestration-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    -v $WORKING_DIR:/app/populate --name RegisterUser -w /app/populate \
+    broadinstitute/dsp-toolbox python register_user.py
+
+# Add users to managed groups
+docker run --rm -e FC_SAM_URL=$SAM_URL -e JSON_CREDS="$${JSON_CREDS}" \
+    -e ADMIN_USER="$${ADMIN_USER}" -e DOCKERHOST="$${DOCKERHOST}" -e ENV="$${ENV}" \
+    --add-host="sam-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    -v $WORKING_DIR:/app/populate --name RegisterUserInGroup -w /app/populate \
+    broadinstitute/dsp-toolbox python register_user_in_group.py
+
+# create agora
+docker run --rm -e TOKEN="$${TOKEN}" -e FC_ORCH_URL=$ORCH_URL \
+    -e DOCKERHOST="$${DOCKERHOST}" -e ENV="$${ENV}" -e USER="$${USER}" \
+    --add-host="firecloud-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    --add-host="firecloud-orchestration-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    --add-host="cromwell-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    -v $WORKING_DIR:/app/populate \
+    -w /app/populate \
+    --name CreateAgora broadinstitute/dsp-toolbox python create_agora.py agora.json
+
+# populate public workspace maintainers
+docker run --rm -e FC_SAM_URL=$SAM_URL -e JSON_CREDS="$${JSON_CREDS}" \
+    -e ENV="$${ENV}" -e DOMAIN="$${DOMAIN}" \
+    --add-host="sam-fiab.dsde-$${ENV}.broadinstitute.org:$${DOCKERHOST}" \
+    -v $WORKING_DIR:/app/populate --name PublicWorkspaceMaintainters -w /app/populate \
+    broadinstitute/dsp-toolbox python populate_public_workspace_maintainers.py
+
+echo "public-workspace-maintainers.ldif file contains"
+cat $WORKING_DIR/public-workspace-maintainers.ldif
+docker cp $WORKING_DIR/public-workspace-maintainers.ldif firecloud_sam-opendj_1:/public-workspace-maintainers.ldif
+docker exec firecloud_sam-opendj_1 ldapadd -H ldap://localhost:390 -D "cn=Directory Manager" -w "***" -f /public-workspace-maintainers.ldif
