@@ -1,0 +1,27 @@
+variable "google_project" {
+  default = "{{env "OWNER"}}-{{env "SERVICE"}}"
+}
+
+variable "google_folder_id" {
+  default = "{{env "FOLDER_ID"}}"
+}
+
+variable "google_billing_account_id" {
+  default = "{{env "BILLING_ACCOUNT_ID"}}"
+}
+
+variable "project_editors" {
+  default = {{env "PROJECT_EDITORS" | split "," | toJSON}}
+}
+
+variable "project_owners" {
+  default = {{env "PROJECT_OWNERS" | split "," | toJSON}}
+}
+
+variable "apis_to_enable" {
+  default = {{env "APIS_TO_ENABLE" | split "," | toJSON}}
+}
+
+variable "terraform_sa_key_path" {
+  default = "{{if env "TERRAFORM_SA_KEY_PATH"}}{{env "TERRAFORM_SA_KEY_PATH"}}{{else}}{{env "VAULT_PATH_PREFIX"}}/{{env "SERVICE"}}/terraform-service-account.json{{end}}"
+}
