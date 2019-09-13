@@ -43,6 +43,13 @@ resource "vault_generic_secret" "app_account_key" {
   data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
 }
 
+resource "vault_generic_secret" "deployment_manager_project" {
+  path = "${var.vault_path_prefix}/deployment_manager_project"
+  data_json = <<EOT
+  {"project": "${var.deployment_manager_google_project}"}
+EOT
+}
+
 resource "google_service_account" "billingprobe" {
   account_id   = "${var.owner}-billingprobe"
   project      = "${var.deployment_manager_google_project}"
@@ -55,5 +62,5 @@ resource "google_service_account_key" "billingprobe_account_key" {
 
 resource "vault_generic_secret" "billingprobe_account_key" {
   path = "${var.vault_path_prefix}/${var.service}/${var.service}-billingprobe-account.json"
-  data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
+  data_json = "${base64decode(google_service_account_key.billingprobe_account_key.private_key)}"
 }

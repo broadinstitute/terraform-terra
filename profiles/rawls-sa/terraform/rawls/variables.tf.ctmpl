@@ -39,7 +39,8 @@ variable "app_sa_roles" {
     "roles/pubsub.admin",
     "roles/genomics.admin",
     "roles/logging.logWriter",
-    "roles/monitoring.metricWriter"
+    "roles/monitoring.metricWriter",
+    "roles/editor",
   ]
 }
 

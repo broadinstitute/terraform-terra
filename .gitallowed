@@ -1,4 +1,5 @@
 google_service_account_key.app_account_key.private_key
+google_service_account_key.billingprobe_account_key.private_key
 terraform_account_key.private_key
 .terra-env-owner.private_key
 .app_firestore_account_key.private_key

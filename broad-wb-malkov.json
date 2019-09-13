@@ -262,6 +262,22 @@
         }
       }
     },
+    "tos-project": {
+      "env": {
+        "FOLDER_ID": "46078610677",
+        "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
+        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
     "tos": {
       "env": {
         "FUNCTION_ENTRYPOINT": "tos",
