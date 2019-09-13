@@ -76,6 +76,10 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
+          "oauth_client_id":{
+            "from_path": "secret/dsde/firecloud/common/oauth_client_id",
+            "to_path": "common/oauth_client_id"
+          },
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
@@ -147,7 +151,7 @@
       "env": {
         "APP_NAME": "thurloe",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "thurloe": {
@@ -164,7 +168,7 @@
       "env": {
         "APP_NAME": "leonardo",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "leonardo": {
@@ -189,7 +193,7 @@
       "env": {
         "APP_NAME": "rawls",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "elasticsearch-configs": {
@@ -212,7 +216,7 @@
       "env": {
         "APP_NAME": "firecloud-orchestration",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "cromwell-sa": {
@@ -327,14 +331,14 @@
       "env": {
         "APP_NAME": "sam",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "agora-configs": {
       "env": {
         "APP_NAME": "agora",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "agora": {
@@ -372,7 +376,7 @@
       "env": {
         "APP_NAME": "consent",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       },
       "terraform": {
         "copy_secrets": {
@@ -387,7 +391,7 @@
       "env": {
         "APP_NAME": "consent-ontology",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     }
   },
