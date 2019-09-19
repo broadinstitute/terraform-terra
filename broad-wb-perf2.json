@@ -155,6 +155,9 @@
       }
     },
     "thurloe": {
+      "env": {
+        "THURLOE_INSTANCE_NUM_HOSTS": "2"
+      },
       "terraform": {
         "copy_secrets": {
           "secret_keys": {
