@@ -280,9 +280,37 @@
     },
     "tos": {
       "env": {
+        "GOOGLE_PROJECT": "broad-wb-malkov-tos",
         "FUNCTION_ENTRYPOINT": "tos",
         "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
         "DATASTORE_PROJECT": "broad-dsde-perf"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-malkov-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-malkov/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
+      }
+    },
+    "tos-sa": {
+      "env": {
+        "GOOGLE_PROJECT": "broad-wb-malkov-tos"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-malkov-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-malkov/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
       }
     },
     "sam-configs": {

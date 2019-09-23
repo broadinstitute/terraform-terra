@@ -5,6 +5,10 @@ variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
+variable "main_env_project" {
+  default = "{{env "OWNER"}}"
+  description = "The main environment google project"
+}
 variable "owner" {
   default = "{{env "OWNER"}}"
   description = "The owner from the application json"
@@ -18,5 +22,14 @@ variable "app_sa_roles" {
   description = "roles to assign the app sa"
   type = "list"
   default = [
+    "roles/datastore.owner"
+  ]
+}
+
+variable "orch_sa_roles" {
+  description = "roles to assign the orch sa"
+  type = "list"
+  default = [
+    "roles/datastore.owner"
   ]
 }

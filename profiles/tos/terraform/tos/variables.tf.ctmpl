@@ -57,7 +57,7 @@ variable "function_deployment_service_account_filename" {
 
 variable "function_env_vars" {
   type = "map"
-  default = {{ if env "FUNCTION_ENV_VARS"}}{{ env "FUNCTION_ENV_VARS" }}{{ else }}{DATASTORE_PROJECT = "{{env "DATASTORE_PROJECT"}}"}{{ end }}
+  default = {{ if env "FUNCTION_ENV_VARS"}}{{ env "FUNCTION_ENV_VARS" }}{{ else }}{DATASTORE_PROJECT = "{{env "GOOGLE_PROJECT"}}"}{{ end }}
 }
 
 variable "function_runtime" {
