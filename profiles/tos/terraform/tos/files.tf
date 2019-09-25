@@ -32,8 +32,8 @@ set -eo pipefail
 gcloud auth activate-service-account --key-file=${path.module}/${var.function_deployment_service_account_filename}
 cd terraform-function-working/${var.function_repo_name}/
 gcloud datastore --project="${var.google_project}" indexes create datastore/index.yaml
-gcloud datastore --project="${var.google_project}" export "gs://${google_storage_bucket.function-deploy.name}/datastore-data"
 cd ${var.function_path_in_repo}
+cp ../../../config.js .
 zip ${var.function_archive_bucket_filename} *
 gsutil cp "./${var.function_archive_bucket_filename}" "gs://${google_storage_bucket.function-deploy.name}/${var.function_archive_bucket_path}/${var.function_archive_bucket_filename}"
 EOT

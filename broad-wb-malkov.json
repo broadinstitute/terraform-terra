@@ -282,8 +282,7 @@
       "env": {
         "GOOGLE_PROJECT": "broad-wb-malkov-tos",
         "FUNCTION_ENTRYPOINT": "tos",
-        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
-        "DATASTORE_PROJECT": "broad-dsde-perf"
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project"
       },
       "terraform": {
         "providers": {

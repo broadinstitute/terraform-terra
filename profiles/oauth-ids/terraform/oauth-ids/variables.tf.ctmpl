@@ -1,0 +1,8 @@
+variable "firecloud_orchestration_service_account" {
+  default = "firecloud-orchestration"
+}
+
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}

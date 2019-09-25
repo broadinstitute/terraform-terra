@@ -85,7 +85,7 @@ variable "function_path_in_repo" {
 }
 
 variable "function_repo_setup_script" {
-  default = "{{ if env "FUNCTION_REPO_SETUP_SCRIPT"}}{{ env "FUNCTION_REPO_SETUP_SCRIPT" }}{{ else }}{{ end }}"
+  default = "{{ if env "FUNCTION_REPO_SETUP_SCRIPT"}}{{ env "FUNCTION_REPO_SETUP_SCRIPT" }}{{ else }}cp ../../config.js .{{ end }}"
 }
 
 variable "function_available_memory_mb" {
