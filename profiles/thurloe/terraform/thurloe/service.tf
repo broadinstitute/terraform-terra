@@ -32,12 +32,13 @@ resource "google_project_iam_member" "app-sa-roles" {
 }
 
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.1.2-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/load-balanced-instances?ref=load-balanced-instances-0.1.3-tf-0.12"
   providers = {
     google.instances =  "google"
     google.dns =  "google.dns"
   }
   instance_project = "${var.google_project}"
+  instance_image = "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
   dns_zone_name = "${var.dns_zone_name}"
   owner = "${var.owner}"
   service = "${var.service}"
@@ -51,4 +52,5 @@ module "load-balanced-instances" {
   instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
   storage_bucket_roles = "${var.storage_bucket_roles}"
+  ansible_branch = "perf-136-permissions"
 }

@@ -2,12 +2,13 @@ data "google_client_config" "dns" {
   provider = "google.dns"
 }
 module "load-balanced-instances" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/internal-load-balanced-instances?ref=internal-load-balanced-instances-0.1.2-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/internal-load-balanced-instances?ref=internal-load-balanced-instances-0.1.3-tf-0.12"
   providers = {
     google.instances =  "google"
     google.dns =  "google.dns"
   }
   instance_project = "${var.google_project}"
+  instance_image = "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
   dns_zone_name = "${var.dns_zone_name}"
   config_bucket_enable = 0
   owner = "${var.owner}"
