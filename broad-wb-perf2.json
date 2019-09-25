@@ -76,10 +76,6 @@
             "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
             "to_path": "common/proxy-ldap"
           },
-          "oauth_client_id":{
-            "from_path": "secret/dsde/firecloud/common/oauth_client_id",
-            "to_path": "common/oauth_client_id"
-          },
           "bigquery-account": {
             "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
             "to_path": "common/bigquery-account.json",
@@ -310,11 +306,54 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
     },
+    "tos-project": {
+      "env": {
+        "FOLDER_ID": "46078610677",
+        "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
+        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
     "tos": {
       "env": {
+        "GOOGLE_PROJECT": "broad-wb-perf2-tos",
         "FUNCTION_ENTRYPOINT": "tos",
-        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project",
-        "DATASTORE_PROJECT": "broad-dsde-perf"
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-perf2-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
+      }
+    },
+    "tos-sa": {
+      "env": {
+        "GOOGLE_PROJECT": "broad-wb-perf2-tos"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-perf2-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
       }
     },
     "sam":{
