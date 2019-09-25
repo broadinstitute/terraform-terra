@@ -12,6 +12,10 @@ variable "google_network_name" {
   default = "{{env "OWNER"}}-terra-network"
 }
 
+variable "enable_fw_logging" {
+  default = {{if (env "ENABLE_FW_LOGGING")}}{{env "ENABLE_FW_LOGGING"}}{{else}}false{{end}}
+}
+
 data "google_compute_network" "terra-env-network" {
   name = "${var.google_network_name}"
 }
