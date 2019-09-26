@@ -5,7 +5,7 @@ module "load-balanced-instances" {
     google.dns =  "google.dns"
   }
   instance_project = "${var.google_project}"
-  instance_image = "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
+  instance_image = "${var.instance_image}"
   dns_zone_name = "${var.dns_zone_name}"
   owner = "${var.owner}"
   service = "${var.service}"

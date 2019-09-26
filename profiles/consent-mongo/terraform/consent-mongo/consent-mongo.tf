@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "mongodb" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.2-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/mongodb?ref=mongodb-cluster-0.1.3-tf-0.12"
 
   providers = {
     google.target =  "google",
@@ -20,6 +20,7 @@ module "mongodb" {
   mongodb_replica_set_key  = "${random_string.mongodb-replica-set-key.result}"
   dns_zone_name            = "${var.dns_zone_name}"
   instance_size            = "${var.instance_size}"
+  instance_image           = "${var.instance_image}"
   instance_data_disk_size  = "${var.instance_data_disk_size}"
   instance_data_disk_type  = "${var.instance_data_disk_type}"
   instance_data_disk_name  = "${var.service}-data-disk"

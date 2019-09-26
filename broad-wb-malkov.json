@@ -13,7 +13,8 @@
   "global_vars": {
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
-      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov"
+      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov",
+      "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
     },
     "vault": {
       "policy": "dsde-write"

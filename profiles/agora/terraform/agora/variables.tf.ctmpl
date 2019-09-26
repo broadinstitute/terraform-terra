@@ -182,6 +182,11 @@ variable "instance_size" {
   description = "The default size of Application service hosts"
 }
 
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
+}
+
 variable "image_name" {
   default = "centos-7-v20190423"
   description = "The default GCE OS platform image for Application 100 service cluster"

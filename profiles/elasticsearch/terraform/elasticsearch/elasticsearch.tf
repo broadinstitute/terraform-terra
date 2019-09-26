@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "elasticsearch" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/elasticsearch?ref=elasticsearch-0.0.4-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/elasticsearch?ref=elasticsearch-0.0.5-tf-0.12"
 
   providers = {
     google.target =  "google",
@@ -13,6 +13,7 @@ module "elasticsearch" {
   application_service_account  = "${var.config_reader_service_account}"
   dns_zone_name            = "${var.dns_zone_name}"
   instance_size            = "${var.instance_size}"
+  instance_image           = "${var.instance_image}"
   instance_data_disk_size  = "${var.instance_data_disk_size}"
   instance_data_disk_type  = "${var.instance_data_disk_type}"
   instance_data_disk_name  = "${var.service}-data-disk"

@@ -95,6 +95,10 @@ variable "instance_size" {
   default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
   description = "The default size of Service hosts"
 }
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
+}
 
 #
 # Service Config Bucket
