@@ -1,6 +1,6 @@
 # Docker instance(s)
 module "elasticsearch" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/elasticsearch?ref=elasticsearch-0.0.4-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/elasticsearch?ref=elasticsearch-0.0.5-tf-0.12"
 
   providers = {
     google.target =  "google",
