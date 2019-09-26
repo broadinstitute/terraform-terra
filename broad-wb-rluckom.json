@@ -173,7 +173,8 @@
       }
     },
     "agora-mongo": {
-      "terraform": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
       }
     },
     "elasticsearch-configs": {
@@ -373,6 +374,11 @@
             }
           }
         }
+      }
+    },
+    "consent-mongo": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
       }
     },
     "consent-configs": {

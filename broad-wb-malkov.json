@@ -340,6 +340,11 @@
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
+    "agora-mongo": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      }
+    },
     "agora": {
       "terraform": {
         "copy_secrets": {
@@ -369,6 +374,11 @@
             }
           }
         }
+      }
+    },
+    "consent-mongo": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
       }
     },
     "consent-configs": {
