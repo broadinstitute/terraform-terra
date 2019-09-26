@@ -16,7 +16,8 @@
     },
     "env": {
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
-      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-perf2"
+      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-perf2",
+      "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
     },
     "vault": {
       "policy": "dsde-write"

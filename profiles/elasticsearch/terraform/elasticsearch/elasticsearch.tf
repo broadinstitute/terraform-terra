@@ -13,6 +13,7 @@ module "elasticsearch" {
   application_service_account  = "${var.config_reader_service_account}"
   dns_zone_name            = "${var.dns_zone_name}"
   instance_size            = "${var.instance_size}"
+  instance_image           = "${var.instance_image}"
   instance_data_disk_size  = "${var.instance_data_disk_size}"
   instance_data_disk_type  = "${var.instance_data_disk_type}"
   instance_data_disk_name  = "${var.service}-data-disk"

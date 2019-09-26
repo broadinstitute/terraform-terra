@@ -8,6 +8,7 @@ module "instance" {
   instance_name = "${var.service}-backend"
   instance_num_hosts = "${var.standalone_instance_num_hosts}"
   instance_size = "${var.instance_size}"
+  instance_image = "${var.instance_image}"
   instance_service_account = "${data.google_service_account.app.email}"
   instance_network_name = "${var.google_network_name}"
   instance_labels = {
