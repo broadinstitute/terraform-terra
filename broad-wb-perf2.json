@@ -196,6 +196,11 @@
         "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
+    "elasticsearch": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      }
+    },
     "elasticsearch-configs": {
       "env": {
         "APP_NAME": "elasticsearch",
