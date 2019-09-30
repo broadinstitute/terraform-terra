@@ -25,7 +25,8 @@ resource "vault_generic_secret" "database-instance-name" {
 
   data_json = <<EOT
 {
-  "name": "${module.cloudsql.cloudsql-instance-name}"
+  "name": "${module.cloudsql.cloudsql-instance-name}",
+  "hostname": "${google_dns_record_set.mysql-instance-new.name}"
 }
 EOT
 }
@@ -49,7 +50,10 @@ resource "vault_generic_secret" "cloudsql_truststore_keystore" {
   data_json = <<EOT
 {
   "truststore": "${data.local_file.truststore.content_base64}",
-  "keystore": "${data.local_file.keystore.content_base64}"
+  "keystore": "${data.local_file.keystore.content_base64}",
+  "client_key": "${replace(google_sql_ssl_cert.client_cert.private_key, "\n", "\\n")}",
+  "client_cert": "${replace(google_sql_ssl_cert.client_cert.cert, "\n", "\\n")}",
+  "server_ca": "${replace(google_sql_ssl_cert.client_cert.server_ca_cert, "\n", "\\n")}"
 }
 EOT
 }
