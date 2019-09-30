@@ -8,7 +8,7 @@ resource "random_id" "root-password" {
 
 # Cloud SQL database
 module "cloudsql" {
-  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.2.0-tf-0.12"
+  source        = "github.com/broadinstitute/terraform-shared.git//terraform-modules/cloudsql-mysql?ref=cloudsql-mysql-0.2.1-tf-0.12"
 
   providers = {
     google.target =  "google"
@@ -22,4 +22,5 @@ module "cloudsql" {
   cloudsql_instance_labels = {
     "app" = "${var.owner}-${var.service}"
   }
+  cloudsql_authorized_networks = var.cloudsql_authorized_networks
 }
