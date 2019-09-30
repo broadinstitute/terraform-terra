@@ -141,34 +141,6 @@ variable "app_dns_cname_record_target_hostname" {
   description = "DNS CNAME record target hostname for default leonardo instance in an env. Should be set as a vault env override for each env."
 }
 
-
-#
-#  Application cloudsql DNS vars
-#
-variable "mysql_instance_dns_cname_record_flag" {
-  default = "0"
-  description = "Enable DNS CNAME record for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
-}
-
-variable "mysql_instance_dns_cname_record_service_hostname" {
-  default = ""
-  description = "DNS CNAME record service hostname for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
-}
-
-variable "mysql_instance_dns_cname_record_target_hostname" {
-  default = ""
-  description = "DNS CNAME record target hostname for default leonardo mysql instance in an env. Should be set as a vault env override for each env."
-}
-
-variable "config_dns_domain" {
-  description = "to use in config rendering"
-  default = "{{if env "CONFIG_DNS_DOMAIN"}}{{env "CONFIG_DNS_DOMAIN"}}{{else}}dsde-perf-broad{{end}}"
-}
-
-variable "old_dns_zone" {
-  default = "{{env "OWNER"}}-terra-dns"
-}
-
 #
 # Application Service Cluster 
 #
