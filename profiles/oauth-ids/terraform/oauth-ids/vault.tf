@@ -10,7 +10,12 @@ data "google_service_account" "firecloud_orchestration" {
 data "null_data_source" "env_specific_oauth_ids" {
   inputs = {
     firecloud_orchestration_id = data.google_service_account.firecloud_orchestration.unique_id
+    local_project_id = data.google_project.google_project.number 
   }
+}
+
+data "google_project" "google_project" {
+  project_id = "${var.google_project}"
 }
 
 output "oauth" {
