@@ -276,6 +276,17 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
       }
     },
+    "rawls-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
     "calhoun": {
       "env": {
         "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"

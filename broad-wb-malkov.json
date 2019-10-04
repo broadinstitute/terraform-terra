@@ -268,6 +268,17 @@
         }
       }
     },
+    "rawls-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
     "tos-project": {
       "env": {
         "FOLDER_ID": "46078610677",
