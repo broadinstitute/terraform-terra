@@ -74,6 +74,19 @@ class CreateGroups(object):
         )
         print("  Access type: Restricted\n")
         wait_for_enter()
+        print("Add the following users to the fc-ADMINS group:")
+        print("  fc-admin@{0}.{1}".format(
+                context["project_name"],
+                context["google_app_domain"]
+            )
+        )
+        print("  firecloud-orchestration@{0}.iam.gserviceaccount.com".format(
+                context["project_name"]
+            )
+        )
+        print("  dumbledore.admin@{0}".format(context["google_app_domain"]))
+        print("  voldemort.admin@{0}".format(context["google_app_domain"]))
+        wait_for_enter()
 
 
 if __name__ == "__main__":
