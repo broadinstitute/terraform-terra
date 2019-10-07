@@ -77,7 +77,7 @@ variable "martha_url" {
   description = "martha URL"
 }
 variable "orch_url" {
-  default = "{{if env "ORCH_ADDRESS"}}{{env "ORCH_ADDRESS"}}{{else}}{{with secret (printf "%s/orch/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  default = "{{if env "ORCH_ADDRESS"}}{{env "ORCH_ADDRESS"}}{{else}}{{with secret (printf "%s/firecloud-orchestration/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
   description = "orch URL"
 }
 variable "rex_url" {
