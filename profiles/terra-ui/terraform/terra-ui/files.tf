@@ -28,7 +28,7 @@ EOT
 }
 
 data "google_client_config" "app-engine" {
-  provider = "google.app-engine"
+  provider = "google"
 }
 
 resource "local_file" "deploy_script" {
@@ -42,8 +42,8 @@ cd terraform-gae-working
 git clone https://github.com/DataBiosphere/terra-ui.git
 cd terra-ui
 git checkout ${var.terra_ui_git_commit}
-npx npm@6.10 ci
-npx npm@6.10 run build
+npx npm@6.11 ci
+npx npm@6.11 run build
 cp ${abspath(local_file.config_json.filename)} ./build/config.json
 gcloud app deploy --bucket=gs://${google_storage_bucket.app-bucket.name} --project=${data.google_client_config.app-engine.project}
 EOT
