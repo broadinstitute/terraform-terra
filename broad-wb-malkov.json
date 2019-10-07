@@ -126,8 +126,8 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-157-thurloe-configs",
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "thurloe": {
