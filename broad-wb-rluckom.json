@@ -378,18 +378,7 @@
         "ORCH_ADDRESS": "https://firecloud-orchestration.dummy.broadinstitute.org",
         "REX_ADDRESS": "https://terra-rex-dummy.appspot.com",
         "SHIBBOLETH_ADDRESS": "https://shibboleth.dsde-dummy.broadinstitute.org",
-        "TERRA_UI_GIT_COMMIT": "3b4c4b0c6d96"
-      },
-      "terraform": {
-        "providers": {
-          "google": {
-            "app-engine": {
-              "project": "broad-dsde-perf",
-              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
-              "region": "us-central1"
-            }
-          }
-        }
+        "TERRA_UI_GIT_COMMIT": "dev"
       }
     },
     "consent-mongo": {

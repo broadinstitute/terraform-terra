@@ -25,6 +25,9 @@ output "authorized_redirect_urls" {
     "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-firecloud-orchestration.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
     "https://${var.owner}-firecloud-orchestration.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
+    "https://${var.owner}-rawls.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
+    "https://${var.owner}-sam.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
+    "https://${var.owner}-leonardo.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html"
   ]
 }
 
