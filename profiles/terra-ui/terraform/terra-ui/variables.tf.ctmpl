@@ -65,7 +65,7 @@ variable "sam_url" {
   description = "sam URL"
 }
 variable "tos_endpoint" {
-  default = "{{if env "TOS_ADDRESS"}}{{env "TOS_ADDRESS"}}{{else}}{{with secret (printf "%s/tos/secrets/endpoint" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.endpoint}}{{end}}{{end}}"
+  default = "{{if env "TOS_ADDRESS"}}{{env "TOS_ADDRESS"}}{{else}}{{with secret (printf "%s/tos/secrets/endpoint" (env "VAULT_PATH_PREFIX"))}}{{.Data.endpoint}}{{end}}{{end}}"
   description = "tos endpoint"
 }
 variable "bond_url" {
