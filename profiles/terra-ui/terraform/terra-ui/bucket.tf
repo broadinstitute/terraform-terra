@@ -1,6 +1,6 @@
 # Service config bucket
 resource "google_storage_bucket" "app-bucket" {
-  provider    = "google.app-engine"
+  provider    = "google"
   name       = "${var.owner}-${var.environment}-${var.service}-app-engine"
   versioning {
     enabled = "true"
