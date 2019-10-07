@@ -35,7 +35,7 @@ resource "local_file" "deploy_script" {
   content = <<EOT
 #!/usr/bin/env bash
 set -eo pipefail
-gcloud auth activate-service-account --key-file=./app-engine.sa.json
+gcloud auth activate-service-account --key-file=./default.sa.json
 rm -rf terraform-gae-working
 mkdir -p terraform-gae-working
 cd terraform-gae-working
