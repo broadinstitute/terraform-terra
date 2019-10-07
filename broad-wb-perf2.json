@@ -22,6 +22,9 @@
     "vault": {
       "policy": "dsde-write"
     },
+    "consul_template": {
+      "log_level": "debug"
+    },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:b75873d1",
       "providers": {
@@ -147,7 +150,7 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-157-thurloe-configs",
         "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
@@ -422,6 +425,17 @@
         "REX_ADDRESS": "https://terra-rex-dummy.appspot.com",
         "SHIBBOLETH_ADDRESS": "https://shibboleth.dsde-dummy.broadinstitute.org",
         "TERRA_UI_GIT_COMMIT": "dev"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "app-engine": {
+              "project": "broad-wb-perf2",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+              "region": "us-central1"
+            }
+          }
+        }
       }
     },
     "consent-mongo": {
