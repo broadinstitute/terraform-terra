@@ -101,7 +101,7 @@ variable "tcell_api_key" {
 }
 
 variable "google_client_id" {
-  default = "{{if env "GOOGLE_CLIENT_ID"}}{{env "GOOGLE_CLIENT_ID"}}{{else}}{{with secret (printf "%s/terra-ui/terra-ui-oauth-credential.json" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.web.client_id}}{{end}}{{end}}"
+  default = "{{if env "GOOGLE_CLIENT_ID"}}{{env "GOOGLE_CLIENT_ID"}}{{else}}{{with secret (printf "%s/terra-ui/terra-ui-oauth-credential.json" (env "VAULT_PATH_PREFIX"))}}{{.Data.web.client_id}}{{end}}{{end}}"
 }
 
 # DNS
