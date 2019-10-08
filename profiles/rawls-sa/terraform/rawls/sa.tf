@@ -57,7 +57,7 @@ resource "google_service_account" "billingprobe" {
 }
 
 resource "google_service_account_key" "billingprobe_account_key" {
-  service_account_id = "${google_service_account.app.name}"
+  service_account_id = "${google_service_account.billingprobe.name}"
 }
 
 resource "vault_generic_secret" "billingprobe_account_key" {
