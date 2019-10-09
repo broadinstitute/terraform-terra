@@ -3,7 +3,7 @@
 
 resource "google_compute_firewall" "terra-allow-http" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -22,7 +22,7 @@ resource "google_compute_firewall" "terra-allow-http" {
 
 resource "google_compute_firewall" "terra-allow-https" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -41,7 +41,7 @@ resource "google_compute_firewall" "terra-allow-https" {
 
 resource "google_compute_firewall" "terra-allow-ssh" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-ssh"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -59,7 +59,7 @@ resource "google_compute_firewall" "terra-allow-ssh" {
 
 resource "google_compute_firewall" "terra-allow-opendj" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-opendj"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -78,7 +78,7 @@ resource "google_compute_firewall" "terra-allow-opendj" {
 
 resource "google_compute_firewall" "terra-allow-mongo" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-mongo"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -97,7 +97,7 @@ resource "google_compute_firewall" "terra-allow-mongo" {
 
 resource "google_compute_firewall" "terra-allow-elasticsearch" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-allow-elasticsearch"
   network = "${data.google_compute_network.terra-env-network.name}"
 
