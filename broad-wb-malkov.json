@@ -137,8 +137,7 @@
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
             "to_path": "thurloe/secrets/keys"
           }
-        },
-        "log_level": "DEBUG"
+        }
       }
     },
     "leonardo-configs": {
