@@ -7,6 +7,6 @@ module "enable-services" {
     google.target = "google"
   }
   services = [
-    "cloudfunctions.googleapis.com",
+    "cloudfunctions.googleapis.com"
   ]
 }

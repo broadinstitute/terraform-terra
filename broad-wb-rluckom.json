@@ -23,7 +23,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:b75873d1",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
           "default": {
@@ -313,6 +313,11 @@
               "project": "broad-wb-rluckom-tos",
               "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
               "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            },
+            "stackdriver": {
+              "project": "broad-wb-rluckom",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+              "region": "us-central1"
             }
           }
         }

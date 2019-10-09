@@ -4,7 +4,7 @@
 
 resource "google_compute_firewall" "terra-jenkins-ssh" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-jenkins-ssh"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -22,7 +22,7 @@ resource "google_compute_firewall" "terra-jenkins-ssh" {
 
 resource "google_compute_firewall" "terra-jenkins-elasticsearch" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-jenkins-elasticsearch"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -41,7 +41,7 @@ resource "google_compute_firewall" "terra-jenkins-elasticsearch" {
 
 resource "google_compute_firewall" "terra-jenkins-https" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-jenkins-https"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -60,7 +60,7 @@ resource "google_compute_firewall" "terra-jenkins-https" {
 
 resource "google_compute_firewall" "terra-jenkins-http" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-jenkins-http"
   network = "${data.google_compute_network.terra-env-network.name}"
 
@@ -79,7 +79,7 @@ resource "google_compute_firewall" "terra-jenkins-http" {
 
 resource "google_compute_firewall" "terra-jenkins-ldap" {
   provider = "google-beta"
-  enable_logging = true
+  enable_logging = var.enable_logging
   name = "${var.owner}-terra-jenkins-ldap"
   network = "${data.google_compute_network.terra-env-network.name}"
 
