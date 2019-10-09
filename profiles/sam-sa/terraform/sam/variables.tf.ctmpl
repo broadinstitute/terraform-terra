@@ -13,3 +13,31 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}
+
+variable "num_directory_sas" {
+  default = "{{if env "NUM_DIRECTORY_SAS"}}{{env "NUM_DIRECTORY_SAS"}}{{else}}3{{end}}"
+}
+
+variable "app_sa_roles" {
+  default = [
+    "roles/compute.viewer",
+    "roles/pubsub.editor",
+    "roles/owner",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter"
+  ]
+}
+
+#
+# GCR Bucket
+#
+variable "gcr_bucket_project" {
+  default = "broad-dsp-gcr-public"
+}
+variable "gcr_bucket_name" {
+  default = "artifacts.broad-dsp-gcr-public.appspot.com"
+}

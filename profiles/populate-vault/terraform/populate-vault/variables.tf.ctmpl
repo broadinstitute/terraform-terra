@@ -3,11 +3,6 @@ variable "environment" {
   description = "The environment specified in the application json"
 }
 
-variable "vault_path_prefix" {
-  default = "{{if (env "VAULT_PATH_PREFIX")}}{{env "VAULT_PATH_PREFIX"}}{{else}}secret/dsde/firecloud/ephemeral/{{env "ENVIRONMENT"}}{{end}}"
-  description = "Path prefix for vault secrets for this environment. MUST NOT end with trailing slash"
-}
-
 variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
@@ -23,51 +18,23 @@ variable "google_zone" {
   description = "The google zone as specified by `GOOGLE_REGION` and the application json"
 }
 
-variable "common_secrets_json" {
-  description = "secrets from secret/dsde/firecloud/common/secrets"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/secrets"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
 }
 
-variable "thurloe_keys_json" {
-  description = "secrets from secret/dsde/firecloud/perf/thurloe/secrets/keys"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/thurloe/secrets/keys"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
 }
 
-variable "tcell_app_id" {
-  description = "secrets from secret/dsde/firecloud/perf/common/tcell_app_id"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/tcell_app_id"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
-}
+#
+# SAM Secrets
+#
 
-variable "tcell_api_key" {
-  description = "secrets from secret/dsde/firecloud/perf/common/tcell_api_key"
+variable "sam_conf" {
+  description = "SAM config from secret/dsde/firecloud/perf/sam/sam.conf"
   default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/tcell_api_key"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
-}
-
-variable "common_ssl_crt" {
-  description = "secrets from secret/dsde/firecloud/perf/common/server.crt"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/server.crt"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
-}
-
-variable "common_ssl_key" {
-  description = "secrets from secret/dsde/firecloud/perf/common/server.key"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/server.key"}}{{ .Data | toJSONPretty | }}{{end}}
-EOT
-}
-
-variable "oauth_refresh_token_credential" {
-  description = "secrets from secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"
-  default = <<EOT
-{{with secret "secret/dsde/firecloud/perf/common/refresh-token-oauth-credential.json"}}{{ .Data | toJSONPretty | }}{{end}}
+{{with secret "secret/dsde/firecloud/perf/sam/sam.conf"}}{{ .Data | toJSONPretty | }}{{end}}
 EOT
 }

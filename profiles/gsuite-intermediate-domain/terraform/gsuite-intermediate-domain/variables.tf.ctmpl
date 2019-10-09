@@ -1,0 +1,31 @@
+variable "intermediate_dns_zone_google_project" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE_GOOGLE_PROJECT")}}{{env "INTERMEDIATE_DNS_ZONE_GOOGLE_PROJECT"}}{{else}}broad-dsp-techops-dev{{end}}"
+}
+
+variable "intermediate_dns_zone_region" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE_REGION")}}{{env "INTERMEDIATE_DNS_ZONE_REGION"}}{{else}}us-central1{{end}}"
+}
+
+variable "intermediate_dns_zone_delegation_google_project" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE_DELEGATION_GOOGLE_PROJECT")}}{{env "INTERMEDIATE_DNS_ZONE_DELEGATION_GOOGLE_PROJECT"}}{{else}}broad-dsde-prod{{end}}"
+}
+
+variable "intermediate_dns_zone_delegation_region" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE_DELEGATION_REGION")}}{{env "INTERMEDIATE_DNS_ZONE_DELEGATION_REGION"}}{{else}}us-central1{{end}}"
+}
+
+variable "intermediate_dns_zone" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE")}}{{env "INTERMEDIATE_DNS_ZONE"}}{{else}}ephemeral.test.firecloud.org.{{end}}"
+}
+
+variable "intermediate_dns_zone_google_name" {
+  default = "{{if (env "INTERMEDIATE_DNS_ZONE_GOOGLE_NAME")}}{{env "INTERMEDIATE_DNS_ZONE_GOOGLE_NAME"}}{{else}}intermediate-gsuite-zone{{end}}"
+}
+
+variable "parent_dns_zone_name" {
+  default = "{{if (env "PARENT_DNS_ZONE_NAME")}}{{env "PARENT_DNS_ZONE_NAME"}}{{else}}firecloud{{end}}"
+}
+
+variable "ephemeral_zone_segment" {
+  default = "{{if (env "EPHEMERAL_ZONE_SEGMENT")}}{{env "EPHEMERAL_ZONE_SEGMENT"}}{{else}}ephemeral.test{{end}}"
+}

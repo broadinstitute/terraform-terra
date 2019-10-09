@@ -9,34 +9,39 @@ variable "google_lb_ranges" {
 }
 
 resource "google_compute_firewall" "terra-gce-lb-health-check-allow-http" {
-  provider = "google"
+  provider = "google-beta"
+  enable_logging = true
   name = "${var.owner}-terra-gce-lb-health-check-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
-  depends_on = [ "data.google_compute_network.terra-env-network" ]
 
   allow {
     protocol = "tcp"
     ports = [ "80" ]
   }
 
-  source_ranges = [ "${var.google_lb_ranges}" ]
+  source_ranges = var.google_lb_ranges
   target_tags = [ "gce-lb-instance-group-member" ]
-  depends_on = ["module.enable-services"]
+  depends_on = [
+    "module.enable-services",
+    "data.google_compute_network.terra-env-network"
+  ]
 }
 
 resource "google_compute_firewall" "terra-gce-lb-health-check-allow-https" {
-  provider = "google"
+  provider = "google-beta"
+  enable_logging = true
   name = "${var.owner}-terra-gce-lb-health-check-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
-  depends_on = [ "data.google_compute_network.terra-env-network" ]
 
   allow {
     protocol = "tcp"
     ports = [ "443" ]
   }
 
-  source_ranges = [ "${var.google_lb_ranges}" ]
+  source_ranges = var.google_lb_ranges
   target_tags = [ "gce-lb-instance-group-member" ]
-  depends_on = ["module.enable-services"]
+  depends_on = [
+    "module.enable-services",
+    "data.google_compute_network.terra-env-network"
+  ]
 }
-

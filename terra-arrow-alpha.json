@@ -1,0 +1,61 @@
+{
+  "name": "terra",
+  "owner": "terra-arrow-alpha",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "alpha",
+  "project": "terra-arrow-alpha",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "none",
+  "dns_zone": "none",
+  "global_vars": {
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "terra-arrow-alpha",
+            "vault_sa_path": "secret/dsde/arrow/envs/alpha/terraform-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "arrow-project": {
+      "env": {
+        "ARROW_PROJECT_ID": "terra-arrow-alpha",
+        "ARROW_FOLDER_ID": "310153630233",
+        "ARROW_BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457",
+        "ARROW_PROJECT_EDITORS": "group:workbench-dev@broadinstitute.org,user:rmeffan@broadinstitute.org,user:rluckom@broadinstitute.org",
+        "ARROW_PROJECT_OWNERS": "user:breilly@broadinstitute.org"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "arrow-firewalls": {
+      "env": {
+        "ALLOWED_SOURCE_IPS": "0.0.0.0/0"
+      }
+    }
+  }
+}

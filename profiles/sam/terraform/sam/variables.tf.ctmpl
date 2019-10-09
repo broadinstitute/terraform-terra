@@ -22,9 +22,7 @@ variable "dns_zone_name" {
   default = "{{env "DNS_ZONE_NAME"}}"
   description = "The name of the DNS zone (its google id) as specified in the application json"
 }
-variable "google_dns_zone" {
-  default = "{{env "OWNER"}}-terra-dns"
-}
+
 variable "dns_project" {
   default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
 }
@@ -44,6 +42,10 @@ data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-red" {
 data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black" {
   name = "${var.google_compute_ssl_certificate_black}"
 }
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "SERVICE_LB_SSL_POLICY_NAME" | parseBool}}{{ env "SERVICE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
 # Network
 variable "google_network_name" {
   default = "{{env "OWNER"}}-terra-network"
@@ -51,7 +53,7 @@ variable "google_network_name" {
 data "google_compute_network" "terra-env-network" {
   name = "${var.google_network_name}"
 }
-# Sam SA
+# Service SA
 variable "config_reader_service_account" {
   default = "{{env "OWNER"}}-{{env "SERVICE"}}"
 }
@@ -61,7 +63,7 @@ data "google_service_account" "config_reader" {
 
 
 #
-# Sam - Common Vars
+# Service - Common Vars
 #
 variable "instance_tags" {
   default = [
@@ -74,35 +76,36 @@ variable "instance_tags" {
 }
 
 #
-# Sam Service Cluster 
+# Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "SAM_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SAM_INSTANCE_NUM_HOSTS" }}{{ else }}4{{ end }}"
-  description = "The default number of Sam service hosts per environment"
+  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}4{{ end }}"
+  description = "The default number of Service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SAM_INSTANCE_SIZE" | parseBool}}{{ env "SAM_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
-  description = "The default size of Sam service hosts"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
+  description = "The default size of Service hosts"
+}
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
 }
 
 #
-# Sam Service Config Bucket
+# Service Config Bucket
 #
 variable "storage_bucket_roles" {
   type = "list"
 
   default = [
-    "roles/storage.legacyBucketReader"
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
   ]
 }
 
 #
-# Sam - DNS Vars
+# Service - DNS Vars
 #
 variable "dns_ttl" {
    default = "300"
-}
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The path to this profile's secrets in vault"
 }

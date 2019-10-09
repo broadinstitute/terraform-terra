@@ -22,11 +22,15 @@ variable "service" {
 # Dependency Profiles' Vars
 #
 # DNS
-variable "google_dns_zone" {
-  default = "{{env "OWNER"}}-terra-dns"
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
 }
-data "google_dns_managed_zone" "terra-env-dns-zone" {
-  name = "${var.google_dns_zone}"
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+}
+variable "dns_region" {
+  default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
 }
 # SSL
 variable "google_compute_ssl_certificate_red" {
@@ -64,7 +68,8 @@ variable "instance_tags" {
   default = [
     "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
     "http-server",
-    "https-server"
+    "https-server",
+    "opendj"
   ]
   description = "The default instance tags"
 }
@@ -80,6 +85,10 @@ variable "instance_num_hosts" {
 variable "instance_size" {
   default = "{{ if env "OPENDJ_INSTANCE_SIZE" | parseBool}}{{ env "OPENDJ_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
   description = "The default size of service hosts"
+}
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
 }
 variable "instance_data_disk_size" {
   default = "{{ if env "OPENDJ_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "OPENDJ_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"

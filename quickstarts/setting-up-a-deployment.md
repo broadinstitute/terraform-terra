@@ -21,10 +21,11 @@ to deploy into. Deploying a profile into that google project means running:
 Before you can deploy your service(s), you will need to deploy the shared
 profiles that they need. The recommended order for deploying the shared profiles is:
 
-1. `network`
-2. `firewalls`
-3. `ssl`
-4. `populate-vault`
+1. `populate-vault`
+2. `network`
+3. `firewalls`
+4. `ssl`
+5. `gsuite`
 
 These are the only shared profiles you should need for any service so far.
 

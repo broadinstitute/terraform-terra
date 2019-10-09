@@ -37,10 +37,6 @@ variable "service" {
   default = "{{env "SERVICE"}}"
   description = "The name of the service within the profile"
 }
-variable "vault_path_prefix" {
-  default = "{{env "VAULT_PATH_PREFIX"}}"
-  description = "The path to this profile's secrets in vault"
-}
 
 #
 # Dependency Profiles' Vars
@@ -95,7 +91,7 @@ data "google_service_account" "config_reader" {
 
 variable "default_ssl_policy" {
   description = "default ssl policy for the load balancer"
-  default = "{{ if env "THURLOE_LB_SSL_POLICY_NAME" | parseBool}}{{ env "THURLOE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+  default = "{{ if env "THURLOE_LB_SSL_POLICY_NAME"}}{{ env "THURLOE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
 }
 
 #
@@ -176,18 +172,18 @@ variable "old_dns_zone" {
 # Thurloe Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS"}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "THURLOE_INSTANCE_SIZE" | parseBool}}{{ env "THURLOE_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "THURLOE_INSTANCE_SIZE"}}{{ env "THURLOE_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
   description = "The default size of Thurloe service hosts"
 }
 
-variable "image_name" {
-  default = "centos-7-v20190423"
-  description = "The default GCE OS platform image for Thurloe 100 service cluster"
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
 }
 
 variable "metadata_startup_script" {
@@ -198,16 +194,6 @@ variable "metadata_startup_script" {
 variable "allow_stopping_for_update" {
    default = "false"
    description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
-}
-
-variable "100_instance_group_load_balancer_name" {
-  default = "0"
-  description = "Determines the name of the load balancer to which the thurloe 100 instance group should be added. Typical value will be the same as the public service name of the load balancer. Examples: thurloe-200-lb, thurloe-load-balancer-100"
-}
-
-variable "100_instance_group_unmanaged_enable" {
-  default = "0"
-  description = "Enables GCE instance group for Thurloe 100 service cluster"
 }
 
 #

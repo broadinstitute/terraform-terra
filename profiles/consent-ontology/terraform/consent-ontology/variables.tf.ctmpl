@@ -1,0 +1,161 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+variable "google_zone" {
+  default = "{{env "GOOGLE_ZONE"}}"
+  description = "The google zone as specified by `GOOGLE_REGION` and the application json"
+}
+variable "dns_zone" {
+  default = "{{env "DNS_ZONE"}}"
+  description = "The full DNS zone without a trailing . as specified in the application json"
+}
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "application_name" {
+  default = "{{env "APPLICATION_NAME"}}"
+  description = "Name from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}
+
+#
+# Dependency Profiles' Vars
+#
+# DNS
+variable "google_dns_zone" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+}
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+}
+variable "dns_region" {
+  default = "{{if (env "TERRA_DNS_REGION")}}{{env "TERRA_DNS_REGION"}}{{else}}us-central1{{end}}"
+}
+# SSL
+variable "google_compute_ssl_certificate_red" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-red"
+}
+variable "google_compute_ssl_certificate_black" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-black"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-red" {
+  name = "${var.google_compute_ssl_certificate_red}"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black" {
+  name = "${var.google_compute_ssl_certificate_black}"
+}
+# Network
+variable "google_network_name" {
+  default = "{{env "OWNER"}}-terra-network"
+}
+data "google_compute_network" "terra-env-network" {
+  name = "${var.google_network_name}"
+}
+# Application SA
+variable "app_service_account" {
+  default = "{{env "OWNER"}}-consent"
+}
+
+variable "service_account_iam_roles" {
+  type = "list"
+
+  default = [
+    "roles/cloudsql.client",
+    "roles/pubsub.editor"
+  ]
+}
+
+data "google_service_account" "app" {
+  account_id = "${var.app_service_account}"
+}
+
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "CONSENT_LB_SSL_POLICY_NAME" | parseBool}}{{ env "CONSENT_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
+
+#
+# Application - Common Vars
+#
+variable "instance_tags" {
+  default = [
+    "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "http-server",
+    "https-server",
+    "{{env "SERVICE"}}",
+    "gce-lb-instance-group-member"
+  ]
+  description = "The default instance tags"
+}
+
+#
+# Application Service Cluster 
+#
+variable "instance_num_hosts" {
+  default = "{{ if env "CONSENT_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "CONSENT_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  description = "The default number of Application service hosts per environment"
+}
+
+variable "instance_size" {
+  default = "{{ if env "CONSENT_INSTANCE_SIZE" | parseBool}}{{ env "CONSENT_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  description = "The default size of Application service hosts"
+}
+
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
+}
+
+variable "metadata_startup_script" {
+   default = "metadata/centos7-docker2.sh"
+   description = "Default metadata startup script used when bootstrapping Application 100 instances"
+}
+
+variable "allow_stopping_for_update" {
+   default = "false"
+   description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
+}
+
+#
+# Application Service Config Bucket
+#
+variable "storage_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
+  ]
+}
+
+
+#
+# Consent-ontology
+#
+variable "cors_allowed_domains" {
+  default = "*,http://local.vault.broadinstitute.org:8080,https://portal-ci.vault.broadinstitute.org,http:/localhost:8000,http://localhost"
+}

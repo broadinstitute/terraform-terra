@@ -1,0 +1,14 @@
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+
+variable "intermediate_dns_zone_name" {
+  default = "intermediate-gsuite-zone"
+  description = "The google name of the intermediate DNS zone"
+}

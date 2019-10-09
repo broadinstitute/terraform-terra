@@ -1,0 +1,43 @@
+#
+# Profile Vars
+#
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+variable "app_sa_roles" {
+  default = [
+    "roles/compute.viewer",
+    "roles/cloudsql.client",
+    "roles/logging.logWriter",
+    "roles/monitoring.metricWriter"
+  ]
+}
+
+#
+# Common Vars
+#
+variable "gcr_bucket_project" {
+  default = "broad-dsp-gcr-public"
+}
+variable "gcr_bucket_name" {
+  default = "artifacts.broad-dsp-gcr-public.appspot.com"
+}
+
+variable "storage_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
+  ]
+}

@@ -1,66 +1,411 @@
 {
   "name": "terra",
   "owner": "broad-wb-rluckom",
-  "terraform_image": "us.gcr.io/broad-dsp-gcr-public/config-render:48229e65030",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
+  "environment": "broad-wb-rluckom",
+  "project": "broad-wb-rluckom",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom",
+      "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-rluckom",
+      "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
     },
     "vault": {
       "policy": "dsde-write"
     },
-    "consul_template": {"log_level": "debug"}
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:b75873d1",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-wb-rluckom",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
   },
   "profile_vars": {
+    "populate-vault": {
+      "terraform": {
+        "copy_secrets": {
+          "common_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/common/secrets",
+            "to_path": "common/secrets"
+          },
+          "tcell_api_key": {
+            "from_path": "secret/dsde/firecloud/perf/common/tcell_api_key",
+            "to_path": "common/tcell_api_key"
+          },
+          "tcell_app_id":{
+            "from_path": "secret/dsde/firecloud/perf/common/tcell_app_id",
+            "to_path": "common/tcell_app_id"
+          },
+          "common_ssl_crt":{
+            "from_path": "secret/dsde/firecloud/perf/common/server.crt",
+            "to_path": "common/server.crt"
+          },
+          "common_ssl_key":{
+            "from_path": "secret/dsde/firecloud/perf/common/server.key",
+            "to_path": "common/server.key"
+          },
+          "billing_sa":{
+            "from_path": "secret/dsde/firecloud/perf/common/billing-account.json",
+            "to_path": "common/billing-account.json"
+          },
+          "proxy_ldap":{
+            "from_path": "secret/dsde/firecloud/perf/common/proxy-ldap",
+            "to_path": "common/proxy-ldap"
+          },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
+            "to_path": "common/sentryapi",
+            "used_by": ["firecloud-orchestration"]
+          },
+          "signing-secret": {
+            "from_path": "secret/dsde/firecloud/perf/common/signing-secret",
+            "to_path": "common/signing-secret",
+            "used_by": ["firecloud-orchestration"]
+          },
+          "logitapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/logitapi",
+            "to_path": "common/logitapi",
+            "used_by": ["firecloud-orchestration"]
+          },
+          "bigquery-account": {
+            "from_path": "secret/dsde/firecloud/perf/common/bigquery-account.json",
+            "to_path": "common/bigquery-account.json",
+            "used_by": ["rawls"]
+          },
+          "hostedgraphiteapi": {
+            "from_path": "secret/dsde/firecloud/perf/common/hostedgraphiteapi",
+            "to_path": "common/hostedgraphiteapi",
+            "used_by": ["rawls", "cromwell"]
+          },
+          "rawls-perf-config": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
+            "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
+          }
+        }
+      }
+    },
+    "gsuite": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "intermediate-domain-delegator": {
+              "project": "broad-dsp-techops-dev",
+              "vault_sa_path": "secret/devops/terraform/dev/dsp-techops/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
-        "SERVICE_GIT_SHA_12_CHAR": "4c11a7177674"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-157-thurloe-configs",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "thurloe": {
+      "terraform": {
+        "copy_secrets": {
+          "secret_keys": {
+            "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
+            "to_path": "thurloe/secrets/keys"
+          }
+        }
+      }
+    },
+    "leonardo-configs": {
+      "env": {
+        "APP_NAME": "leonardo",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "leonardo": {
+      "terraform": {
+        "copy_secrets": {
+          "jupyter-cert": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/jupyter",
+            "to_path": "leonardo/jupyter"
+          },
+          "whitelist": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/whitelist.json",
+            "to_path": "leonardo/whitelist.json"
+          },
+          "leonardo-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/leonardo/secrets",
+            "to_path": "leonardo/secrets"
+          }
+        }
+      }
+    },
+    "rawls-configs": {
+      "env": {
+        "APP_NAME": "rawls",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "agora-mongo": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      }
+    },
+    "elasticsearch": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      }
+    },
+    "elasticsearch-configs": {
+      "env": {
+        "APP_NAME": "elasticsearch",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+      }
+    },
+    "firecloud-orchestration": {
+      "terraform": {
+        "copy_secrets": {
+          "trial-billing-account": {
+            "from_path": "secret/dsde/firecloud/perf/common/trial-billing-account.json",
+            "to_path": "common/trial-billing-account.json"
+          }
+        }
+      }
+    },
+    "firecloud-orchestration-configs": {
+      "env": {
+        "APP_NAME": "firecloud-orchestration",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "cromwell-sa": {
+      "terraform": {
+        "copy_secrets": {
+          "cromwell_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/secrets",
+            "to_path": "cromwell/secrets"
+          },
+          "sentryapi": {
+            "from_path": "secret/dsde/firecloud/perf/cromwell/sentryapi",
+            "to_path": "cromwell/sentryapi"
+          }
+        }
+      }
+    },
+    "cromwell-configs": {
+      "env": {
+        "APP_NAME": "cromwell",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
+      }
+    },
+    "cromiam-configs": {
+      "env": {
+        "APP_NAME": "cromiam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
+      }
+    },
+    "job-manager-configs": {
+      "env": {
+        "APP_NAME": "job-manager",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
+      }
+    },
+    "calhoun": {
+      "env": {
+        "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "app-engine": {
+              "project": "broad-dsde-perf",
+              "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      }
+    },
+    "opendj": {
+      "terraform": {
+        "copy_secrets": {
+          "opendj_secrets": {
+            "from_path": "secret/dsde/firecloud/perf/opendj/secrets",
+            "to_path": "opendj/secrets"
+          },
+          "opendj_stores": {
+            "from_path": "secret/dsde/firecloud/perf/opendj/stores",
+            "to_path": "opendj/stores"
+          }
+        }
       }
     },
     "opendj-configs": {
       "env": {
         "APP_NAME": "opendj",
-        "ENVIRONMENT": "dev",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "gm-perf-139-opendj-config"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
       }
-    }
-  },
-  "environments": {
-    "default": {
-      "name": "broad-wb-rluckom"
-    }
-  },
-  "projects": {
-    "default": {
-      "name": "broad-wb-rluckom",
-      "provider_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
     },
-    "state_bucket": {
-      "name": "broad-dsp-techops",
-      "provider_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json"
-    }
-  },
-  "regions": {
-    "default": {
-      "name": "us-central1",
-      "zone_name": "us-central1-a"
-    }
-  },
-  "dns": {
-    "default": {
-      "name": "dsde-perf-broad",
-      "zone": "dsde-perf.broadinstitute.org"
-    }
-  },
-  "terraform_state": {
-    "default": {
-      "state_path_prefix":"workbench",
-      "state_bucket": "broad-dsp-terraform-state"
+    "rawls-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "tos-project": {
+      "env": {
+        "FOLDER_ID": "46078610677",
+        "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
+        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "tos": {
+      "env": {
+        "GOOGLE_PROJECT": "broad-wb-rluckom-tos",
+        "FUNCTION_ENTRYPOINT": "tos",
+        "FUNCTION_GIT_REFSPEC": "rl-configurable-datastore-project"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-rluckom-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
+      }
+    },
+    "tos-sa": {
+      "env": {
+        "GOOGLE_PROJECT": "broad-wb-rluckom-tos"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "project": "broad-wb-rluckom-tos",
+              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
+              "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
+      }
+    },
+    "sam":{
+      "env": {
+        "SAM_INSTANCE_NUM_HOSTS": "1"
+      },
+      "terraform": {
+        "copy_secrets": {
+          "sam_conf": {
+            "from_path": "secret/dsde/firecloud/perf/sam/sam.conf",
+            "to_path": "sam/sam.conf"
+          }
+        }
+      }
+    },
+    "sam-configs": {
+      "env": {
+        "APP_NAME": "sam",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "agora-configs": {
+      "env": {
+        "APP_NAME": "agora",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "agora": {
+      "terraform": {
+        "copy_secrets": {
+          "agora-secrets": {
+            "from_path": "secret/dsde/firecloud/perf/agora/secrets",
+            "to_path": "agora/secrets"
+          }
+        }
+      }
+    },
+    "terra-ui": {
+      "env": {
+        "BOND_ADDRESS": "https://broad-bond-dummy.appspot.com",
+        "MARTHA_ADDRESS": "https://dummy.cloudfunctions.net",
+        "REX_ADDRESS": "https://terra-rex-dummy.appspot.com",
+        "SHIBBOLETH_ADDRESS": "https://shibboleth.dsde-dummy.broadinstitute.org",
+        "TERRA_UI_GIT_COMMIT": "dev"
+      }
+    },
+    "consent-mongo": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      }
+    },
+    "consent-configs": {
+      "env": {
+        "APP_NAME": "consent",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      },
+      "terraform": {
+        "copy_secrets": {
+          "secret_keys": {
+            "from_path": "secret/dsde/firecloud/perf/consent/consent.conf",
+            "to_path": "consent/consent.conf"
+          }
+        }
+      }
+    },
+    "consent-ontology-configs": {
+      "env": {
+        "APP_NAME": "consent-ontology",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
     }
   },
   "clusters": {

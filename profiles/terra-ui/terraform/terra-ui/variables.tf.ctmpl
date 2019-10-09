@@ -1,0 +1,115 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}
+
+variable "terra_ui_git_commit" {
+{{if env "TERRA_UI_GIT_COMMIT"}}
+  default = "{{env "TERRA_UI_GIT_COMMIT"}}"
+{{end}}
+}
+
+
+##############################
+# Profile dependencies' vars #
+##############################
+
+# URLS/endpoints
+
+# Completed profiles
+variable "agora_url" {
+  default = "{{if env "AGORA_ADDRESS"}}{{env "AGORA_ADDRESS"}}{{else}}{{with secret (printf "%s/agora/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "agora URL"
+}
+variable "calhoun_endpoint" {
+  default = "{{if env "CALHOUN_ADDRESS"}}{{env "CALHOUN_ADDRESS"}}{{else}}{{with secret (printf "%s/calhoun/secrets/endpoint" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.endpoint}}{{end}}{{end}}"
+  description = "calhoun endpoint"
+}
+variable "job_manager_url" {
+  default = "{{if env "JOB_MANAGER_ADDRESS"}}{{env "JOB_MANAGER_ADDRESS"}}{{else}}{{with secret (printf "%s/job-manager/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "job_manager URL"
+}
+variable "leo_url" {
+  default = "{{if env "LEO_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/leonardo/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "leo URL"
+}
+variable "rawls_url" {
+  default = "{{if env "RAWLS_ADDRESS"}}{{env "RAWLS_ADDRESS"}}{{else}}{{with secret (printf "%s/rawls/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "rawls URL"
+}
+variable "sam_url" {
+  default = "{{if env "SAM_ADDRESS"}}{{env "SAM_ADDRESS"}}{{else}}{{with secret (printf "%s/sam/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "sam URL"
+}
+variable "tos_endpoint" {
+  default = "{{if env "TOS_ADDRESS"}}{{env "TOS_ADDRESS"}}{{else}}{{with secret (printf "%s/tos/secrets/endpoint" (env "VAULT_PATH_PREFIX"))}}{{.Data.endpoint}}{{end}}{{end}}"
+  description = "tos endpoint"
+}
+variable "bond_url" {
+  default = "{{if env "BOND_ADDRESS"}}{{env "BOND_ADDRESS"}}{{else}}{{with secret (printf "%s/bond/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "bond URL"
+}
+variable "martha_url" {
+  default = "{{if env "MARTHA_ADDRESS"}}{{env "MARTHA_ADDRESS"}}{{else}}{{with secret (printf "%s/martha/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "martha URL"
+}
+variable "orch_url" {
+  default = "{{if env "ORCH_ADDRESS"}}{{env "ORCH_ADDRESS"}}{{else}}{{with secret (printf "%s/firecloud-orchestration/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "orch URL"
+}
+variable "rex_url" {
+  default = "{{if env "REX_ADDRESS"}}{{env "REX_ADDRESS"}}{{else}}{{with secret (printf "%s/rex/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "rex URL"
+}
+variable "shibboleth_url" {
+  default = "{{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}{{with secret (printf "%s/shibboleth/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "shibboleth URL"
+}
+
+variable "is_prod" {
+  default = {{if env "IS_PROD"}}{{env "IS_PROD"}}{{else}}false{{end}}
+}
+
+variable "tcell_api_id" {
+  default = "{{if env "TCELL_API_ID"}}{{env "TCELL_API_ID"}}{{else}}saturnnonprod-O9lUP{{end}}"
+}
+variable "tcell_api_key" {
+  default = "{{if env "TCELL_API_KEY"}}{{env "TCELL_API_KEY"}}{{else}}AQEBBAEkx4iE2KxNyI7Wx08EwU1ycTM7E4FMSmaibbMUQxNU6uQvuAJt7fyABAtFYSYfgEE{{end}}"
+}
+
+variable "google_client_id" {
+  default = "{{if env "GOOGLE_CLIENT_ID"}}{{env "GOOGLE_CLIENT_ID"}}{{else}}{{with secret (printf "%s/terra-ui/terra-ui-oauth-credential.json" (env "VAULT_PATH_PREFIX"))}}{{.Data.web.client_id}}{{end}}{{end}}"
+}
+
+# DNS
+variable "dns_zone_name" {
+  default = "{{env "DNS_ZONE_NAME"}}"
+  description = "The name of the DNS zone (its google id) as specified in the application json"
+}
+data "google_dns_managed_zone" "dns-zone" {
+  provider = "google.dns"
+  name = "${var.dns_zone_name}"
+}
