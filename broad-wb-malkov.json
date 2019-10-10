@@ -381,7 +381,7 @@
         "BOND_ADDRESS": "https://broad-bond-dummy.appspot.com",
         "MARTHA_ADDRESS": "https://dummy.cloudfunctions.net",
         "REX_ADDRESS": "https://terra-rex-dummy.appspot.com",
-        "SHIBBOLETH_ADDRESS": "https://shibboleth.dsde-dummy.broadinstitute.org",
+        "SHIBBOLETH_ADDRESS": "http://mock-nih.dev.test.firecloud.org",
         "TERRA_UI_GIT_COMMIT": "dev"
       }
     },
@@ -409,6 +409,13 @@
       "env": {
         "APP_NAME": "consent-ontology",
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
+    "firecloud-ui-configs": {
+      "env": {
+        "APP_NAME": "firecloud-ui",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-214-fcui",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     }
