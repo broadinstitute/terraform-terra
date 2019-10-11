@@ -18,22 +18,9 @@ pipeline {
   stages {
     stage ('initialize'){
       steps {
-        // GIT submodule recursive checkout
-        checkout scm: [
-          $class: 'GitSCM',
-          branches: scm.branches,
-          doGenerateSubmoduleConfigurations: false,
-          extensions: [[
-            $class: 'SubmoduleOption',
-            disableSubmodules: false,
-            parentCredentials: false,
-            recursiveSubmodules: true,
-            reference: '',
-            trackingSubmodules: false
-          ]],
-          submoduleCfg: [],
-          userRemoteConfigs: scm.userRemoteConfigs
-        ]
+        script {
+          sh "git submodule init && git submodule update"
+        }
       }
     }
     stage('deploy'){
