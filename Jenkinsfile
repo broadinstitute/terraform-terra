@@ -37,6 +37,13 @@ pipeline {
         ]
       }
     }
+    stage ('test'){
+      steps {
+        script {
+          sh "docker run -it --rm -e VAULT_TOKEN=\$(cat /etc/dsde-read-ephemeral-write) -e VAULT_ADDR=https://clotho.broadinstitute.org:8200 --cap-add IPC_LOCK vault:1.0.0 vault token create -policy=dsde-read-ephemeral-write"
+        }
+      }
+    }
     stage ('deploy'){
       steps {
         script {
