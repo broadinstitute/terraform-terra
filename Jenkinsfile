@@ -39,7 +39,7 @@ pipeline {
     stage ('deploy'){
       steps {
         script {
-          sh "export VAULT_TOKEN=\$(cat /etc/vault-token-dsde) && ./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile}"
+          sh "./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile} -v /etc/vault-token-dsde"
         }
       }
     }
