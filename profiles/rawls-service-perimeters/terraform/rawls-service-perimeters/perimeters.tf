@@ -8,16 +8,16 @@ data "google_organization" "org" {
 resource "google_folder" "folder" {
   for_each = var.perimeters
 
-  parent = "organizations/${data.google_organization.org.id}"
+  parent       = "organizations/${data.google_organization.org.id}"
   display_name = each.key
 }
 
 resource "google_access_context_manager_access_level" "access-level" {
   for_each = var.perimeters
 
-  parent      = "accessPolicies/${var.access_policy_name}"
-  name        = "accessPolicies/${var.access_policy_name}/accessLevels/${each.key}"
-  title       = each.key
+  parent = "accessPolicies/${var.access_policy_name}"
+  name   = "accessPolicies/${var.access_policy_name}/accessLevels/${each.key}"
+  title  = each.key
   basic {
     conditions {
       members = each.value.access_member_whitelist
@@ -28,11 +28,11 @@ resource "google_access_context_manager_access_level" "access-level" {
 resource "google_access_context_manager_service_perimeter" "service-perimeter" {
   for_each = var.perimeters
 
-  parent      = "accessPolicies/${var.access_policy_name}"
-  name        = "accessPolicies/${var.access_policy_name}/servicePerimeters/${each.key}"
-  title       = each.key
+  parent = "accessPolicies/${var.access_policy_name}"
+  name   = "accessPolicies/${var.access_policy_name}/servicePerimeters/${each.key}"
+  title  = each.key
   status {
-    resources = []
+    resources           = []
     restricted_services = each.value.restricted_services
     access_levels = [
       google_access_context_manager_access_level.access-level[each.key].name
