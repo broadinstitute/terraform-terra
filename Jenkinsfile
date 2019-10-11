@@ -37,9 +37,7 @@ pipeline {
       }
     }
     stage('deploy'){
-      script {
-        sh "./dsp-k8s-deploy/application-deploy.sh -j $environment.json -p $profile"
-      }
+      sh "./dsp-k8s-deploy/application-deploy.sh -j $environment.json -p $profile"
     }
   }
 }
