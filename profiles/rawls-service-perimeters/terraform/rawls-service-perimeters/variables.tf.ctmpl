@@ -1,0 +1,22 @@
+variable "org_domain" {
+  type    = string
+  description = "GCP organization domain name to contain this perimeter and folder"
+  default = "{{env "ORGANIZATION_DOMAIN"}}"
+}
+
+variable "access_policy_name" {
+  type    = string
+  description = "Resource name of existing access context manager policy to create perimeters within"
+    access_member_whitelist = list(string)
+}))
+  default = [
+    {{ with $profile_json := env "PROFILE_JSON_PATH" | file | parseJSON }}
+      {{ range index $profile_json "profile_vars" "rawls-service-perimeters" "extras" "perimeters" }}
+        name = "{{ .name }}"
+        restricted_services = {{ printf "%q" .restricted_services }}
+        access_member_whitelist = {{ printf "%q" .access_member_whitelist }}
+      {{ end }}
+    {{ end }}
+  ]
+}
+
