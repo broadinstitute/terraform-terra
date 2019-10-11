@@ -17,7 +17,7 @@ pipeline {
     label 'node220'
   }
   stages {
-    stage ('initialize'){
+    stage ('init submodules'){
       steps {
         // GIT submodule recursive checkout
         checkout scm: [
