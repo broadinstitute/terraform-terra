@@ -39,7 +39,7 @@ pipeline {
     stage ('deploy'){
       steps {
         script {
-          sh "./dsp-k8s-deploy/application-deploy.sh -j $environment.json -p $profile"
+          sh "./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile}"
         }
       }
     }
