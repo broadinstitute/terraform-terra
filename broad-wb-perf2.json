@@ -20,7 +20,7 @@
       "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
     },
     "vault": {
-      "policy": "dsde-write"
+      "policy": "dsde-read-ephemeral-write"
     },
     "consul_template": {
       "log_level": "debug"
