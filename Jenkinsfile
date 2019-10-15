@@ -9,7 +9,6 @@ pipeline {
     string(
       name: 'profile',
       description: 'Name of profile to deploy',
-      defaultValue: 'firewalls',
       trim: true
     )
     choice(
