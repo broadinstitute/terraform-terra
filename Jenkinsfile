@@ -41,7 +41,7 @@ pipeline {
     stage ('deploy'){
       steps {
         script {
-          sh "./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile} -v /etc/dsde-read-ephemeral-write"
+          sh "./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile} -v /etc/dsde-read-ephemeral-write -f"
         }
       }
     }
