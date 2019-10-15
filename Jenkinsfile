@@ -12,6 +12,11 @@ pipeline {
       defaultValue: 'firewalls',
       trim: true
     )
+    choice(
+      name: 'action',
+      choices: ['deploy', 'teardown'],
+      description: 'Action to perform'
+    )
   }
   agent {
     // Until we get the correct vault policy on all nodes
@@ -41,7 +46,7 @@ pipeline {
     stage ('deploy'){
       steps {
         script {
-          sh "./dsp-k8s-deploy/application-deploy.sh -j ${params.environment}.json -p ${params.profile} -v /etc/dsde-read-ephemeral-write -f"
+          sh "./dsp-k8s-deploy/application-${params.action}.sh -j ${params.environment}.json -p ${params.profile} -v /etc/dsde-read-ephemeral-write -f"
         }
       }
     }
