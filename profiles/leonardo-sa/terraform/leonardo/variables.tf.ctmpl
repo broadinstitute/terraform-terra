@@ -29,6 +29,16 @@ variable "app_sa_roles" {
   ]
 }
 
+variable "image_project" {
+  default = "broad-dsp-gcr-public"
+}
+
+variable "image_project_roles" {
+  default = [
+    "roles/resourcemanager.projectIamAdmin"
+  ]
+}
+
 #
 # Common Vars
 #
