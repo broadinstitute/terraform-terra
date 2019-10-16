@@ -222,6 +222,13 @@
         "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
       }
     },
+    "firecloud-ui-configs": {
+      "env": {
+        "APP_NAME": "firecloud-ui",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-214-fcui",
+        "SERVICE_GIT_SHA_12_CHAR": "perf"
+      }
+    },
     "firecloud-orchestration": {
       "terraform": {
         "copy_secrets": {
