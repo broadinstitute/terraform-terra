@@ -44,7 +44,7 @@ class Oauth(object):
         )
         wait_for_enter()
 
-class AddToGroupS(object):
+class AddToGroups(object):
     def run(self, context):
         print("\nIn the GSuite admin console (https://admin.google.com) for 'test.firecloud.org', go to:")
         print(" Groups -> Search for firecloud-project-editors-perf@test.firecloud.org -> Add members:")
@@ -79,7 +79,7 @@ if __name__ == "__main__":
         DomainWideDelegation(),
         AuthorizeDomain(),
         Oauth(),
-        AddToGroup()
+        AddToGroups()
     ]
     for step in procedure:
         step.run(context)
