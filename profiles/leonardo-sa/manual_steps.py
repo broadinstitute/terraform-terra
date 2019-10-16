@@ -3,6 +3,14 @@ import sys
 def wait_for_enter():
     raw_input("Press Enter to continue: ")
 
+class DomainWideDelegation(object):
+    def run(self, context):
+        print("\nIn the GCP console go to IAM > Service accounts:")
+        print("  https://console.cloud.google.com/iam-admin/serviceaccounts")
+        print("Find the {0} service account (search for '{0}')".format(context["app"]))
+        print("Enable domain-wide delegation for that account\n")
+        wait_for_enter()
+
 class AuthorizeDomain(object):
     def run(self, context):
         print("\nIn the GCP console go to APIs & Services > Credentials > OAuth consent screen:")
@@ -36,6 +44,29 @@ class Oauth(object):
         )
         wait_for_enter()
 
+class AddToGroupS(object):
+    def run(self, context):
+        print("\nIn the GSuite admin console (https://admin.google.com) for 'test.firecloud.org', go to:")
+        print(" Groups -> Search for firecloud-project-editors-perf@test.firecloud.org -> Add members:")
+        print("Add {0} SA:".format(context["app"]))
+        print("  {0}-{1}@{2}.iam.gserviceaccount.com ".format(
+                context["project_name"],
+                context["app"],
+                context["project_name"]
+            )
+        )
+        wait_for_enter()
+        print("\nIn the GSuite admin console (https://admin.google.com) for 'test.firecloud.org', go to:")
+        print(" Groups -> Search for perfx-leo-service-accounts@test.firecloud.org -> Add members:")
+        print("Add {0} SA:".format(context["app"]))
+        print("  {0}-{1}@{2}.iam.gserviceaccount.com ".format(
+                context["project_name"],
+                context["app"],
+                context["project_name"]
+            )
+        )
+        wait_for_enter()
+
 
 if __name__ == "__main__":
     context = {
@@ -45,8 +76,10 @@ if __name__ == "__main__":
         "project_name": sys.argv[1]
     }
     procedure = [
+        DomainWideDelegation(),
         AuthorizeDomain(),
-        Oauth()
+        Oauth(),
+        AddToGroup()
     ]
     for step in procedure:
         step.run(context)
