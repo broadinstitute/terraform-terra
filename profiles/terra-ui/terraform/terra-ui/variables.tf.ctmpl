@@ -69,11 +69,11 @@ variable "tos_endpoint" {
   description = "tos endpoint"
 }
 variable "bond_url" {
-  default = "{{if env "BOND_ADDRESS"}}{{env "BOND_ADDRESS"}}{{else}}{{with secret (printf "%s/bond/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  default = "{{if env "BOND_ADDRESS"}}{{env "BOND_ADDRESS"}}{{else}}{{with secret (printf "%s/bond/secrets/url" (env "VAULT_PATH_PREFIX"))}}{{.Data.url}}{{end}}{{end}}"
   description = "bond URL"
 }
 variable "martha_url" {
-  default = "{{if env "MARTHA_ADDRESS"}}{{env "MARTHA_ADDRESS"}}{{else}}{{with secret (printf "%s/martha/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  default = "{{if env "MARTHA_ADDRESS"}}{{env "MARTHA_ADDRESS"}}{{else}}{{with secret (printf "%s/martha/secrets/urls" (env "VAULT_PATH_PREFIX"))}}{{.Data.martha}}{{end}}{{end}}"
   description = "martha URL"
 }
 variable "orch_url" {
@@ -85,7 +85,7 @@ variable "rex_url" {
   description = "rex URL"
 }
 variable "shibboleth_url" {
-  default = "{{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}{{with secret (printf "%s/shibboleth/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  default = "{{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}{{with secret (printf "%s/shibboleth/secrets/url" (env "VAULT_PATH_PREFIX"))}}{{.Data.url}}{{end}}{{end}}"
   description = "shibboleth URL"
 }
 

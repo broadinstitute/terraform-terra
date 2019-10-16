@@ -454,10 +454,7 @@
     },
     "terra-ui": {
       "env": {
-        "BOND_ADDRESS": "https://broad-bond-dummy.appspot.com",
-        "MARTHA_ADDRESS": "https://dummy.cloudfunctions.net",
         "REX_ADDRESS": "https://terra-rex-dummy.appspot.com",
-        "SHIBBOLETH_ADDRESS": "https://shibboleth.dsde-dummy.broadinstitute.org",
         "TERRA_UI_GIT_COMMIT": "dev"
       },
       "terraform": {
