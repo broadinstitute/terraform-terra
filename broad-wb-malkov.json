@@ -13,6 +13,7 @@
   "global_vars": {
     "env": {
       "SAM_FIRESTORE_SA_NAME": "sam-malkov-firestore",
+      "SAM_FIRESTORE_PROJECT_NAME": "malkov-sam-firestore",
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-malkov",
       "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
@@ -350,7 +351,7 @@
       "env": {
         "FOLDER_ID": "46078610677",
         "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
-        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457",
+        "BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA",
         "SAM_FIRESTORE_SA_ROLES": "roles/editor"
       },
       "terraform": {
