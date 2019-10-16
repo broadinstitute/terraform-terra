@@ -11,6 +11,13 @@ resource "google_project_iam_member" "app" {
   member  = "serviceAccount:${google_service_account.app.email}"
 }
 
+resource "google_project_iam_member" "app-image-project" {
+  count   = "${length(var.image_project_roles)}"
+  project = "${var.image_project}"
+  role    = "${element(var.image_project_roles, count.index)}"
+  member  = "serviceAccount:${google_service_account.app.email}"
+}
+
 # Grant service account access to container registry
 resource "google_storage_bucket_iam_member" "app" {
   bucket = "${var.gcr_bucket_name}"

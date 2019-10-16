@@ -12,6 +12,7 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
+      "SAM_FIRESTORE_SA_NAME": "sam-rluckom-firestore",
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-rluckom",
       "INSTANCE_IMAGE": "projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7"
@@ -136,6 +137,17 @@
           "secret_keys": {
             "from_path": "secret/dsde/firecloud/perf/thurloe/secrets/keys",
             "to_path": "thurloe/secrets/keys"
+          }
+        }
+      }
+    },
+    "leonardo-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
           }
         }
       }
@@ -334,6 +346,23 @@
               "project": "broad-wb-rluckom-tos",
               "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
               "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
+            }
+          }
+        }
+      }
+    },
+    "sam-firestore-project": {
+      "env": {
+        "FOLDER_ID": "46078610677",
+        "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
+        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457",
+        "SAM_FIRESTORE_SA_ROLES": "roles/editor"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
             }
           }
         }
