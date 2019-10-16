@@ -11,6 +11,12 @@ pipeline {
       description: 'Name of profile to deploy',
       trim: true
     )
+    string(
+      name: 'branch',
+      description: 'Branch of terraform-terra to use',
+      defaultValue: 'master',
+      trim: true
+    )
     choice(
       name: 'action',
       choices: ['deploy', 'teardown'],
