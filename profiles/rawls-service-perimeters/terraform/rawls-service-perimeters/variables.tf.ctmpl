@@ -1,3 +1,10 @@
+provider "google-beta" {
+  credentials = "${file("default.sa.json")}"
+  project = "{{env "GOOGLE_PROJECT"}}"
+  region = "us-central1"
+}
+
+
 variable "org_domain" {
   type    = string
   description = "GCP organization domain name to contain this perimeter and folder"

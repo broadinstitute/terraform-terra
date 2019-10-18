@@ -29,6 +29,7 @@ resource "google_access_context_manager_service_perimeter" "ingress-bridge" {
 }
 
 resource "google_access_context_manager_service_perimeter" "ingress-perimeter" {
+  provider = "google-beta"
   for_each = var.ingress_bridges
 
   parent = "accessPolicies/${var.access_policy_name}"
@@ -36,7 +37,7 @@ resource "google_access_context_manager_service_perimeter" "ingress-perimeter" {
   title  = "${each.key}_ingress"
   status {
     resources = ["projects/${data.google_project.ingress_project[each.key].number}"]
-    # Unrestricted, to allow for ingress.
-    restricted_services = []
+    # service we don't expect to use pending resolution of https://github.com/terraform-providers/terraform-provider-google/issues/4715
+    restricted_services = ["container.googleapis.com"]
   }
 }
