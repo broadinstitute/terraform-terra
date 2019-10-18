@@ -25,6 +25,7 @@ resource "google_access_context_manager_service_perimeter" "ingress-bridge" {
       "projects/${data.google_project.protected_project[each.key].number}"
     ]
   }
+  depends_on = [google_access_context_manager_service_perimeter.ingress-perimeter]
 }
 
 resource "google_access_context_manager_service_perimeter" "ingress-perimeter" {
