@@ -10,18 +10,18 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
           "default": {
-            "project": "TODO",
-            "vault_sa_path": "TODO",
+            "project": "calbach-test-project",
+            "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
             "region": "us-central1"
           }
         }
       },
       "backend": {
-        "vault_sa_path": "TODO",
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
         "state_path_prefix":"terra",
         "state_bucket": "broad-dsp-terraform-state"
       }
@@ -43,7 +43,7 @@
               "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
             ],
             "ingress_bridge": {
-              "ingress_project_id": "fc-aou-cdr-ingest-synth-test",
+              "ingress_project_id": "billy-f-mcbillingface",
               "protected_project_id": "fc-aou-cdr-synth-test"
             }
           }
