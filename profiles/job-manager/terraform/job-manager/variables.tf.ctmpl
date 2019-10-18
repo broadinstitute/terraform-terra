@@ -22,6 +22,27 @@ variable "vault_path_prefix" {
   default = "{{env "VAULT_PATH_PREFIX"}}"
   description = "The prefix path at which to store vault values"
 }
+variable "dns_project" {
+  default = "{{if (env "TERRA_DNS_PROJECT")}}{{env "TERRA_DNS_PROJECT"}}{{else}}broad-dsde-perf{{end}}"
+}
+# SSL
+
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "THURLOE_LB_SSL_POLICY_NAME"}}{{ env "THURLOE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
+variable "google_compute_ssl_certificate_red" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-red"
+}
+variable "google_compute_ssl_certificate_black" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-black"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-red" {
+  name = "${var.google_compute_ssl_certificate_red}"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black" {
+  name = "${var.google_compute_ssl_certificate_black}"
+}
 
 #
 # Dependency Profiles' Vars

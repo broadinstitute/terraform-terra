@@ -102,12 +102,12 @@ variable "instance_image" {
 #
 # Application Service Config Bucket
 #
-variable "storage_bucket_roles" {
+variable "ping_me_bucket_roles" {
   type = "list"
 
   default = [
-    "roles/storage.legacyBucketReader",
-    "roles/storage.objectViewer"
+    "roles/storage.legacyBucketOwner",
+    "roles/storage.legacyObjectOwner",
   ]
 }
 
