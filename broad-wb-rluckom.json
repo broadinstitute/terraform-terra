@@ -266,6 +266,9 @@
       }
     },
     "opendj": {
+      "env": {
+        "INSTANCE_IMAGE": "centos-7"
+      },
       "terraform": {
         "copy_secrets": {
           "opendj_secrets": {
