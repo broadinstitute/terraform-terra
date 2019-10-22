@@ -90,7 +90,7 @@ variable "instance_num_hosts" {
 }
 
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-standard-8{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highmem-8{{ end }}"
   description = "The default size of Application service hosts"
 }
 
