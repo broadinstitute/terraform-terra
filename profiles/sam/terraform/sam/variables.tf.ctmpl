@@ -44,7 +44,7 @@ data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black"
 }
 variable "default_ssl_policy" {
   description = "default ssl policy for the load balancer"
-  default = "{{ if env "SERVICE_LB_SSL_POLICY_NAME" | parseBool}}{{ env "SERVICE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+  default = "{{ if env "SERVICE_LB_SSL_POLICY_NAME" }}{{ env "SERVICE_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
 }
 # Network
 variable "google_network_name" {
@@ -79,11 +79,11 @@ variable "instance_tags" {
 # Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}4{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}4{{ end }}"
   description = "The default number of Service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-4-5120{{ end }}"
   description = "The default size of Service hosts"
 }
 variable "instance_image" {
@@ -108,4 +108,14 @@ variable "storage_bucket_roles" {
 #
 variable "dns_ttl" {
    default = "300"
+}
+
+# cloudsql vars
+
+variable "cloudsql_database_name" {
+  default = "{{env "SERVICE"}}"
+}
+
+variable "cloudsql_app_username" {
+  default = "{{env "SERVICE"}}"
 }
