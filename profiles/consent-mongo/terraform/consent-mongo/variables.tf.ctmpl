@@ -89,7 +89,7 @@ variable "instance_num_hosts" {
   description = "The default number of Thurloe service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "CONSENT_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "CONSENT_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "CONSENT_MONGO_INSTANCE_SIZE" }}{{ else }}n1-highmem-4{{ end }}"
   description = "The default size of service hosts"
 }
 variable "instance_image" {

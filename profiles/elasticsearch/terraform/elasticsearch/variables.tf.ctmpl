@@ -88,7 +88,7 @@ variable "instance_num_hosts" {
   description = "The default number of service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highmem-8{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-standard-2{{ end }}"
   description = "The default size of service hosts"
 }
 variable "instance_image" {

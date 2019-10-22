@@ -173,12 +173,12 @@ variable "old_dns_zone" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "LEONARDO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "LEONARDO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ else }}2{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "LEONARDO_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "LEONARDO_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
   description = "The default size of Application service hosts"
 }
 
@@ -211,7 +211,7 @@ variable "standalone_instance_num_hosts" {
 }
 
 variable "standalone_instance_size" {
-  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_BACKEND_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_BACKEND_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
   description = "The default size of Application service hosts"
 }
 
