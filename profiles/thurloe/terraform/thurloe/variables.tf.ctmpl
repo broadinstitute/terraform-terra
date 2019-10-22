@@ -172,7 +172,7 @@ variable "old_dns_zone" {
 # Thurloe Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS"}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS"}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}2{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 

@@ -124,12 +124,12 @@ variable "instance_tags" {
 }
 
 variable "instance_num_hosts" {
-  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS"}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "THURLOE_INSTANCE_NUM_HOSTS"}}{{ env "THURLOE_INSTANCE_NUM_HOSTS" }}{{ else }}2{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "THURLOE_INSTANCE_SIZE"}}{{ env "THURLOE_INSTANCE_SIZE" }}{{ else }}custom-4-8192{{ end }}"
+  default = "{{ if env "THURLOE_INSTANCE_SIZE"}}{{ env "THURLOE_INSTANCE_SIZE" }}{{ else }}n1-standard-1{{ end }}"
   description = "The default size of Thurloe service hosts"
 }
 
