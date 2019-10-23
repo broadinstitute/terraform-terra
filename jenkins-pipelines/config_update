@@ -29,7 +29,7 @@ pipeline {
 
   }
   stages {
-    stage('Update Configs') }
+    stage('Update Configs') {
       parallel {
         stage('update agora') {
           when {
