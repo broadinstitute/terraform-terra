@@ -39,8 +39,8 @@ pipeline {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: '${params.json}')
-                string(name: 'branch', value: '${params.branch}')
+                string(name: 'json', value: '${params.json}'),
+                string(name: 'branch', value: '${params.branch}'),
                 string(name: 'profile', value: 'agora-configs')
               ]
             )
