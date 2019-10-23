@@ -49,7 +49,8 @@ pipeline {
           submoduleCfg: [],
           userRemoteConfigs: [[
             $class: 'UserRemoteConfig',
-            url: 'git@github.com:broadinstitute/terraform-terra.git'
+            url: 'git@github.com:broadinstitute/terraform-terra.git',
+            credentialsId: 'jenkins-ssh-github'
           ]]
         ]
       }
