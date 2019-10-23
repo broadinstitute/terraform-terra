@@ -32,6 +32,7 @@ pipeline {
     stage('Update Configs') {
       parallel {
         stage('update agora') {
+          agent any
           when {
             expression { params.agora }
           }
@@ -47,6 +48,7 @@ pipeline {
           }
         }
         stage('update consent') {
+          agent any
           when {
             expression { params.consent }
           }
@@ -62,6 +64,7 @@ pipeline {
           }
         }
         stage('update consent-ontology') {
+          agent any
           when {
             expression { params.consent-ontology }
           }
@@ -77,6 +80,7 @@ pipeline {
           }
         }
         stage('update cromiam') {
+          agent any
           when {
             expression { params.cromiam }
           }
@@ -92,6 +96,7 @@ pipeline {
           }
         }
         stage('update cromwell') {
+          agent any
           when {
             expression { params.cromwell }
           }
@@ -107,6 +112,7 @@ pipeline {
           }
         }
         stage('update firecloud-orchestration') {
+          agent any
           when {
             expression { params.firecloud-orchestration }
           }
@@ -122,6 +128,7 @@ pipeline {
           }
         }
         stage('update firecloud-ui') {
+          agent any
           when {
             expression { params.firecloud-ui }
           }
@@ -137,6 +144,7 @@ pipeline {
           }
         }
         stage('update job-manager') {
+          agent any
           when {
             expression { params.job-manager }
           }
@@ -152,6 +160,7 @@ pipeline {
           }
         }
         stage('update leonardo') {
+          agent any
           when {
             expression { params.leonardo }
           }
@@ -167,6 +176,7 @@ pipeline {
           }
         }
         stage('update opendj') {
+          agent any
           when {
             expression { params.opendj }
           }
@@ -182,6 +192,7 @@ pipeline {
           }
         }
         stage('update rawls') {
+          agent any
           when {
             expression { params.rawls }
           }
@@ -197,6 +208,7 @@ pipeline {
           }
         }
         stage('update sam') {
+          agent any
           when {
             expression { params.sam }
           }
@@ -212,6 +224,7 @@ pipeline {
           }
         }
         stage('update thurloe') {
+          agent any
           when {
             expression { params.thurloe }
           }
