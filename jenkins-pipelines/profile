@@ -33,7 +33,10 @@ pipeline {
         // GIT submodule recursive checkout
         checkout scm: [
           $class: 'GitSCM',
-          branches: ['${params.branch}'],
+          branches: [[
+            $class: 'BranchSpec',
+            name: '${params.branch}'
+          ]],
           doGenerateSubmoduleConfigurations: false,
           extensions: [[
             $class: 'SubmoduleOption',
