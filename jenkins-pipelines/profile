@@ -44,7 +44,10 @@ pipeline {
             trackingSubmodules: false
           ]],
           submoduleCfg: [],
-          userRemoteConfigs: 'https://github.com/broadinstitute/terraform-terra.git'
+          userRemoteConfigs: [[
+            $class: 'UserRemoteConfig',
+            url: 'https://github.com/broadinstitute/terraform-terra.git'
+          ]]
         ]
       }
     }
