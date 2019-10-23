@@ -1,0 +1,52 @@
+pipeline {
+  agent any
+  parameters {
+    string(
+      name: 'json',
+      description: 'Parameter JSON file to use',
+      defaultValue: 'broad-wb-malkov.json',
+      trim: true
+    )
+    string(
+      name: 'branch',
+      description: 'Branch of terraform-terra to use',
+      defaultValue: 'master',
+      trim: true
+    )
+    booleanParam(name: 'agora', defaultValue: false)
+    booleanParam(name: 'consent', defaultValue: false)
+    booleanParam(name: 'consent-ontology', defaultValue: false)
+    booleanParam(name: 'cromiam', defaultValue: false)
+    booleanParam(name: 'cromwell', defaultValue: false)
+    booleanParam(name: 'firecloud-orchestration', defaultValue: false)
+    booleanParam(name: 'firecloud-ui', defaultValue: false)
+    booleanParam(name: 'job-manager', defaultValue: false)
+    booleanParam(name: 'leonardo', defaultValue: false)
+    booleanParam(name: 'opendj', defaultValue: false)
+    booleanParam(name: 'rawls', defaultValue: false)
+    booleanParam(name: 'sam', defaultValue: false)
+    booleanParam(name: 'thurloe', defaultValue: false)
+
+  }
+  stages {
+    stage('Update Configs') }
+      parallel {
+        stage('update agora') {
+          when {
+            expression { params.agora }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: '${params.json}')
+                string(name: 'branch', value: '${params.branch}')
+                string(name: 'profile', value: 'agora-configs')
+              ]
+            )
+          }
+        }
+      }
+    }
+  }
+}
