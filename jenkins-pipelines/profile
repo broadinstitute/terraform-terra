@@ -28,12 +28,12 @@ pipeline {
     label 'node220'
   }
   stages {
-    stage ('init submodules'){
+    stage ('checkout scm'){
       steps {
         // GIT submodule recursive checkout
         checkout scm: [
           $class: 'GitSCM',
-          branches: scm.branches,
+          branches: ['${params.branch}'],
           doGenerateSubmoduleConfigurations: false,
           extensions: [[
             $class: 'SubmoduleOption',
@@ -44,7 +44,7 @@ pipeline {
             trackingSubmodules: false
           ]],
           submoduleCfg: [],
-          userRemoteConfigs: scm.userRemoteConfigs
+          userRemoteConfigs: 'https://github.com/broadinstitute/terraform-terra.git'
         ]
       }
     }
