@@ -11,6 +11,9 @@
   "dns_zone_name": "none",
   "dns_zone": "none",
   "global_vars": {
+    "env": {
+      "KUBECTL_CONTEXT": "gke_broad-dsde-dev_us-central1-a_terra-k8s-terra-dev"
+    },
     "vault": {
       "policy": "dsde-write"
     },
@@ -30,6 +33,12 @@
         "state_path_prefix":"terra",
         "state_bucket": "broad-dsp-terraform-state"
       }
+    }
+  },
+  "clusters": {
+    "default": {
+      "name": "terra-k8s-terra-dev",
+      "context": "gke_broad-dsde-dev_us-central1-a_terra-k8s-terra-dev"
     }
   },
   "profile_vars": {
