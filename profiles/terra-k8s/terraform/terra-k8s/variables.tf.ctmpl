@@ -1,0 +1,44 @@
+variable "terra_cluster_name" {
+  type = string
+  default = "terra-k8s-{{env "OWNER"}}"
+}
+
+variable "cluster_network" {
+  type = string
+  default = "{{env "CLUSTER_NETWORK"}}"
+}
+
+variable "cluster_subnetwork" {
+  type = string
+  default = "{{env "CLUSTER_SUBNETWORK"}}"
+}
+
+variable "broad_range_cidrs" {
+  type    = "list"
+  default = [ "69.173.64.0/19", 
+    "69.173.96.0/20",
+    "69.173.112.0/21",
+    "69.173.120.0/22",
+    "69.173.124.0/23",
+    "69.173.126.0/24",
+    "69.173.127.0/25",
+    "69.173.127.128/26",
+    "69.173.127.192/27",
+    "69.173.127.224/30",
+    "69.173.127.228/32",
+    "69.173.127.230/31",
+    "69.173.127.232/29",
+    "69.173.127.240/28" ]
+}
+
+variable "k8s_version" {
+ default = "1.14.6-gke.13"
+}
+
+provider "google-beta" {
+  credentials = "${file("default.sa.json")}"
+  project = "{{env "GOOGLE_PROJECT"}}"
+  region = "us-central1"
+}
+variable "private_master_ipv4_cidr_block" {
+  default = "{{if (env "PRIVATE_MASTER_IPV4_CIDR_BLOCK")}}{{env "PRIVATE_MASTER_IPV4_CIDR_BLOCK"}}{{else}}10.128.18.0/28{{end}}"
