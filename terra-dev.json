@@ -1,0 +1,43 @@
+{
+  "name": "terra",
+  "owner": "terra-dev",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-dev",
+  "project": "broad-dsde-dev",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "none",
+  "dns_zone": "none",
+  "global_vars": {
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-dev",
+            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "terra-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "projects/broad-dsde-dev/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-dev/regions/us-central1/subnetworks/app-services"
+      }
+    }
+  }
+}
