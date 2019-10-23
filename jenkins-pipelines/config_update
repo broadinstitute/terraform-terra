@@ -46,6 +46,186 @@ pipeline {
             )
           }
         }
+        stage('update consent') {
+          when {
+            expression { params.consent }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'consent-configs')
+              ]
+            )
+          }
+        }
+        stage('update consent-ontology') {
+          when {
+            expression { params.consent-ontology }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'consent-ontology-configs')
+              ]
+            )
+          }
+        }
+        stage('update cromiam') {
+          when {
+            expression { params.cromiam }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'cromiam-configs')
+              ]
+            )
+          }
+        }
+        stage('update cromwell') {
+          when {
+            expression { params.cromwell }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'cromwell-configs')
+              ]
+            )
+          }
+        }
+        stage('update firecloud-orchestration') {
+          when {
+            expression { params.firecloud-orchestration }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'firecloud-orchestration-configs')
+              ]
+            )
+          }
+        }
+        stage('update firecloud-ui') {
+          when {
+            expression { params.firecloud-ui }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'firecloud-ui-configs')
+              ]
+            )
+          }
+        }
+        stage('update job-manager') {
+          when {
+            expression { params.job-manager }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'job-manager-configs')
+              ]
+            )
+          }
+        }
+        stage('update leonardo') {
+          when {
+            expression { params.leonardo }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'leonardo-configs')
+              ]
+            )
+          }
+        }
+        stage('update opendj') {
+          when {
+            expression { params.opendj }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'opendj-configs')
+              ]
+            )
+          }
+        }
+        stage('update rawls') {
+          when {
+            expression { params.rawls }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'rawls-configs')
+              ]
+            )
+          }
+        }
+        stage('update sam') {
+          when {
+            expression { params.sam }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'sam-configs')
+              ]
+            )
+          }
+        }
+        stage('update thurloe') {
+          when {
+            expression { params.thurloe }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params.json),
+                string(name: 'branch', value: params.branch),
+                string(name: 'profile', value: 'thurloe-configs')
+              ]
+            )
+          }
+        }
       }
     }
   }
