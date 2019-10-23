@@ -35,7 +35,7 @@ pipeline {
           $class: 'GitSCM',
           branches: [[
             $class: 'BranchSpec',
-            name: '${params.branch}'
+            name: params.branch
           ]],
           doGenerateSubmoduleConfigurations: false,
           extensions: [[
