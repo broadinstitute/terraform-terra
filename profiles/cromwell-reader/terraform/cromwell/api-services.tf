@@ -7,6 +7,7 @@ module "enable-services" {
   project     = "${var.google_project}"
   services    = [
     "stackdriver.googleapis.com",
+    "genomics.googleapis.com",
     "logging.googleapis.com",
   ]
 }
