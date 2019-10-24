@@ -34,14 +34,14 @@ pipeline {
         stage('update agora') {
           agent any
           when {
-            expression { params.agora }
+            expression { params['agora'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'agora-configs')
               ]
             )
@@ -50,14 +50,14 @@ pipeline {
         stage('update consent') {
           agent any
           when {
-            expression { params.consent }
+            expression { params['consent'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'consent-configs')
               ]
             )
@@ -66,14 +66,14 @@ pipeline {
         stage('update consent-ontology') {
           agent any
           when {
-            expression { params.consent-ontology }
+            expression { params['consent-ontology'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'consent-ontology-configs')
               ]
             )
@@ -82,14 +82,14 @@ pipeline {
         stage('update cromiam') {
           agent any
           when {
-            expression { params.cromiam }
+            expression { params['cromiam'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'cromiam-configs')
               ]
             )
@@ -98,14 +98,14 @@ pipeline {
         stage('update cromwell') {
           agent any
           when {
-            expression { params.cromwell }
+            expression { params['cromwell'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'cromwell-configs')
               ]
             )
@@ -114,14 +114,14 @@ pipeline {
         stage('update firecloud-orchestration') {
           agent any
           when {
-            expression { params.firecloud-orchestration }
+            expression { params['firecloud-orchestration'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'firecloud-orchestration-configs')
               ]
             )
@@ -130,14 +130,14 @@ pipeline {
         stage('update firecloud-ui') {
           agent any
           when {
-            expression { params.firecloud-ui }
+            expression { params['firecloud-ui'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'firecloud-ui-configs')
               ]
             )
@@ -146,14 +146,14 @@ pipeline {
         stage('update job-manager') {
           agent any
           when {
-            expression { params.job-manager }
+            expression { params['job-manager'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'job-manager-configs')
               ]
             )
@@ -162,14 +162,14 @@ pipeline {
         stage('update leonardo') {
           agent any
           when {
-            expression { params.leonardo }
+            expression { params['leonardo'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'leonardo-configs')
               ]
             )
@@ -178,14 +178,14 @@ pipeline {
         stage('update opendj') {
           agent any
           when {
-            expression { params.opendj }
+            expression { params['opendj'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'opendj-configs')
               ]
             )
@@ -194,14 +194,14 @@ pipeline {
         stage('update rawls') {
           agent any
           when {
-            expression { params.rawls }
+            expression { params['rawls'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'rawls-configs')
               ]
             )
@@ -210,14 +210,14 @@ pipeline {
         stage('update sam') {
           agent any
           when {
-            expression { params.sam }
+            expression { params['sam'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'sam-configs')
               ]
             )
@@ -226,14 +226,14 @@ pipeline {
         stage('update thurloe') {
           agent any
           when {
-            expression { params.thurloe }
+            expression { params['thurloe'] }
           }
           steps {
             build(
               job: 'deploy-profile',
               parameters: [
-                string(name: 'json', value: params.json),
-                string(name: 'branch', value: params.branch),
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'thurloe-configs')
               ]
             )
