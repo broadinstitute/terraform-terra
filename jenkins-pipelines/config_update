@@ -1,0 +1,245 @@
+pipeline {
+  agent any
+  parameters {
+    string(
+      name: 'json',
+      description: 'Parameter JSON file to use',
+      defaultValue: 'broad-wb-malkov.json',
+      trim: true
+    )
+    string(
+      name: 'branch',
+      description: 'Branch of terraform-terra to use',
+      defaultValue: 'master',
+      trim: true
+    )
+    booleanParam(name: 'agora', defaultValue: false)
+    booleanParam(name: 'consent', defaultValue: false)
+    booleanParam(name: 'consent-ontology', defaultValue: false)
+    booleanParam(name: 'cromiam', defaultValue: false)
+    booleanParam(name: 'cromwell', defaultValue: false)
+    booleanParam(name: 'firecloud-orchestration', defaultValue: false)
+    booleanParam(name: 'firecloud-ui', defaultValue: false)
+    booleanParam(name: 'job-manager', defaultValue: false)
+    booleanParam(name: 'leonardo', defaultValue: false)
+    booleanParam(name: 'opendj', defaultValue: false)
+    booleanParam(name: 'rawls', defaultValue: false)
+    booleanParam(name: 'sam', defaultValue: false)
+    booleanParam(name: 'thurloe', defaultValue: false)
+
+  }
+  stages {
+    stage('Update Configs') {
+      parallel {
+        stage('update agora') {
+          agent any
+          when {
+            expression { params['agora'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'agora-configs')
+              ]
+            )
+          }
+        }
+        stage('update consent') {
+          agent any
+          when {
+            expression { params['consent'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'consent-configs')
+              ]
+            )
+          }
+        }
+        stage('update consent-ontology') {
+          agent any
+          when {
+            expression { params['consent-ontology'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'consent-ontology-configs')
+              ]
+            )
+          }
+        }
+        stage('update cromiam') {
+          agent any
+          when {
+            expression { params['cromiam'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'cromiam-configs')
+              ]
+            )
+          }
+        }
+        stage('update cromwell') {
+          agent any
+          when {
+            expression { params['cromwell'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'cromwell-configs')
+              ]
+            )
+          }
+        }
+        stage('update firecloud-orchestration') {
+          agent any
+          when {
+            expression { params['firecloud-orchestration'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'firecloud-orchestration-configs')
+              ]
+            )
+          }
+        }
+        stage('update firecloud-ui') {
+          agent any
+          when {
+            expression { params['firecloud-ui'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'firecloud-ui-configs')
+              ]
+            )
+          }
+        }
+        stage('update job-manager') {
+          agent any
+          when {
+            expression { params['job-manager'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'job-manager-configs')
+              ]
+            )
+          }
+        }
+        stage('update leonardo') {
+          agent any
+          when {
+            expression { params['leonardo'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'leonardo-configs')
+              ]
+            )
+          }
+        }
+        stage('update opendj') {
+          agent any
+          when {
+            expression { params['opendj'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'opendj-configs')
+              ]
+            )
+          }
+        }
+        stage('update rawls') {
+          agent any
+          when {
+            expression { params['rawls'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'rawls-configs')
+              ]
+            )
+          }
+        }
+        stage('update sam') {
+          agent any
+          when {
+            expression { params['sam'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'sam-configs')
+              ]
+            )
+          }
+        }
+        stage('update thurloe') {
+          agent any
+          when {
+            expression { params['thurloe'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'thurloe-configs')
+              ]
+            )
+          }
+        }
+      }
+    }
+  }
+}

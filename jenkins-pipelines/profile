@@ -1,9 +1,9 @@
 pipeline {
   parameters {
     string(
-      name: 'environment',
-      description: 'Ephemeral environment to target',
-      defaultValue: 'broad-wb-malkov',
+      name: 'json',
+      description: 'Parameter JSON file to use',
+      defaultValue: 'broad-wb-malkov.json',
       trim: true
     )
     string(
@@ -28,12 +28,15 @@ pipeline {
     label 'node220'
   }
   stages {
-    stage ('init submodules'){
+    stage ('checkout scm'){
       steps {
         // GIT submodule recursive checkout
         checkout scm: [
           $class: 'GitSCM',
-          branches: scm.branches,
+          branches: [[
+            $class: 'BranchSpec',
+            name: params.branch
+          ]],
           doGenerateSubmoduleConfigurations: false,
           extensions: [[
             $class: 'SubmoduleOption',
@@ -44,14 +47,18 @@ pipeline {
             trackingSubmodules: false
           ]],
           submoduleCfg: [],
-          userRemoteConfigs: scm.userRemoteConfigs
+          userRemoteConfigs: [[
+            $class: 'UserRemoteConfig',
+            url: 'git@github.com:broadinstitute/terraform-terra.git',
+            credentialsId: 'jenkins-ssh-github'
+          ]]
         ]
       }
     }
     stage ('deploy'){
       steps {
         script {
-          sh "./dsp-k8s-deploy/application-${params.action}.sh -j ${params.environment}.json -p ${params.profile} -v /etc/dsde-read-ephemeral-write -f"
+          sh "./dsp-k8s-deploy/application-${params.action}.sh -j ${params.json} -p ${params.profile} -v /etc/dsde-read-ephemeral-write -f"
         }
       }
     }
