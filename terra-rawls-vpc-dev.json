@@ -1,0 +1,54 @@
+{
+  "name": "terra-rawls-vpc-dev",
+  "owner": "terra-dev",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "dev",
+  "global_vars": {
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "calbach-test-project",
+            "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "rawls-service-perimeters": {
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "extras": {
+        "perimeters": {
+          "terra_dev_aou_test": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
+              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
+            ],
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-test",
+              "protected_project_id": "fc-aou-cdr-synth-test"
+            }
+          }
+        }
+      }
+    }
+  }
+}

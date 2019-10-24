@@ -1,0 +1,56 @@
+provider "google-beta" {
+  credentials = "${file("default.sa.json")}"
+  project = "{{env "GOOGLE_PROJECT"}}"
+  region = "us-central1"
+}
+
+
+variable "org_domain" {
+  type    = string
+  description = "GCP organization domain name to contain this perimeter and folder"
+  # default = "{{env "ORGANIZATION_DOMAIN"}}"
+  default = "test.firecloud.org"
+}
+
+variable "access_policy_name" {
+  type    = string
+  description = "Resource name of existing access context manager policy to create perimeters within"
+  # default = "{{env "ACCESS_POLICY_NAME"}}"
+  default = "228353087260"
+}
+
+{{ define "toJSONStringArray" }}[{{range $i, $v := .}}{{if $i}}, {{end}}{{printf "%q" $v}}{{end}}]{{ end }}
+
+{{ with $profile_json := file "/env.json" | parseJSON }}
+{{ $perimeters := index $profile_json "profile_vars" "rawls-service-perimeters" "extras" "perimeters" }}
+
+variable "perimeters" {
+  type    = map(object({
+    restricted_services = list(string)
+    access_member_whitelist = list(string)
+  }))
+  default = {
+    {{ range $k, $v := $perimeters }}
+    "{{ $k }}" = {
+      restricted_services = {{ template "toJSONStringArray" $v.restricted_services }}
+      access_member_whitelist = {{ template "toJSONStringArray" $v.access_member_whitelist }}
+    }
+    {{ end }}
+  }
+}
+
+variable "ingress_bridges" {
+  type    = map(object({
+    ingress_project_id = string
+    protected_project_id = string
+  }))
+  default = {
+    {{ range $k, $v := $perimeters }}{{ if $v.ingress_bridge }}
+    "{{ $k }}" = {
+      ingress_project_id = "{{ $v.ingress_bridge.ingress_project_id }}"
+      protected_project_id = "{{ $v.ingress_bridge.protected_project_id }}"
+    }
+    {{ end }}{{ end }}
+  }
+}
+{{end}}
