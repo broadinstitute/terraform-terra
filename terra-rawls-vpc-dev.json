@@ -35,7 +35,7 @@
       },
       "extras": {
         "perimeters": {
-          "terra_dev_aou_dev": {
+          "terra_dev_aou_test": {
             "restricted_services": ["bigquery.googleapis.com"],
             "access_member_whitelist": [
               "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
@@ -43,7 +43,7 @@
               "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
             ],
             "ingress_bridge": {
-              "ingress_project_id": "billy-f-mcbillingface",
+              "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"
             }
           }
