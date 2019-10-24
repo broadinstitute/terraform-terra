@@ -22,7 +22,7 @@
       "policy": "dsde-read-ephemeral-write"
     },
     "consul_template": {
-      "log_level": "debug"
+      "log_level": "warn"
     },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
@@ -107,6 +107,11 @@
           "rawls-perf-config": {
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
             "to_path": "rawls/rawls-perf.conf",
+            "used_by": ["rawls"]
+          },
+          "rawls-perf-static-perimeters": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/service-perimeters/static-projects",
+            "to_path": "rawls/service-perimeters/static-projects",
             "used_by": ["rawls"]
           }
         }
