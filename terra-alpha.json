@@ -1,11 +1,11 @@
 {
-  "name": "terra-dev",
-  "owner": "terra-dev",
+  "name": "terra-alpha",
+  "owner": "terra-alpha",
   "intent": "terra infrastructure",
   "production": false,
   "stability": "volatile",
-  "environment": "terra-dev",
-  "project": "broad-dsde-dev",
+  "environment": "terra-alpha",
+  "project": "broad-dsde-alpha",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
   "dns_zone_name": "none",
@@ -21,8 +21,8 @@
       "providers": {
         "google": {
           "default": {
-            "project": "broad-dsde-dev",
-            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "project": "broad-dsde-alpha",
+            "vault_sa_path": "secret/devops/terraform/alpha/firecloud/credentials",
             "region": "us-central1"
           }
         }
@@ -34,17 +34,11 @@
       }
     }
   },
-  "clusters": {
-    "default": {
-      "name": "terra-k8s-terra-dev",
-      "context": "gke_broad-dsde-dev_us-central1-a_terra-k8s-terra-dev"
-    }
-  },
   "profile_vars": {
     "terra-k8s": {
       "env": {
-        "CLUSTER_NETWORK": "projects/broad-dsde-dev/global/networks/app-services",
-        "CLUSTER_SUBNETWORK": "projects/broad-dsde-dev/regions/us-central1/subnetworks/app-services"
+        "CLUSTER_NETWORK": "projects/broad-dsde-alpha/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-alpha/regions/us-central1/subnetworks/app-services"
       }
     }
   }
