@@ -46,6 +46,28 @@
         "CLUSTER_NETWORK": "projects/broad-dsde-prod/global/networks/app-services",
         "CLUSTER_SUBNETWORK": "projects/broad-dsde-prod/regions/us-central1/subnetworks/app-services"
       }
+    },
+    "cromiam-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
     }
   }
 }
