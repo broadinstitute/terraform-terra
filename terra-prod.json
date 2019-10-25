@@ -109,7 +109,11 @@
               "serviceAccount:all-of-us-rw-prod@appspot.gserviceaccount.com",
               "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
               "serviceAccount:deploy@all-of-us-rw-prod.iam.gserviceaccount.com"
-            ]
+            ],
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-prod",
+              "protected_project_id": "fc-aou-cdr-prod"
+            }
           },
           "terra_prod_aou_stable": {
             "restricted_services": ["bigquery.googleapis.com"],
@@ -117,7 +121,11 @@
               "serviceAccount:all-of-us-rw-stable@appspot.gserviceaccount.com",
               "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
               "serviceAccount:deploy@all-of-us-rw-stable.iam.gserviceaccount.com"
-            ]
+            ],
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-stable",
+              "protected_project_id": "fc-aou-cdr-synth-stable"
+            }
           },
           "terra_prod_aou_staging": {
             "restricted_services": ["bigquery.googleapis.com"],
@@ -125,7 +133,11 @@
               "serviceAccount:all-of-us-rw-staging@appspot.gserviceaccount.com",
               "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
               "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
-            ]
+            ],
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-staging",
+              "protected_project_id": "fc-aou-cdr-synth-staging"
+            }
           },
           "terra_prod_baseline_prod": {
             "restricted_services": ["bigquery.googleapis.com"],
