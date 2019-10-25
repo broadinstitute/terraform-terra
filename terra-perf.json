@@ -8,10 +8,11 @@
   "project": "broad-dsde-perf",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
-  "dns_zone_name": "none",
-  "dns_zone": "none",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/perf"
     },
     "vault": {
       "policy": "dsde-write"
@@ -21,6 +22,11 @@
       "providers": {
         "google": {
           "default": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
             "project": "broad-dsde-perf",
             "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
             "region": "us-central1"

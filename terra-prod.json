@@ -8,10 +8,11 @@
   "project": "broad-dsde-prod",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
-  "dns_zone_name": "none",
-  "dns_zone": "none",
+  "dns_zone_name": "dsde-prod-broad",
+  "dns_zone": "dsde-prod.broadinstitute.org",
   "global_vars": {
     "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/prod"
     },
     "vault": {
       "policy": "dsde-write"
@@ -21,6 +22,11 @@
       "providers": {
         "google": {
           "default": {
+            "project": "broad-dsde-prod",
+            "vault_sa_path": "secret/suitable/firecloud/prod/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
             "project": "broad-dsde-prod",
             "vault_sa_path": "secret/suitable/firecloud/prod/credentials",
             "region": "us-central1"
