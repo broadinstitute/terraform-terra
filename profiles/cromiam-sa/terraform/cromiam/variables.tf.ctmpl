@@ -23,7 +23,8 @@ variable "app_sa_roles" {
     "roles/compute.viewer",
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter",
-    "roles/cloudsql.client"
+    "roles/cloudsql.client",
+    "roles/cloudtrace.agent",
   ]
 }
 
