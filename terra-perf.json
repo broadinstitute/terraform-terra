@@ -41,6 +41,39 @@
     }
   },
   "profile_vars": {
+    "rawls-service-perimeters": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
+        "providers": {
+          "google": {
+            "default": {
+              "project": "test-firecloud-terraform-base",
+              "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
+              "region": "us-central1"
+            }
+          }
+        }
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "extras": {
+        "perimeters": {
+          "terra_perf_aou_perf": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-rw-perf@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-perf@broad-dsde-perf.iam.gserviceaccount.com"
+            ]
+          }
+        }
+      }
+    },
     "terra-k8s": {
       "env": {
         "CLUSTER_NETWORK": "projects/broad-dsde-perf/global/networks/app-services",
