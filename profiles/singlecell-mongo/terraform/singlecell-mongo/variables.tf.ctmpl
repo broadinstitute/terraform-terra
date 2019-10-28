@@ -1,0 +1,132 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+variable "google_zone" {
+  default = "{{env "GOOGLE_ZONE"}}"
+  description = "The google zone as specified by `GOOGLE_REGION` and the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "application_name" {
+  default = "{{env "APPLICATION_NAME"}}"
+  description = "Name from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+#
+# Dependency Profiles' Vars
+#
+# SSL
+variable "google_compute_ssl_certificate_red" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-red"
+}
+variable "google_compute_ssl_certificate_black" {
+  default = "{{env "OWNER"}}-terra-env-wildcard-ssl-certificate-black"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-red" {
+  name = "${var.google_compute_ssl_certificate_red}"
+}
+data "google_compute_ssl_certificate" "terra-env-wildcard-ssl-certificate-black" {
+  name = "${var.google_compute_ssl_certificate_black}"
+}
+# Network
+variable "google_network_name" {
+  default = "{{env "OWNER"}}-terra-network"
+}
+data "google_compute_network" "terra-env-network" {
+  name = "${var.google_network_name}"
+}
+# Application SA
+variable "config_reader_service_account" {
+  default = "{{env "OWNER"}}-{{env "SERVICE"}}"
+}
+
+data "google_service_account" "config_reader" {
+  account_id = "${var.config_reader_service_account}"
+}
+
+variable "default_ssl_policy" {
+  description = "default ssl policy for the load balancer"
+  default = "{{ if env "AGORA_LB_SSL_POLICY_NAME" | parseBool}}{{ env "AGORA_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+}
+
+#
+# Application - Common Vars
+#
+variable "instance_tags" {
+  default = [
+    "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "http-server",
+    "https-server",
+    "{{env "SERVICE"}}",
+    "gce-lb-instance-group-member"
+  ]
+  description = "The default instance tags"
+}
+
+#
+# Application Service Cluster 
+#
+variable "instance_num_hosts" {
+  default = "{{ if env "AGORA_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "AGORA_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  description = "The default number of Application service hosts per environment"
+}
+
+variable "instance_size" {
+  default = "{{ if env "AGORA_INSTANCE_SIZE" | parseBool}}{{ env "AGORA_INSTANCE_SIZE" }}{{ else }}n1-standard-4{{ end }}"
+  description = "The default size of Application service hosts"
+}
+
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}projects/cis-public/global/images/cis-centos-linux-7-level-1-v2-2-0-7{{ end }}"
+  description = "The default image of service hosts"
+}
+
+variable "metadata_startup_script" {
+   default = "metadata/centos7-docker2.sh"
+   description = "Default metadata startup script used when bootstrapping Application 100 instances"
+}
+
+variable "allow_stopping_for_update" {
+   default = "false"
+   description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
+}
+
+
+#
+# Application Service Config Bucket
+#
+variable "storage_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
+  ]
+}
+
+
+#
+# Application Common Load Balancer (replaces leonardo-NNN-lb entities)
+#
+variable "load_balancer_100_enable" {
+  default = "0"
+  description = "Enables GCE common load balancer 100 for one or more Application NNN service clusters"
+}

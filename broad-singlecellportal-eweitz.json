@@ -35,9 +35,6 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-        "SINGLECELL_PROJECT_ID": "broad-singlecellportal-eweitz",
-        "SINGLECELL_PROJECT_EDITORS": "group:scp-dev@broadinstitute.org,user:rmeffan@broadinstitute.org,user:rluckom@broadinstitute.org",
-        "SINGLECELL_PROJECT_OWNERS": "user:eweitz@broadinstitute.org"
       },
       "terraform": {
         "providers": {
@@ -48,11 +45,6 @@
             }
           }
         }
-      }
-    },
-    "arrow-firewalls": {
-      "env": {
-        "ALLOWED_SOURCE_IPS": "0.0.0.0/0"
       }
     }
   }
