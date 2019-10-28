@@ -14,7 +14,7 @@
       "providers": {
         "google": {
           "default": {
-            "project": "calbach-test-project",
+            "project": "TODO",
             "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
             "region": "us-central1"
           }
@@ -46,6 +46,13 @@
               "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"
             }
+          },
+          "terra_dev_baseline_test": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "user:dvoettest@gmail.com",
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
+            ]
           }
         }
       }
