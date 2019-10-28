@@ -1,0 +1,22 @@
+#
+# Profile Vars
+#
+variable "google_project" {
+  default = "{{env "FIRECLOUD_ORG_PROJECT_NAME"}}"
+}
+
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+
+variable "sa_key_vault_path" {
+  default = "{{env "FIRECLOUD_ORG_SA_VAULT_PATH"}}"
+}
+
+variable "app_sa_roles" {
+  description = "roles to assign the app sa"
+  type = "list"
+  default = [
+  ]
+}

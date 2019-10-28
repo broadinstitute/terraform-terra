@@ -8,15 +8,13 @@ provider "google-beta" {
 variable "org_domain" {
   type    = string
   description = "GCP organization domain name to contain this perimeter and folder"
-  # default = "{{env "ORGANIZATION_DOMAIN"}}"
-  default = "test.firecloud.org"
+  default = "{{env "ORGANIZATION_DOMAIN"}}"
 }
 
 variable "access_policy_name" {
   type    = string
   description = "Resource name of existing access context manager policy to create perimeters within"
-  # default = "{{env "ACCESS_POLICY_NAME"}}"
-  default = "228353087260"
+  default = "{{env "ACCESS_POLICY_NAME"}}"
 }
 
 {{ define "toJSONStringArray" }}[{{range $i, $v := .}}{{if $i}}, {{end}}{{printf "%q" $v}}{{end}}]{{ end }}
