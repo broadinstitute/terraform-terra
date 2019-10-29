@@ -7,3 +7,8 @@ variable "google_project" {
   default = "{{env "GOOGLE_PROJECT"}}"
   description = "The google project as specified in the application json"
 }
+
+variable "network_name" {
+  default = "{{ if env "NETWORK_NAME" }}{{ env "NETWORK_NAME" }}{{ else }}{{env "OWNER"}}-terra-network{{ end }}"
+  description = "The network name"
+}
