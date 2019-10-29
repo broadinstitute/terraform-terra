@@ -11,7 +11,7 @@ variable "google_lb_ranges" {
 resource "google_compute_firewall" "terra-gce-lb-health-check-allow-http" {
   provider = "google-beta"
   enable_logging = var.enable_logging
-  name = "${var.owner}-terra-gce-lb-health-check-allow-http"
+  name = "${var.owner}-lb-health-check-allow-http"
   network = "${data.google_compute_network.terra-env-network.name}"
 
   allow {
@@ -30,7 +30,7 @@ resource "google_compute_firewall" "terra-gce-lb-health-check-allow-http" {
 resource "google_compute_firewall" "terra-gce-lb-health-check-allow-https" {
   provider = "google-beta"
   enable_logging = var.enable_logging
-  name = "${var.owner}-terra-gce-lb-health-check-allow-https"
+  name = "${var.owner}-lb-health-check-allow-https"
   network = "${data.google_compute_network.terra-env-network.name}"
 
   allow {
