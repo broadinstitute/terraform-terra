@@ -30,6 +30,11 @@ variable "service" {
   description = "The name of the service within the profile"
 }
 
+variable "scp_vault_path" {
+  default = "{{env "SCP_VAULT_PATH"}}"
+  description = "Vault path within SCP namespace (e.g. development/eweitz as in secret/kdux/scp/development/eweitz/scp_config.json)"
+}
+
 #
 # Dependency Profiles' Vars
 #
@@ -129,4 +134,28 @@ variable "storage_bucket_roles" {
 variable "load_balancer_100_enable" {
   default = "0"
   description = "Enables GCE common load balancer 100 for one or more Application NNN service clusters"
+}
+
+#
+# MongoDB
+#
+variable "mongodb_roles" {
+  default = [
+    "primary",
+    "secondary",
+    "arbiter"
+  ]
+  description = "host roles that will be present in this cluster"
+}
+
+variable "mongodb_version" {
+   default = "3.6.14"
+}
+
+variable "mongodb_user" {
+  default = "single_cell"
+}
+
+variable "mongodb_database" {
+  default = "single_cell_portal_development"
 }

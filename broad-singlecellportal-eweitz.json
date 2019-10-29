@@ -20,7 +20,7 @@
         "google": {
           "default": {
             "project": "broad-singlecellportal-eweitz",
-            "vault_sa_path": "secret/dsde/arrow/envs/alpha/terraform-service-account.json",
+            "vault_sa_path": "secret/kdux/scp/development/eweitz/ingest_service_account.json",
             "region": "us-central1"
           }
         }
@@ -35,16 +35,7 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-      },
-      "terraform": {
-        "providers": {
-          "google": {
-            "default": {
-              "vault_sa_path": "secret/kdux/scp/development/eweitz/scp_config.json",
-              "use_local_adc": true
-            }
-          }
-        }
+        "SCP_VAULT_PATH": "development/eweitz"
       }
     }
   }
