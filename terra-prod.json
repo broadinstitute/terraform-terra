@@ -1,0 +1,145 @@
+{
+  "name": "terra-prod",
+  "owner": "terra-prod",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-prod",
+  "project": "broad-dsde-prod",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-prod-broad",
+  "dns_zone": "dsde-prod.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/prod"
+    },
+    "vault": {
+      "policy": "firecloud-prod"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-prod",
+            "vault_sa_path": "secret/suitable/firecloud/prod/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-prod",
+            "vault_sa_path": "secret/suitable/firecloud/prod/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/suitable/terraform/terra-secure-terraform-state.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "terra-secure-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "firecloud-org-terraform-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      },
+      "env": {
+        "FIRECLOUD_ORG_PROJECT_NAME": "firecloud-org-terraform-base",
+        "FIRECLOUD_ORG_SA_VAULT_PATH": "secret/suitable/firecloud-org/credentials"
+      }
+    },
+    "terra-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "projects/broad-dsde-prod/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-prod/regions/us-central1/subnetworks/app-services"
+      }
+    },
+    "cromiam-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "rawls-service-perimeters": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
+        "providers": {
+          "google": {
+            "default": {
+              "project": "firecloud-org-terraform-base",
+              "vault_sa_path": "secret/suitable/firecloud-org/credentials",
+              "region": "us-central1"
+            }
+          }
+        }
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "firecloud.org",
+        "ACCESS_POLICY_NAME": "357236995176"
+      },
+      "extras": {
+        "perimeters": {
+          "terra_prod_aou_prod": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-rw-prod@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
+              "serviceAccount:deploy@all-of-us-rw-prod.iam.gserviceaccount.com"
+            ]
+          },
+          "terra_prod_aou_stable": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-rw-stable@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
+              "serviceAccount:deploy@all-of-us-rw-stable.iam.gserviceaccount.com"
+            ]
+          },
+          "terra_prod_aou_staging": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-rw-staging@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
+              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
+            ]
+          },
+          "terra_prod_baseline_prod": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:leonardo-prod@broad-dsde-prod.iam.gserviceaccount.com",
+              "user:melchang@google.com",
+              "user:seanhorgan@google.com",
+              "user:willyn@google.com",
+              "serviceAccount:indexer@baseline-explorer.iam.gserviceaccount.com",
+              "serviceAccount:rawls-prod@broad-dsde-prod.iam.gserviceaccount.com"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

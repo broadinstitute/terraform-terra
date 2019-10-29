@@ -1,0 +1,73 @@
+{
+  "name": "terra-staging",
+  "owner": "terra-staging",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-staging",
+  "project": "broad-dsde-staging",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-staging-broad",
+  "dns_zone": "dsde-staging.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/staging"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-staging",
+            "vault_sa_path": "secret/devops/terraform/staging/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-staging",
+            "vault_sa_path": "secret/devops/terraform/staging/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "terra-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "projects/broad-dsde-staging/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-staging/regions/us-central1/subnetworks/app-services"
+      }
+    },
+    "cromiam-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

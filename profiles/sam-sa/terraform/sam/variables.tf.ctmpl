@@ -28,7 +28,8 @@ variable "app_sa_roles" {
     "roles/pubsub.editor",
     "roles/owner",
     "roles/logging.logWriter",
-    "roles/monitoring.metricWriter"
+    "roles/monitoring.metricWriter",
+    "roles/cloudtrace.agent"
   ]
 }
 

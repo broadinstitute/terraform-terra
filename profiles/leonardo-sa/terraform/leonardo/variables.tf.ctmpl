@@ -25,7 +25,8 @@ variable "app_sa_roles" {
     "roles/dataproc.viewer",
     "roles/storage.admin",
     "roles/logging.logWriter",
-    "roles/monitoring.metricWriter"
+    "roles/monitoring.metricWriter",
+    "roles/cloudtrace.agent"
   ]
 }
 

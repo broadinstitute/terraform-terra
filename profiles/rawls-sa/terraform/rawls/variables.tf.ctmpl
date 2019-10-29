@@ -41,6 +41,7 @@ variable "app_sa_roles" {
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter",
     "roles/editor",
+    "roles/cloudtrace.agent"
   ]
 }
 

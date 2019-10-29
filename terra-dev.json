@@ -1,5 +1,5 @@
 {
-  "name": "terra",
+  "name": "terra-dev",
   "owner": "terra-dev",
   "intent": "terra infrastructure",
   "production": false,
@@ -8,20 +8,25 @@
   "project": "broad-dsde-dev",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
-  "dns_zone_name": "none",
-  "dns_zone": "none",
+  "dns_zone_name": "dsde-dev-broad",
+  "dns_zone": "dsde-dev.broadinstitute.org",
   "global_vars": {
     "env": {
-      "KUBECTL_CONTEXT": "gke_broad-dsde-dev_us-central1-a_terra-k8s-terra-dev"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/dev"
     },
     "vault": {
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
           "default": {
+            "project": "broad-dsde-dev",
+            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
             "project": "broad-dsde-dev",
             "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
             "region": "us-central1"
@@ -42,10 +47,73 @@
     }
   },
   "profile_vars": {
+    "rawls-service-perimeters": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
+        "providers": {
+          "google": {
+            "default": {
+              "project": "test-firecloud-terraform-base",
+              "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
+              "region": "us-central1"
+            }
+          }
+        }
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "extras": {
+        "perimeters": {
+          "terra_dev_aou_test": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
+              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
+            ],
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-test",
+              "protected_project_id": "fc-aou-cdr-synth-test"
+            }
+          },
+          "terra_dev_baseline_test": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "user:dvoettest@gmail.com",
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
+            ]
+          }
+        }
+      }
+    },
     "terra-k8s": {
       "env": {
         "CLUSTER_NETWORK": "projects/broad-dsde-dev/global/networks/app-services",
         "CLUSTER_SUBNETWORK": "projects/broad-dsde-dev/regions/us-central1/subnetworks/app-services"
+      }
+    },
+    "cromiam-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
       }
     }
   }

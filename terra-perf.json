@@ -1,0 +1,84 @@
+{
+  "name": "terra-perf",
+  "owner": "terra-perf",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-perf",
+  "project": "broad-dsde-perf",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/perf"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "rawls-service-perimeters": {
+      "terraform": {
+        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
+        "providers": {
+          "google": {
+            "default": {
+              "project": "test-firecloud-terraform-base",
+              "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
+              "region": "us-central1"
+            }
+          }
+        }
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "env": {
+        "ORGANIZATION_DOMAIN": "test.firecloud.org",
+        "ACCESS_POLICY_NAME": "228353087260"
+      },
+      "extras": {
+        "perimeters": {
+          "terra_perf_aou_perf": {
+            "restricted_services": ["bigquery.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-rw-perf@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-perf@broad-dsde-perf.iam.gserviceaccount.com"
+            ]
+          }
+        }
+      }
+    },
+    "terra-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "projects/broad-dsde-perf/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-perf/regions/us-central1/subnetworks/app-services"
+      }
+    }
+  }
+}

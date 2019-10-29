@@ -1,0 +1,73 @@
+{
+  "name": "terra-qa",
+  "owner": "terra-qa",
+  "intent": "terra infrastructure",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-qa",
+  "project": "broad-dsde-qa",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-qa-broad",
+  "dns_zone": "dsde-qa.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/qa"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-dsde-qa",
+            "vault_sa_path": "secret/devops/terraform/qa/firecloud/credentials",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-wb-ferrara",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terra",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "terra-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "projects/broad-dsde-qa/global/networks/app-services",
+        "CLUSTER_SUBNETWORK": "projects/broad-dsde-qa/regions/us-central1/subnetworks/app-services"
+      }
+    },
+    "cromiam-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
