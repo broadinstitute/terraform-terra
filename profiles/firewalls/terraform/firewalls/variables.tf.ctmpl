@@ -9,7 +9,8 @@ variable "google_project" {
 }
 
 variable "google_network_name" {
-  default = "{{env "OWNER"}}-terra-network"
+  default = "{{ if env "NETWORK_NAME" }}{{ env "NETWORK_NAME" }}{{ else }}{{env "OWNER"}}-terra-network{{ end }}"
+  description = "The network name"
 }
 
 data "google_compute_network" "terra-env-network" {
