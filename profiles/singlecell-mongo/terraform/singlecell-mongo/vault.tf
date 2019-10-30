@@ -9,7 +9,7 @@ resource "random_id" "mongodb-root-password" {
 }
 
 resource "vault_generic_secret" "app-database-credentials" {
-  path = "secret/kdux/scp/${var.scp_vault_path}/mongo/user"
+  path = "secret/dsde/firecloud/ephemeral/scp/${var.scp_vault_path}/mongo/user"
 
   data_json = <<EOT
 {
@@ -20,7 +20,9 @@ EOT
 }
 
 resource "vault_generic_secret" "root-database-credentials" {
-  path = "secret/kdux/scp/${var.scp_vault_path}/mongo/root_user"
+  # DevOps will figure out how to make this write to SCP's proper vault path
+  # path = "secret/kdux/scp/${var.scp_vault_path}/mongo/root_user"
+  path = "secret/dsde/firecloud/ephemeral/scp/${var.scp_vault_path}/mongo/root_user"
 
   data_json = <<EOT
 {
@@ -31,7 +33,7 @@ EOT
 }
 
 resource "vault_generic_secret" "hostnames" {
-  path = "${var.vault_path_prefix}/${var.service}/ip"
+  path = "secret/dsde/firecloud/ephemeral/scp/${var.scp_vault_path}/mongo/hostname"
   data_json = <<EOT
 {
   "ip": ${jsonencode(module.mongodb.instance_public_ips)}

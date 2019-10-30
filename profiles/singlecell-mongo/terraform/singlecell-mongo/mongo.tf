@@ -11,7 +11,7 @@ module "mongodb" {
   service                  = "${var.service}"
   instance_name            = "${var.service}"
   mongodb_image_tag        = "${var.mongodb_version}"
-  mongodb_service_account  = "${var.config_reader_service_account}"
+  mongodb_service_account  = "${var.app_service_account}"
   mongodb_roles            = "${var.mongodb_roles}"
   mongodb_app_username     = "${var.mongodb_user}"
   mongodb_app_password     = "${random_id.mongodb-user-password.hex}"
@@ -28,7 +28,7 @@ module "mongodb" {
     "app"             = "${var.service}",
     "owner"           = "${var.owner}",
     "role"            = "db",
-    "ansible_branch"  = "gm-scp-mongo",
+    "ansible_branch"  = "master",
     "ansible_project" = "singlecell"
   }
 }

@@ -3,7 +3,6 @@ module "network" {
   source = "github.com/broadinstitute/terraform-shared.git//terraform-modules/logged-network?ref=logged-network-0.0.0-tf-0.12"
   google_project     = var.google_project
   network_name       = "${var.network_name}"
-  enable_flow_logs = false
   providers = {
     "google-beta.target" = "google-beta"
     "google.target" = "google"
