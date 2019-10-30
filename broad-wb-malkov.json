@@ -230,7 +230,7 @@
     "cromwell-configs": {
       "env": {
         "APP_NAME": "cromwell",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-172-cromwell-configs"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base"
       }
     },
     "cromiam-configs": {
