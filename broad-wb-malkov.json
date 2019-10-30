@@ -156,8 +156,8 @@
     "leonardo-configs": {
       "env": {
         "APP_NAME": "leonardo",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-161-leonardo-deploy",
-        "SERVICE_GIT_SHA_12_CHAR": "3628000a01b0"
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base",
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "leonardo": {

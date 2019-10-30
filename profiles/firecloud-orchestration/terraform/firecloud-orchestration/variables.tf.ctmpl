@@ -61,6 +61,9 @@ data "google_service_account" "config_reader" {
   account_id = "${var.config_reader_service_account}"
 }
 
+#
+# Whitelist bucket
+#
 variable "whitelist_bucket_roles" {
   type = "list"
 
@@ -69,7 +72,18 @@ variable "whitelist_bucket_roles" {
     "roles/storage.objectViewer"
   ]
 }
+variable "whitelist_bucket_files" {
+  type = "list"
 
+  default = [
+    "cptac2-whitelist.txt",
+    "cptac3-whitelist.txt",
+    "gtex-whitelist.txt",
+    "target-whitelist.txt",
+    "tcga-whitelist.txt",
+    "users.txt"
+  ]
+}
 
 #
 # Service - Common Vars
@@ -108,7 +122,8 @@ variable "storage_bucket_roles" {
 
   default = [
     "roles/storage.legacyBucketReader",
-    "roles/storage.objectViewer"
+    "roles/storage.objectViewer",
+    "roles/storage.objectCreator"
   ]
 }
 

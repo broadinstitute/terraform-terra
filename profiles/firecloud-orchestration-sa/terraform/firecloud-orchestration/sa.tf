@@ -18,6 +18,13 @@ resource "google_storage_bucket_iam_member" "app" {
   member = "serviceAccount:${google_service_account.app.email}"
 }
 
+# Grant service account access to test fixtures
+resource "google_storage_bucket_iam_member" "test_fixtures" {
+  bucket = "${var.test_bucket_name}"
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.app.email}"
+}
+
 resource "google_service_account_key" "app_account_key" {
   service_account_id = "${google_service_account.app.name}"
 }
