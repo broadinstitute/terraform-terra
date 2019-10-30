@@ -136,6 +136,20 @@ class AddToGroup(object):
         )
         wait_for_enter()
 
+class MakeProjectCreator(object):
+    def run(self, context):
+        print("\nIn the GCP console for the 'test.firecloud.org' org, go to IAM:")
+        print("  https://console.cloud.google.com/iam-admin/iam?organizationId=400176686919&supportedpurview=project")
+        print("Add {0} SA:".format(context["app"]))
+        print("  {0}-{1}@{2}.iam.gserviceaccount.com ".format(
+                context["project_name"],
+                context["app"],
+                context["project_name"]
+            )
+        )
+        print("  With the 'Project Creator' role")
+        wait_for_enter()
+
 if __name__ == "__main__":
     context = {
         "app": "sam",
@@ -152,7 +166,8 @@ if __name__ == "__main__":
         DomainWideDelegation(),
         AuthorizeDomain(),
         # Oauth() Don't think SAM needs this?
-        AddToGroup()
+        AddToGroup(),
+        MakeProjectCreator()
     ]
     for step in procedure:
         step.run(context)
