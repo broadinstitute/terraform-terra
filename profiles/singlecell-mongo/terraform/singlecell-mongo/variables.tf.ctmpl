@@ -32,7 +32,7 @@ variable "service" {
 
 variable "scp_vault_path" {
   default = "{{env "SCP_VAULT_PATH"}}"
-  description = "Vault path within SCP namespace (e.g. development/eweitz as in secret/kdux/scp/development/eweitz/scp_config.json)"
+  description = "Vault path within SCP namespace (e.g. development/eaugusti as in secret/kdux/scp/development/eaugusti/scp_config.json)"
 }
 
 #
