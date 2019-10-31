@@ -25,7 +25,7 @@ class AuthorizeDomain(object):
         print("  https://console.cloud.google.com/apis/credentials/consent")
         print((
             "Add the root domain of {0} to the list of authorized domains"
-            "if it's not already there\n"
+            " if it's not already there\n"
             ).format(context["dns_domain"])
         )
         wait_for_enter()
@@ -44,7 +44,7 @@ class Oauth(object):
         print((
             "  ./add_to_vault.sh "
             "[path to JSON] "
-            "[vault path output by this profile]"
+            "[vault path output by this profile]\n"
             ).format(
                 context["project_name"],
                 context["app"]
@@ -55,26 +55,26 @@ class Oauth(object):
 class CreateGroups(object):
     def run(self, context):
         print("\nIn the GSuite admin console (https://admin.google.com) for 'test.firecloud.org', go to:")
-        print(" Groups -> Create group -> Create 2 Groups:")
-        print("Admins:")
-        print("  Name: fc-admins-{0}".format(context["project_name"]))
-        print("  Email: fc-ADMINS@{0}.{1}".format(
+        print("Groups -> Create group -> Create 2 Groups:")
+        print("  Admins:")
+        print("    Name: fc-admins-{0}".format(context["project_name"]))
+        print("    Email: fc-ADMINS@{0}.{1}".format(
                 context["project_name"],
                 context["google_app_domain"]
             )
         )
-        print("  Access type: Restricted")
+        print("    Access type: Restricted")
         wait_for_enter()
-        print("\nCurators:")
-        print("  Name: fc-curators-{0}".format(context["project_name"]))
-        print("  Email: fc-CURATORS@{0}.{1}".format(
+        print("  Curators:")
+        print("    Name: fc-curators-{0}".format(context["project_name"]))
+        print("    Email: fc-CURATORS@{0}.{1}".format(
                 context["project_name"],
                 context["google_app_domain"]
             )
         )
-        print("  Access type: Restricted\n")
+        print("    Access type: Restricted")
         wait_for_enter()
-        print("\nAdd the following users to the fc-ADMINS group:")
+        print("Add the following users to the fc-admins-{0} group".format(context["project_name"]))
         print("  fc-admin@{0}.{1}".format(
                 context["project_name"],
                 context["google_app_domain"]
@@ -86,6 +86,10 @@ class CreateGroups(object):
         )
         print("  dumbledore.admin@{0}".format(context["google_app_domain"]))
         print("  voldemort.admin@{0}".format(context["google_app_domain"]))
+        wait_for_enter()
+        print("Add the following users to the fc-curators-{0} group".format(context["project_name"]))
+        print("  snape.curator@{0}".format(context["google_app_domain"]))
+        print("  mcgonagall.curator@{0}\n".format(context["google_app_domain"]))
         wait_for_enter()
 
 class AddToGroup(object):

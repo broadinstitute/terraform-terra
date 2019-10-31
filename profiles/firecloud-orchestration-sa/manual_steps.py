@@ -23,15 +23,29 @@ class DomainWideDelegation(object):
         print("Enable domain-wide delegation for that account\n")
         wait_for_enter()
 
+class AddToGroup(object):
+    def run(self, context):
+        print("\nIn the GSuite admin console (https://admin.google.com) for 'test.firecloud.org', go to:")
+        print(" Groups -> Search for firecloud-project-editors-perf@test.firecloud.org -> Add members:")
+        print("Add {0} SA:".format(context["app"]))
+        print("  {0}@{1}.iam.gserviceaccount.com ".format(
+                context["app"],
+                context["project_name"]
+            )
+        )
+        wait_for_enter()
+
 if __name__ == "__main__":
     context = {
         "app": "firecloud-orchestration",
         "dns_domain": "dsde-perf.broadinstitute.org",
-        "google_app_domain": "test.firecloud.org"
+        "google_app_domain": "test.firecloud.org",
+        "project_name": sys.argv[1]
     }
     procedure = [
         AddSAScopes(),
-        DomainWideDelegation()
+        DomainWideDelegation(),
+        AddToGroup()
     ]
     for step in procedure:
         step.run(context)

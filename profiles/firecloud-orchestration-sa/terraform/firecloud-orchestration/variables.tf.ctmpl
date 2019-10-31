@@ -40,3 +40,19 @@ variable "gcr_bucket_project" {
 variable "gcr_bucket_name" {
   default = "artifacts.broad-dsp-gcr-public.appspot.com"
 }
+variable "test_bucket_name" {
+  default = "fixtures-for-tests"
+}
+
+
+#
+# Test Fixture Bucket
+#
+variable "test_fixture_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.objectViewer",
+    "roles/storage.objectCreator"
+  ]
+}

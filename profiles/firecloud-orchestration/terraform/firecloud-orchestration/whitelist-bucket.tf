@@ -21,3 +21,11 @@ resource "google_storage_bucket_iam_member" "whitelist-bucket" {
   role   = "${element(var.whitelist_bucket_roles, count.index)}"
   member = "serviceAccount:${data.google_service_account.config_reader.email}"
 }
+
+# Populate wbucket
+resource "google_storage_bucket_object" "picture" {
+  count = "${length(var.whitelist_bucket_files)}"
+  name   = "${element(var.whitelist_bucket_files, count.index)}"
+  source = "${path.module}/${element(var.whitelist_bucket_files, count.index)}"
+  bucket = google_storage_bucket.whitelist-bucket.name
+}
