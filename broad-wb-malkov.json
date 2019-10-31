@@ -12,6 +12,7 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
+      "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base",
       "SAM_FIRESTORE_SA_NAME": "sam-malkov-firestore",
       "SAM_FIRESTORE_PROJECT_NAME": "malkov-sam-firestore",
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-malkov",
@@ -128,7 +129,6 @@
     "thurloe-configs": {
       "env": {
         "APP_NAME": "thurloe",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-157-thurloe-configs",
         "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
@@ -156,7 +156,6 @@
     "leonardo-configs": {
       "env": {
         "APP_NAME": "leonardo",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base",
         "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
@@ -181,7 +180,6 @@
     "rawls-configs": {
       "env": {
         "APP_NAME": "rawls",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-159-rawls",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
@@ -192,8 +190,7 @@
     },
     "elasticsearch-configs": {
       "env": {
-        "APP_NAME": "elasticsearch",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy"
+        "APP_NAME": "elasticsearch"
       }
     },
     "firecloud-orchestration": {
@@ -209,7 +206,6 @@
     "firecloud-orchestration-configs": {
       "env": {
         "APP_NAME": "firecloud-orchestration",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-191-orch-deploy",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
@@ -229,20 +225,17 @@
     },
     "cromwell-configs": {
       "env": {
-        "APP_NAME": "cromwell",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base"
+        "APP_NAME": "cromwell"
       }
     },
     "cromiam-configs": {
       "env": {
-        "APP_NAME": "cromiam",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-177-cromiam-deploy"
+        "APP_NAME": "cromiam"
       }
     },
     "job-manager-configs": {
       "env": {
-        "APP_NAME": "job-manager",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-180-job-manager-deploy"
+        "APP_NAME": "job-manager"
       }
     },
     "calhoun": {
@@ -263,8 +256,7 @@
     },
     "opendj-configs": {
       "env": {
-        "APP_NAME": "opendj",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-146-sam-opendj"
+        "APP_NAME": "opendj"
       }
     },
     "opendj": {
@@ -370,7 +362,6 @@
     "sam-configs": {
       "env": {
         "APP_NAME": "sam",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base",
         "SERVICE_GIT_SHA_12_CHAR": "7a496b905911"
       }
     },
@@ -387,7 +378,6 @@
     "agora-configs": {
       "env": {
         "APP_NAME": "agora",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-170-agora-deploy",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
@@ -420,7 +410,6 @@
     "consent-configs": {
       "env": {
         "APP_NAME": "consent",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       },
       "terraform": {
@@ -435,14 +424,12 @@
     "consent-ontology-configs": {
       "env": {
         "APP_NAME": "consent-ontology",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-210-consent",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     },
     "firecloud-ui-configs": {
       "env": {
         "APP_NAME": "firecloud-ui",
-        "FIRECLOUD_DEVELOP_GIT_BRANCH": "perf-214-fcui",
         "SERVICE_GIT_SHA_12_CHAR": "perf"
       }
     }
