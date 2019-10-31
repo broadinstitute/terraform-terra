@@ -43,3 +43,16 @@ variable "gcr_bucket_name" {
 variable "test_bucket_name" {
   default = "fixtures-for-tests"
 }
+
+
+#
+# Test Fixture Bucket
+#
+variable "test_fixture_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.objectViewer",
+    "roles/storage.objectCreator"
+  ]
+}

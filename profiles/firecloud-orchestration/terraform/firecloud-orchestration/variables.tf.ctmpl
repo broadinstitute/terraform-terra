@@ -122,8 +122,7 @@ variable "storage_bucket_roles" {
 
   default = [
     "roles/storage.legacyBucketReader",
-    "roles/storage.objectViewer",
-    "roles/storage.objectCreator"
+    "roles/storage.objectViewer"
   ]
 }
 
