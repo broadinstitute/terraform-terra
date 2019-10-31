@@ -1,18 +1,18 @@
 {
   "name": "singlecellportal",
-  "owner": "broad-singlecellportal-eaugusti",
+  "owner": "broad-singlecellportal-eweitz",
   "intent": "Developer MongoDB VM for Single Cell Portal",
   "production": false,
   "stability": "volatile",
   "environment": "alpha",
-  "project": "broad-singlecellportal-eaugusti",
+  "project": "broad-singlecellportal-eweitz",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
   "dns_zone_name": "none",
   "dns_zone": "none",
   "global_vars": {
     "vault": {
-      "policy": "dsde-write"
+      "policy": "kdux-scp-write"
     },
     "env": {
       "NETWORK_NAME": "singlecell-network"
@@ -22,8 +22,8 @@
       "providers": {
         "google": {
           "default": {
-            "project": "broad-singlecellportal-eaugusti",
-            "vault_sa_path": "secret/kdux/scp/development/eaugusti/ingest_service_account.json",
+            "project": "broad-singlecellportal-eweitz",
+            "vault_sa_path": "secret/kdux/scp/development/eweitz/ingest_service_account.json",
             "region": "us-central1"
           },
           "dns": {
@@ -43,7 +43,7 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-        "SCP_VAULT_PATH": "development/eaugusti"
+        "SCP_VAULT_PATH": "development/eweitz"
       }
     }
   }
