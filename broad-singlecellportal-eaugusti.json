@@ -14,9 +14,6 @@
     "vault": {
       "policy": "dsde-write"
     },
-    "env": {
-      "NETWORK_NAME": "singlecell-network"
-    },
     "terraform": {
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
       "providers": {
@@ -24,11 +21,6 @@
           "default": {
             "project": "broad-singlecellportal-eaugusti",
             "vault_sa_path": "secret/kdux/scp/development/eaugusti/ingest_service_account.json",
-            "region": "us-central1"
-          },
-          "dns": {
-            "project": "broad-singlecellportal-eweitz",
-            "vault_sa_path": "secret/kdux/scp/development/eweitz/ingest_service_account.json",
             "region": "us-central1"
           }
         }
@@ -47,5 +39,4 @@
       }
     }
   }
-
 }
