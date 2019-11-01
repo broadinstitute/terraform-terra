@@ -23,12 +23,12 @@
         "google": {
           "default": {
             "project": "broad-singlecellportal-eweitz",
-            "vault_sa_path": "secret/kdux/scp/development/eweitz/ingest_service_account.json",
+            "vault_sa_path": "secret/kdux/scp/development/eweitz/scp_service_account.json",
             "region": "us-central1"
           },
           "dns": {
             "project": "broad-singlecellportal-eweitz",
-            "vault_sa_path": "secret/kdux/scp/development/eweitz/ingest_service_account.json",
+            "vault_sa_path": "secret/kdux/scp/development/eweitz/scp_service_account.json",
             "region": "us-central1"
           }
         }

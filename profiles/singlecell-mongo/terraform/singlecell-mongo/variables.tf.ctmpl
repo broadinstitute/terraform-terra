@@ -59,11 +59,12 @@ data "google_service_account" "config_reader" {
 #
 variable "instance_tags" {
   default = [
-    "{{env "OWNER"}}-terra-{{env "SERVICE"}}",
+    "{{env "OWNER"}}-{{env "SERVICE"}}",
     "http-server",
     "https-server",
     "{{env "SERVICE"}}",
-    "gce-lb-instance-group-member"
+    "gce-lb-instance-group-member",
+    "mongodb"
   ]
   description = "The default instance tags"
 }
