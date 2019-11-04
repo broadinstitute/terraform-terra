@@ -9,7 +9,6 @@ resource "random_id" "mongodb-root-password" {
 }
 
 resource "vault_generic_secret" "app-database-credentials" {
-  # path = "secret/kdux/scp/development/eweitz/scp_config.json
   path = "secret/kdux/scp/${var.scp_vault_path}/mongo/user"
 
   data_json = <<EOT

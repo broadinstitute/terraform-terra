@@ -23,12 +23,12 @@
         "google": {
           "default": {
             "project": "broad-singlecellportal-eaugust",
-            "vault_sa_path": "secret/kdux/scp/development/eaugust/scp_service_account.json",
+            "vault_sa_path": "secret/kdux/scp/development/eaugusti/scp_service_account.json",
             "region": "us-central1"
           },
           "dns": {
             "project": "broad-singlecellportal-eaugust",
-            "vault_sa_path": "secret/kdux/scp/development/eaugust/scp_service_account.json",
+            "vault_sa_path": "secret/kdux/scp/development/eaugusti/scp_service_account.json",
             "region": "us-central1"
           }
         }
@@ -43,7 +43,7 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-        "SCP_VAULT_PATH": "development/eaugust"
+        "SCP_VAULT_PATH": "development/eaugusti"
       }
     }
   }
