@@ -101,13 +101,3 @@ rest of the profiles. Use the same command pattern:
 ```
 ./dsp-k8s-deploy/application-teardown.sh -j <json-file> -p <profile>
 ```
-
-The suggested order is:
-
-* `populate-vault`
-* `ssl`
-* `firewalls`
-* `network`
-* `dns`
-
-`gsuite` as yet has no resources so does not need to be destroyed.
