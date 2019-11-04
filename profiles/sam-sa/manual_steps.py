@@ -153,7 +153,7 @@ class MakeProjectCreator(object):
 if __name__ == "__main__":
     context = {
         "app": "sam",
-        "dns_domain": "dsde-perf.broadinstitute.org",
+        "dns_domain": "broadinstitute.org",
         "google_app_domain": "test.firecloud.org",
         "project_name": sys.argv[1]
     }

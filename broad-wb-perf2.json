@@ -111,6 +111,11 @@
             "from_path": "secret/dsde/firecloud/perf/rawls/rawls.conf",
             "to_path": "rawls/rawls-perf.conf",
             "used_by": ["rawls"]
+          },
+          "rawls-service-perimeters": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/service-perimeters/static-projects",
+            "to_path": "rawls/service-perimeters/static-projects",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -171,7 +176,7 @@
     "leonardo-configs": {
       "env": {
         "APP_NAME": "leonardo",
-        "SERVICE_GIT_SHA_12_CHAR": "3628000a01b0"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "leonardo-sa": {
@@ -222,7 +227,7 @@
     "firecloud-ui-configs": {
       "env": {
         "APP_NAME": "firecloud-ui",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "firecloud-orchestration": {
@@ -303,7 +308,7 @@
     },
     "calhoun": {
       "env": {
-        "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
+        "CALHOUN_GIT_COMMIT": "dev"
       },
       "terraform": {
         "providers": {
@@ -427,7 +432,7 @@
     "sam-configs": {
       "env": {
         "APP_NAME": "sam",
-        "SERVICE_GIT_SHA_12_CHAR": "7a496b905911"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "agora-configs": {

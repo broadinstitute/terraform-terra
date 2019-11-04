@@ -84,12 +84,12 @@ class CreateGroups(object):
                 context["project_name"]
             )
         )
-        print("  dumbledore.admin@{0}".format(context["google_app_domain"]))
-        print("  voldemort.admin@{0}".format(context["google_app_domain"]))
+        print("  dumbledore.admin@{0}".format(context["test_user_domain"]))
+        print("  voldemort.admin@{0}".format(context["test_user_domain"]))
         wait_for_enter()
         print("Add the following users to the fc-curators-{0} group".format(context["project_name"]))
-        print("  snape.curator@{0}".format(context["google_app_domain"]))
-        print("  mcgonagall.curator@{0}\n".format(context["google_app_domain"]))
+        print("  snape.curator@{0}".format(context["test_user_domain"]))
+        print("  mcgonagall.curator@{0}\n".format(context["test_user_domain"]))
         wait_for_enter()
 
 class AddToGroup(object):
@@ -110,6 +110,7 @@ if __name__ == "__main__":
         "app": "rawls",
         "dns_domain": "dsde-perf.broadinstitute.org",
         "google_app_domain": "ephemeral.test.firecloud.org",
+        "test_user_domain": "test.firecloud.org",
         "project_name": sys.argv[1]
     }
     procedure = [
