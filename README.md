@@ -67,3 +67,4 @@ network it creates. Each profile should have well-defined requirements and outpu
 * [Setting Up Your Environment](./quickstarts/getting-started.md)
 * [Cleaning Up A Deploymment](./quickstarts/cleaning-up-an-environment.md)
 * [Setting Up A Deploymment](./quickstarts/setting-up-a-deployment.md)
+* [Managing a Terra Environment](./quickstarts/managing.md)
