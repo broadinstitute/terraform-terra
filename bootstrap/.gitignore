@@ -1,6 +1,0 @@
-*.tfvars
-*.tfstate
-*.tfstate.backup
-.terraform
-file/*
-plan.out
