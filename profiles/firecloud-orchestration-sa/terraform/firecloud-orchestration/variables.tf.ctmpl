@@ -52,7 +52,6 @@ variable "test_fixture_bucket_roles" {
   type = "list"
 
   default = [
-    "roles/storage.objectViewer",
-    "roles/storage.objectCreator"
+    "roles/storage.objectAdmin"
   ]
 }

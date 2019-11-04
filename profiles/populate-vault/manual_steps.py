@@ -24,23 +24,30 @@ class Oauth(object):
         print((
             "  ./add_to_vault.sh "
             "[path to JSON] "
-            "secret/dsde/firecloud/ephemeral/{0}/common/refresh-token-oauth-credential.json"
+            "secret/dsde/firecloud/ephemeral/{0}/common/refresh-token-oauth-credential.json\n"
             ).format(
                 context["project_name"]
             )
         )
         wait_for_enter()
 
+class CreateStackdriverWorkspace(object):
+    def run(self, context):
+        print("\nIn the GCP console go to Stackdriver > Monitoring > Create Workspace:")
+        print("  https://app.google.stackdriver.com/accounts/create")
+        print("For the workspace name, put your project name ({0})\n".format(context["project_name"]))
+        wait_for_enter()
 
 if __name__ == "__main__":
     context = {
-        "dns_domain": "dsde-perf.broadinstitute.org",
+        "dns_domain": "broadinstitute.org",
         "google_app_domain": "ephemeral.test.firecloud.org",
         "project_name": sys.argv[1]
     }
     procedure = [
         AuthorizeDomain(),
-        Oauth()
+        Oauth(),
+        CreateStackdriverWorkspace()
     ]
     for step in procedure:
         step.run(context)

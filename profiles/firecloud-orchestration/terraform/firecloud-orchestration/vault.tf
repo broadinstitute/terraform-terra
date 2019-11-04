@@ -18,3 +18,20 @@ resource "vault_generic_secret" "whitelist-bucket" {
 }
 EOT
 }
+
+data "vault_generic_secret" "qa_user_pass" {
+  path = "secret/dsde/firecloud/qa/common/users"
+}
+
+resource "vault_generic_secret" "test-user-data" {
+  path = "${var.vault_path_prefix}/common/users"
+
+  data_json = <<EOT
+{
+    "automation_users_passwd": "${data.vault_generic_secret.qa_user_pass.data["automation_users_passwd"]}",
+    "billing_acct": "Broad Institute - 8201528",
+    "service_acct_email": "${data.google_service_account.config_reader.email}",
+    "users_passwd": "${data.vault_generic_secret.qa_user_pass.data["automation_users_passwd"]}"
+}
+EOT
+}

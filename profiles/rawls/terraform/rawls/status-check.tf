@@ -31,7 +31,7 @@ resource "google_monitoring_uptime_check_config" "http-status-check-backend" {
     type = "uptime_url"
     labels = {
       project_id = "${var.google_project}"
-      host = "${var.owner}-${var.service}-backend.${data.google_dns_managed_zone.dns-zone.dns_name}"
+      host = "${var.owner}-${var.service}-backend-01.${data.google_dns_managed_zone.dns-zone.dns_name}"
     }
   }
 }
