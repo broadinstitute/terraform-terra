@@ -109,6 +109,11 @@
             "from_path": "secret/dsde/firecloud/perf/common/sentryapi",
             "to_path": "common/sentryapi",
             "used_by": ["consent", "firecloud-orchestration"]
+          },
+          "rawls-service-perimeters": {
+            "from_path": "secret/dsde/firecloud/perf/rawls/service-perimeters/static-projects",
+            "to_path": "rawls/service-perimeters/static-projects",
+            "used_by": ["rawls"]
           }
         }
       }
@@ -180,7 +185,7 @@
     "rawls-configs": {
       "env": {
         "APP_NAME": "rawls",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "elasticsearch": {
@@ -206,7 +211,7 @@
     "firecloud-orchestration-configs": {
       "env": {
         "APP_NAME": "firecloud-orchestration",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "cromwell-sa": {
@@ -240,7 +245,7 @@
     },
     "calhoun": {
       "env": {
-        "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
+        "CALHOUN_GIT_COMMIT": "dev"
       },
       "terraform": {
         "providers": {
@@ -362,7 +367,7 @@
     "sam-configs": {
       "env": {
         "APP_NAME": "sam",
-        "SERVICE_GIT_SHA_12_CHAR": "7a496b905911"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "sam":{
@@ -378,7 +383,7 @@
     "agora-configs": {
       "env": {
         "APP_NAME": "agora",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "agora-mongo": {
@@ -410,7 +415,7 @@
     "consent-configs": {
       "env": {
         "APP_NAME": "consent",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       },
       "terraform": {
         "copy_secrets": {
@@ -424,13 +429,13 @@
     "consent-ontology-configs": {
       "env": {
         "APP_NAME": "consent-ontology",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     },
     "firecloud-ui-configs": {
       "env": {
         "APP_NAME": "firecloud-ui",
-        "SERVICE_GIT_SHA_12_CHAR": "perf"
+        "SERVICE_GIT_SHA_12_CHAR": "dev"
       }
     }
   },
