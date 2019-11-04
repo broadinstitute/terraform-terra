@@ -3,8 +3,16 @@
 ## Logs
 The logs for a Terra environment created with this repo can be found in [Stackdriver](https://console.cloud.google.com/logs/viewer).
 
-Stackdriver has a [fairly robust querying syntax](https://cloud.google.com/logging/docs/view/advanced-queries) for sorting through logs. For example, since for a lot of terra services there are multiple instances of them and it can be nice to see logs from all instances of a specific service, the following advanced log query syntax aggregates together the logs from all SAM instances:
+Stackdriver has a [fairly robust querying syntax](https://cloud.google.com/logging/docs/view/advanced-queries) for sorting through logs.
+
+For example, since for a lot of terra services there are multiple instances of them and it can be nice to see logs from all instances of a specific service, the following advanced log query syntax aggregates together the logs from all SAM instances:
 ```labels."compute.googleapis.com/resource_name":"sam-"```
+
+Another example, which returns all matching log entries containing the specified string on any instances in the project:
+```
+resource.type="gce_instance"
+textPayload:"firestore"
+```
 
 ## Uptime checks
 
