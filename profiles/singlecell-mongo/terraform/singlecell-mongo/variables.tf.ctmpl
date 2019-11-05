@@ -147,5 +147,5 @@ variable "mongodb_user" {
 }
 
 variable "mongodb_database" {
-  default = "single_cell_portal_development"
+  default = "single_cell_portal_${var.environment}"
 }

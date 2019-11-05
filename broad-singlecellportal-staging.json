@@ -1,11 +1,11 @@
 {
   "name": "singlecellportal",
-  "owner": "broad-singlecellportal-eaugust",
-  "intent": "Developer MongoDB VM for Single Cell Portal",
+  "owner": "broad-singlecellportal-staging",
+  "intent": "Staging MongoDB VM for Single Cell Portal",
   "production": false,
   "stability": "volatile",
-  "environment": "development",
-  "project": "broad-singlecellportal-eaugust",
+  "environment": "staging",
+  "project": "broad-singlecellportal-staging",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
   "dns_zone_name": "none",
@@ -22,13 +22,13 @@
       "providers": {
         "google": {
           "default": {
-            "project": "broad-singlecellportal-eaugust",
-            "vault_sa_path": "secret/kdux/scp/development/eaugusti/scp_service_account.json",
+            "project": "broad-singlecellportal-staging",
+            "vault_sa_path": "secret/kdux/scp/staging/scp_service_account.json",
             "region": "us-central1"
           },
           "dns": {
-            "project": "broad-singlecellportal-eaugust",
-            "vault_sa_path": "secret/kdux/scp/development/eaugusti/scp_service_account.json",
+            "project": "broad-singlecellportal-staging",
+            "vault_sa_path": "secret/kdux/scp/staging/scp_service_account.json",
             "region": "us-central1"
           }
         }
@@ -43,7 +43,7 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-        "SCP_VAULT_PATH": "development/eaugusti"
+        "SCP_VAULT_PATH": "staging"
       }
     }
   }

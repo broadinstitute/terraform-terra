@@ -4,7 +4,7 @@
   "intent": "Developer MongoDB VM for Single Cell Portal",
   "production": false,
   "stability": "volatile",
-  "environment": "alpha",
+  "environment": "development",
   "project": "broad-singlecellportal-eweitz",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
