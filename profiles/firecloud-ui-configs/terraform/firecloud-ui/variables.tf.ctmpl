@@ -2,6 +2,14 @@ variable "vault_path_prefix" {
   default = "{{env "VAULT_PATH_PREFIX"}}"
   description = "The path to this profile's secrets in vault"
 }
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
 
 #
 # Instance data
@@ -94,11 +102,6 @@ variable "vault_addr" {
   default = "{{if env "VAULT_ADDR"}}{{env "VAULT_ADDR"}}{{else}}{{end}}"
 }
 
-variable "google_project" {
-  description = "Name of google project to use in config rendering"
-  default = "{{env "GOOGLE_PROJECT"}}"
-}
-
 variable "google_apps_domain" {
   description = "to use in config rendering"
   default = "{{if env "GOOGLE_APPS_DOMAIN"}}{{env "GOOGLE_APPS_DOMAIN"}}{{else}}{{end}}"
@@ -132,4 +135,33 @@ variable "ldap_base_domain" {
 variable "bucket_tag" {
   description = "to use in config rendering"
   default = "{{if env "BUCKET_TAG"}}{{env "BUCKET_TAG"}}{{else}}{{env "ENVIRONMENT"}}{{end}}"
+}
+
+variable "configs_to_render" {
+  description = "List of config templates to render"
+  type = list(string)
+  default = [
+    "config.json",
+    "docker-compose.yaml",
+    "newrelic.js",
+    "tcell.js"
+  ]
+}
+
+variable "configs_from_vault" {
+  description = "List of config files to get from vault"
+  default = {
+    "server.key": {
+      "path": "{{env "VAULT_PATH_PREFIX"}}/common/server.key",
+      "key": "value"
+    },
+    "server.crt": {
+      "path": "{{env "VAULT_PATH_PREFIX"}}/common/server.crt",
+      "key": "value"
+    },
+    "ca-bundle.crt": {
+      "path": "secret/common/ca-bundle.crt",
+      "key": "chain"
+    }
+  }
 }
