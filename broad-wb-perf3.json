@@ -311,6 +311,21 @@
         "APP_NAME": "job-manager"
       }
     },
+    "deployment-manager-project": {
+      "env": {
+        "FOLDER_ID": "46078610677",
+        "BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA"
+      },
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
     "rawls-sa": {
       "terraform": {
         "providers": {
@@ -364,7 +379,7 @@
       "env": {
         "FOLDER_ID": "46078610677",
         "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
-        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+        "BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA"
       },
       "terraform": {
         "providers": {
@@ -380,7 +395,7 @@
       "env": {
         "FOLDER_ID": "46078610677",
         "APIS_TO_ENABLE": "cloudfunctions.googleapis.com,datastore.googleapis.com",
-        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457",
+        "BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA",
         "SAM_FIRESTORE_SA_ROLES": "roles/editor"
       },
       "terraform": {

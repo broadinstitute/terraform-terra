@@ -1,0 +1,20 @@
+variable "vault_path_prefix" {
+  default = "{{env "VAULT_PATH_PREFIX"}}"
+  description = "The prefix path at which to store vault values"
+}
+
+variable "project_name" {
+  default = "{{if (env "DEPLOYMENT_MANAGER_PROJECT")}}{{env "DEPLOYMENT_MANAGER_PROJECT"}}{{else}}terra-deployments-{{env "ENVIRONMENT"}}{{end}}"
+}
+
+variable "folder_id" {
+  default = "{{env "FOLDER_ID"}}"
+}
+
+variable "billing_account_id" {
+  default = "{{env "BILLING_ACCOUNT_ID"}}"
+}
+
+variable "apis_to_enable" {
+  default = {{if (env "APIS_TO_ENABLE")}}{{env "APIS_TO_ENABLE" | split "," | toJSON}}{{else}}["deploymentmanager.googleapis.com"]{{end}}
+}
