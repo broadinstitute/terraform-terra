@@ -43,7 +43,8 @@
   "profile_vars": {
     "singlecell-mongo": {
       "env": {
-        "SCP_VAULT_PATH": "development/eaugusti"
+        "SCP_VAULT_PATH": "development/eaugusti",
+        "SCP_MONGODB_DB_NAME": "single_cell_portal_development"
       }
     }
   }
