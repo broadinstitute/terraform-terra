@@ -55,7 +55,7 @@
       "env": {
         "FOLDER_ID": "46078610677",
         "APIS_TO_ENABLE": "",
-        "BILLING_ACCOUNT_ID": "01A82E-CA8A14-367457"
+        "BILLING_ACCOUNT_ID": "00708C-45D19D-27AAFA"
       },
       "terraform": {
         "providers": {
