@@ -149,7 +149,7 @@ variable "configs_to_render" {
 }
 
 variable "configs_from_vault" {
-  description = "List of config files to get from vault"
+  description = "Map of config paths/keys to get from vault"
   default = {
     "server.key": {
       "path": "{{env "VAULT_PATH_PREFIX"}}/common/server.key",
