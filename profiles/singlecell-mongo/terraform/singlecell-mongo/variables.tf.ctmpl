@@ -47,7 +47,7 @@ data "google_compute_network" "terra-env-network" {
 }
 # Application SA
 variable "app_service_account" {
-  default = "ingest"
+  default = "default-service-account"
 }
 
 data "google_service_account" "config_reader" {
