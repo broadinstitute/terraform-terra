@@ -6,7 +6,6 @@
   "stability": "volatile",
   "environment": "development",
   "project": "broad-singlecellportal-bistlin",
-  "single_cell_db": "single_cell_portal_development",
   "region": "us-central1",
   "resource_zone_name": "us-central1-a",
   "dns_zone_name": "none",
