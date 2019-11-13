@@ -41,6 +41,7 @@ resource "vault_generic_secret" "service-bucket" {
 EOT
 
 }
+
 resource "vault_generic_secret" "cloudsql_truststore_keystore" {
   path = "${var.vault_path_prefix}/consent/${var.service}-mysql"
   depends_on = [
@@ -56,4 +57,8 @@ resource "vault_generic_secret" "cloudsql_truststore_keystore" {
   "server_ca": "${replace(google_sql_ssl_cert.client_cert.server_ca_cert, "\n", "\\n")}"
 }
 EOT
+}
+
+data "vault_generic_secret" "jenkins_ips" {
+  path = "secret/dsde/firecloud/ephemeral/common/jenkins-ips"
 }

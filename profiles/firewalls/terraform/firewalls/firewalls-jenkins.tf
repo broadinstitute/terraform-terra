@@ -85,7 +85,7 @@ resource "google_compute_firewall" "terra-jenkins-ldap" {
 
   allow {
     protocol = "tcp"
-    ports = [ "636" ]
+    ports = [ "389", "636","4444","8443" ]
   }
 
   source_ranges = split(",",file("jenkins-ips.txt"))
