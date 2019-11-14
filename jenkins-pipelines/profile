@@ -28,6 +28,13 @@ pipeline {
     label 'node220'
   }
   stages {
+    stage ('Init'){
+      steps {
+        script {
+          currentBuild.description = "${params.action} infrastructure profile"
+        }
+      }
+    }
     stage ('checkout scm'){
       steps {
         // GIT submodule recursive checkout

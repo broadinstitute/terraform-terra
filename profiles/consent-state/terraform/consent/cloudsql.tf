@@ -22,5 +22,8 @@ module "cloudsql" {
   cloudsql_instance_labels = {
     "app" = "${var.owner}-${var.service}"
   }
-  cloudsql_authorized_networks = var.cloudsql_authorized_networks
+  cloudsql_authorized_networks = concat(
+    jsondecode(data.vault_generic_secret.jenkins_ips.data_json).ips,
+    var.cloudsql_authorized_networks
+  )
 }
