@@ -29,6 +29,13 @@ pipeline {
 
   }
   stages {
+    stage ('Init'){
+      steps {
+        script {
+          currentBuild.description = "Update service configurations"
+        }
+      }
+    }
     stage('Update Configs') {
       parallel {
         stage('update agora') {
