@@ -1,0 +1,151 @@
+#
+# Profile Vars
+#
+variable "environment" {
+  default = "{{env "ENVIRONMENT"}}"
+  description = "The environment specified in the application json"
+}
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "google_region" {
+  default = "{{env "GOOGLE_REGION"}}"
+  description = "The google region as specified in the application json"
+}
+variable "google_zone" {
+  default = "{{env "GOOGLE_ZONE"}}"
+  description = "The google zone as specified by `GOOGLE_REGION` and the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "application_name" {
+  default = "{{env "APPLICATION_NAME"}}"
+  description = "Name from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+
+variable "scp_vault_path" {
+  default = "{{env "SCP_VAULT_PATH"}}"
+  description = "Vault path within SCP namespace (e.g. development/eaugusti as in secret/kdux/scp/development/eaugusti/scp_config.json)"
+}
+
+#
+# Dependency Profiles' Vars
+#
+# Network
+variable "google_network_name" {
+  default = "{{env "NETWORK_NAME"}}"
+}
+data "google_compute_network" "terra-env-network" {
+  name = "${var.google_network_name}"
+}
+# Application SA
+variable "app_service_account" {
+  default = "default-service-account"
+}
+
+data "google_service_account" "config_reader" {
+  account_id = "${var.app_service_account}"
+}
+
+#
+# Application - Common Vars
+#
+variable "instance_tags" {
+  default = [
+    "{{env "OWNER"}}-{{env "SERVICE"}}",
+    "http-server",
+    "https-server",
+    "{{env "SERVICE"}}",
+    "gce-lb-instance-group-member",
+    "mongodb"
+  ]
+  description = "The default instance tags"
+}
+
+#
+# Application Service Cluster 
+#
+variable "instance_num_hosts" {
+  default = "{{ if env "SCP_MONGO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SCP_MONGO_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  description = "The default number of Application service hosts per environment"
+}
+
+variable "instance_size" {
+  default = "{{ if env "SCP_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_SIZE" }}{{ else }}n1-highmem-2{{ end }}"
+  description = "The default size of Application service hosts"
+}
+
+variable "instance_image" {
+  default = "{{ if env "INSTANCE_IMAGE" }}{{ env "INSTANCE_IMAGE" }}{{ else }}centos-7{{ end }}"
+  description = "The default image of service hosts"
+}
+
+variable "metadata_startup_script" {
+   default = "metadata/centos7-docker2.sh"
+   description = "Default metadata startup script used when bootstrapping Application 100 instances"
+}
+
+variable "allow_stopping_for_update" {
+   default = "false"
+   description = "If set to true, the instance can be stopped for certain changes (common example: resizing the instance)."
+}
+
+variable "instance_data_disk_size" {
+  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
+  description = "The default size of service data disk"
+}
+variable "instance_data_disk_type" {
+  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
+  description = "The default type of service data disk"
+}
+
+
+#
+# Application Service Config Bucket
+#
+variable "storage_bucket_roles" {
+  type = "list"
+
+  default = [
+    "roles/storage.legacyBucketReader",
+    "roles/storage.objectViewer"
+  ]
+}
+
+
+#
+# Application Common Load Balancer (replaces leonardo-NNN-lb entities)
+#
+variable "load_balancer_100_enable" {
+  default = "0"
+  description = "Enables GCE common load balancer 100 for one or more Application NNN service clusters"
+}
+
+#
+# MongoDB
+#
+variable "mongodb_roles" {
+  default = [
+    "primary"
+  ]
+  description = "host roles that will be present in this cluster"
+}
+
+variable "mongodb_version" {
+   default = "3.6.14"
+}
+
+variable "mongodb_user" {
+  default = "single_cell"
+}
+
+variable "mongodb_database" {
+  default = "{{env "SCP_MONGODB_DB_NAME"}}"
+}
