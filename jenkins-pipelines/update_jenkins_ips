@@ -3,7 +3,19 @@ pipeline {
     // Until we get the correct vault policy on all nodes
     label 'node220'
   }
+  triggers {
+    // Trigger weekly
+    cron('H H H H 1')
+  }
   stages {
+    stage ('Init'){
+      steps {
+        script {
+          currentBuild.displayName = "update-jenkins-ips"
+          currentBuild.description = "Look up the current IPs of Jenkins slaves and put them in Vault"
+        }
+      }
+    }
     stage ('Get Jenkins slave IPs'){
       steps {
         script {
@@ -20,6 +32,25 @@ pipeline {
           '''
         }
       }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+    failure {
+      slackSend (
+        color: '#FF0000',
+        message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"),
+        channel: '#slack-test'
+      )
+    }
+    success {
+      slackSend (
+        color: '#FF0000',
+        message: "PASSED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"),
+        channel: '#slack-test'
+      )
     }
   }
 }
