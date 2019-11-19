@@ -27,6 +27,8 @@ pipeline {
     booleanParam(name: 'sam', defaultValue: false)
     booleanParam(name: 'thurloe', defaultValue: false)
     booleanParam(name: 'terra-ui', defaultValue: false)
+    booleanParam(name: 'tos', defaultValue: false)
+    booleanParam(name: 'calhoun', defaultValue: false)
   }
   stages {
     stage ('Init'){
@@ -258,6 +260,38 @@ pipeline {
                 string(name: 'json', value: params['json']),
                 string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'thurloe-configs')
+              ]
+            )
+          }
+        }
+        stage('update tos') {
+          agent any
+          when {
+            expression { params['tos'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'tos')
+              ]
+            )
+          }
+        }
+        stage('update calhoun') {
+          agent any
+          when {
+            expression { params['calhoun'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'calhoun')
               ]
             )
           }
