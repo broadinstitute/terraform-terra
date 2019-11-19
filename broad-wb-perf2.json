@@ -388,7 +388,6 @@
           "google": {
             "default": {
               "project": "broad-wb-perf2-tos",
-              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
               "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
             },
             "stackdriver": {
@@ -409,7 +408,6 @@
           "google": {
             "default": {
               "project": "broad-wb-perf2-tos",
-              "vault_sa_path": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom/tos/terraform-service-account.json",
               "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json"
             }
           }
