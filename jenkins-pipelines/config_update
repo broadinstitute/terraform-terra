@@ -26,7 +26,7 @@ pipeline {
     booleanParam(name: 'rawls', defaultValue: false)
     booleanParam(name: 'sam', defaultValue: false)
     booleanParam(name: 'thurloe', defaultValue: false)
-
+    booleanParam(name: 'terra-ui', defaultValue: false)
   }
   stages {
     stage ('Init'){
@@ -146,6 +146,22 @@ pipeline {
                 string(name: 'json', value: params['json']),
                 string(name: 'branch', value: params['branch']),
                 string(name: 'profile', value: 'firecloud-ui-configs')
+              ]
+            )
+          }
+        }
+        stage('update terra-ui') {
+          agent any
+          when {
+            expression { params['terra-ui'] }
+          }
+          steps {
+            build(
+              job: 'deploy-profile',
+              parameters: [
+                string(name: 'json', value: params['json']),
+                string(name: 'branch', value: params['branch']),
+                string(name: 'profile', value: 'terra-ui')
               ]
             )
           }
