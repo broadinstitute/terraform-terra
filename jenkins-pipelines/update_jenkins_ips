@@ -1,11 +1,10 @@
 pipeline {
   agent {
-    // Until we get the correct vault policy on all nodes
-    label 'node220'
+    label 'docker'
   }
   triggers {
     // Trigger weekly
-    cron('H H H H 1')
+    cron('H H * * 1')
   }
   stages {
     stage ('Init'){

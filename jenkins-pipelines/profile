@@ -24,8 +24,7 @@ pipeline {
     )
   }
   agent {
-    // Until we get the correct vault policy on all nodes
-    label 'node220'
+    label 'docker'
   }
   stages {
     stage ('Init'){
