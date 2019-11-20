@@ -37,7 +37,12 @@ resource "vault_generic_secret" "app_account_key" {
   data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
 }
 
-resource "vault_generic_secret" "app_account_key_common" {
+resource "vault_generic_secret" "app_account_json_common" {
   path = "${var.vault_path_prefix}/common/firecloud-account.json"
+  data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
+}
+
+resource "vault_generic_secret" "app_account_pem_common" {
+  path = "${var.vault_path_prefix}/common/firecloud-account.pem"
   data_json = "${base64decode(google_service_account_key.app_account_key.private_key)}"
 }
