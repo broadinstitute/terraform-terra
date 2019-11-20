@@ -12,7 +12,7 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
-      "FIRECLOUD_DEVELOP_GIT_BRANCH": "perfx-base",
+      "FIRECLOUD_DEVELOP_GIT_BRANCH": "dev",
       "SAM_FIRESTORE_SA_NAME": "sam-rluckom-firestore",
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-rluckom",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-rluckom",
@@ -249,7 +249,7 @@
     },
     "calhoun": {
       "env": {
-        "CALHOUN_GIT_COMMIT": "04d2e745c7e4a"
+        "CALHOUN_GIT_COMMIT": "dev"
       },
       "terraform": {
         "providers": {
