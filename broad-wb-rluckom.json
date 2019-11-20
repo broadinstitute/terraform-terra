@@ -249,7 +249,7 @@
     },
     "calhoun": {
       "env": {
-        "CALHOUN_GIT_COMMIT": "dev"
+        "CALHOUN_GIT_COMMIT": "master"
       },
       "terraform": {
         "providers": {
