@@ -103,13 +103,3 @@ variable "tcell_api_key" {
 variable "google_client_id" {
   default = "{{if env "GOOGLE_CLIENT_ID"}}{{env "GOOGLE_CLIENT_ID"}}{{else}}{{with secret (printf "%s/terra-ui/terra-ui-oauth-credential.json" (env "VAULT_PATH_PREFIX"))}}{{.Data.web.client_id}}{{end}}{{end}}"
 }
-
-# DNS
-variable "dns_zone_name" {
-  default = "{{env "DNS_ZONE_NAME"}}"
-  description = "The name of the DNS zone (its google id) as specified in the application json"
-}
-data "google_dns_managed_zone" "dns-zone" {
-  provider = "google.dns"
-  name = "${var.dns_zone_name}"
-}
