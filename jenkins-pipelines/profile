@@ -30,7 +30,7 @@ pipeline {
     stage ('Init'){
       steps {
         script {
-          currentBuild.description = "${params.action} {params.json} {params.profile}"
+          currentBuild.description = "${params.action} ${params.json} ${params.profile}"
         }
       }
     }
