@@ -1,8 +1,8 @@
 FROM broadinstitute/dsde-toolbox:consul-0.20.0
-ENV TERRAFORM_VERSION=0.11.14
+ENV TERRAFORM_VERSION=0.12.7
 
 RUN apk update && \
-    apk add curl jq python bash ca-certificates git openssl zip unzip wget && \
+    apk add curl jq python bash ca-certificates git openssl zip unzip wget openjdk8-jre && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
