@@ -22,11 +22,11 @@ RUN apk add \
 
 RUN apk add \
   --no-cache \
-  --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+  --repository http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/main/ \
   nodejs=${NODEJS_VERSION}
 RUN apk add \
   --no-cache \
-  --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+  --repository http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/main/ \
   npm=${NODEJS_VERSION}
 
 RUN cd /tmp && \
