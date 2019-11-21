@@ -1,0 +1,58 @@
+FROM alpine:edge
+
+ENV ALPINE_VERSION=edge
+ENV TERRAFORM_VERSION=0.12.7
+ENV NODEJS_VERSION=12.13.1-r0
+
+RUN apk update
+
+RUN apk add \
+  curl \
+  jq \
+  python \
+  bash \
+  ca-certificates \
+  git \
+  openssl \
+  zip \
+  unzip \
+  wget \
+  openjdk8-jre \
+  ruby
+
+RUN apk add \
+  --no-cache \
+  --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+  nodejs=${NODEJS_VERSION}
+RUN apk add \
+  --no-cache \
+  --repository http://dl-cdn.alpinelinux.org/alpine/edge/main/ \
+  npm=${NODEJS_VERSION}
+
+RUN cd /tmp && \
+  wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+  unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
+
+RUN cd /tmp && \
+  wget https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip -O /tmp/google-cloud-sdk.zip && \
+  cd /usr/local && unzip /tmp/google-cloud-sdk.zip && \
+  google-cloud-sdk/install.sh --usage-reporting=false --path-update=true --bash-completion=true && \
+  google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true
+
+RUN rm -rf /tmp/* && \
+  rm -rf /var/cache/apk/* && \
+  rm -rf /var/tmp/*
+
+ENV PATH = $PATH:/usr/local/google-cloud-sdk/bin/
+
+ENTRYPOINT ["/usr/bin/terraform"]
+
+CMD ["--help"]
+
+VOLUME ["/data"]
+
+WORKDIR /data
+
+RUN mkdir -p /workbench
+
+COPY ./render_configs.rb /workbench/render_configs.rb
