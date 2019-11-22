@@ -19,4 +19,5 @@ module "load-balanced-instances" {
   instance_num_hosts = "${var.instance_num_hosts}"
   instance_size = "${var.instance_size}"
   storage_bucket_roles = "${var.storage_bucket_roles}"
+  ansible_branch = "gm-stackdriver-parse"
 }
