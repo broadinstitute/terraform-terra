@@ -23,7 +23,6 @@ If the environment profiles were correctly deployed, you will be able to access 
 Because of how the services are deployed, changes to configuration files directly on an instance will be quickly overwritten. The source of truth for containerized services in these environments are the services' Google buckets. Below are instructions for updating those buckets with new configurations, both ones from git as well as ad-hoc config tweaks:
 
 ### Update configs to match a branch of `firecloud-develop`:
-**CAUTION: currently changes to config templating have not yet been merged into dev yet, so consult Greg Malkov or Raphael Luckom before attempting to use a different config branch than defined in the existing JSONs**
 1) Make a branch of this repo
 2) Update your environment's JSON in your branch, changing one of
    * `global_vars.env.FIRECLOUD_DEVELOP_GIT_BRANCH` to update all services' configs
