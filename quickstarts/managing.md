@@ -28,6 +28,9 @@ URLs for services that are not on that dashboard (Replace `broad-wb-perf2` with 
 - CromIAM: `https://broad-wb-perf2-cromiam-01.dsde-perf.broadinstitute.org/engine/v1/status`
 - Job Manager: `https://broad-wb-perf2-job-manager-01.dsde-perf.broadinstitute.org/engine/v1/status`
 
+## Data
+The environment should come pre-populated with the standard [Harry Potter users](https://github.com/broadinstitute/populate-terra/blob/master/populate-terra/common/constants.py)
+
 ## Updating Configs
 Because of how the services are deployed, changes to configuration files directly on an instance will be quickly overwritten. The source of truth for containerized services in these environments are the services' Google buckets. Below are instructions for updating those buckets with new configurations, both ones from git as well as ad-hoc config tweaks:
 
