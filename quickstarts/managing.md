@@ -14,10 +14,19 @@ resource.type="gce_instance"
 textPayload:"firestore"
 ```
 
-## Uptime checks
+## Uptime checks / URLs
 
 If the environment profiles were correctly deployed, you will be able to access a dashboard with uptime checks for most of the services via Stackdriver:
 `https://app.google.stackdriver.com/uptime?project=[environment project]`
+
+URLs for services that are not on that dashboard (Replace `broad-wb-perf2` with your project/env name)
+- Terra UI: `https://broad-wb-perf2.appspot.com/`
+- Cromwell
+  - Readers: `https://broad-wb-perf2-cromwell-01.dsde-perf.broadinstitute.org/engine/v1/status`
+  - Runners: `https://broad-wb-perf2-cromwell-runner-01.dsde-perf.broadinstitute.org/engine/v1/status`
+  - Summarizers: `https://broad-wb-perf2-cromwell-summarizer-01.dsde-perf.broadinstitute.org/engine/v1/status`
+- CromIAM: `https://broad-wb-perf2-cromiam-01.dsde-perf.broadinstitute.org/engine/v1/status`
+- Job Manager: `https://broad-wb-perf2-job-manager-01.dsde-perf.broadinstitute.org/engine/v1/status`
 
 ## Updating Configs
 Because of how the services are deployed, changes to configuration files directly on an instance will be quickly overwritten. The source of truth for containerized services in these environments are the services' Google buckets. Below are instructions for updating those buckets with new configurations, both ones from git as well as ad-hoc config tweaks:
