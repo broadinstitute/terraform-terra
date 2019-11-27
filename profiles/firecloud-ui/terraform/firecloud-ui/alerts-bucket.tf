@@ -14,6 +14,12 @@ resource "google_storage_bucket_object" "alerts_json" {
   bucket = "${google_storage_bucket.alerts.name}"
 }
 
+resource "google_storage_bucket_object" "tos_json" {
+  name   = "tos.json"
+  source = "${path.module}/tos.json"
+  bucket = "${google_storage_bucket.alerts.name}"
+}
+
 # Grant service account access to the bucket
 resource "google_storage_bucket_iam_member" "fc_alerts" {
   count = "${length(var.storage_bucket_roles)}"

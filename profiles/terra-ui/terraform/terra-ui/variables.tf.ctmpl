@@ -88,6 +88,18 @@ variable "shibboleth_url" {
   default = "{{if env "SHIBBOLETH_ADDRESS"}}{{env "SHIBBOLETH_ADDRESS"}}{{else}}{{with secret (printf "%s/shibboleth/secrets/url" (env "VAULT_PATH_PREFIX"))}}{{.Data.url}}{{end}}{{end}}"
   description = "shibboleth URL"
 }
+variable "fc_ui_url" {
+  default = "{{if env "FC_UI_ADDRESS"}}{{env "FC_UI_ADDRESS"}}{{else}}{{with secret (printf "%s/firecloud-ui/secrets/hostname" (env "VAULT_PATH_PREFIX"))}}https://{{.Data.hostname}}{{end}}{{end}}"
+  description = "FireCLoud UI URL"
+}
+variable "dockstore_url" {
+  default = "{{if env "DOCKSTORE_ADDRESS"}}{{env "DOCKSTORE_ADDRESS"}}{{else}}https://staging.dockstore.org{{end}}"
+  description = "DockStore URL"
+}
+variable "alerts_bucket_url" {
+  default = "{{if env "ALERTS_BUCKET_ADDRESS"}}{{env "ALERTS_BUCKET_ADDRESS"}}{{else}}{{with secret (printf "%s/firecloud-ui/alerts_bucket" (env "VAULT_PATH_PREFIX"))}}{{.Data.url}}{{end}}{{end}}"
+  description = "FireCLoud alerts bucket URL"
+}
 
 variable "is_prod" {
   default = {{if env "IS_PROD"}}{{env "IS_PROD"}}{{else}}false{{end}}

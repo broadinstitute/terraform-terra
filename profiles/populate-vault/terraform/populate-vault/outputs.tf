@@ -15,14 +15,14 @@ data "null_data_source" "dns_zone_no_trailing_dot" {
 
 output "authorized_javascript_origins" {
   value = [
-    "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}",
+    "https://${var.owner}-firecloud-ui.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}",
   ]
 }
 
 output "authorized_redirect_urls" {
   value = [
-    "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
-    "https://${var.owner}-firecloud.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
+    "https://${var.owner}-firecloud-ui.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
+    "https://${var.owner}-firecloud-ui.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-firecloud-orchestration.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/oauth2callback",
     "https://${var.owner}-firecloud-orchestration.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
     "https://${var.owner}-rawls.${data.null_data_source.dns_zone_no_trailing_dot.outputs.zone}/o2c.html",
