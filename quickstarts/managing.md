@@ -39,7 +39,8 @@ Because of how the services are deployed, changes to configuration files directl
 2) Update the appropriate environment's JSON in your branch (example: [broad-wb-perf2.json](../broad-wb-perf2.json)), doing one of:
    * Changing `global_vars.env.FIRECLOUD_DEVELOP_GIT_BRANCH` (at the very top of the file) to update all services' configs
    * Changing the appropriate `profile_vars.[service name]-configs` stanza to include an equivalent `"env": { "FIRECLOUD_DEVELOP_GIT_BRANCH": "[FC BRANCH NAME]" }` value 
-   * See [example](https://github.com/broadinstitute/terraform-terra/pull/108/files) (but note: you don't need to merge anything into `terraform-terra/master` - this is just to demonstrate which file to update and where).
+      * See this [example](https://github.com/broadinstitute/terraform-terra/pull/108/files) of where to make the change to affect Cromwell only.
+      * **Note:** you don't need to merge anything into `terraform-terra/master` - this PR is just to demonstrate which file to update and where: notice that the PR was closed without merging!
 3) Push up your branch
 4) Run the [update-configs Jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/view/Ephemeral%20Envs/job/update-configs/) with
    * `branch` set to your new `terraform-terra` branch
