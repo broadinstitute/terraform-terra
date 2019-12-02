@@ -34,18 +34,18 @@ The environment should come pre-populated with the standard [Harry Potter users]
 ## Updating Configs
 Because of how the services are deployed, changes to configuration files directly on an instance will be quickly overwritten. The source of truth for containerized services in these environments are the services' Google buckets. Below are instructions for updating those buckets with new configurations, both ones from git as well as ad-hoc config tweaks:
 
-### Update configs to match a branch of `firecloud-develop`:
-1) Make a branch of this repo
-2) Update your environment's JSON in your branch, changing one of
-   * `global_vars.env.FIRECLOUD_DEVELOP_GIT_BRANCH` to update all services' configs
-   * `profile_vars.[service name]-configs.env.FIRECLOUD_DEVELOP_GIT_BRANCH` to update a particular service's configs
+### Option 1: Set a custom branch of `firecloud-develop` for your service(s):
+1) Make a branch of this (ie the `terraform-terra`) repo.
+2) Update the appropriate environment's JSON in your branch (example: [broad-wb-perf2.json](../broad-wb-perf2.json)), doing one of:
+   * Changing `global_vars.env.FIRECLOUD_DEVELOP_GIT_BRANCH` (at the very top of the file) to update all services' configs
+   * Changing the appropriate `profile_vars.[service name]-configs` stanza to include an equivalent `"env": { "FIRECLOUD_DEVELOP_GIT_BRANCH": "[FC BRANCH NAME]" }` value.
 3) Push up your branch
 4) Run the [update-configs Jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/view/Ephemeral%20Envs/job/update-configs/) with
-   * `branch` set to your branch
+   * `branch` set to your new `terraform-terra` branch
    * `json` set to the filename of your environment's JSON
    * Any services that you want re-deployed with new configs checked in the list of services
 
-### Update configs to match custom local changes:
+### Option 2: Update configs to match custom local changes:
 1) Copy the configs from the bucket
    * `gsutil rsync -r -d gs://[your env project]-[service-name]-config .`
 2) Make the desired edits to the configs of the instance(s) you want to target
