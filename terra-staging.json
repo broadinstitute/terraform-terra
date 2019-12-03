@@ -12,7 +12,8 @@
   "dns_zone": "dsde-staging.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/staging"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/staging",
+      "LEONARDO_SA": "leonardo-staging"
     },
     "vault": {
       "policy": "dsde-write"
@@ -59,6 +60,17 @@
       }
     },
     "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "leonardo-pubsub": {
       "terraform": {
         "providers": {
           "google": {

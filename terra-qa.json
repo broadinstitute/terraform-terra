@@ -12,7 +12,8 @@
   "dns_zone": "dsde-qa.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/qa"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/qa",
+      "LEONARDO_SA": "leonardo-qa"
     },
     "vault": {
       "policy": "dsde-write"
@@ -65,6 +66,17 @@
             "default": {
               "use_local_adc": true
             }
+          }
+        }
+      }
+    }
+  },
+  "leonardo-pubsub": {
+    "terraform": {
+      "providers": {
+        "google": {
+          "default": {
+            "use_local_adc": true
           }
         }
       }
