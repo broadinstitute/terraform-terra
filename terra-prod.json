@@ -12,7 +12,8 @@
   "dns_zone": "dsde-prod.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/prod"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/prod",
+      "LEONARDO_SA": "leonardo-prod"
     },
     "vault": {
       "policy": "firecloud-prod"
@@ -137,6 +138,17 @@
               "serviceAccount:indexer@baseline-explorer.iam.gserviceaccount.com",
               "serviceAccount:rawls-prod@broad-dsde-prod.iam.gserviceaccount.com"
             ]
+          }
+        }
+      }
+    },
+    "leonardo-pubsub": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
           }
         }
       }
