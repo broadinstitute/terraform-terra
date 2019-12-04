@@ -23,5 +23,6 @@ variable "sa_roles" {
     "roles/iam.serviceAccountUser",
     "roles/storage.objectViewer",
     "roles/dataproc.editor",
+    "roles/compute.instanceAdmin",
   ]
 }
