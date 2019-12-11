@@ -1,0 +1,24 @@
+#
+# Profile Vars
+#
+variable "pubsub_topic_name" {
+  default = "leonardo-pubsub"
+  description = "Pubsub topic name"
+}
+
+variable "leonardo_sa" {
+  default = "{{if (env "LEONARDO_SA")}}{{env "LEONARDO_SA"}}{{else}}{{env "OWNER"}}-{{env "SERVICE"}}{{end}}"
+}
+
+data "google_service_account" "config_reader" {
+  account_id = "${var.leonardo_sa}"
+}
+
+variable "pubsub_roles" {
+  type = "list"
+
+  default = [
+    "roles/pubsub.publisher",
+    "roles/pubsub.subscriber"
+  ]
+}

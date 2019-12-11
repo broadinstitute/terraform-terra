@@ -12,7 +12,8 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/perf"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/perf",
+      "LEONARDO_SA": "leonardo-perf"
     },
     "vault": {
       "policy": "dsde-write"
@@ -78,6 +79,17 @@
       "env": {
         "CLUSTER_NETWORK": "projects/broad-dsde-perf/global/networks/app-services",
         "CLUSTER_SUBNETWORK": "projects/broad-dsde-perf/regions/us-central1/subnetworks/app-services"
+      }
+    },
+    "leonardo-pubsub": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
       }
     }
   }
