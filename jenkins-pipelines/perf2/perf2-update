@@ -7,10 +7,10 @@ pipeline {
       defaultValue: 'master',
       trim: true
     )
-    booleanParam(name: 'agora', defaultValue: true)
+    booleanParam(name: 'agora', defaultValue: false)
     booleanParam(name: 'consent', defaultValue: true)
     booleanParam(name: 'consent-ontology', defaultValue: true)
-    booleanParam(name: 'cromiam', defaultValue: true)
+    booleanParam(name: 'cromiam', defaultValue: false)
     booleanParam(name: 'cromwell', defaultValue: false)
     booleanParam(name: 'firecloud-orchestration', defaultValue: true)
     booleanParam(name: 'firecloud-ui', defaultValue: true)
