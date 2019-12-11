@@ -1,0 +1,73 @@
+pipeline {
+  agent any
+  parameters {
+    string(
+      name: 'branch',
+      description: 'Branch of terraform-terra to use',
+      defaultValue: 'master',
+      trim: true
+    )
+    booleanParam(name: 'agora', defaultValue: true)
+    booleanParam(name: 'consent', defaultValue: true)
+    booleanParam(name: 'consent-ontology', defaultValue: true)
+    booleanParam(name: 'cromiam', defaultValue: true)
+    booleanParam(name: 'cromwell', defaultValue: false)
+    booleanParam(name: 'firecloud-orchestration', defaultValue: true)
+    booleanParam(name: 'firecloud-ui', defaultValue: true)
+    booleanParam(name: 'job-manager', defaultValue: true)
+    booleanParam(name: 'leonardo', defaultValue: true)
+    booleanParam(name: 'opendj', defaultValue: true)
+    booleanParam(name: 'rawls', defaultValue: true)
+    booleanParam(name: 'sam', defaultValue: true)
+    booleanParam(name: 'thurloe', defaultValue: true)
+    booleanParam(name: 'terra-ui', defaultValue: true)
+    booleanParam(name: 'tos', defaultValue: true)
+    booleanParam(name: 'calhoun', defaultValue: true)
+  }
+  triggers {
+    cron 'H 1 * * *'
+  }
+  stages {
+    stage ('Init'){
+      steps {
+        script {
+          currentBuild.description = "Update perf2 services"
+        }
+      }
+    }
+    stage('Update perf-2 services') {
+      agent any
+      steps {
+        build(
+          job: 'update-configs',
+          parameters: [
+            string(
+              name: 'json',
+              value: 'broad-wb-perf2.json'
+            )
+            string(
+              name: 'branch',
+              value: params['branch']
+            )
+            booleanParam(name: 'agora', value: params['agora'])
+            booleanParam(name: 'consent', value: params['consent'])
+            booleanParam(name: 'consent-ontology', value: params['consent-ontology'])
+            booleanParam(name: 'cromiam', value: params['cromiam'])
+            booleanParam(name: 'cromwell', value: params['cromwell'])
+            booleanParam(name: 'firecloud-orchestration', value: params['firecloud-orchestration'])
+            booleanParam(name: 'firecloud-ui', value: params['firecloud-ui'])
+            booleanParam(name: 'job-manager', value: params['job-manager'])
+            booleanParam(name: 'leonardo', value: params['leonardo'])
+            booleanParam(name: 'opendj', value: params['opendj'])
+            booleanParam(name: 'rawls', value: params['rawls'])
+            booleanParam(name: 'sam', value: params['sam'])
+            booleanParam(name: 'thurloe', value: params['thurloe'])
+            booleanParam(name: 'terra-ui', value: params['terra-ui'])
+            booleanParam(name: 'tos', value: params['tos'])
+            booleanParam(name: 'calhoun', value: params['calhoun'])
+          ]
+        )
+      }
+    }
+  }
+}
