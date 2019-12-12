@@ -83,7 +83,7 @@ variable "instance_num_hosts" {
   description = "The default number of Service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
   description = "The default size of Service hosts"
 }
 variable "instance_image" {

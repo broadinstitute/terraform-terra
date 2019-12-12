@@ -73,12 +73,12 @@ variable "instance_tags" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "SCP_MONGO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SCP_MONGO_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  default = "{{ if env "SCP_MONGO_INSTANCE_NUM_HOSTS" }}{{ env "SCP_MONGO_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "SCP_MONGO_INSTANCE_SIZE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_SIZE" }}{{ else }}n1-highmem-2{{ end }}"
+  default = "{{ if env "SCP_MONGO_INSTANCE_SIZE" }}{{ env "SCP_MONGO_INSTANCE_SIZE" }}{{ else }}n1-highmem-2{{ end }}"
   description = "The default size of Application service hosts"
 }
 
@@ -98,11 +98,11 @@ variable "allow_stopping_for_update" {
 }
 
 variable "instance_data_disk_size" {
-  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
+  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
   description = "The default size of service data disk"
 }
 variable "instance_data_disk_type" {
-  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
+  default = "{{ if env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ env "SCP_MONGO_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
   description = "The default type of service data disk"
 }
 

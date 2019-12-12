@@ -88,12 +88,12 @@ variable "instance_tags" {
 # Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ env "SERVICE_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
   description = "The default number of Service service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highcpu-4{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}n1-highcpu-4{{ end }}"
   description = "The default size of Service service hosts"
 }
 

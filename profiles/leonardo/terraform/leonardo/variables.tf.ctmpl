@@ -91,7 +91,7 @@ data "google_service_account" "config_reader" {
 
 variable "default_ssl_policy" {
   description = "default ssl policy for the load balancer"
-  default = "{{ if env "LEONARDO_LB_SSL_POLICY_NAME" | parseBool}}{{ env "LEONARDO_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+  default = "{{ if env "LEONARDO_LB_SSL_POLICY_NAME" }}{{ env "LEONARDO_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
 }
 
 #
@@ -173,12 +173,12 @@ variable "old_dns_zone" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "LEONARDO_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ else }}2{{ end }}"
+  default = "{{ if env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ env "LEONARDO_INSTANCE_NUM_HOSTS" }}{{ else }}2{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "LEONARDO_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
+  default = "{{ if env "LEONARDO_INSTANCE_SIZE" }}{{ env "LEONARDO_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
   description = "The default size of Application service hosts"
 }
 
@@ -206,12 +206,12 @@ variable "allow_stopping_for_update" {
 # Standalone Instance
 # 
 variable "standalone_instance_num_hosts" {
-  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "LEONARDO_BACKEND_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_NUM_HOSTS" }}{{ env "LEONARDO_BACKEND_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "standalone_instance_size" {
-  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_SIZE" | parseBool}}{{ env "LEONARDO_BACKEND_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
+  default = "{{ if env "LEONARDO_BACKEND_INSTANCE_SIZE" }}{{ env "LEONARDO_BACKEND_INSTANCE_SIZE" }}{{ else }}custom-4-9216{{ end }}"
   description = "The default size of Application service hosts"
 }
 
