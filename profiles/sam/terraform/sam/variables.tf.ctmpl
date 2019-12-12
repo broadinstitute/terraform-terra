@@ -119,3 +119,8 @@ variable "cloudsql_database_name" {
 variable "cloudsql_app_username" {
   default = "{{env "SERVICE"}}"
 }
+
+variable "cloudsql_tier" {
+  default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-custom-16-32768{{ end }}"
+  description = "The default tier (DB instance size) for Application CloudSQL instances"
+}

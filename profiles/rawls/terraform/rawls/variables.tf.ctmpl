@@ -259,8 +259,8 @@ variable "cloudsql_region" {
 }
 
 variable "cloudsql_tier" {
-  default = "db-n1-standard-1"
-  description = "The default tier (DB instance size) for Application CloudSQL 100 instances"
+  default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-n1-highmem-16{{ end }}"
+  description = "The default tier (DB instance size) for Application CloudSQL instances"
 }
 
 variable "cloudsql_database_name" {
