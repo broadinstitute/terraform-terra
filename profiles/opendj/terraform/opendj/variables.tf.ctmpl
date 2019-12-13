@@ -79,11 +79,11 @@ variable "instance_tags" {
 # Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "OPENDJ_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "OPENDJ_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "OPENDJ_INSTANCE_NUM_HOSTS" }}{{ env "OPENDJ_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Thurloe service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "OPENDJ_INSTANCE_SIZE" | parseBool}}{{ env "OPENDJ_INSTANCE_SIZE" }}{{ else }}custom-16-24576{{ end }}"
+  default = "{{ if env "OPENDJ_INSTANCE_SIZE" }}{{ env "OPENDJ_INSTANCE_SIZE" }}{{ else }}custom-16-24576{{ end }}"
   description = "The default size of service hosts"
 }
 variable "instance_image" {
@@ -91,11 +91,11 @@ variable "instance_image" {
   description = "The default image of service hosts"
 }
 variable "instance_data_disk_size" {
-  default = "{{ if env "OPENDJ_INSTANCE_DATA_DISK_SIZE" | parseBool}}{{ env "OPENDJ_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
+  default = "{{ if env "OPENDJ_INSTANCE_DATA_DISK_SIZE" }}{{ env "OPENDJ_INSTANCE_DATA_DISK_SIZE" }}{{ else }}200{{ end }}"
   description = "The default size of service data disk"
 }
 variable "instance_data_disk_type" {
-  default = "{{ if env "OPENDJ_INSTANCE_DATA_DISK_TYPE" | parseBool}}{{ env "OPENDJ_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
+  default = "{{ if env "OPENDJ_INSTANCE_DATA_DISK_TYPE" }}{{ env "OPENDJ_INSTANCE_DATA_DISK_TYPE" }}{{ else }}pd-ssd{{ end }}"
   description = "The default type of service data disk"
 }
 

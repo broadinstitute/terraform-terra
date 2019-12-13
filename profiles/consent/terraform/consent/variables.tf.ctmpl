@@ -95,7 +95,7 @@ data "google_service_account" "app" {
 
 variable "default_ssl_policy" {
   description = "default ssl policy for the load balancer"
-  default = "{{ if env "CONSENT_LB_SSL_POLICY_NAME" | parseBool}}{{ env "CONSENT_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+  default = "{{ if env "CONSENT_LB_SSL_POLICY_NAME" }}{{ env "CONSENT_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
 }
 
 #
@@ -116,12 +116,12 @@ variable "instance_tags" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "CONSENT_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "CONSENT_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "CONSENT_INSTANCE_NUM_HOSTS" }}{{ env "CONSENT_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "CONSENT_INSTANCE_SIZE" | parseBool}}{{ env "CONSENT_INSTANCE_SIZE" }}{{ else }}n1-standard-2{{ end }}"
+  default = "{{ if env "CONSENT_INSTANCE_SIZE" }}{{ env "CONSENT_INSTANCE_SIZE" }}{{ else }}n1-standard-2{{ end }}"
   description = "The default size of Application service hosts"
 }
 

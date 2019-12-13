@@ -85,7 +85,7 @@ data "google_service_account" "app" {
 
 variable "default_ssl_policy" {
   description = "default ssl policy for the load balancer"
-  default = "{{ if env "RAWLS_LB_SSL_POLICY_NAME" | parseBool}}{{ env "RAWLS_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
+  default = "{{ if env "RAWLS_LB_SSL_POLICY_NAME" }}{{ env "RAWLS_LB_SSL_POLICY_NAME" }}{{ else }}{{env "OWNER"}}-default-lb-ssl-policy{{ end }}"
 }
 
 #
@@ -168,12 +168,12 @@ variable "old_dns_zone" {
 # Application Service Cluster 
 #
 variable "instance_num_hosts" {
-  default = "{{ if env "RAWLS_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "RAWLS_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
+  default = "{{ if env "RAWLS_INSTANCE_NUM_HOSTS" }}{{ env "RAWLS_INSTANCE_NUM_HOSTS" }}{{ else }}3{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "instance_size" {
-  default = "{{ if env "RAWLS_INSTANCE_SIZE" | parseBool}}{{ env "RAWLS_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
+  default = "{{ if env "RAWLS_INSTANCE_SIZE" }}{{ env "RAWLS_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
   description = "The default size of Application service hosts"
 }
 
@@ -197,12 +197,12 @@ variable "allow_stopping_for_update" {
 # Standalone Instance
 # 
 variable "standalone_instance_num_hosts" {
-  default = "{{ if env "RAWLS_BACKEND_INSTANCE_NUM_HOSTS" | parseBool}}{{ env "RAWLS_BACKEND_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
+  default = "{{ if env "RAWLS_BACKEND_INSTANCE_NUM_HOSTS" }}{{ env "RAWLS_BACKEND_INSTANCE_NUM_HOSTS" }}{{ else }}1{{ end }}"
   description = "The default number of Application service hosts per environment"
 }
 
 variable "standalone_instance_size" {
-  default = "{{ if env "RAWLS_BACKEND_INSTANCE_SIZE" | parseBool}}{{ env "RAWLS_BACKEND_INSTANCE_SIZE" }}{{ else }}n1-highcpu-8{{ end }}"
+  default = "{{ if env "RAWLS_BACKEND_INSTANCE_SIZE" }}{{ env "RAWLS_BACKEND_INSTANCE_SIZE" }}{{ else }}n1-highcpu-8{{ end }}"
   description = "The default size of Application service hosts"
 }
 
@@ -259,8 +259,8 @@ variable "cloudsql_region" {
 }
 
 variable "cloudsql_tier" {
-  default = "db-n1-standard-1"
-  description = "The default tier (DB instance size) for Application CloudSQL 100 instances"
+  default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-n1-highmem-16{{ end }}"
+  description = "The default tier (DB instance size) for Application CloudSQL instances"
 }
 
 variable "cloudsql_database_name" {

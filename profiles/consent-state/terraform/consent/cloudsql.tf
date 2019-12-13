@@ -26,4 +26,5 @@ module "cloudsql" {
     jsondecode(data.vault_generic_secret.jenkins_ips.data_json).ips,
     var.cloudsql_authorized_networks
   )
+  cloudsql_tier = "${var.cloudsql_tier}"
 }

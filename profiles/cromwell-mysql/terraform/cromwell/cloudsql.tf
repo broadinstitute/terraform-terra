@@ -22,4 +22,6 @@ module "cloudsql" {
   cloudsql_instance_labels = {
     "app" = "${var.owner}-${var.service}"
   }
+  cloudsql_tier = "${var.cloudsql_tier}"
 }
+

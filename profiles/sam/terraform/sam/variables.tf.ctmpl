@@ -83,7 +83,7 @@ variable "instance_num_hosts" {
   description = "The default number of Service hosts per environment"
 }
 variable "instance_size" {
-  default = "{{ if env "SERVICE_INSTANCE_SIZE" | parseBool}}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
+  default = "{{ if env "SERVICE_INSTANCE_SIZE" }}{{ env "SERVICE_INSTANCE_SIZE" }}{{ else }}custom-8-16384{{ end }}"
   description = "The default size of Service hosts"
 }
 variable "instance_image" {
@@ -118,4 +118,9 @@ variable "cloudsql_database_name" {
 
 variable "cloudsql_app_username" {
   default = "{{env "SERVICE"}}"
+}
+
+variable "cloudsql_tier" {
+  default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-custom-16-32768{{ end }}"
+  description = "The default tier (DB instance size) for Application CloudSQL instances"
 }
