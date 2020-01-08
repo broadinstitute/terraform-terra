@@ -42,8 +42,8 @@ cd terraform-gae-working
 git clone https://github.com/DataBiosphere/terra-ui.git
 cd terra-ui
 git checkout ${var.terra_ui_git_commit}
-npx npm@6.13 ci
-npx npm@6.13 run build
+yarn install --frozen-lockfile
+yarn build
 cp ${abspath(local_file.config_json.filename)} ./build/config.json
 gcloud app deploy --bucket=gs://${google_storage_bucket.app-bucket.name} --project=${data.google_client_config.app-engine.project}
 EOT
