@@ -36,6 +36,7 @@ RUN apk add \
   --no-cache \
   --repository http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/main/ \
   npm=${NODEJS_VERSION}
+RUN apk add yarn
 
 # Terraform for terraforming
 RUN cd /tmp && \
