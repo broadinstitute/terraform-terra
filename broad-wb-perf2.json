@@ -25,7 +25,7 @@
       "log_level": "debug"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:e3b89b03",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:83e2e19a",
       "providers": {
         "google": {
           "default": {
