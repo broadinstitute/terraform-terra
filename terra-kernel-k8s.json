@@ -1,0 +1,53 @@
+{
+  "name": "terra-kernel-k8s",
+  "owner": "terra-kernel-k8s",
+  "intent": "terra kernel k8s deployment",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-kernel-k8s",
+  "project": "terra-kernel-k8s",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "dns_zone_name": "dsde-perf-broad",
+  "dns_zone": "dsde-perf.broadinstitute.org",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/terra/kernel/terra-kernel-k8s"
+    },
+    "vault": {
+      "policy": "vault-admins"
+    },
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:83e2e19a",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "terra-kernel-k8s",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terraform-owner.json",
+            "region": "us-central1"
+          },
+          "dns": {
+            "project": "broad-dsde-perf",
+            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "terra-kernel-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "terra-kernel-network"
+      }
+    }
+  }
+}
