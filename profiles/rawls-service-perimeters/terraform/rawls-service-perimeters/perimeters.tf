@@ -8,7 +8,7 @@ data "google_organization" "org" {
 resource "google_folder" "folder" {
   for_each = var.perimeters
 
-  parent       = "organizations/${data.google_organization.org.id}"
+  parent       = "${data.google_organization.org.id}"
   display_name = each.key
 }
 
