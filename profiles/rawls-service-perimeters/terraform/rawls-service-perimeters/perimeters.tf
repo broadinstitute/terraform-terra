@@ -41,10 +41,8 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
   lifecycle {
     ignore_changes = [
       # Projects in this perimeter are managed by Rawls, as billing projects are
-      # dynamically added/removed from the perimeter. Ideally we would just
-      # ignore status["resources"], but ignoring at this granularity is
-      # unsupported. https://github.com/terraform-providers/terraform-provider-google/issues/4509
-      status
+      # dynamically added/removed from the perimeter.
+      status[0].resources
     ]
   }
 }
