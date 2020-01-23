@@ -72,7 +72,8 @@
             "access_member_whitelist": [
               "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
               "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
-              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com"
+              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com",
+              "serviceAccount:806222273987-ksinuueghug8u81i36lq8aof266q19hl@developer.gserviceaccount.com"
             ],
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-test",
