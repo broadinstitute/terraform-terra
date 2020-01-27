@@ -12,7 +12,7 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
-      "FIRECLOUD_DEVELOP_GIT_BRANCH": "batch_perf",
+      "FIRECLOUD_DEVELOP_GIT_BRANCH": "cjl_batch_perf_slick_test",
       "SAM_FIRESTORE_SA_NAME": "sam-perf2-firestore",
       "VAULT_PATH_PREFIX": "secret/dsde/firecloud/ephemeral/broad-wb-perf2",
       "DEPLOYMENT_MANAGER_PROJECT": "terra-deployments-perf2",
