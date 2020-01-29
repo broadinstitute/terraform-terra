@@ -69,14 +69,14 @@
           }
         }
       }
-    }
-  },
-  "leonardo-pubsub": {
-    "terraform": {
-      "providers": {
-        "google": {
-          "default": {
-            "use_local_adc": true
+    },
+    "leonardo-pubsub": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
           }
         }
       }
