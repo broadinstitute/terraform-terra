@@ -12,7 +12,8 @@
   "dns_zone": "dsde-alpha.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/alpha"
+      "VAULT_PATH_PREFIX": "secret/dsde/firecloud/alpha",
+      "LEONARDO_SA": "leonardo-alpha"
     },
     "vault": {
       "policy": "dsde-write"
@@ -59,6 +60,17 @@
       }
     },
     "job-manager-sa": {
+      "terraform": {
+        "providers": {
+          "google": {
+            "default": {
+              "use_local_adc": true
+            }
+          }
+        }
+      }
+    },
+    "leonardo-pubsub": {
       "terraform": {
         "providers": {
           "google": {
