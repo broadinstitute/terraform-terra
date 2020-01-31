@@ -271,7 +271,8 @@
     },
     "cromwell-configs": {
       "env": {
-        "APP_NAME": "cromwell"
+        "APP_NAME": "cromwell",
+        "FIRECLOUD_DEVELOP_GIT_BRANCH": "mlc_perf_perf2_carbonite"
       }
     },
     "cromiam": {
