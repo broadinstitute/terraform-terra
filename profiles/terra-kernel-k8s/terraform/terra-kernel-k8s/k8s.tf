@@ -1,7 +1,7 @@
 
 module "k8s-master" {
   # terraform-shared repo
-  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-master-0.1.0-tf-0.12"
+  source     = "github.com/broadinstitute/terraform-shared.git//terraform-modules/k8s-master?ref=k8s-master-0.1.1-tf-0.12"
   dependencies = [
     module.enable-services,
     google_compute_network.k8s-cluster-network
@@ -12,7 +12,7 @@ module "k8s-master" {
   version_prefix = var.k8s_version_prefix
   network = var.cluster_network
   subnetwork = var.cluster_network
-  authorized_network_cidrs = var.authorized_network_cidrs
+  enable_master_authorized_networks = false
   private_ipv4_cidr_block = var.private_master_ipv4_cidr_block
 }
 

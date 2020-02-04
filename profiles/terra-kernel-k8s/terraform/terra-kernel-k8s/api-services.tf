@@ -7,6 +7,7 @@ module "enable-services" {
   project     = "${var.google_project}"
   services    = [
     "serviceusage.googleapis.com",
-    "container.googleapis.com"
+    "container.googleapis.com",
+    "iam.googleapis.com"
   ]
 }
