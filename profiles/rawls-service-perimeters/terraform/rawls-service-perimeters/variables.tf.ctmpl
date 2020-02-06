@@ -37,6 +37,23 @@ variable "perimeters" {
   }
 }
 
+# Sparse map of perimeter folder admins. Only contains entries for perimeters
+# which specify a list of admins.
+variable "folder_admins" {
+  type    = map(object({
+    members = list(string)
+  }))
+  default = {
+    {{ range $k, $v := $perimeters }}{{ if $v.folder_admins }}
+    "{{ $k }}" = {
+      members = {{ template "toJSONStringArray" $v.folder_admins }}
+    }
+    {{ end }}{{ end }}
+  }
+}
+
+# Sparse map of ingress bridge configurations. Only contains entries for
+# perimeters which define ingress bridges.
 variable "ingress_bridges" {
   type    = map(object({
     ingress_project_id = string
@@ -51,4 +68,5 @@ variable "ingress_bridges" {
     {{ end }}{{ end }}
   }
 }
+
 {{end}}
