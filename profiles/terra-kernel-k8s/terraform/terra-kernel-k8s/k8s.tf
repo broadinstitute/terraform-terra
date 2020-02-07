@@ -12,7 +12,6 @@ module "k8s-master" {
   version_prefix = var.k8s_version_prefix
   network = var.cluster_network
   subnetwork = var.cluster_network
-  enable_master_authorized_networks = false
   private_ipv4_cidr_block = var.private_master_ipv4_cidr_block
 }
 
