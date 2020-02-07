@@ -54,6 +54,17 @@ variable "folder_admins" {
   }
 }
 
+# Sparse map of perimeter audit log project IDs. Only contains entries if a sink
+# destination has been specified.
+variable "audit_logs_project_ids" {
+  type    = map(string)
+  default = {
+    {{ range $k, $v := $perimeters }}{{ if $v.audit_logs_project_id }}
+    "{{ $k }}" = "{{ $v.audit_logs_project_id }}"
+    {{ end }}{{ end }}
+  }
+}
+
 # Sparse map of ingress bridge configurations. Only contains entries for
 # perimeters which define ingress bridges.
 variable "ingress_bridges" {
