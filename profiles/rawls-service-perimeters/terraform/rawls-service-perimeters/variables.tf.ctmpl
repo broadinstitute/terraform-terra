@@ -31,6 +31,7 @@ variable "perimeters" {
     restricted_services = list(string)
     access_member_whitelist = list(string)
     has_ingress_bridge = bool
+    sam_resource_owner_email = string
   }))
   default = {
     {{ range $k, $v := $perimeters }}
@@ -38,6 +39,7 @@ variable "perimeters" {
       restricted_services = {{ template "toJSONStringArray" $v.restricted_services }}
       access_member_whitelist = {{ template "toJSONStringArray" $v.access_member_whitelist }}
       has_ingress_bridge = {{ if $v.ingress_bridge }} true {{ else }} false {{ end }}
+      sam_resource_owner_email = "{{ $v.sam_resource_owner_email }}"
     }
     {{ end }}
   }
@@ -87,3 +89,9 @@ variable "ingress_bridges" {
 }
 
 {{end}}
+
+variable "terra_environment" {
+  type    = string
+  default = "{{env "TERRA_ENVIRONMENT"}}"
+  description = "The environment specified in the application json. E.g. 'dev' "
+}

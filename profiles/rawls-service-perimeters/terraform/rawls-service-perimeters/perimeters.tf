@@ -84,4 +84,7 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
       status[0].resources
     ]
   }
+  provisioner "local-exec" {
+    command = "./create-sam-perimeter-resource.sh ${var.terra_environment} ${each.key} ${var.access_policy_name} ${each.value.sam_resource_owner_email}"
+  }
 }
