@@ -78,6 +78,9 @@
               "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com",
               "serviceAccount:806222273987-ksinuueghug8u81i36lq8aof266q19hl@developer.gserviceaccount.com"
             ],
+            "folder_admins": [
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com"
+            ],
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"

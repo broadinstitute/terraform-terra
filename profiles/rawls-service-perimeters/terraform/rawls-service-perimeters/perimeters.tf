@@ -12,6 +12,40 @@ resource "google_folder" "folder" {
   display_name = each.key
 }
 
+# Perimeter folder admins are users with direct administrative access to the
+# folder. For example, in All of Us, the primary service account uses these
+# roles to perform administrative tasks on workspaces, such as associating the
+# free tier billing account, renaming files, or checking Stackdriver egress
+# metrics.
+#
+# This is useful when administrative accounts are not owners of the workspaces
+# in their perimeter, or when they own too many workspaces and normal Google
+# Group access via Sam no longer functions:
+# https://docs.google.com/document/d/1-nc7hwqhM-pdJlsR-41u7zgy43kEKf8tptGhTuwbgUk/edit
+resource "google_folder_iam_policy" "folder-admin-policy" {
+  for_each = var.folder_admins
+
+  folder      = google_folder.folder[each.key].name
+  policy_data = data.google_iam_policy.perimeter-policy[each.key].policy_data
+}
+
+data "google_iam_policy" "perimeter-policy" {
+  for_each = var.folder_admins
+
+  binding {
+    role = "organizations/${data.google_organization.org.id}/roles/terraBucketWriter"
+    members = each.value.members
+  }
+  binding {
+    role = "roles/billing.projectManager"
+    members = each.value.members
+  }
+  binding {
+    role = "roles/monitoring.viewer"
+    members = each.value.members
+  }
+}
+
 resource "google_access_context_manager_access_level" "access-level" {
   for_each = var.perimeters
 

@@ -74,6 +74,9 @@
               "serviceAccount:all-of-us-rw-perf@appspot.gserviceaccount.com",
               "serviceAccount:leonardo-perf@broad-dsde-perf.iam.gserviceaccount.com",
               "serviceAccount:rawls-perf@broad-dsde-perf.iam.gserviceaccount.com"
+            ],
+            "folder_admins": [
+              "serviceAccount:all-of-us-rw-perf@appspot.gserviceaccount.com"
             ]
           }
         }
