@@ -13,8 +13,6 @@ PERIMETER_NAME=$2
 POLICY_NAME=$3
 OWNER_EMAIL=$4
 
-ENV=
-
 SAM_HOST="https://sam.dsde-${ENV}.broadinstitute.org"
 ACCESS_TOKEN=$(gcloud auth print-access-token)
 
@@ -23,7 +21,7 @@ curl -X POST --header 'Content-Type: application/json' --header "Authorization: 
  "${SAM_HOST}/register/user/v2/self"
 
 # Create the perimeter in Sam, url encoded resourceId
-curl -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" -d "{ \
+STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" -d "{ \
    \"resourceId\": \"accessPolicies%2F${POLICY_NAME}%2FservicePerimeters%2F${PERIMETER_NAME}\", \
    \"policies\": { \
      \"owner\": { \
@@ -37,4 +35,12 @@ curl -X POST --header 'Content-Type: application/json' --header "Authorization: 
      } \
    }, \
    \"authDomain\": [] \
- }" "${SAM_HOST}/api/resources/v1/service-perimeter"
+ }" "${SAM_HOST}/api/resources/v1/service-perimeter")
+
+# We consider the 200s as success, and also 409 if the resource already exists. If the resource already exists, this
+# script may have already run and that's ok.
+if [[ $STATUS -eq '200' ]] || [[ $STATUS -eq '204' ]] || [[ $STATUS -eq '409' ]]; then
+  exit 0
+else
+  exit $STATUS
+fi
