@@ -106,8 +106,7 @@
         "perimeters": {
           "terra_prod_aou_prod": {
             "restricted_services": [
-              "bigquery.googleapis.com",
-              "storage.googleapis.com"
+              "bigquery.googleapis.com"
             ],
             "access_member_whitelist": [
               "serviceAccount:all-of-us-rw-prod@appspot.gserviceaccount.com",
