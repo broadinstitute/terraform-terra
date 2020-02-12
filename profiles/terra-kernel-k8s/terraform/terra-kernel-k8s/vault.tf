@@ -1,5 +1,5 @@
 resource "vault_generic_secret" "app-database-credentials" {
-  path = "${var.vault_path_prefix}/${var.owner}/postgres/app_sql_user"
+  path = "${var.vault_path_prefix}/${var.owner}/common/postgres/app_sql_user"
 
   data_json = <<EOT
 {
@@ -10,7 +10,7 @@ EOT
 }
 
 resource "vault_generic_secret" "root-database-credentials" {
-  path = "${var.vault_path_prefix}/${var.owner}/postgres/root_sql_user"
+  path = "${var.vault_path_prefix}/${var.owner}/common/postgres/root_sql_user"
 
   data_json = <<EOT
 {
@@ -21,7 +21,7 @@ EOT
 }
 
 resource "vault_generic_secret" "database-instance-name" {
-  path = "${var.vault_path_prefix}/${var.owner}/postgres/instance"
+  path = "${var.vault_path_prefix}/${var.owner}/common/postgres/instance"
 
   data_json = <<EOT
 {
@@ -31,6 +31,6 @@ EOT
 }
 
 resource "vault_generic_secret" "app_account_key" {
-  path = "${var.vault_path_prefix}/${var.owner}/postgres/cloudsql-account.json"
+  path = "${var.vault_path_prefix}/${var.owner}/common/postgres/cloudsql-account.json"
   data_json = "${base64decode(google_service_account_key.cloudsql_account_key.private_key)}"
 }
