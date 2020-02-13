@@ -84,3 +84,15 @@ variable "cloudsql_tier" {
   default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-custom-16-32768{{ end }}"
   description = "The default tier (DB instance size) for the CloudSQL instance"
 }
+
+
+#
+# CI SA vars
+#
+
+variable "ci_sa_roles" {
+  default = [
+    "roles/storage.admin",
+    "roles/container.admin"
+  ]
+}
