@@ -85,6 +85,11 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
     ]
   }
   provisioner "local-exec" {
+    # Rawls service perimeters need to create a Sam service-perimeter resource to manage permissions around the
+    # perimeter. This provisioner runs a script which calls Sam to create that resource. The script is not very
+    # "terraform-y" in that it will not update the resource on subsequent runs and it cannot be used to delete
+    # the resource from Sam. To do that, you must interact with Sam directly. However, this script is helpful for
+    # initial perimeter setup
     command = "./create-sam-perimeter-resource.sh ${var.terra_environment} ${each.key} ${var.access_policy_name} ${each.value.sam_resource_owner_email}"
   }
 }
