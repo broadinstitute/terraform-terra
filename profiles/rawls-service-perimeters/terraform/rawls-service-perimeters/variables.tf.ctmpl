@@ -32,6 +32,7 @@ variable "perimeters" {
     "{{ $k }}" = {
       restricted_services = {{ template "toJSONStringArray" $v.restricted_services }}
       access_member_whitelist = {{ template "toJSONStringArray" $v.access_member_whitelist }}
+      has_ingress_bridge = {{ if $v.ingress_bridge }} true {{ else }} false {{ end }}
     }
     {{ end }}
   }
