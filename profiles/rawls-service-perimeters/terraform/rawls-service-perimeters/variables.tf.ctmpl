@@ -26,6 +26,7 @@ variable "perimeters" {
   type    = map(object({
     restricted_services = list(string)
     access_member_whitelist = list(string)
+    has_ingress_bridge = bool
   }))
   default = {
     {{ range $k, $v := $perimeters }}
