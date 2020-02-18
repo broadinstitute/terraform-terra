@@ -26,12 +26,14 @@ variable "perimeters" {
   type    = map(object({
     restricted_services = list(string)
     access_member_whitelist = list(string)
+    has_ingress_bridge = bool
   }))
   default = {
     {{ range $k, $v := $perimeters }}
     "{{ $k }}" = {
       restricted_services = {{ template "toJSONStringArray" $v.restricted_services }}
       access_member_whitelist = {{ template "toJSONStringArray" $v.access_member_whitelist }}
+      has_ingress_bridge = {{ if $v.ingress_bridge }} true {{ else }} false {{ end }}
     }
     {{ end }}
   }

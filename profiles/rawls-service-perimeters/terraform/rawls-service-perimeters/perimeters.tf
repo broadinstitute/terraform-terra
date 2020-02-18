@@ -32,7 +32,12 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
   name   = "accessPolicies/${var.access_policy_name}/servicePerimeters/${each.key}"
   title  = each.key
   status {
-    resources           = []
+    resources           = each.value.has_ingress_bridge ? [
+      # If we have an ingress bridge configuration, we need to ensure the
+      # protected project is included initially. This project must also be added
+      # to the Rawls vault whitelist of perimeter projects so it isn't removed.
+      "projects/${data.google_project.protected_project[each.key].number}"
+    ] : []
     restricted_services = each.value.restricted_services
     access_levels = [
       google_access_context_manager_access_level.access-level[each.key].name
