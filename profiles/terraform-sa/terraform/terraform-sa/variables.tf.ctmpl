@@ -1,0 +1,24 @@
+# Non-prod org
+variable "fc_test_org_id" {
+  default = "400176686919"
+}
+
+# Firecloud Dev
+variable "fc_dev_sa_name" {
+  default = "terraform"
+}
+variable "fc_dev_sa_project" {
+  default = "broad-dsde-dev"
+}
+variable "fc_dev_sa_org_roles" {
+  default = [
+    "roles/accesscontextmanager.policyEditor",
+    "roles/resourcemanager.folderEditor"
+  ]
+}
+variable "fc_dev_sa_roles" {
+  default = [
+    "roles/logging.configWriter",
+    "roles/bigquery.dataOwner"
+  ]
+}

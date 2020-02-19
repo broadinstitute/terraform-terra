@@ -1,0 +1,39 @@
+{
+  "name": "terraform-sa",
+  "owner": "terraform-sa",
+  "intent": "Terraform credentials",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terraform-sa",
+  "project": "broad-devops",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "global_vars": {
+    "env": {},
+    "vault": {
+      "policy": "dsde-read-ephemeral-write"
+    },
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:83e2e19a",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "broad-wb-perf2",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terra-env-owner-service-account.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"terraform-sa",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+  }  
+}
