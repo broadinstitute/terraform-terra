@@ -12,10 +12,10 @@
   "dns_zone": "dsde-perf.broadinstitute.org",
   "global_vars": {
     "env": {
-      "VAULT_PATH_PREFIX": "secret/dsde/terra/kernel/terra-kernel-k8s"
+      "VAULT_PATH_PREFIX": "secret/dsde/terra/kernel"
     },
     "vault": {
-      "policy": "vault-admins"
+      "policy": "dsde-write"
     },
     "consul_template": {
       "log_level": "debug"
@@ -27,11 +27,6 @@
           "default": {
             "project": "terra-kernel-k8s",
             "vault_sa_path": "secret/dsde/terra/envs/common/terraform-owner.json",
-            "region": "us-central1"
-          },
-          "dns": {
-            "project": "broad-dsde-perf",
-            "vault_sa_path": "secret/devops/terraform/perf/firecloud/credentials",
             "region": "us-central1"
           }
         }
