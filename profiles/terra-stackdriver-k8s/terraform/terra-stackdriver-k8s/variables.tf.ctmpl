@@ -1,0 +1,98 @@
+#
+# Profile Vars
+#
+
+variable "google_project" {
+  default = "{{env "GOOGLE_PROJECT"}}"
+  description = "The google project as specified in the application json"
+}
+variable "owner" {
+  default = "{{env "OWNER"}}"
+  description = "The owner from the application json"
+}
+variable "service" {
+  default = "{{env "SERVICE"}}"
+  description = "The name of the service within the profile"
+}
+variable "vault_path_prefix" {
+  default = "{{ env "VAULT_PATH_PREFIX" }}"
+  description = "The prefix path at which to store vault values"
+}
+
+
+#
+# k8s vars
+#
+
+variable "cluster_location" {
+  type = string
+  default = "
+    {{- if (env "CLUSTER_REGION")}}
+    {{- env "CLUSTER_REGION" -}}
+    {{- else -}}
+      us-central1-a
+    {{- end -}}
+  "
+}
+
+variable "cluster_name" {
+  type = string
+  default = "{{env "OWNER"}}"
+}
+
+variable "cluster_network" {
+  type = string
+  default = "{{env "CLUSTER_NETWORK"}}"
+}
+
+variable "k8s_version_prefix" {
+ default = "1.15."
+}
+
+variable "private_master_ipv4_cidr_block" {
+  default = "{{if (env "PRIVATE_MASTER_IPV4_CIDR_BLOCK")}}{{env "PRIVATE_MASTER_IPV4_CIDR_BLOCK"}}{{else}}10.128.18.0/28{{end}}"
+}
+
+variable "node_pools" {
+  default = [
+    {
+      name = "default",
+      node_count = 6,
+      machine_type = "n1-standard-4",
+      disk_size_gb = 200,
+      labels = {
+        test_label_foo = "test_label_bar"
+      }
+    }
+  ]
+}
+
+
+#
+# cloudsql vars
+#
+
+variable "cloudsql_database_name" {
+  default = "{{env "SERVICE"}}"
+}
+
+variable "cloudsql_app_username" {
+  default = "{{env "SERVICE"}}"
+}
+
+variable "cloudsql_tier" {
+  default = "{{ if env "CLOUDSQL_INSTANCE_SIZE" }}{{ env "CLOUDSQL_INSTANCE_SIZE" }}{{ else }}db-custom-16-32768{{ end }}"
+  description = "The default tier (DB instance size) for the CloudSQL instance"
+}
+
+
+#
+# CI SA vars
+#
+
+variable "ci_sa_roles" {
+  default = [
+    "roles/storage.admin",
+    "roles/container.admin"
+  ]
+}
