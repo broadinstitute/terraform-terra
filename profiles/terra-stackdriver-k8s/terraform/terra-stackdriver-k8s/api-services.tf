@@ -8,6 +8,12 @@ module "enable-services" {
   services    = [
     "serviceusage.googleapis.com",
     "container.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "clouddebugger.googleapis.com",
+    "cloudtrace.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com",
+    "stackdriver.googleapis.com",
+    "stackdriverprovisioning.googleapis.com"
   ]
 }
