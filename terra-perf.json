@@ -19,7 +19,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
-      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:7c6c57f6",
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
           "default": {
@@ -43,18 +43,6 @@
   },
   "profile_vars": {
     "rawls-service-perimeters": {
-      "terraform": {
-        "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
-        "providers": {
-          "google": {
-            "default": {
-              "project": "test-firecloud-terraform-base",
-              "vault_sa_path": "secret/dsde/firecloud/common/test-fc-org-perimeters-service-account.json",
-              "region": "us-central1"
-            }
-          }
-        }
-      },
       "env": {
         "ORGANIZATION_DOMAIN": "test.firecloud.org",
         "ACCESS_POLICY_NAME": "228353087260"
