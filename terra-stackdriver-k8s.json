@@ -1,0 +1,46 @@
+{
+  "name": "terra-stackdriver-k8s",
+  "owner": "terra-stackdriver-k8s-k8s",
+  "intent": "terra stackdriver k8s deployment",
+  "production": false,
+  "stability": "volatile",
+  "environment": "terra-stackdriver-k8s",
+  "project": "dsp-tools-k8s",
+  "region": "us-central1",
+  "resource_zone_name": "us-central1-a",
+  "global_vars": {
+    "env": {
+      "VAULT_PATH_PREFIX": "secret/dsde/terra/stackdriver"
+    },
+    "vault": {
+      "policy": "dsde-write"
+    },
+    "consul_template": {
+      "log_level": "debug"
+    },
+    "terraform": {
+      "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:83e2e19a",
+      "providers": {
+        "google": {
+          "default": {
+            "project": "dsp-tools-k8s",
+            "vault_sa_path": "secret/dsde/terra/envs/common/terraform-owner.json",
+            "region": "us-central1"
+          }
+        }
+      },
+      "backend": {
+        "vault_sa_path": "secret/dsp/service-accts/dsp-techops/terraform-state-service-account.json",
+        "state_path_prefix":"workbench",
+        "state_bucket": "broad-dsp-terraform-state"
+      }
+    }
+  },
+  "profile_vars": {
+    "terra-stackdriver-k8s": {
+      "env": {
+        "CLUSTER_NETWORK": "terra-stackdriver-network"
+      }
+    }
+  }
+}
