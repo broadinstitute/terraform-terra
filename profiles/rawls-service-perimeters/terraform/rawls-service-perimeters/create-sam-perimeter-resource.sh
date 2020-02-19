@@ -18,11 +18,16 @@ POLICY_NAME=$3
 OWNER_EMAIL=$4
 
 SAM_HOST="https://sam.dsde-${ENV}.broadinstitute.org"
+gcloud auth activate-service-account --key-file=./default.sa.json
 ACCESS_TOKEN=$(gcloud auth print-access-token)
 
 # Make sure that the user calling the script is registered in Firecloud
-curl -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" \
- "${SAM_HOST}/register/user/v2/self"
+REGISTRATION_STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" \
+ "${SAM_HOST}/register/user/v2/self")
+
+if [[ ${REGISTRATION_STATUS} -ne 201 ]] || [[ ${REGISTRATION_STATUS} -ne 409 ]]; then
+    exit 1
+fi
 
 CREATE_PERIMETER_REQUEST_JSON=$(cat <<- EOF
 {
