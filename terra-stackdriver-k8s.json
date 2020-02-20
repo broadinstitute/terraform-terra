@@ -1,6 +1,6 @@
 {
   "name": "terra-stackdriver-k8s",
-  "owner": "terra-stackdriver-k8s-k8s",
+  "owner": "terra-stackdriver-k8s",
   "intent": "terra stackdriver k8s deployment",
   "production": false,
   "stability": "volatile",

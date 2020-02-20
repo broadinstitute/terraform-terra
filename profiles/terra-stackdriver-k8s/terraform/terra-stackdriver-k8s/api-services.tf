@@ -13,7 +13,6 @@ module "enable-services" {
     "cloudtrace.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
-    "stackdriver.googleapis.com",
-    "stackdriverprovisioning.googleapis.com"
+    "stackdriver.googleapis.com"
   ]
 }
