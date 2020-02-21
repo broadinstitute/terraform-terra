@@ -26,7 +26,7 @@ resource "google_folder_iam_binding" "admin-bucket-writer" {
   for_each = var.folder_admins
 
   folder = google_folder.folder[each.key].name
-  role = "organizations/${data.google_organization.org.id}/roles/terraBucketWriter"
+  role = "${data.google_organization.org.id}/roles/terraBucketWriter"
   members = each.value.members
 }
 
