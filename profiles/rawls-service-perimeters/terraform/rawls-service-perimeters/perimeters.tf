@@ -38,7 +38,7 @@ resource "google_folder_iam_binding" "admin-billing-manager" {
   members = each.value.members
 }
 
-resource "google_folder_iam_binding" "monitoring-viewer" {
+resource "google_folder_iam_binding" "admin-monitoring-viewer" {
   for_each = var.folder_admins
 
   folder = google_folder.folder[each.key].name
