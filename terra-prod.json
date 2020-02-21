@@ -117,7 +117,6 @@
             "folder_admins": [
               "serviceAccount:all-of-us-rw-prod@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-prod",
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-prod",
               "protected_project_id": "fc-aou-cdr-prod"
@@ -137,7 +136,6 @@
             "folder_admins": [
               "serviceAccount:all-of-us-rw-preprod@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-preprod",
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-preprod",
               "protected_project_id": "fc-aou-cdr-preprod"
@@ -157,7 +155,6 @@
             "folder_admins": [
               "serviceAccount:all-of-us-rw-stable@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-stable",
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-stable",
               "protected_project_id": "fc-aou-cdr-synth-stable"
@@ -177,7 +174,6 @@
             "folder_admins": [
               "serviceAccount:all-of-us-rw-staging@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-staging",
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-staging",
               "protected_project_id": "fc-aou-cdr-synth-staging"
