@@ -51,6 +51,7 @@ EOF
 # Create the perimeter in Sam, url encoded resourceId
 STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" -d "${CREATE_PERIMETER_REQUEST_JSON}" "${SAM_HOST}/api/resources/v1/service-perimeter")
 
+gcloud auth revoke
 # We consider the 200s as success, and also 409 if the resource already exists. If the resource already exists, this
 # script may have already run and that's ok.
 if [[ ${STATUS} -eq '201' ]] || [[ ${STATUS} -eq '204' ]] || [[ ${STATUS} -eq '409' ]]; then
