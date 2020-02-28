@@ -46,7 +46,7 @@ variable "cluster_network" {
 }
 
 variable "k8s_version_prefix" {
- default = "1.15."
+ default = "1.15.9-gke.9"
 }
 
 variable "private_master_ipv4_cidr_block" {
