@@ -17,6 +17,12 @@ variable "access_policy_name" {
   default = "{{env "ACCESS_POLICY_NAME"}}"
 }
 
+variable "terraform_sa" {
+  type = string
+  # XXX: Pull this dynamically from consul-template.
+  default = "terraform@broad-dsde-dev.iam.gserviceaccount.com"
+}
+
 {{ define "toJSONStringArray" }}[{{range $i, $v := .}}{{if $i}}, {{end}}{{printf "%q" $v}}{{end}}]{{ end }}
 
 {{ with $profile_json := file "/env.json" | parseJSON }}
