@@ -17,20 +17,9 @@ variable "access_policy_name" {
   default = "{{env "ACCESS_POLICY_NAME"}}"
 }
 
-# There may be a better way of determining the Terraform SA, but this feels
-# slightly better than encoding the value twice.
-{{ with $creds_json := file "/default.sa.json" | parseJSON }}
-
-{{ $terraform_sa := "FATAL: must use service-account credentials" }}
-{{ if eq "service_account" (index $creds_json "type") }}
-  {{ $terraform_sa = index $creds_json "client_email" }}
-{{ end }}
-
-variable "terraform_sa" {
-  type = string
-  default = "{{ $terraform_sa }}"
+locals {
+  terraform_sa = jsondecode(file("default.sa.json")).client_email
 }
-{{ end }}
 
 {{ define "toJSONStringArray" }}[{{range $i, $v := .}}{{if $i}}, {{end}}{{printf "%q" $v}}{{end}}]{{ end }}
 

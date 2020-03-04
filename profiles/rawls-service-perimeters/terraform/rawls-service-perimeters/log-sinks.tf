@@ -68,7 +68,7 @@ resource "google_bigquery_dataset" "bigquery-sink-dataset" {
 
   access {
     role   = "OWNER"
-    user_by_email = var.terraform_sa
+    user_by_email = local.terraform_sa
   }
   access {
     role   = "EDITOR"
@@ -93,7 +93,7 @@ resource "google_bigquery_dataset" "storage-sink-dataset" {
 
   access {
     role   = "OWNER"
-    user_by_email = var.terraform_sa
+    user_by_email = local.terraform_sa
   }
   access {
     role   = "EDITOR"
@@ -117,7 +117,7 @@ resource "google_bigquery_dataset" "dataproc-sink-dataset" {
 
   access {
     role   = "OWNER"
-    user_by_email = var.terraform_sa
+    user_by_email = local.terraform_sa
   }
   access {
     role   = "EDITOR"
