@@ -17,6 +17,10 @@ variable "access_policy_name" {
   default = "{{env "ACCESS_POLICY_NAME"}}"
 }
 
+locals {
+  terraform_sa = jsondecode(file("default.sa.json")).client_email
+}
+
 {{ define "toJSONStringArray" }}[{{range $i, $v := .}}{{if $i}}, {{end}}{{printf "%q" $v}}{{end}}]{{ end }}
 
 {{ with $profile_json := file "/env.json" | parseJSON }}

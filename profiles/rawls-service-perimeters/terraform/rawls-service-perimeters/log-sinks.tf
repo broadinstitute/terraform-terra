@@ -67,12 +67,16 @@ resource "google_bigquery_dataset" "bigquery-sink-dataset" {
   }
 
   access {
-    role   = "roles/bigquery.dataEditor"
+    role   = "WRITER"
     # TODO: replace -> trimprefix once we're on TF >=0.12.17.
     user_by_email = replace(
       google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
+  }
+  access {
+    role   = "OWNER"
+    user_by_email = local.terraform_sa
   }
 }
 
@@ -88,11 +92,15 @@ resource "google_bigquery_dataset" "storage-sink-dataset" {
   }
 
   access {
-    role   = "roles/bigquery.dataEditor"
+    role   = "WRITER"
     user_by_email = replace(
       google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
+  }
+  access {
+    role   = "OWNER"
+    user_by_email = local.terraform_sa
   }
 }
 
@@ -108,11 +116,15 @@ resource "google_bigquery_dataset" "dataproc-sink-dataset" {
   }
 
   access {
-    role   = "roles/bigquery.dataEditor"
+    role   = "WRITER"
     user_by_email = replace(
       google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
+  }
+  access {
+    role   = "OWNER"
+    user_by_email = local.terraform_sa
   }
 }
 
