@@ -26,6 +26,7 @@ REGISTRATION_STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST --header 'C
  "${SAM_HOST}/register/user/v2/self")
 
 if [[ ${REGISTRATION_STATUS} -ne 201 ]] && [[ ${REGISTRATION_STATUS} -ne 409 ]]; then
+    echo "Failed to register user. Response code ${REGISTRATION_STATUS}. Exiting..."
     exit 1
 fi
 
@@ -57,5 +58,6 @@ gcloud auth revoke
 if [[ ${STATUS} -eq '201' ]] || [[ ${STATUS} -eq '204' ]] || [[ ${STATUS} -eq '409' ]]; then
   exit 0
 else
+  echo "Unexpected status code when creating service-perimeter resource in Sam. Expected 201, 204, or 409 but got ${STATUS}."
   exit $STATUS
 fi
