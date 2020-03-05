@@ -25,7 +25,7 @@ ACCESS_TOKEN=$(gcloud auth print-access-token)
 REGISTRATION_STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST --header 'Content-Type: application/json' --header "Authorization: Bearer ${ACCESS_TOKEN}" \
  "${SAM_HOST}/register/user/v2/self")
 
-if [[ ${REGISTRATION_STATUS} -ne 201 ]] || [[ ${REGISTRATION_STATUS} -ne 409 ]]; then
+if [[ ${REGISTRATION_STATUS} -ne 201 ]] && [[ ${REGISTRATION_STATUS} -ne 409 ]]; then
     exit 1
 fi
 
