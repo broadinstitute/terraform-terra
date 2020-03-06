@@ -84,18 +84,6 @@
               "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
             ],
             "sam_resource_owner_email": "baseline-test-perimeter-owners@dev.test.firecloud.org"
-          },
-          "mtalbott_test": {
-            "restricted_services": [ "bigquery.googleapis.com" ],
-            "access_member_whitelist": [
-              "user:marc.testbott@gmail.com",
-              "user:mtalbott@broadinstitute.org"
-            ],
-            "folder_admins": [
-              "user:marc.testbott@gmail.com",
-              "user:mtalbott@broadinstitute.org"
-            ],
-            "sam_resource_owner_email": "marc.testbott@gmail.com"
           }
         }
       }
