@@ -51,7 +51,8 @@
     "rawls-service-perimeters": {
       "env": {
         "ORGANIZATION_DOMAIN": "test.firecloud.org",
-        "ACCESS_POLICY_NAME": "228353087260"
+        "ACCESS_POLICY_NAME": "228353087260",
+        "TERRA_ENVIRONMENT": "dev"
       },
       "extras": {
         "perimeters": {
@@ -73,14 +74,16 @@
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"
-            }
+            },
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
           },
           "terra_dev_baseline_test": {
             "restricted_services": ["bigquery.googleapis.com"],
             "access_member_whitelist": [
               "user:dvoettest@gmail.com",
               "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
-            ]
+            ],
+            "sam_resource_owner_email": "baseline-test-perimeter-owners@dev.test.firecloud.org"
           }
         }
       }

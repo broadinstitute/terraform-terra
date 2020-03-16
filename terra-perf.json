@@ -45,11 +45,8 @@
     "rawls-service-perimeters": {
       "env": {
         "ORGANIZATION_DOMAIN": "test.firecloud.org",
-        "ACCESS_POLICY_NAME": "228353087260"
-      },
-      "env": {
-        "ORGANIZATION_DOMAIN": "test.firecloud.org",
-        "ACCESS_POLICY_NAME": "228353087260"
+        "ACCESS_POLICY_NAME": "228353087260",
+        "TERRA_ENVIRONMENT": "perf"
       },
       "extras": {
         "perimeters": {
@@ -66,7 +63,8 @@
             "folder_admins": [
               "serviceAccount:all-of-us-rw-perf@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-perf"
+            "audit_logs_project_id": "fc-aou-logs-perf",
+            "sam_resource_owner_email": "all-of-us-rw-perf@appspot.gserviceaccount.com"
           }
         }
       }
