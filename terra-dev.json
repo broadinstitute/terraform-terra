@@ -84,6 +84,14 @@
               "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
             ],
             "sam_resource_owner_email": "baseline-test-perimeter-owners@dev.test.firecloud.org"
+          },
+          "terra_dev_notebook_test": {
+            "restricted_services": ["bigquery.googleapis.com","storage.googleapis.com"],
+            "access_member_whitelist": [
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
+              "serviceAccount:806222273987-ksinuueghug8u81i36lq8aof266q19hl@developer.gserviceaccount.com"
+            ],
+            "sam_resource_owner_email": "b.adm.firec@gmail.com"
           }
         }
       }
