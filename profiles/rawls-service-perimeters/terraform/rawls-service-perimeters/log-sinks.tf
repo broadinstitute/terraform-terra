@@ -92,15 +92,15 @@ resource "google_bigquery_dataset" "storage-sink-dataset" {
   }
 
   access {
+    role   = "OWNER"
+    user_by_email = local.terraform_sa
+  }
+  access {
     role   = "WRITER"
     user_by_email = replace(
       google_logging_folder_sink.storage-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
-  }
-  access {
-    role   = "OWNER"
-    user_by_email = local.terraform_sa
   }
 }
 
@@ -116,15 +116,15 @@ resource "google_bigquery_dataset" "dataproc-sink-dataset" {
   }
 
   access {
+    role   = "OWNER"
+    user_by_email = local.terraform_sa
+  }
+  access {
     role   = "WRITER"
     user_by_email = replace(
       google_logging_folder_sink.dataproc-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
-  }
-  access {
-    role   = "OWNER"
-    user_by_email = local.terraform_sa
   }
 }
 
