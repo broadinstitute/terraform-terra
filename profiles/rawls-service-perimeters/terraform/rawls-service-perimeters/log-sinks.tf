@@ -47,7 +47,7 @@ resource "google_logging_folder_sink" "runtime-audit-sink" {
   name        = "${each.key}-runtime-audit-sink"
   folder      = google_folder.folder[each.key].name
   destination = "bigquery.googleapis.com/projects/${each.value}/datasets/${local.runtime_sink_dataset_id}"
-  filter      = "(resource.type=\"cloud_dataproc_cluster\" OR resource.type=\"gce_instance\" AND (logName:\"/logs/welder\" OR logName:\"/logs/jupyter\")"
+  filter      = "(resource.type=\"cloud_dataproc_cluster\" OR resource.type=\"gce_instance\") AND (logName:\"/logs/welder\" OR logName:\"/logs/jupyter\")"
 
   include_children = true
   bigquery_options {
