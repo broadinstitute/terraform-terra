@@ -5,7 +5,7 @@
 locals {
   bigquery_sink_dataset_id = "WorkspaceBigQueryLogs"
   storage_sink_dataset_id = "WorkspaceStorageLogs"
-  dataproc_sink_dataset_id = "WorkspaceDataprocLogs"
+  runtime_sink_dataset_id = "WorkspaceRuntimeLogs"
 }
 
 data "google_project" "audit-logs-project" {
@@ -41,13 +41,13 @@ resource "google_logging_folder_sink" "storage-audit-sink" {
   }
 }
 
-resource "google_logging_folder_sink" "dataproc-audit-sink" {
+resource "google_logging_folder_sink" "runtime-audit-sink" {
   for_each   = var.audit_logs_project_ids
 
-  name        = "${each.key}-dataproc-audit-sink"
+  name        = "${each.key}-runtime-audit-sink"
   folder      = google_folder.folder[each.key].name
-  destination = "bigquery.googleapis.com/projects/${each.value}/datasets/${local.dataproc_sink_dataset_id}"
-  filter      = "resource.type=\"cloud_dataproc_cluster\" AND (logName:\"/logs/welder\" OR logName:\"/logs/jupyter\")"
+  destination = "bigquery.googleapis.com/projects/${each.value}/datasets/${local.runtime_sink_dataset_id}"
+  filter      = "(resource.type=\"cloud_dataproc_cluster\" OR resource.type=\"gce_instance\") AND (logName:\"/logs/welder\" OR logName:\"/logs/jupyter\")"
 
   include_children = true
   bigquery_options {
@@ -104,12 +104,12 @@ resource "google_bigquery_dataset" "storage-sink-dataset" {
   }
 }
 
-resource "google_bigquery_dataset" "dataproc-sink-dataset" {
+resource "google_bigquery_dataset" "runtime-sink-dataset" {
   for_each   = var.audit_logs_project_ids
 
   project  = each.value
-  dataset_id  = local.dataproc_sink_dataset_id
-  description = "Dataproc audit log sink for projects in Terra perimeter ${each.key}"
+  dataset_id  = local.runtime_sink_dataset_id
+  description = "Leonardo Runtime audit log sink (GCE / Datparoc) for projects in Terra perimeter ${each.key}"
 
   labels = {
     perimeter = each.key
@@ -122,7 +122,7 @@ resource "google_bigquery_dataset" "dataproc-sink-dataset" {
   access {
     role   = "WRITER"
     user_by_email = replace(
-      google_logging_folder_sink.dataproc-audit-sink[each.key].writer_identity,
+      google_logging_folder_sink.runtime-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
   }
