@@ -77,6 +77,27 @@
             },
             "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
           },
+          "terra_dev_aou_test_2": {
+            "restricted_services": [
+              "bigquery.googleapis.com",
+              "storage.googleapis.com"
+            ],
+            "access_member_whitelist": [
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
+              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
+              "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com",
+              "serviceAccount:806222273987-ksinuueghug8u81i36lq8aof266q19hl@developer.gserviceaccount.com"
+            ],
+            "folder_admins": [
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com"
+            ],
+            "audit_logs_project_id": "fc-aou-logs-test",
+            "ingress_bridge": {
+              "ingress_project_id": "fc-aou-vpc-ingest-test-2",
+              "protected_project_id": "fc-aou-cdr-synth-test-2"
+            },
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
+          },
           "terra_dev_baseline_test": {
             "restricted_services": ["bigquery.googleapis.com"],
             "access_member_whitelist": [
