@@ -91,7 +91,6 @@
             "folder_admins": [
               "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com"
             ],
-            "audit_logs_project_id": "fc-aou-logs-test",
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-cdr-ingest-test-2",
               "protected_project_id": "fc-aou-cdr-synth-test-2"
