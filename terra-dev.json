@@ -93,7 +93,7 @@
             ],
             "audit_logs_project_id": "fc-aou-logs-test",
             "ingress_bridge": {
-              "ingress_project_id": "fc-aou-vpc-ingest-test-2",
+              "ingress_project_id": "fc-aou-cdr-ingest-test-2",
               "protected_project_id": "fc-aou-cdr-synth-test-2"
             },
             "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
