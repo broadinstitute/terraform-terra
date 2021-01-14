@@ -1,6 +1,19 @@
 # VPC flow log based egress alerting per AoU RW Service Perimeter
 # https://docs.google.com/document/d/1SiQokcrilgX12_gmgXPap2CHM-VZ3ohS4pKeLIrQGBI/edit#
 
+
+# Pull Sumologic credentials from Vault
+provider "vault" {}
+data "vault_generic_secret" "sumologic-secret-path" {
+  path = "${var.vault_path_prefix}/aou/sumologic"
+}
+
+provider "sumologic" {
+  access_id   = data.vault_generic_secret.sumologic-secret-path.data["access_id"]
+  access_key  = data.vault_generic_secret.sumologic-secret-path.data["access_key"]
+  environment = "us2"
+}
+
 # Creates the project to host Pub/Sub topic and subscription
 resource "google_project" "egress-alert-project" {
   for_each              = var.perimeters
