@@ -5,7 +5,7 @@
 # Pull Sumologic credentials from Vault
 provider "vault" {}
 data "vault_generic_secret" "sumologic-secret-path" {
-  path = "${var.vault_path_prefix}/aou/sumologic"
+  path = "secret/dsde/firecloud/dev/aou/sumologic"
 }
 
 provider "sumologic" {
