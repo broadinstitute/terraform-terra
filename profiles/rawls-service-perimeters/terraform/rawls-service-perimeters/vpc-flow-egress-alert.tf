@@ -69,7 +69,3 @@ resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
     }
   }
 }
-
-
-
-
