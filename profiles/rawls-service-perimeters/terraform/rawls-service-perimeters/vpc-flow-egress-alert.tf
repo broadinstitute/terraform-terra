@@ -17,9 +17,9 @@ provider "sumologic" {
 resource "google_project" "egress-alert-project" {
   for_each              = var.perimeters
 
-  name                  = replace("${each.key}-egress-alert-project", "_", "-")
-  project_id            = replace("${each.key}-egress-alert-project", "_", "-")
-  folder                = google_folder.folder[each.key].name
+  name                  = replace("${each.key}-alerts", "_", "-")
+  project_id            = replace("${each.key}-alerts", "_", "-")
+  folder_id             = google_folder.folder[each.key].id
   auto_create_network   = false
 }
 
@@ -42,6 +42,14 @@ resource "google_logging_folder_sink" "vpc-flow-log-sink" {
   include_children = true
 }
 
+# The Sumologic collector
+resource "sumologic_collector" "vpc-flow-logs" {
+  for_each      = var.perimeters
+
+  name        = "${each.key}-vpc-flow-log-collector"
+  description = "Sumologic collector"
+}
+
 # Sumologic GCP Source receives log data where the Pub/Sub message is published to.
 resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
   for_each      = var.perimeters
@@ -49,13 +57,7 @@ resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
   name          = "${each.key}-vpc-flow-log-source"
   description   = "Sumologic GCP Source receives log data from Google Pub/Sub"
   category      = "gcp"
-  collector_id  = "${sumologic_collector.collector.id}"
-}
-
-# The Sumologic collector
-resource "sumologic_collector" "sumologic-vpc-flow-log-collector" {
-  name        = "${each.key}-vpc-flow-log-collector"
-  description = "Sumologic collector"
+  collector_id  = sumologic_collector.vpc-flow-logs[each.key].id
 }
 
 # Subscribe flow log topic used by the Sumologic source above.
