@@ -20,7 +20,6 @@ resource "google_project" "egress-alert-project" {
   name                  = replace("${each.key}-alerts", "_", "-")
   project_id            = replace("${each.key}-alerts", "_", "-")
   folder_id             = google_folder.folder[each.key].id
-  auto_create_network   = false
 }
 
 # A Pub/Sub topic to publish VPC flow logs
@@ -46,7 +45,7 @@ resource "google_logging_folder_sink" "vpc-flow-log-sink" {
 resource "sumologic_collector" "vpc-flow-logs" {
   for_each      = var.perimeters
 
-  name        = "${each.key}-vpc-flow-log-collector"
+  name        = replace("${each.key}-vpc-flow-log-collector", "_", "-")
   description = "Sumologic collector"
 }
 
@@ -54,7 +53,7 @@ resource "sumologic_collector" "vpc-flow-logs" {
 resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
   for_each      = var.perimeters
 
-  name          = "${each.key}-vpc-flow-log-source"
+  name          = replace("${each.key}-vpc-flow-log-source", "_", "-")
   description   = "Sumologic GCP Source receives log data from Google Pub/Sub"
   category      = "gcp"
   collector_id  = sumologic_collector.vpc-flow-logs[each.key].id
