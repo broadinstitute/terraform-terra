@@ -1,6 +1,6 @@
 {
   "type": "SavedSearchWithScheduleSyncDefinition",
-  "name": "${aou_env} / ${tier_name}-tier / ${egress_threshold_mib}-Mib / ${egress_window_sec}-sec egress event",
+  "name": "${aou_env} / ${sumologic_source_category_name}/ ${egress_threshold_mib}-Mib / ${egress_window_sec}-sec egress event",
   "search": {
     "queryText": ${query_text},
     "defaultTimeRange": "-120m",

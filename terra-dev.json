@@ -75,7 +75,13 @@
               "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"
             },
-            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
+            "vpc_flow_egress_alerts": {
+              "aou_env": "test",
+              "sumologic_parent_folder_id_hexadecimal": "FD9231",
+              "sumologic_webhook_id_hexadecimal": "0000000000011E50",
+              "sumologic_source_category_name": "test"
+            }
           },
           "terra_dev_aou_test_2": {
             "restricted_services": [
@@ -95,7 +101,13 @@
               "ingress_project_id": "fc-aou-cdr-ingest-test-2",
               "protected_project_id": "fc-aou-cdr-synth-test-2"
             },
-            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
+            "vpc_flow_egress_alerts": {
+              "aou_env": "test",
+              "sumologic_parent_folder_id_hexadecimal": "FD9231",
+              "sumologic_webhook_id_hexadecimal": "0000000000011E50",
+              "sumologic_source_category_name": "test_2"
+            }
           },
           "terra_dev_baseline_test": {
             "restricted_services": ["bigquery.googleapis.com"],
