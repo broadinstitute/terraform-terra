@@ -24,7 +24,7 @@
         "google": {
           "default": {
             "project": "broad-dsde-dev",
-            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "vault_sa_path": "secret/devops/terraform/atlantis/atlantis-sa.json",
             "region": "us-central1"
           },
           "dns": {
