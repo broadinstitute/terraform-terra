@@ -1,0 +1,125 @@
+// This query analyses a set of Google VPC flow logs for high-egress events.
+// The incoming set of flow logs are bucketed into non-overlapping time slices
+// and grouped by project / VM name to identify VMs with high amounts of egress
+// in a given period of time.
+//
+// All SumoLogic saved searches are collected in the "AoU RW Egress Alerts" folder is created in sumologic UI then passed
+// here as variable
+// There should be one saved search for each {environment, window width} tuple.
+//
+// Note: the "time range" parameter is set to be double the window_in_seconds duration,
+// causing the search to query across multiple windows' worth of log messages. This may
+// result in duplicate high-egress event notifications being sent, but it may also increase
+// resiliency to delays or outages in SumoLogic's execution of saved searches.
+
+// Each environment should be set up with the following searches. The test environment
+// is shown as an example.
+//
+// - 3 minutes, 100Mib
+//   - Parameters: environment=test, window_in_seconds=180, egress_threshold_in_mib=100
+//   - Time range: -6m ("use receipt time" is checked)
+//   - Search schedule:
+//     - Run frequency: real time
+//     - Time range for scheduled search: -6m
+//
+// - 10 minutes, 150 Mib
+//   - Parameters: environment=test, window_in_seconds=600, egress_threshold_in_mib=150
+//   - Time range: -20m ("use receipt time" is checked)
+//   - Search schedule:
+//     - Run frequency: Every 15 minutes
+//     - Time range for scheduled search: -20m
+//
+// - 60 minutes, 200 Mib
+//   - Parameters: environment=test, window_in_seconds=3600, egress_threshold_in_mib=200
+//   - Time range: -120m ("use receipt time" is checked)
+//   - Search schedule:
+//     - Run frequency: Hourly
+//     - Time range for scheduled search: -120m
+
+_sourceCategory = gcp/vpcflowlogs/aou/{{environment}} logName resource timestamp
+
+// Parse the common JSON objects we'll use below
+| json "message.data.jsonPayload" as payload
+| json "message.data.resource" as resource
+
+//
+// Filter down to the set of logs we are analyzing.
+//
+
+// Filter on VPC flow logs, in case some other log type ends up here unexpectedly.
+| parse regex "\"logName\":\"(?<log_name>[^\"]+)\""
+| where log_name matches "projects/*/logs/compute.googleapis.com%2Fvpc_flows"
+
+// Show only logs related to GCE subnet activity.
+| json field=resource "type" as type
+| where type = "gce_subnetwork"
+
+// Show only logs in the egress direction
+| json field=payload "reporter" as reporter
+| where reporter matches "SRC"
+
+// Exclude traffic whose destination IP is within the static IP range for Private Google Access.
+// This ensures that most Google API traffic is excluded from being considered for high-egress
+// alerts. See ticket RW-4738 for more details and breadcrumbs.
+| json field = payload "connection.dest_ip" as dest_ip
+| where !(dest_ip in (
+  "199.36.153.4",
+  "199.36.153.5",
+  "199.36.153.6",
+  "199.36.153.7"))
+
+// Extract some output fields from the log JSON.
+| json field=resource "labels.project_id" as project_name
+| json field=payload "bytes_sent", "start_time", "end_time" as bytes_sent, start_time, end_time
+// "nodrop" means it's OK if vm_name does not exist
+| json field=payload "src_instance.vm_name" as vm_name nodrop
+
+// There are 3 types of expected VM names:
+// 1. GCE VMs: all-of-us-<user_id>
+// 2. Dataproc master nodes: all-of-us-<user_id>-m
+// 3. Dataproc worker nodes: all-of-us-<user_id>-w-<index>
+//
+// All three of these should contribute towards a single user's egress. In the
+// event that the VM naming convention changes, egress will instead be accumulated
+// at the project level, which should only be noisier than this
+| parse regex field=vm_name "^(?<vm_prefix>all-of-us-\d+)(?:$|-[mw].*)" nodrop
+
+| if (vm_name matches /^all-of-us-\d+$/, bytes_sent, 0) as gce_bytes_sent
+| if (vm_name matches /^all-of-us-\d+-m$/, bytes_sent, 0) as dataproc_master_bytes_sent
+| if (vm_name matches /^all-of-us-\d+-w-\d+$/, bytes_sent, 0) as dataproc_worker_bytes_sent
+
+// Timeslice creates a _timeslice variable, which is the message's timestamp
+// rounded to the nearest timeslice window start. We'll use this to aggregate
+// and calculate per-window egress.
+| timeslice {{window_in_seconds}}s
+
+// Breakdown by window, project, and VM prefix
+| sum(bytes_sent) as bytes_sent,
+  sum(gce_bytes_sent) as gce_bytes_sent,
+  sum(dataproc_master_bytes_sent) as dataproc_master_bytes_sent,
+  sum(dataproc_worker_bytes_sent) as dataproc_worker_bytes_sent
+  by _timeslice, project_name, vm_prefix
+
+// Collect all fields for display
+| bytes_sent / 1Mi as egress_mib
+| gce_bytes_sent / 1Mi as gce_egress_mib
+| dataproc_master_bytes_sent / 1Mi as dataproc_master_egress_mib
+| dataproc_worker_bytes_sent / 1Mi as dataproc_worker_egress_mib
+| toLong(_timeslice) as time_window_start
+| "{{environment}}" as environment
+| "{{window_in_seconds}}" as time_window_duration
+| "{{egress_threshold_in_mib}}" as egress_mib_threshold
+| fields
+  environment,
+  time_window_duration,
+  time_window_start,
+  egress_mib,
+  egress_mib_threshold,
+  project_name,
+  vm_prefix,
+  gce_egress_mib,
+  dataproc_master_egress_mib,
+  dataproc_worker_egress_mib
+
+// Only export rows passing our desired threshold
+| where egress_mib > {{egress_threshold_in_mib}}

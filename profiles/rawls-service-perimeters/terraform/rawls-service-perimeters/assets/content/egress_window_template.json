@@ -1,0 +1,101 @@
+{
+  "type": "SavedSearchWithScheduleSyncDefinition",
+  "name": "${aou_env} / ${tier_name}-tier / ${egress_threshold_mib}-Mib / ${egress_window_sec}-sec egress event",
+  "search": {
+    "queryText": ${query_text},
+    "defaultTimeRange": "-120m",
+    "byReceiptTime": true,
+    "viewName": "",
+    "viewStartTime": "1970-01-01T00:00:00Z",
+    "queryParameters": [
+      {
+        "name": "environment",
+        "label": "environment",
+        "description": "",
+        "dataType": "QUERY_FRAGMENT",
+        "value": "${aou_env}",
+        "autoComplete": {
+          "autoCompleteType": "SKIP_AUTOCOMPLETE",
+          "autoCompleteKey": null,
+          "autoCompleteValues": [],
+          "lookupFileName": null,
+          "lookupLabelColumn": null,
+          "lookupValueColumn": null
+        }
+      },
+      {
+        "name": "window_in_seconds",
+        "label": "window_in_seconds",
+        "description": "",
+        "dataType": "NUMBER",
+        "value": "${egress_window_sec}",
+        "autoComplete": {
+          "autoCompleteType": "SKIP_AUTOCOMPLETE",
+          "autoCompleteKey": null,
+          "autoCompleteValues": [],
+          "lookupFileName": null,
+          "lookupLabelColumn": null,
+          "lookupValueColumn": null
+        }
+      },
+      {
+        "name": "egress_threshold_in_mib",
+        "label": "egress_threshold_in_mib",
+        "description": "",
+        "dataType": "NUMBER",
+        "value": "${egress_threshold_mib}",
+        "autoComplete": {
+          "autoCompleteType": "SKIP_AUTOCOMPLETE",
+          "autoCompleteKey": null,
+          "autoCompleteValues": [],
+          "lookupFileName": null,
+          "lookupLabelColumn": null,
+          "lookupValueColumn": null
+        }
+      }
+    ],
+    "parsingMode": "Manual"
+  },
+  "searchSchedule": {
+    "cronExpression": "${cron_expression}",
+    "displayableTimeRange": "${time_range}",
+    "parseableTimeRange": {
+      "type": "BeginBoundedTimeRange",
+      "from": {
+        "type": "RelativeTimeRangeBoundary",
+        "relativeTime": "${time_range}"
+      },
+      "to": null
+    },
+    "timeZone": "America/New_York",
+    "threshold": {
+      "thresholdType": "group",
+      "operator": "gt",
+      "count": 0
+    },
+    "notification": {
+      "taskType": "WebhookSearchNotificationSyncDefinition",
+      "webhookId": "${webhook_id}",
+      "payload": null,
+      "itemizeAlerts": false,
+      "maxItemizedAlerts": 1
+    },
+    "scheduleType": "${schedule_type}",
+    "muteErrorEmails": false,
+    "parameters": [
+      {
+        "name": "environment",
+        "value": "${aou_env}"
+      },
+      {
+        "name": "window_in_seconds",
+        "value": "${egress_window_sec}"
+      },
+      {
+        "name": "egress_threshold_in_mib",
+        "value": "${egress_threshold_mib}"
+      }
+    ]
+  },
+  "description": ""
+}
