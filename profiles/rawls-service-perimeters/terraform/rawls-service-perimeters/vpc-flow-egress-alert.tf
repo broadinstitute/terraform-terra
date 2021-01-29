@@ -7,6 +7,8 @@ locals {
   content_template_path = pathexpand("${local.content_dir}/egress_window_template.json")
   query_path            = pathexpand("${local.content_dir}/query.txt")
 
+  # A static map that contains the 3 alerts thresholds we need. Since this is the same for all envs, and highly
+  # possible that we want to change them all together, use a static variables here instead of define this as input.
   sumologic_egress_thresholds = {
     alert_low_60sec_50mib = {
       egress_threshold_mib = 50
@@ -15,14 +17,14 @@ locals {
       time_range           = "-5m"
       schedule_type        = "RealTime"
     }
-    alert_mid_600sec_150mib = {
+    alert_mid_10min_150mib = {
       egress_threshold_mib = 150
       egress_window_sec    = 600
       cron_expression      = "0 * * * * ? *"
       time_range           = "-5m"
       schedule_type        = "RealTime"
     }
-    alert_high_3600sec_200mib= {
+    alert_high_60min_200mib= {
       egress_threshold_mib = 200
       egress_window_sec    = 3600
       cron_expression      = "0 0 * * * ? *"
@@ -31,12 +33,42 @@ locals {
     }
   }
 
-  alert_configs_and_thresholds = [
-  for pair in setproduct(var.vpc_flow_egress_alerts, local.sumologic_egress_thresholds) : {
-    egress_alert_config = pair[0]
-    egress_threshold = pair[1]
+  // build a map with that contains all egress configurations.
+  vpc_flow_alert_configs = { for entry in setproduct(keys(var.vpc_flow_egress_alerts), keys(local.sumologic_egress_thresholds)) :
+  "${entry[1]}_${entry[0]}" => merge(lookup(var.vpc_flow_egress_alerts, entry[0], {}), lookup(local.sumologic_egress_thresholds, entry[1], {}))
   }
-  ]
+
+
+  queries_rendered = { for egress_rule, alert_config in local.vpc_flow_alert_configs :
+  tostring(egress_rule) => templatefile(local.query_path, {
+    aou_env              = lookup(alert_config, "aou_env", 0)
+    tier_name            = lookup(alert_config, "tier_name", "0")
+    egress_threshold_mib = lookup(alert_config, "egress_threshold_mib", 0)
+    egress_window_sec    = lookup(alert_config, "egress_window_sec", 0)
+    sumologic_source_category_name    = lookup(alert_config, "sumologic_source_category_name", 0)
+  })
+  }
+
+  queries_encoded = { for egress_rule, query_text in local.queries_rendered :
+  egress_rule => jsonencode(query_text)
+  }
+
+  # Build a map of rendered Content templates for use in the sumologic_content resource and
+  # module outputs
+  egress_rule_to_config = { for egress_rule, alert_config in local.vpc_flow_alert_configs :
+  egress_rule => templatefile(local.content_template_path, {
+    aou_env            = lookup(alert_config, "aou_env", "0")
+    webhook_id            = lookup(alert_config, "webhook_id", "0")
+    tier_name            = lookup(alert_config, "tier_name", 0)
+    egress_threshold_mib = lookup(alert_config, "egress_threshold_mib", 0)
+    egress_window_sec    = lookup(alert_config, "egress_window_sec", 0)
+    cron_expression      = lookup(alert_config, "cron_expression", 0)
+    schedule_type        = lookup(alert_config, "schedule_type", 0)
+    sumologic_source_category_name        = lookup(alert_config, "sumologic_source_category_name", 0)
+    time_range           = lookup(alert_config, "time_range", 0)
+    query_text           = lookup(local.queries_encoded, egress_rule)
+  })
+  }
 }
 
 # Pull Sumologic credentials from Vault
@@ -123,20 +155,9 @@ resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
 # Simply export a content file or folder and put the JSON file in ./assets/content.
 # Since the query is so long (and critical) and is json-encoded, it's easier
 # to configure it separately.
-
 resource "sumologic_content" "sumologic-vpc-flow-alert" {
-  for_each  = var.alert_configs_and_thresholds
-  parent_id = each.key.sumologic_parent_folder_id_hexadecimal
-  config    = templatefile(local.content_template_path, {
-    aou_env                           = each.key.aou_env
-    webhook_id           = each.key.sumologic_webhook_id_hexadecimal
-    sumologic_source_category_name    = lookup(each.key, "sumologic_source_category_name", 0)
-    egress_threshold_mib              = lookup(each.value, "egress_threshold_mib", 0)
-    egress_window_sec                 = lookup(each.value, "egress_window_sec", 0)
-    cron_expression      = lookup(each.value, "cron_expression", 0)
-    schedule_type        = lookup(each.value, "schedule_type", 0)
-    time_range           = lookup(each.value, "time_range", 0)
-    query_text           = jsonencode(lookup(local.queries_encoded, egress_rule))
-  })
+for_each  = local.vpc_flow_alert_configs
+parent_id = var.sumologic_parent_folder_id_hexadecimal
+config    = lookup(local.egress_rule_to_config, each.key, "")
 }
 

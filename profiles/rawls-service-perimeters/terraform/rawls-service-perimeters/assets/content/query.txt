@@ -36,7 +36,7 @@
 //     - Run frequency: Hourly
 //     - Time range for scheduled search: -120m
 
-_sourceCategory = gcp/vpcflowlogs/aou/{{environment}} logName resource timestamp
+_sourceCategory = gcp/vpcflowlogs/aou/{{sumologic_source_category_name}} logName resource timestamp
 
 // Parse the common JSON objects we'll use below
 | json "message.data.jsonPayload" as payload
