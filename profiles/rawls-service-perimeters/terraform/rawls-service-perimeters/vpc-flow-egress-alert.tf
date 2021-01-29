@@ -127,16 +127,16 @@ resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
 resource "sumologic_content" "sumologic-vpc-flow-alert" {
   for_each  = var.alert_configs_and_thresholds
   parent_id = each.key.sumologic_parent_folder_id_hexadecimal
-  config =
-  config    = templatefile(local.query_path, {
+  config    = templatefile(local.content_template_path, {
     aou_env                           = each.key.aou_env
+    webhook_id           = each.key.sumologic_webhook_id_hexadecimal
     sumologic_source_category_name    = lookup(each.key, "sumologic_source_category_name", 0)
     egress_threshold_mib              = lookup(each.value, "egress_threshold_mib", 0)
     egress_window_sec                 = lookup(each.value, "egress_window_sec", 0)
     cron_expression      = lookup(each.value, "cron_expression", 0)
     schedule_type        = lookup(each.value, "schedule_type", 0)
     time_range           = lookup(each.value, "time_range", 0)
-    query_text           = lookup(local.queries_encoded, egress_rule)
+    query_text           = jsonencode(lookup(local.queries_encoded, egress_rule))
   })
 }
 
