@@ -123,7 +123,7 @@ resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
   name          = concat("gcp/vpcflowlogs/aou/", lookup(lookup(vpc_flow_egress_alerts, each.key), "sumologic_source_category_name"))
   description   = "Sumologic GCP Source receives log data from Google Pub/Sub"
   category      = "gcp"
-  collector_id  = sumologic_collector.vpc-flow-logs[each.key].id
+  collector_id  = sumologic_collector.vpc-flow-logs.id
 }
 
 # Subscribe flow log topic used by the Sumologic source above.
