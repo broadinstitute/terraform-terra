@@ -19,6 +19,7 @@
       "policy": "dsde-write"
     },
     "terraform": {
+      "log_level": "DEBUG",
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
@@ -108,14 +109,6 @@
               "sumologic_webhook_id_hexadecimal": "0000000000011E50",
               "sumologic_source_category_name": "test_2"
             }
-          },
-          "terra_dev_baseline_test": {
-            "restricted_services": ["bigquery.googleapis.com"],
-            "access_member_whitelist": [
-              "user:dvoettest@gmail.com",
-              "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com"
-            ],
-            "sam_resource_owner_email": "baseline-test-perimeter-owners@dev.test.firecloud.org"
           }
         }
       }

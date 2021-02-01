@@ -2,8 +2,7 @@
 # https://docs.google.com/document/d/1SiQokcrilgX12_gmgXPap2CHM-VZ3ohS4pKeLIrQGBI/edit#
 
 locals {
-  content_dir           = pathexpand("${path.module}/assets/content")
-  search_configs        = fileset(local.content_dir, "*.json")
+  content_dir           = pathexpand("${path.module}")
   content_template_path = pathexpand("${local.content_dir}/egress_window_template.json")
   query_path            = pathexpand("${local.content_dir}/query.txt")
 
@@ -35,9 +34,8 @@ locals {
 
   // build a map with that contains all egress configurations.
   vpc_flow_alert_configs = { for entry in setproduct(keys(var.vpc_flow_egress_alerts), keys(local.sumologic_egress_thresholds)) :
-  "${entry[1]}_${entry[0]}" => merge(lookup(var.vpc_flow_egress_alerts, entry[0], {}), lookup(local.sumologic_egress_thresholds, entry[1], {}))
+  "${entry[1]}_${entry[0]}" => merge(lookup(var.vpc_flow_egress_alerts, entry[0]), lookup(local.sumologic_egress_thresholds, entry[1]))
   }
-
 
   queries_rendered = { for egress_rule, alert_config in local.vpc_flow_alert_configs :
   tostring(egress_rule) => templatefile(local.query_path, {
@@ -112,7 +110,7 @@ resource "google_logging_folder_sink" "vpc-flow-log-sink" {
 
 # The Sumologic collector
 resource "sumologic_collector" "vpc-flow-logs" {
-  name        = replace("terra-${terra_environment}-vpc-flow-log-collector", "_", "-")
+  name        = replace("terra-${var.terra_environment}-vpc-flow-log-collector", "_", "-")
   description = "Sumologic collector"
 }
 
@@ -120,7 +118,7 @@ resource "sumologic_collector" "vpc-flow-logs" {
 resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
   for_each      = var.perimeters
 
-  name          = concat("gcp/vpcflowlogs/aou/", lookup(lookup(vpc_flow_egress_alerts, each.key), "sumologic_source_category_name"))
+  name          = "gcp/vpcflowlogs/aou/${lookup(lookup(var.vpc_flow_egress_alerts, each.key), "sumologic_source_category_name")}"
   description   = "Sumologic GCP Source receives log data from Google Pub/Sub"
   category      = "gcp"
   collector_id  = sumologic_collector.vpc-flow-logs.id
@@ -154,8 +152,8 @@ resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
 # Since the query is so long (and critical) and is json-encoded, it's easier
 # to configure it separately.
 resource "sumologic_content" "sumologic-vpc-flow-alert" {
-for_each  = local.vpc_flow_alert_configs
-parent_id = var.sumologic_parent_folder_id_hexadecimal
-config    = lookup(local.egress_rule_to_config, each.key, "")
+  for_each  = local.vpc_flow_alert_configs
+  
+  parent_id = lookup(lookup(local.vpc_flow_alert_configs, each.key), "sumologic_parent_folder_id_hexadecimal")
+  config    = lookup(local.egress_rule_to_config, each.key, "")
 }
-

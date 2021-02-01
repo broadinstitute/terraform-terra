@@ -93,11 +93,6 @@ variable "ingress_bridges" {
   }
 }
 
-variable aou_env {
-  description = "Short name (all lowercase) of All of Us Workbench deployed environments, e.g. local, test, staging, prod."
-  type        = string
-}
-
 # Sparse map of perimeter egress alerts configs, including sumologic alert folder name, webhook id and source category name.
 variable "vpc_flow_egress_alerts" {
    type    = map(object({
