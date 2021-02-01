@@ -80,7 +80,7 @@ provider "sumologic" {
 
 # Creates the project to host Pub/Sub topic and subscription
 resource "google_project" "egress-alert-project" {
-  for_each              = var.perimeters
+  for_each              = var.vpc_flow_egress_alerts
 
   name                  = replace("${each.key}-alerts", "_", "-")
   project_id            = replace("${each.key}-alerts", "_", "-")
@@ -89,7 +89,7 @@ resource "google_project" "egress-alert-project" {
 
 # A Pub/Sub topic to publish VPC flow logs
 resource "google_pubsub_topic" "vpc-flow-pubsub-topic" {
-  for_each   = var.perimeters
+  for_each   = var.vpc_flow_egress_alerts
 
   project    = google_project.egress-alert-project[each.key].name
   name       = replace("${each.key}-pubsub-topic", "_", "-")
@@ -97,7 +97,7 @@ resource "google_pubsub_topic" "vpc-flow-pubsub-topic" {
 
 # Log sink on AoU RW Service Perimeter folder and publish using Pub/Sub
 resource "google_logging_folder_sink" "vpc-flow-log-sink" {
-  for_each         = var.perimeters
+  for_each         = var.vpc_flow_egress_alerts
 
   name             = "${each.key}-vpc-flow-log-sink"
   folder           = google_folder.folder[each.key].name
@@ -114,7 +114,7 @@ resource "sumologic_collector" "vpc-flow-logs" {
 
 # Sumologic GCP Source receives log data where the Pub/Sub message is published to.
 resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
-  for_each      = var.perimeters
+  for_each      = var.vpc_flow_egress_alerts
 
   name          = "gcp/vpcflowlogs/aou/${lookup(lookup(var.vpc_flow_egress_alerts, each.key), "sumologic_source_category_name")}"
   description   = "Sumologic GCP Source receives log data from Google Pub/Sub"
@@ -124,7 +124,7 @@ resource "sumologic_gcp_source" "sumologic-vpc-flow-log-source" {
 
 # Subscribe flow log topic used by the Sumologic source above.
 resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
-  for_each   = var.perimeters
+  for_each   = var.vpc_flow_egress_alerts
 
   project    = google_project.egress-alert-project[each.key].name
   name       = replace("${each.key}-pubsub-sub", "_", "-")
