@@ -5,7 +5,7 @@
 //
 // All SumoLogic saved searches are collected in the "AoU RW Egress Alerts" folder is created in sumologic UI then passed
 // here as variable
-// There should be one saved search for each {environment, window width} tuple.
+// There should be one saved search for each {source_name, window width} tuple.
 //
 // Note: the "time range" parameter is set to be double the window_in_seconds duration,
 // causing the search to query across multiple windows' worth of log messages. This may
@@ -16,27 +16,27 @@
 // is shown as an example.
 //
 // - 3 minutes, 100Mib
-//   - Parameters: environment=test, window_in_seconds=180, egress_threshold_in_mib=100
+//   - Parameters: source_name=test, window_in_seconds=180, egress_threshold_in_mib=100
 //   - Time range: -6m ("use receipt time" is checked)
 //   - Search schedule:
 //     - Run frequency: real time
 //     - Time range for scheduled search: -6m
 //
 // - 10 minutes, 150 Mib
-//   - Parameters: environment=test, window_in_seconds=600, egress_threshold_in_mib=150
+//   - Parameters: source_name=test, window_in_seconds=600, egress_threshold_in_mib=150
 //   - Time range: -20m ("use receipt time" is checked)
 //   - Search schedule:
 //     - Run frequency: Every 15 minutes
 //     - Time range for scheduled search: -20m
 //
 // - 60 minutes, 200 Mib
-//   - Parameters: environment=test, window_in_seconds=3600, egress_threshold_in_mib=200
+//   - Parameters: source_name=test, window_in_seconds=3600, egress_threshold_in_mib=200
 //   - Time range: -120m ("use receipt time" is checked)
 //   - Search schedule:
 //     - Run frequency: Hourly
 //     - Time range for scheduled search: -120m
 
-_sourceCategory = gcp/vpcflowlogs/aou/{{sumologic_source_category_name}} logName resource timestamp
+_sourceCategory = gcp/vpcflowlogs/aou/{{source_name}} logName resource timestamp
 
 // Parse the common JSON objects we'll use below
 | json "message.data.jsonPayload" as payload
@@ -106,11 +106,11 @@ _sourceCategory = gcp/vpcflowlogs/aou/{{sumologic_source_category_name}} logName
 | dataproc_master_bytes_sent / 1Mi as dataproc_master_egress_mib
 | dataproc_worker_bytes_sent / 1Mi as dataproc_worker_egress_mib
 | toLong(_timeslice) as time_window_start
-| "{{environment}}" as environment
+| "{{source_name}}" as source_name
 | "{{window_in_seconds}}" as time_window_duration
 | "{{egress_threshold_in_mib}}" as egress_mib_threshold
 | fields
-  environment,
+  source_name,
   time_window_duration,
   time_window_start,
   egress_mib,
