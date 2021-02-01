@@ -41,10 +41,10 @@ locals {
 
   queries_rendered = { for egress_rule, alert_config in local.vpc_flow_alert_configs :
   tostring(egress_rule) => templatefile(local.query_path, {
-    aou_env              = lookup(alert_config, "aou_env", 0)
-    tier_name            = lookup(alert_config, "tier_name", "0")
-    egress_threshold_mib = lookup(alert_config, "egress_threshold_mib", 0)
-    egress_window_sec    = lookup(alert_config, "egress_window_sec", 0)
+    aou_env                           = lookup(alert_config, "aou_env", 0)
+    tier_name                         = lookup(alert_config, "tier_name", "0")
+    egress_threshold_mib              = lookup(alert_config, "egress_threshold_mib", 0)
+    egress_window_sec                 = lookup(alert_config, "egress_window_sec", 0)
     sumologic_source_category_name    = lookup(alert_config, "sumologic_source_category_name", 0)
   })
   }
