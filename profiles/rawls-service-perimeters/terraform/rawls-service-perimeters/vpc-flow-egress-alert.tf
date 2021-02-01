@@ -112,9 +112,7 @@ resource "google_logging_folder_sink" "vpc-flow-log-sink" {
 
 # The Sumologic collector
 resource "sumologic_collector" "vpc-flow-logs" {
-  for_each      = var.perimeters
-
-  name        = replace("${each.key}-vpc-flow-log-collector", "_", "-")
+  name        = replace("terra-${terra_environment}-vpc-flow-log-collector", "_", "-")
   description = "Sumologic collector"
 }
 
