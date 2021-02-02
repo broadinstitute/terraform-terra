@@ -79,7 +79,7 @@
             "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
             "vpc_flow_egress_alerts": {
               "aou_env": "test",
-              "sumologic_parent_folder_id_hexadecimal": "FD9231",
+              "sumologic_parent_folder_id_hexadecimal": "104F7D6",
               "sumologic_webhook_id_hexadecimal": "0000000000011E50",
               "sumologic_source_category_name": "test"
             }
