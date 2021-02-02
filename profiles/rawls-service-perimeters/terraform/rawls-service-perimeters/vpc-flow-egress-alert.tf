@@ -146,7 +146,7 @@ resource "google_pubsub_subscription" "vpc-flow-pubsub-subscription" {
   }
 }
 
-# Simply export a content file or folder and put the JSON file in ./assets/content.
+# Simply export a content file or folder and put the JSON file in the same directory
 # Since the query is so long (and critical) and is json-encoded, it's easier
 # to configure it separately.
 resource "sumologic_content" "sumologic-vpc-flow-alert" {
