@@ -55,7 +55,7 @@ locals {
   egress_rule_to_config = { for egress_rule, alert_config in local.vpc_flow_alert_configs :
   egress_rule => templatefile(local.content_template_path, {
     aou_env            = lookup(alert_config, "aou_env", "")
-    webhook_id            = lookup(alert_config, "webhook_id", "")
+    webhook_id            = lookup(alert_config, "sumologic_webhook_id_hexadecimal", "")
     egress_threshold_mib = lookup(alert_config, "egress_threshold_mib", 0)
     egress_window_sec    = lookup(alert_config, "egress_window_sec", 0)
     cron_expression      = lookup(alert_config, "cron_expression", 0)
