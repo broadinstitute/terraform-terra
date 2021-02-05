@@ -19,12 +19,13 @@
       "policy": "dsde-write"
     },
     "terraform": {
+      "log_level": "DEBUG",
       "docker_image": "us.gcr.io/broad-dsp-gcr-public/config-render:eb15b5a3",
       "providers": {
         "google": {
           "default": {
             "project": "broad-dsde-dev",
-            "vault_sa_path": "secret/devops/terraform/dev/firecloud/credentials",
+            "vault_sa_path": "secret/devops/terraform/atlantis/atlantis-sa.json",
             "region": "us-central1"
           },
           "dns": {
@@ -75,7 +76,13 @@
               "ingress_project_id": "fc-aou-vpc-ingest-test",
               "protected_project_id": "fc-aou-cdr-synth-test"
             },
-            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
+            "vpc_flow_egress_alerts": {
+              "aou_env": "test",
+              "sumologic_parent_folder_id_hexadecimal": "104F7D6",
+              "sumologic_webhook_id_hexadecimal": "0000000000011E50",
+              "sumologic_source_category_name": "test"
+            }
           },
           "terra_dev_aou_test_2": {
             "restricted_services": [
@@ -95,7 +102,13 @@
               "ingress_project_id": "fc-aou-cdr-ingest-test-2",
               "protected_project_id": "fc-aou-cdr-synth-test-2"
             },
-            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com"
+            "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
+            "vpc_flow_egress_alerts": {
+              "aou_env": "test",
+              "sumologic_parent_folder_id_hexadecimal": "104F7D6",
+              "sumologic_webhook_id_hexadecimal": "0000000000011E50",
+              "sumologic_source_category_name": "test_2"
+            }
           },
           "terra_dev_baseline_test": {
             "restricted_services": ["bigquery.googleapis.com"],

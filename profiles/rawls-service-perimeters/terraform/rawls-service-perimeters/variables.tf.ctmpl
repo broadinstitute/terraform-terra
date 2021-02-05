@@ -4,7 +4,6 @@ provider "google-beta" {
   region = "us-central1"
 }
 
-
 variable "org_domain" {
   type    = string
   description = "GCP organization domain name to contain this perimeter and folder"
@@ -88,6 +87,25 @@ variable "ingress_bridges" {
   }
 }
 
+# Sparse map of perimeter egress alerts configs, including sumologic alert folder name, webhook id and source category name.
+variable "vpc_flow_egress_alerts" {
+   type    = map(object({
+     aou_env = string
+     sumologic_parent_folder_id_hexadecimal = string
+     sumologic_webhook_id_hexadecimal = string
+     sumologic_source_category_name = string
+   }))
+  default = {
+    {{ range $k, $v := $perimeters }}{{ if $v.vpc_flow_egress_alerts }}
+    "{{ $k }}" = {
+      aou_env = "{{ $v.vpc_flow_egress_alerts.aou_env }}"
+      sumologic_parent_folder_id_hexadecimal = "{{ $v.vpc_flow_egress_alerts.sumologic_parent_folder_id_hexadecimal }}"
+      sumologic_webhook_id_hexadecimal = "{{ $v.vpc_flow_egress_alerts.sumologic_webhook_id_hexadecimal }}"
+      sumologic_source_category_name = "{{ $v.vpc_flow_egress_alerts.sumologic_source_category_name }}"
+    }
+    {{ end }}{{ end }}
+  }
+}
 {{end}}
 
 variable "terra_environment" {
