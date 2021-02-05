@@ -69,7 +69,7 @@ locals {
 
 # Pull Sumologic credentials from Vault
 data "vault_generic_secret" "sumologic-secret-path" {
-  path = "secret/dsde/firecloud/dev/aou/sumologic"
+  path = "secret/dsde/firecloud/common/aou/sumologic"
 }
 
 provider "sumologic" {
