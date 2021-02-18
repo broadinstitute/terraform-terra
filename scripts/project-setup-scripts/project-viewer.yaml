@@ -1,0 +1,20 @@
+title: "project_viewer"
+description: "viewer permissions on a google-project (for example can-compute users)"
+stage: "ALPHA"
+includedPermissions:
+# Add permissions for the roles we need:
+##roles/bigquery.jobUser (updated 2/10/2021)
+- bigquery.jobs.create
+- resourcemanager.projects.get
+- resourcemanager.projects.list
+##roles/logging.logWriter (updated 2/10/2021)
+- logging.logEntries.create
+##roles/monitoring.metricWriter (updated 2/10/2021)
+- monitoring.metricDescriptors.create
+- monitoring.metricDescriptors.get
+- monitoring.metricDescriptors.list
+- monitoring.monitoredResourceDescriptors.get
+- monitoring.monitoredResourceDescriptors.list
+- monitoring.timeSeries.create
+##RequesterPays custom role (updated 2/10/2021)
+- serviceusage.services.use
