@@ -6,6 +6,10 @@
 gcloud iam roles create google-project-viewer --organization=400176686919 --file=google-project-viewer.yaml
 gcloud iam roles create google-project-owner --organization=400176686919 --file=google-project-owner.yaml
 
+# org: quality.firecloud.org
+gcloud iam roles create google-project-viewer --organization=206744735509 --file=google-project-viewer.yaml
+gcloud iam roles create google-project-owner --organization=206744735509 --file=google-project-owner.yaml
+
 # org: firecloud.org
 gcloud iam roles create google-project-viewer --organization=386193000800 --file=google-project-viewer.yaml
 gcloud iam roles create google-project-owner --organization=386193000800 --file=google-project-owner.yaml
