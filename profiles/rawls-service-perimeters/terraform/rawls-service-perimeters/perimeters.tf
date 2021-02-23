@@ -30,6 +30,25 @@ resource "google_folder_iam_binding" "admin-bucket-writer" {
   members = each.value.members
 }
 
+# BigQuery roles are necessary to support genomics extraction jobs, which bill
+# BigQuery costs to the researcher project. Owners will have these roles, so
+# this is well aligned with the above premise.
+resource "google_folder_iam_binding" "admin-bigquery-job-user" {
+  for_each = var.folder_admins
+
+  folder = google_folder.folder[each.key].name
+  role = "roles/bigquery.jobUser"
+  members = each.value.members
+}
+
+resource "google_folder_iam_binding" "admin-bigquery-read-session-user" {
+  for_each = var.folder_admins
+
+  folder = google_folder.folder[each.key].name
+  role = "roles/bigquery.readSessionUser"
+  members = each.value.members
+}
+
 resource "google_folder_iam_binding" "admin-billing-manager" {
   for_each = var.folder_admins
 

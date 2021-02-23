@@ -91,12 +91,14 @@
             ],
             "access_member_whitelist": [
               "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
+              "serviceAccount:pet-118217329794842274136@aou-wgs-cohort-extraction.iam.gserviceaccount.com",
               "serviceAccount:leonardo-dev@broad-dsde-dev.iam.gserviceaccount.com",
               "serviceAccount:circle-deploy-account@all-of-us-workbench-test.iam.gserviceaccount.com",
               "serviceAccount:806222273987-ksinuueghug8u81i36lq8aof266q19hl@developer.gserviceaccount.com"
             ],
             "folder_admins": [
-              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com"
+              "serviceAccount:all-of-us-workbench-test@appspot.gserviceaccount.com",
+              "serviceAccount:pet-118217329794842274136@aou-wgs-cohort-extraction.iam.gserviceaccount.com"
             ],
             "ingress_bridge": {
               "ingress_project_id": "fc-aou-cdr-ingest-test-2",
