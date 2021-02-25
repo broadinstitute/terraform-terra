@@ -18,3 +18,9 @@ includedPermissions:
 - monitoring.timeSeries.create
 ##RequesterPays custom role (updated 2/10/2021)
 - serviceusage.services.use
+##roles/bigquery.readSessionUser (updated 2/25/2021)
+- bigquery.readsessions.create
+- bigquery.readsessions.getData
+- bigquery.readsessions.update
+- resourcemanager.projects.get
+- resourcemanager.projects.list
