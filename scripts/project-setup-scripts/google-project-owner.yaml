@@ -1666,9 +1666,6 @@ includedPermissions:
 - workflows.workflows.list
 # </viewer> End of permissions included as part of roles/viewer
 # Add permissions for the other roles we need:
-##roles/billing.projectManager (updated 2/10/2021)
-- resourcemanager.projects.createBillingAssignment
-- resourcemanager.projects.deleteBillingAssignment
 ##roles/bigquery.jobUser (updated 2/10/2021)
 - bigquery.jobs.create
 - resourcemanager.projects.get
