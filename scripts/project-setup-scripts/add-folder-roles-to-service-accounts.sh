@@ -1,7 +1,5 @@
 # set up folder access for Rawls and Cromwell SAs as editor roles
-# set up folder access for terra-billing and firecloud-project-owners groups as owner role
-
-# need to be authed as a user who has resourcemanager.projects.setIamPolicy permissions
+# must have resourcemanager.projects.setIamPolicy permissions
 
 # todo: convert this to Terraform as part of https://broadworkbench.atlassian.net/browse/CA-1195
 

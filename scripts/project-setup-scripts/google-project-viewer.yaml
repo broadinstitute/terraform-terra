@@ -1,6 +1,6 @@
 title: "google_project_viewer"
 description: "viewer permissions on a google-project (for example can-compute users)"
-stage: "BETA"
+stage: "GA"
 includedPermissions:
 # Add permissions for the roles we need:
 ##roles/bigquery.jobUser (updated 2/10/2021)

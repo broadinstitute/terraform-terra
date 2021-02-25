@@ -1,6 +1,6 @@
 title: "google_project_owner"
 description: "owner permissions on a google-project (for example project-owner users)"
-stage: "BETA"
+stage: "GA"
 includedPermissions:
 # <viewer> Start of permissions included as part of roles/viewer (updated 2/10/2021)
 - accessapproval.requests.get
