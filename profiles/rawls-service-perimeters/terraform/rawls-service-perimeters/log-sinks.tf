@@ -6,10 +6,6 @@ locals {
   bigquery_sink_dataset_id = "WorkspaceBigQueryLogs"
   storage_sink_dataset_id = "WorkspaceStorageLogs"
   runtime_sink_dataset_id = "WorkspaceRuntimeLogs"
-
-  # Collect unique audit_logs_project_ids form input audit_logs_project_ids map.
-  # e.g. input: {terra_dev_test=fc-aou-logs-test, terra_dev_test_2=fc-aou-logs-test}; output set: {fc-aou-logs-test}.
-  unique_audit_logs_project_id = toset(values(var.audit_logs_project_ids))
 }
 
 data "google_project" "audit-logs-project" {
@@ -60,7 +56,7 @@ resource "google_logging_folder_sink" "runtime-audit-sink" {
 }
 
 resource "google_bigquery_dataset" "bigquery-sink-dataset" {
-  for_each   = var.unique_audit_logs_project_id
+  for_each   = var.audit_logs_project_ids
 
   project  = each.value
   dataset_id  = local.bigquery_sink_dataset_id
@@ -85,7 +81,7 @@ resource "google_bigquery_dataset" "bigquery-sink-dataset" {
 }
 
 resource "google_bigquery_dataset" "storage-sink-dataset" {
-  for_each   = var.unique_audit_logs_project_id
+  for_each   = var.audit_logs_project_ids
 
   project  = each.value
   dataset_id  = local.storage_sink_dataset_id
@@ -109,10 +105,10 @@ resource "google_bigquery_dataset" "storage-sink-dataset" {
 }
 
 resource "google_bigquery_dataset" "runtime-sink-dataset" {
-  for_each   = var.unique_audit_logs_project_id
+  for_each   = var.audit_logs_project_ids
 
   project  = each.value
-  dataset_id  = local.runtime_sink_dataset_id
+  dataset_id  = join(each.key, local.runtime_sink_dataset_id)
   description = "Leonardo Runtime audit log sink (GCE / Datparoc) for projects in Terra perimeter ${each.key}"
 
   labels = {
@@ -123,22 +119,12 @@ resource "google_bigquery_dataset" "runtime-sink-dataset" {
     role   = "OWNER"
     user_by_email = local.terraform_sa
   }
-
-  # How to set those two runtime-audit-sink? Dymanic block seems not working because of line 122-125
   access {
     role   = "WRITER"
     user_by_email = replace(
       google_logging_folder_sink.runtime-audit-sink[each.key].writer_identity,
       "serviceAccount:",
       "")
-  }
-
-  access {
-    role   = "WRITER"
-    user_by_email = replace(
-    google_logging_folder_sink.runtime-audit-sink[each.key].writer_identity,
-    "serviceAccount:",
-    "")
   }
 }
 
