@@ -1,4 +1,4 @@
-title: "terra_workspace_owner"
+title: "terra_billing_project_owner"
 description: "permissions for billing project owners"
 stage: "GA"
 includedPermissions:
