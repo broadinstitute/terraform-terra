@@ -1,5 +1,5 @@
-title: "google_project_viewer"
-description: "viewer permissions on a google-project (for example can-compute users)"
+title: "terra_workspace_writer"
+description: "permissions for users with write access on Terra workspaces"
 stage: "GA"
 includedPermissions:
 # Add permissions for the roles we need:
@@ -22,5 +22,3 @@ includedPermissions:
 - bigquery.readsessions.create
 - bigquery.readsessions.getData
 - bigquery.readsessions.update
-- resourcemanager.projects.get
-- resourcemanager.projects.list
