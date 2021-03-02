@@ -17,6 +17,6 @@ then
        "
   exit 1
 else
-  gcloud iam roles create google-project-viewer --organization=${ORGANIZATION_ID} --file=google-project-viewer.yaml
-  gcloud iam roles create google-project-owner --organization=${ORGANIZATION_ID} --file=google-project-owner.yaml
+  gcloud iam roles create terra-workspace-writer --organization=${ORGANIZATION_ID} --file=terra-workspace-writer.yaml
+  gcloud iam roles create terra-billing-project-owner --organization=${ORGANIZATION_ID} --file=terra-billing-project-owner.yaml
 fi
