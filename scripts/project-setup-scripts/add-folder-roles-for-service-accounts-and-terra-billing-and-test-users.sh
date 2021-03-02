@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # set up folder access for Rawls and Cromwell SAs, as well as billing and project-owners
-# must have resourcemanager.projects.setIamPolicy permissions
+# In order to successfully run this script, you must first `gcloud auth login` as a gcloud user with resourcemanager.projects.setIamPolicy permissions
 
 # todo: convert this to Terraform as part of https://broadworkbench.atlassian.net/browse/CA-1195
 
