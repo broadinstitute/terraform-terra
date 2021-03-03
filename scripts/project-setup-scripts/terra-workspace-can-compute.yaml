@@ -1,5 +1,5 @@
-title: "terra_workspace_writer"
-description: "permissions for users with write access on Terra workspaces"
+title: "terra_workspace_can_compute"
+description: "permissions for users with can-compute access on Terra workspaces"
 stage: "GA"
 includedPermissions:
 # Add permissions for the roles we need:
