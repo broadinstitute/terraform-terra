@@ -1,0 +1,24 @@
+title: "terra_workspace_can_compute"
+description: "permissions for users with can-compute access on Terra workspaces"
+stage: "GA"
+includedPermissions:
+# Add permissions for the roles we need:
+##roles/bigquery.jobUser (updated 2/10/2021)
+- bigquery.jobs.create
+- resourcemanager.projects.get
+- resourcemanager.projects.list
+##roles/logging.logWriter (updated 2/10/2021)
+- logging.logEntries.create
+##roles/monitoring.metricWriter (updated 2/10/2021)
+- monitoring.metricDescriptors.create
+- monitoring.metricDescriptors.get
+- monitoring.metricDescriptors.list
+- monitoring.monitoredResourceDescriptors.get
+- monitoring.monitoredResourceDescriptors.list
+- monitoring.timeSeries.create
+##RequesterPays custom role (updated 2/10/2021)
+- serviceusage.services.use
+##roles/bigquery.readSessionUser (updated 2/25/2021)
+- bigquery.readsessions.create
+- bigquery.readsessions.getData
+- bigquery.readsessions.update
