@@ -128,3 +128,20 @@ resource "google_bigquery_dataset" "runtime-sink-dataset" {
   }
 }
 
+resource "google_bigquery_dataset_access" "bigquery-audit-sink-writer" {
+  for_each   = var.audit_logs_project_ids
+  
+  dataset_id    = google_bigquery_dataset.bigquery-sink-dataset.dataset_id
+  role          = "WRITER"
+  user_by_email = replace(
+      google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
+    "serviceAccount:",
+  "")
+}
+
+resource "google_bigquery_dataset_access" "access" {  
+  dataset_id    = google_bigquery_dataset.bigquery-sink-dataset.dataset_id
+  role   = "OWNER"
+  user_by_email = local.terraform_sa
+}
+
