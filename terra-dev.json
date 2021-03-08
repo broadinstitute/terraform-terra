@@ -102,6 +102,7 @@
               "ingress_project_id": "fc-aou-cdr-ingest-test-2",
               "protected_project_id": "fc-aou-cdr-synth-test-2"
             },
+            "audit_logs_project_id": "fc-aou-logs-test",
             "sam_resource_owner_email": "all-of-us-workbench-test@appspot.gserviceaccount.com",
             "vpc_flow_egress_alerts": {
               "aou_env": "test",

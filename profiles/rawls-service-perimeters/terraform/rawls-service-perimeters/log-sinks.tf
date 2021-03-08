@@ -8,6 +8,12 @@ locals {
   runtime_sink_dataset_id = "WorkspaceRuntimeLogs"
 }
 
+
+# Collect unique audit_logs_project_ids form input audit_logs_project_ids map.
+# e.g. input: {terra_dev_test=fc-aou-logs-test, terra_dev_test_2=fc-aou-logs-test}; output set: {fc-aou-logs-test}.
+unique_audit_logs_project_id = toset(values(var.audit_logs_project_ids))
+
+
 data "google_project" "audit-logs-project" {
   for_each   = var.audit_logs_project_ids
   project_id = each.value
@@ -56,75 +62,76 @@ resource "google_logging_folder_sink" "runtime-audit-sink" {
 }
 
 resource "google_bigquery_dataset" "bigquery-sink-dataset" {
-  for_each   = var.audit_logs_project_ids
+  for_each = var.unique_audit_logs_project_id
 
   project  = each.value
   dataset_id  = local.bigquery_sink_dataset_id
   description = "BigQuery audit log sink for projects in Terra perimeter ${each.key}"
-
-  labels = {
-    perimeter = each.key
-  }
-
-  access {
-    role   = "WRITER"
-    # TODO: replace -> trimprefix once we're on TF >=0.12.17.
-    user_by_email = replace(
-      google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
-      "serviceAccount:",
-      "")
-  }
-  access {
-    role   = "OWNER"
-    user_by_email = local.terraform_sa
-  }
 }
 
 resource "google_bigquery_dataset" "storage-sink-dataset" {
-  for_each   = var.audit_logs_project_ids
+  for_each = var.unique_audit_logs_project_id
 
   project  = each.value
   dataset_id  = local.storage_sink_dataset_id
   description = "Storage audit log sink for projects in Terra perimeter ${each.key}"
-
-  labels = {
-    perimeter = each.key
-  }
-
-  access {
-    role   = "OWNER"
-    user_by_email = local.terraform_sa
-  }
-  access {
-    role   = "WRITER"
-    user_by_email = replace(
-      google_logging_folder_sink.storage-audit-sink[each.key].writer_identity,
-      "serviceAccount:",
-      "")
-  }
 }
 
 resource "google_bigquery_dataset" "runtime-sink-dataset" {
-  for_each   = var.audit_logs_project_ids
+  for_each = var.unique_audit_logs_project_id
 
-  project  = each.value
-  dataset_id  = local.runtime_sink_dataset_id
+  project = each.value
+  dataset_id = local.runtime_sink_dataset_id
   description = "Leonardo Runtime audit log sink (GCE / Datparoc) for projects in Terra perimeter ${each.key}"
-
-  labels = {
-    perimeter = each.key
-  }
-
-  access {
-    role   = "OWNER"
-    user_by_email = local.terraform_sa
-  }
-  access {
-    role   = "WRITER"
-    user_by_email = replace(
-      google_logging_folder_sink.runtime-audit-sink[each.key].writer_identity,
-      "serviceAccount:",
-      "")
-  }
 }
 
+resource "google_bigquery_dataset_access" "bigquery-sink-dataset-writer-permission" {
+  for_each   = var.audit_logs_project_ids
+
+  dataset_id    = google_bigquery_dataset.bigquery-sink-dataset.dataset_id
+  role          = "WRITER"
+  user_by_email = replace(
+  google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
+  "serviceAccount:",
+  "")
+}
+
+resource "google_bigquery_dataset_access" "bigquery-sink-dataset-owner-permission" {
+  dataset_id    = google_bigquery_dataset.bigquery-sink-dataset.dataset_id
+  role   = "OWNER"
+  user_by_email = local.terraform_sa
+}
+
+resource "google_bigquery_dataset_access" "storage-sink-dataset-writer-permission" {
+  for_each   = var.audit_logs_project_ids
+
+  dataset_id    = google_bigquery_dataset.storage-sink-dataset.dataset_id
+  role          = "WRITER"
+  user_by_email = replace(
+  google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
+  "serviceAccount:",
+  "")
+}
+
+resource "google_bigquery_dataset_access" "storage-sink-dataset-owner-permission" {
+  dataset_id    = google_bigquery_dataset.storage-sink-dataset.dataset_id
+  role   = "OWNER"
+  user_by_email = local.terraform_sa
+}
+
+resource "google_bigquery_dataset_access" "runtime-sink-dataset-writer-permission" {
+  for_each   = var.audit_logs_project_ids
+
+  dataset_id    = google_bigquery_dataset.runtime-sink-dataset.dataset_id
+  role          = "WRITER"
+  user_by_email = replace(
+  google_logging_folder_sink.bigquery-audit-sink[each.key].writer_identity,
+  "serviceAccount:",
+  "")
+}
+
+resource "google_bigquery_dataset_access" "runtime-sink-dataset-owner-permission" {
+  dataset_id    = google_bigquery_dataset.runtime-sink-dataset.dataset_id
+  role   = "OWNER"
+  user_by_email = local.terraform_sa
+}

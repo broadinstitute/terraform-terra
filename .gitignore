@@ -9,3 +9,5 @@ rendered/*
 *.swp
 terraform.tf
 plan.out
+.idea/*
+out/*
