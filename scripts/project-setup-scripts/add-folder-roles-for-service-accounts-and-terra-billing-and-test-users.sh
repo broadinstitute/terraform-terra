@@ -30,7 +30,7 @@ else
     FOLDER_ID=950154083315 # folder: test.firecloud.org/tools (folder for dev FIABs)
     vault_env=dev
   elif [[ "${ENV}" == "fiab-qa" ]]; then
-    FOLDER_ID="147754536561" # folder: quality.firecloud.org/quality (folder for QA FIABs)
+    FOLDER_ID=147754536561 # folder: quality.firecloud.org/quality (folder for QA FIABs)
     vault_env=qa
   elif [[ "${ENV}" == "perf" ]]; then
     FOLDER_ID=1076814209841 # folder: test.firecloud.org/perf
@@ -39,7 +39,7 @@ else
   elif [[ "${ENV}" == "staging" ]]; then
     FOLDER_ID=362889920837 # folder: test.firecloud.org/staging
   elif [[ "${ENV}" == "prod" ]]; then
-    FOLDER_ID="617814117274" # folder: firecloud.org/prod
+    FOLDER_ID=617814117274 # folder: firecloud.org/prod
   else
     echo "ENV was not valid."
     echo "${VALID_ENVS}"
