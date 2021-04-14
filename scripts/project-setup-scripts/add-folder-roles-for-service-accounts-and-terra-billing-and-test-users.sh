@@ -56,13 +56,16 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 # prod only needs the terra-billing group
 if [[ "${ENV}" == "prod" ]]; then
   gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@firecloud.org --role=roles/owner
+  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@firecloud.org --role=roles/resourcemanager.projectMover
 else # for non-prod envs, add terra-billing as well as project owner groups
   gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@test.firecloud.org --role=roles/owner
+  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@test.firecloud.org --role=roles/resourcemanager.projectMover
   gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@test.firecloud.org --role=roles/owner
 
   # for the QA env, add quality.firecloud.org users as well
   if [[ "${ENV}" == "fiab-qa" ]]; then
     gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@quality.firecloud.org --role=roles/owner
+    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@quality.firecloud.org --role=roles/resourcemanager.projectMover
     gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@quality.firecloud.org --role=roles/owner
   fi
 fi
