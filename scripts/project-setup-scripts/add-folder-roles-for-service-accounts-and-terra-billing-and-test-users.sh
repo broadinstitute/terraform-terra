@@ -51,6 +51,7 @@ RAWLS_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/
 CROMWELL_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/dsde-toolbox:dev vault read -field="client_email" secret/dsde/firecloud/${vault_env}/cromwell/cromwell-account.json)
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/editor
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectMover
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectIamAdmin # required to set policies on google projects from the Buffer service
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${CROMWELL_SA}" --role=roles/editor
 
 
