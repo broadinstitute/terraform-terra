@@ -1,5 +1,5 @@
 # Conditions for granting role "roles/resourcemanager.projectIamAdmin" on the Rawls SA
-## Inlining this requres extra escaping https://cloud.google.com/sdk/gcloud/reference/topic/escaping which makes it hard to read/maintain
+# Note: I opted for this approach because inlining the condition requres extra escaping (https://cloud.google.com/sdk/gcloud/reference/topic/escaping) which makes it annoying to read/maintain.
 
 "title": "only_custom_roles"
 "description": "Only allow adding specified custom iam roles to projects in this folder."
