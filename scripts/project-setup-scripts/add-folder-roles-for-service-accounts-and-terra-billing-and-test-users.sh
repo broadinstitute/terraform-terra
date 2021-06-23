@@ -6,8 +6,7 @@
 
 set -euxo pipefail
 
-
-ENV=$1
+ENV=${1:-""}
 VALID_ENVS="Valid ENVs:
         dev
         fiab-dev
