@@ -6,8 +6,7 @@
 
 set -euxo pipefail
 
-
-ENV=$1
+ENV=${1:-""}
 VALID_ENVS="Valid ENVs:
         dev
         fiab-dev
@@ -49,23 +48,23 @@ fi
 
 RAWLS_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/dsde-toolbox:dev vault read -field="client_email" secret/dsde/firecloud/${vault_env}/rawls/rawls-account.json)
 CROMWELL_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/dsde-toolbox:dev vault read -field="client_email" secret/dsde/firecloud/${vault_env}/cromwell/cromwell-account.json)
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/editor
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectMover
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/editor --condition=None
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectMover --condition=None
 RAWLS_CONDITION_FILE="rawls-sa-condition-file.yaml"
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectIamAdmin --condition-from-file=${RAWLS_CONDITION_FILE} # required to set policies on google projects from the Buffer service
-gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${CROMWELL_SA}" --role=roles/editor
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${CROMWELL_SA}" --role=roles/editor --condition=None
 
 
 # prod only needs the terra-billing group
 if [[ "${ENV}" == "prod" ]]; then
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@firecloud.org --role=roles/owner
+  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@firecloud.org --role=roles/owner  --condition=None
 else # for non-prod envs, add terra-billing as well as project owner groups
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@test.firecloud.org --role=roles/owner
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@test.firecloud.org --role=roles/owner
+  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@test.firecloud.org --role=roles/owner  --condition=None
+  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@test.firecloud.org --role=roles/owner  --condition=None
 
   # for the QA env, add quality.firecloud.org users as well
   if [[ "${ENV}" == "fiab-qa" ]]; then
-    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@quality.firecloud.org --role=roles/owner
-    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@quality.firecloud.org --role=roles/owner
+    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@quality.firecloud.org --role=roles/owner  --condition=None
+    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@quality.firecloud.org --role=roles/owner  --condition=None
   fi
 fi
