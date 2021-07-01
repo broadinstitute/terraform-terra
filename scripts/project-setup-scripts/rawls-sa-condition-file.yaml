@@ -4,4 +4,4 @@
 "title": "only_custom_roles"
 "description": "Only allow adding specified custom iam roles to projects in this folder."
 "expression": "api.getAttribute('iam.googleapis.com/modifiedGrantsByRole',[]).hasOnly(
-  ['roles/terra_billing_project_owner','roles/terra_workspace_can_compute','roles/terraBucketReader','roles/terraBucketWriter'])"
+  ['terra_billing_project_owner','terra_workspace_can_compute','terraBucketReader','terraBucketWriter'])"
