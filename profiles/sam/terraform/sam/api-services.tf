@@ -12,6 +12,7 @@ module "enable-services" {
     "iam.googleapis.com",
     "groupssettings.googleapis.com",
     "admin.googleapis.com",
-    "cloudkms.googleapis.com"
+    "cloudkms.googleapis.com",
+    "cloudtrace.googleapis.com"
   ]
 }
