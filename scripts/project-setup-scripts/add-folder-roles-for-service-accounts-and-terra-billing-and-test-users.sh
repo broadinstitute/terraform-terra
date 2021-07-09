@@ -66,4 +66,4 @@ gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=s
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@${APPS_DOMAIN} --role=roles/owner  --condition=None
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@${APPS_DOMAIN} --role=roles/owner  --condition=None
 
-echo "Done"
+echo "Success"
