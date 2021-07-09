@@ -25,20 +25,27 @@ else
   vault_env="${ENV}"
   if [[ "${ENV}" == "dev" ]] ; then
     FOLDER_ID=599966635789 # folder: test.firecloud.org/dev
+    APPS_DOMAIN="test.firecloud.org"
   elif [[ "${ENV}" == "fiab-dev" ]] ; then
     FOLDER_ID=950154083315 # folder: test.firecloud.org/tools (folder for dev FIABs)
+    APPS_DOMAIN="test.firecloud.org"
     vault_env=dev
   elif [[ "${ENV}" == "fiab-qa" ]]; then
     FOLDER_ID=147754536561 # folder: quality.firecloud.org/quality (folder for QA FIABs)
+    APPS_DOMAIN="quality.firecloud.org"
     vault_env=qa
   elif [[ "${ENV}" == "perf" ]]; then
     FOLDER_ID=1076814209841 # folder: test.firecloud.org/perf
+    APPS_DOMAIN="test.firecloud.org"
   elif [[ "${ENV}" == "alpha" ]]; then
     FOLDER_ID=829384679571 # folder: test.firecloud.org/alpha
+    APPS_DOMAIN="test.firecloud.org"
   elif [[ "${ENV}" == "staging" ]]; then
     FOLDER_ID=362889920837 # folder: test.firecloud.org/staging
+    APPS_DOMAIN="test.firecloud.org"
   elif [[ "${ENV}" == "prod" ]]; then
     FOLDER_ID=617814117274 # folder: firecloud.org/prod
+    APPS_DOMAIN="firecloud.org"
   else
     echo "ENV was not valid."
     echo "${VALID_ENVS}"
@@ -46,6 +53,7 @@ else
   fi
 fi
 
+# Service account setup
 RAWLS_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/dsde-toolbox:dev vault read -field="client_email" secret/dsde/firecloud/${vault_env}/rawls/rawls-account.json)
 CROMWELL_SA=$(docker run -e VAULT_TOKEN="$(cat ~/.vault-token)" -it broadinstitute/dsde-toolbox:dev vault read -field="client_email" secret/dsde/firecloud/${vault_env}/cromwell/cromwell-account.json)
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/editor --condition=None
@@ -54,17 +62,8 @@ RAWLS_CONDITION_FILE="rawls-sa-condition-file.yaml"
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${RAWLS_SA}" --role=roles/resourcemanager.projectIamAdmin --condition-from-file=${RAWLS_CONDITION_FILE} # required to set policies on google projects from the Buffer service
 gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=serviceAccount:"${CROMWELL_SA}" --role=roles/editor --condition=None
 
+# Billing and admin group setup
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@${APPS_DOMAIN} --role=roles/owner  --condition=None
+gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@${APPS_DOMAIN} --role=roles/owner  --condition=None
 
-# prod only needs the terra-billing group
-if [[ "${ENV}" == "prod" ]]; then
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@firecloud.org --role=roles/owner  --condition=None
-else # for non-prod envs, add terra-billing as well as project owner groups
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@test.firecloud.org --role=roles/owner  --condition=None
-  gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@test.firecloud.org --role=roles/owner  --condition=None
-
-  # for the QA env, add quality.firecloud.org users as well
-  if [[ "${ENV}" == "fiab-qa" ]]; then
-    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:terra-billing@quality.firecloud.org --role=roles/owner  --condition=None
-    gcloud resource-manager folders add-iam-policy-binding "${FOLDER_ID}" --member=group:firecloud-project-owners@quality.firecloud.org --role=roles/owner  --condition=None
-  fi
-fi
+echo "Done"
