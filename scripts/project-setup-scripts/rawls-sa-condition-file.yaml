@@ -1,7 +1,0 @@
-# Conditions for granting role "roles/resourcemanager.projectIamAdmin" on the Rawls SA
-# Note: I opted for this approach because inlining the condition requires extra escaping (https://cloud.google.com/sdk/gcloud/reference/topic/escaping) which makes it annoying to read/maintain.
-
-"title": "only_custom_roles"
-"description": "Only allow adding specified custom iam roles to projects in this folder."
-"expression": "api.getAttribute('iam.googleapis.com/modifiedGrantsByRole',[]).hasOnly(
-  ['terra_billing_project_owner','terra_workspace_can_compute','terraBucketReader','terraBucketWriter'])"
