@@ -1,3 +1,9 @@
+# DEPRECATED DEPRECATED DEPRECATED
+
+This repository is **deprecated**.
+
+If your team still depends on any configuration or code in this repo, please migrate it to terraform-ap-deployments or another suitable location. Feel free to post questions in `#dsp-devops-champions`. Thanks!
+
 # terraform-terra
 
 This repo collects the infrastructure required to deploy terra.
