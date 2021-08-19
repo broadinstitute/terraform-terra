@@ -3,8 +3,6 @@
 
 set -euxo pipefail
 
-echo "This is a legacy file documenting the creation process of the roles initially, this should run into errors running now"
-
 # todo: convert this to Terraform as part of https://broadworkbench.atlassian.net/browse/CA-1195
 
 ORGANIZATION_ID=$1
@@ -19,6 +17,6 @@ then
        "
   exit 1
 else
-  gcloud iam roles create terra_workspace_can_compute --organization=${ORGANIZATION_ID} --file=terra-workspace-can-compute.yaml
-  gcloud iam roles create terra_billing_project_owner --organization=${ORGANIZATION_ID} --file=terra-billing-project-owner.yaml
+  gcloud iam roles update terra_workspace_can_compute --organization=${ORGANIZATION_ID} --file=terra-workspace-can-compute.yaml
+  gcloud iam roles update terra_billing_project_owner --organization=${ORGANIZATION_ID} --file=terra-billing-project-owner.yaml
 fi
