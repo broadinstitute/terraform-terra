@@ -2,7 +2,7 @@ title: "terra_billing_project_owner"
 description: "permissions for billing project owners"
 stage: "GA"
 includedPermissions:
-# <viewer> Start of permissions included as part of roles/viewer (updated 8/19/2021)
+# <viewer> Start of permissions included as part of roles/viewer (updated 2/10/2021)
 - billing.resourceCosts.get
 - compute.instances.get
 - compute.instances.list
