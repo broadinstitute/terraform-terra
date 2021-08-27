@@ -9,7 +9,6 @@ includedPermissions:
 - compute.projects.get
 - iam.roles.get
 - iam.roles.list
-- resourcemanager.projects.getIamPolicy
 - storage.buckets.list
 - workflows.workflows.get
 - workflows.workflows.list
