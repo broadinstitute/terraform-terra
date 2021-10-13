@@ -9,6 +9,7 @@ includedPermissions:
 - compute.projects.get
 - iam.roles.get
 - iam.roles.list
+- iam.serviceAccounts.list
 - storage.buckets.list
 - workflows.workflows.get
 - workflows.workflows.list
