@@ -2,7 +2,8 @@ title: "terra_billing_project_owner"
 description: "permissions for billing project owners"
 stage: "GA"
 includedPermissions:
-# <viewer> Start of permissions included as part of roles/viewer
+# When adding permissions, you should comment with what the permission is used for and if possible a Jira link
+# explaining why the permission is needed.
 - billing.resourceCosts.get
 - compute.instances.get
 - compute.instances.list
@@ -10,8 +11,12 @@ includedPermissions:
 - iam.roles.get
 - iam.roles.list
 - iam.serviceAccounts.list
-- serviceusage.quotas.get
 - storage.buckets.list
 - workflows.workflows.get
 - workflows.workflows.list
-# </viewer> End of permissions included as part of roles/viewer
+# Start permissions for: View Project Quotas - https://broadworkbench.atlassian.net/browse/CA-1620
+- monitoring.timeSeries.list
+- serviceusage.quotas.get
+- serviceusage.services.get
+- serviceusage.services.list
+# End permissions for: View Project Quotas
