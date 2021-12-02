@@ -4,6 +4,8 @@ stage: "GA"
 includedPermissions:
 # When adding permissions, you should comment with what the permission is used for and if possible a Jira link
 # explaining why the permission is needed.
+# START carry-over permissions from when used to grant Billing Project Owners the general role `Viewer` which included
+#     LOTS of permissions that we did not need to grant.  These are what was determined to be needed per: https://broadworkbench.atlassian.net/browse/CA-1180
 - billing.resourceCosts.get
 - compute.instances.get
 - compute.instances.list
@@ -14,9 +16,10 @@ includedPermissions:
 - storage.buckets.list
 - workflows.workflows.get
 - workflows.workflows.list
+# END
 # Start permissions for: View Project Quotas - https://broadworkbench.atlassian.net/browse/CA-1620
 - monitoring.timeSeries.list
 - serviceusage.quotas.get
 - serviceusage.services.get
 - serviceusage.services.list
-# End permissions for: View Project Quotas
+# END
