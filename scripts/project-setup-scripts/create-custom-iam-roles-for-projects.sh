@@ -3,6 +3,8 @@
 
 set -euxo pipefail
 
+echo "This is a legacy file documenting the creation process of the roles initially, this should run into errors running now"
+
 # todo: convert this to Terraform as part of https://broadworkbench.atlassian.net/browse/CA-1195
 
 ORGANIZATION_ID=$1
