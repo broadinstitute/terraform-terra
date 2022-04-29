@@ -23,3 +23,8 @@ includedPermissions:
 - bigquery.readsessions.create
 - bigquery.readsessions.getData
 - bigquery.readsessions.update
+##roles/lifesciences.workflowsRunner (updated 4/29/2022) https://broadworkbench.atlassian.net/browse/IA-3326
+- lifesciences.operations.cancel
+- lifesciences.operations.get
+- lifesciences.operations.list
+- lifesciences.workflows.run
