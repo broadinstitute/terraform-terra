@@ -21,4 +21,5 @@ then
 else
   gcloud iam roles create terra_workspace_can_compute --organization=${ORGANIZATION_ID} --file=terra-workspace-can-compute.yaml
   gcloud iam roles create terra_billing_project_owner --organization=${ORGANIZATION_ID} --file=terra-billing-project-owner.yaml
+  gcloud iam roles create terra_workspace_nextflow_role --organization=${ORGANIZATION_ID} --file=terra-workspace-nextflow-role.yaml
 fi
