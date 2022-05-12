@@ -1,0 +1,20 @@
+title: "terra_workspace_nextflow_role"
+description: "permissions using nextflow in notebooks"
+stage: "GA"
+includedPermissions:
+# When adding permissions, you should comment with what the permission is used for and if possible a Jira link
+# explaining why the permission is needed.
+# https://broadworkbench.atlassian.net/browse/IA-3322
+# roles/lifesciences.workflowsRunner
+- lifesciences.operations.cancel
+- lifesciences.operations.get
+- lifesciences.operations.list
+- lifesciences.workflows.run
+# roles/serviceusage.serviceUsageConsumer
+- monitoring.timeSeries.list
+- serviceusage.operations.get
+- serviceusage.operations.list
+- serviceusage.quotas.get
+- serviceusage.services.get
+- serviceusage.services.list
+- serviceusage.services.use

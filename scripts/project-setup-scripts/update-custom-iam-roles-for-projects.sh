@@ -22,4 +22,7 @@ else
   echo "---------------------------------------------"
   echo "Overwriting custom role 'terra_billing_project_owner' in for Organization: ${ORGANIZATION_ID}"
   gcloud iam roles update terra_billing_project_owner --organization=${ORGANIZATION_ID} --file=terra-billing-project-owner.yaml
+  echo "---------------------------------------------"
+  echo "Overwriting custom role 'terra_workspace_nextflow_role' in for Organization: ${ORGANIZATION_ID}"
+  gcloud iam roles update terra_workspace_nextflow_role --organization=${ORGANIZATION_ID} --file=terra-workspace-nextflow-role.yaml
 fi
