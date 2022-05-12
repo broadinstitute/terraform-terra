@@ -21,7 +21,6 @@ pipeline {
     booleanParam(name: 'sam', defaultValue: true)
     booleanParam(name: 'thurloe', defaultValue: true)
     booleanParam(name: 'terra-ui', defaultValue: true)
-    booleanParam(name: 'tos', defaultValue: true)
     booleanParam(name: 'calhoun', defaultValue: true)
   }
   triggers {
@@ -63,7 +62,6 @@ pipeline {
             booleanParam(name: 'sam', value: params['sam']),
             booleanParam(name: 'thurloe', value: params['thurloe']),
             booleanParam(name: 'terra-ui', value: params['terra-ui']),
-            booleanParam(name: 'tos', value: params['tos']),
             booleanParam(name: 'calhoun', value: params['calhoun'])
           ]
         )

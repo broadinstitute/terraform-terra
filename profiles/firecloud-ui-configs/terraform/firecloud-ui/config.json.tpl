@@ -20,9 +20,6 @@
   "bondUrl": "${bond_url}",
   "marthaFileSummaryUrl": "${file_summary_url}",
   "marthaUrl": "${martha_url}",
-  "tosUrl": "${tos_url}",
-  "tosApplicationName": "FireCloud",
-  "tosVersion": 20180629.1,
   "terraBaseUrl": "${terra_url}",
   "terraRedirectsEnabled": true
 }

@@ -20,8 +20,7 @@ resource "local_file" "config_json" {
   "tCell": {
     "appId": "${var.tcell_api_id}",
     "apiKey": "${var.tcell_api_key}"
-  },
-  "tosUrlRoot": "${var.tos_endpoint}"
+  }
 }
 EOT
   filename = "${path.module}/config.json"

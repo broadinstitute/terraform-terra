@@ -30,10 +30,6 @@ data "vault_generic_secret" "martha_urls" {
   path = "${var.vault_path_prefix}/martha/secrets/urls"
 }
 
-data "vault_generic_secret" "tos_url" {
-  path = "${var.vault_path_prefix}/tos/secrets/endpoint"
-}
-
 data "vault_generic_secret" "terra_url" {
   path = "${var.vault_path_prefix}/terra-ui/secrets/url"
 }

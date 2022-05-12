@@ -13,7 +13,6 @@ locals {
     bond_url = data.vault_generic_secret.bond_url.data["url"]
     file_summary_url = data.vault_generic_secret.martha_urls.data["fileSummary"]
     martha_url = data.vault_generic_secret.martha_urls.data["martha"]
-    tos_url = data.vault_generic_secret.tos_url.data["endpoint"]
     terra_url = data.vault_generic_secret.terra_url.data["url"]
   }
   instance_names = toset(flatten([
