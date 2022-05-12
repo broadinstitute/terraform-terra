@@ -4,6 +4,7 @@ stage: "GA"
 includedPermissions:
 # When adding permissions, you should comment with what the permission is used for and if possible a Jira link
 # explaining why the permission is needed.
+# https://broadworkbench.atlassian.net/browse/IA-3322
 # roles/lifesciences.workflowsRunner
 - lifesciences.operations.cancel
 - lifesciences.operations.get
